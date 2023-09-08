@@ -1,22 +1,29 @@
-import "./globals.css";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
 
-const inter = Inter({ subsets: ["latin"] });
+import { cn } from "@/lib/utils"
+
+import "@/styles/globals.css"
+
+import Providers from "./providers"
+
+const font = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Quark",
   description: "Quark template",
-};
+}
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={cn("min-h-screen bg-background antialiased", font.className)}>
+        <div className="relative flex min-h-screen flex-col">
+          <Providers>
+            <div className="flex-1">{children}</div>
+          </Providers>
+        </div>
+      </body>
     </html>
-  );
+  )
 }
