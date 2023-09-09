@@ -1,7 +1,5 @@
-import Link from "next/link"
-
-import Logo from "../logo"
-import ThemeSwitch from "../themeSwitch"
+import DesktopNav from "./desktopNav"
+import MobileNav from "./mobileNav"
 
 export default function Navbar() {
   return (
@@ -10,10 +8,8 @@ export default function Navbar() {
         className="container flex h-14 max-w-7xl items-center justify-between px-4 py-6 sm:px-6 lg:px-8"
         aria-label="Global"
       >
-        <div className="flex lg:flex-1">
-          <Logo />
-        </div>
-        <ThemeSwitch />
+        <DesktopNav />
+        <MobileNav />
       </nav>
     </header>
   )
