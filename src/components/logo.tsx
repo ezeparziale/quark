@@ -10,20 +10,20 @@ export default function Logo() {
             <Image
               src={`/logo/logo-light.png`}
               alt={"logo"}
-              width={32}
-              height={32}
+              width={24}
+              height={24}
               className="block dark:hidden"
             />
             <Image
               src={`/logo/logo-dark.png`}
               alt={"logo"}
-              width={32}
-              height={32}
+              width={24}
+              height={24}
               className="hidden dark:block"
             />
           </div>
           <span className="sr-only">Quark</span>
-          <p className="hidden text-xl font-bold text-black antialiased dark:text-white sm:text-sm md:block md:text-base lg:text-base">
+          <p className="hidden font-bold text-black antialiased dark:text-white sm:text-sm md:block md:text-base lg:text-base">
             Quark
           </p>
         </div>
