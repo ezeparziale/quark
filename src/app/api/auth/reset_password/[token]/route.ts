@@ -1,0 +1,61 @@
+import { NextResponse } from "next/server"
+
+import { verify_user_token } from "@/utils/jwt"
+import prismadb from "@/utils/prismadb"
+import bcrypt from "bcrypt"
+
+export async function GET(req: Request, { params }: { params: { token: string } }) {
+  try {
+    const { token } = params
+
+    const userEmail = verify_user_token(token)
+
+    if (userEmail === false) {
+      return NextResponse.json(
+        { message: "Token is invalid or expired" },
+        { status: 401 },
+      )
+    }
+
+    return NextResponse.json({ message: "Token valid" }, { status: 200 })
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+}
+
+export async function POST(req: Request, { params }: { params: { token: string } }) {
+  try {
+    const body = await req.json()
+    const { password } = body
+    const { token } = params
+
+    const userEmail = verify_user_token(token)
+
+    if (userEmail === false) {
+      return NextResponse.json(
+        { message: "Token is invalid or expired" },
+        { status: 401 },
+      )
+    }
+
+    const userExists = await prismadb.user.findUnique({ where: { email: userEmail } })
+
+    if (!userExists) {
+      return NextResponse.json({ error: "Email not exists" }, { status: 404 })
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 12)
+
+    await prismadb.user.update({
+      where: {
+        email: userEmail,
+      },
+      data: {
+        hashedPassword,
+      },
+    })
+    return NextResponse.json({ message: "Password updated" }, { status: 200 })
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+}
