@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 
 import Logo from "../logo"
 import ThemeSwitch from "../themeSwitch"
+import LoginButton from "./loginButton"
 
 interface INavigation {
   name: string
@@ -40,7 +41,7 @@ export default function DesktopNav() {
       </div>
       <div className="hidden lg:flex lg:flex-1 lg:justify-end">
         <ThemeSwitch />
-        {/* TODO: add login button */}
+        <LoginButton />
       </div>
     </>
   )

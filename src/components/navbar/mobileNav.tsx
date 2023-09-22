@@ -19,6 +19,7 @@ import {
 
 import Logo from "../logo"
 import ThemeSwitch from "../themeSwitch"
+import LoginButton from "./loginButton"
 
 interface INavigation {
   name: string
@@ -77,8 +78,9 @@ export default function MobileNav() {
                     </SheetClose>
                   ))}
                 </div>
-                {/* TODO: add login button */}
-                <div className="py-6"></div>
+                <div className="py-6">
+                  <LoginButton setOpenSheet={setOpenSheet} />
+                </div>
               </div>
             </div>
           </SheetContent>
