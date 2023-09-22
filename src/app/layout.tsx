@@ -3,6 +3,8 @@ import { Inter } from "next/font/google"
 
 import { cn } from "@/lib/utils"
 
+import { Toaster } from "@/components/ui/toaster"
+
 import "@/styles/globals.css"
 
 import Providers from "./providers"
@@ -21,6 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="relative flex min-h-screen flex-col">
           <Providers>
             <div className="flex-1">{children}</div>
+            <Toaster />
           </Providers>
         </div>
       </body>
