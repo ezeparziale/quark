@@ -33,11 +33,13 @@ export async function POST(req: Request) {
         username,
         email,
         hashedPassword,
+        active: true,
+        confirmedEmail: false,
       },
     })
 
     return NextResponse.json({ message: "User created successfully" }, { status: 201 })
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json({ error: "Somenthing went wrong" }, { status: 500 })
   }
 }

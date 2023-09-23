@@ -108,6 +108,7 @@ export const authOptions: NextAuthOptions = {
               email: profile?.email as string,
               hashedPassword: "",
               active: true,
+              confirmedEmail: true,
             },
           })
         }
