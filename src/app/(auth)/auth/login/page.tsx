@@ -87,7 +87,7 @@ export default function LoginPage() {
   return (
     <AuthTemplate>
       <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-slate-50 md:text-2xl">
-        Sign in
+        Log in
       </h2>
       <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
         New to Quark?{" "}
@@ -148,7 +148,7 @@ export default function LoginPage() {
               type="submit"
             >
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Sign in
+              Log in
             </Button>
           </form>
         </Form>
