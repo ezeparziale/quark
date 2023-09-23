@@ -65,7 +65,8 @@ export default function RegisterPage() {
 
     const resp = await axios
       .post("/api/auth/register", data)
-      .then(() => {
+      .then(async () => {
+        await axios.post("/api/auth/confirm", { email: data.email })
         toast({
           title: "User created",
         })
@@ -105,7 +106,7 @@ export default function RegisterPage() {
           className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
           href="/auth/login"
         >
-          Login
+          Log in
         </Link>
       </p>
       <div className="my-7">
