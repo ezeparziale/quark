@@ -31,7 +31,7 @@ const formSchema = yup.object({
   email: yup.string().email().required(),
   password: yup
     .string()
-    .min(1, "Password must be at least 8 characters")
+    .min(8, "Password must be at least 8 characters")
     .max(60, "Password must not exceed 60 characters")
     .required("Password is required"),
   confirmPassword: yup
