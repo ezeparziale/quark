@@ -83,6 +83,11 @@ export const authOptions: NextAuthOptions = {
             email: profile?.email,
           },
         })
+
+        if (userExists && userExists.confirmedEmail === false) {
+          throw Error("ConfirmEmail")
+        }
+
         if (userExists && userExists.active === false) {
           return false
         }
