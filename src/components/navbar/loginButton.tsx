@@ -28,7 +28,7 @@ interface IMenu {
 const menu: IMenu[] = [
   { name: "Profile", href: "/profile", separator: false },
   { name: "Settings", href: "/settings", separator: false },
-  { name: "Logout", href: "/auth/logout", separator: true },
+  { name: "Log Out", href: "/auth/logout", separator: true },
 ]
 
 export default function LoginButton({
