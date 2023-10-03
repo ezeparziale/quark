@@ -15,7 +15,6 @@ const errorTypes: { [key: string]: string } = {
 export default function Error() {
   const searchParams = useSearchParams()
   const errorParam: string | null = searchParams.get("error") as string
-  console.log(errorParam)
   const errorMessage =
     errorParam && errorTypes[errorParam] ? errorTypes[errorParam] : errorTypes.Default
 

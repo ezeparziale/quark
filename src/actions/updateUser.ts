@@ -191,7 +191,6 @@ export async function deleteAccount({
 
     return { success: false, errors: errors }
   } catch (error: any) {
-    console.log(error)
     return { success: false }
   }
 }
