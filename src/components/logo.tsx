@@ -22,9 +22,9 @@ export default function Logo() {
               className="hidden dark:block"
             />
           </div>
-          <span className="sr-only">Quark</span>
+          <span className="sr-only">quark</span>
           <p className="hidden font-bold text-black antialiased dark:text-white sm:text-sm md:block md:text-2xl lg:text-2xl">
-            Quark
+            quark
           </p>
         </div>
       </Link>
