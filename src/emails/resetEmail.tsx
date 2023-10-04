@@ -10,7 +10,7 @@ interface EmailProps {
   url: string
 }
 
-export default function Email({ url }: EmailProps) {
+export default function ResetPasswordEmail({ url }: EmailProps) {
   return (
     <Tailwind
       config={{
@@ -36,14 +36,12 @@ export default function Email({ url }: EmailProps) {
           </Column>
         </Row>
       </Section>
-      <Text>
-        To verify your email and activate your account, please click the following link:
-      </Text>
+      <Text>To reset your password, please click on the button below.</Text>
       <Button
         href={url}
         className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
       >
-        Active account
+        Reset password
       </Button>
     </Tailwind>
   )

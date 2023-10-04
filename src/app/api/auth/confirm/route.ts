@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server"
 
+import ConfirmEmail from "@/emails/confirmEmail"
 import { sendMail } from "@/services/mail"
 import { generate_user_token } from "@/utils/jwt"
 import prismadb from "@/utils/prismadb"
 import { render } from "@react-email/render"
-
-import Email from "./email"
 
 export async function POST(req: Request) {
   try {
@@ -27,7 +26,7 @@ export async function POST(req: Request) {
 
     const url: string = `${process.env.NEXTAUTH_URL}/auth/confirm/${token}`
 
-    const emailHtml = render(Email({ url }))
+    const emailHtml = render(ConfirmEmail({ url }))
 
     await sendMail(email, "Active account", emailHtml)
 

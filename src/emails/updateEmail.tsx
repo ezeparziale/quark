@@ -12,7 +12,7 @@ interface EmailProps {
   url: string
 }
 
-export default function Email({ username, newEmail, url }: EmailProps) {
+export default function UpdateEmail({ username, newEmail, url }: EmailProps) {
   return (
     <Tailwind
       config={{

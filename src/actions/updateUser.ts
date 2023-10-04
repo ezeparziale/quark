@@ -1,6 +1,6 @@
 "use server"
 
-import Email from "@/emails/updateEmail"
+import UpdateEmail from "@/emails/updateEmail"
 import { authOptions } from "@/lib/auth"
 import { sendMail } from "@/services/mail"
 import { generate_user_token } from "@/utils/jwt"
@@ -143,7 +143,9 @@ export async function updateEmail({
 
         const url: string = `${process.env.NEXTAUTH_URL}/auth/change_email/${token}`
 
-        const emailHtml = render(Email({ username: user.username, newEmail, url }))
+        const emailHtml = render(
+          UpdateEmail({ username: user.username, newEmail, url }),
+        )
 
         await sendMail(email, "Change email account", emailHtml)
 

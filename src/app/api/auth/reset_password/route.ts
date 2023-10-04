@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server"
 
+import ResetPasswordEmail from "@/emails/resetEmail"
 import { sendMail } from "@/services/mail"
 import { generate_user_token } from "@/utils/jwt"
 import prismadb from "@/utils/prismadb"
 import { render } from "@react-email/render"
-
-import EmailResetPasswordTemplate from "./Email"
 
 export async function POST(req: Request) {
   try {
@@ -23,7 +22,7 @@ export async function POST(req: Request) {
 
     const url: string = `${process.env.NEXTAUTH_URL}/auth/reset_password/${token}`
 
-    const emailHtml = render(EmailResetPasswordTemplate({ url }))
+    const emailHtml = render(ResetPasswordEmail({ url }))
 
     await sendMail(email, "Reset password", emailHtml)
 
