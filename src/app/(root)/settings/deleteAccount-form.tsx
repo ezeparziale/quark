@@ -90,8 +90,8 @@ export default function DeleteAccount() {
   return (
     <>
       <div className="">
-        <h3 className="text-md font-bold text-destructive">Delete account</h3>
-        <p className="text-sm text-muted-foreground">
+        <h3 className="text-md">Delete account</h3>
+        <p className="pt-2 text-sm text-muted-foreground">
           Are your sure you wannt to delete your account?
         </p>
         <p className="text-sm text-muted-foreground">
