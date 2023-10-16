@@ -21,6 +21,7 @@ model User {
   updatedAt           DateTime             @default(now()) @updatedAt @map("updated_at")
   usernameUpdatedAt   DateTime?            @map("username_updated_at")
   changeEmailRequests ChangeEmailRequest[]
+  roles               UserRole[]
 
   @@map("users")
 }
@@ -37,4 +38,47 @@ model ChangeEmailRequest {
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
   @@map("change_email_requests")
+}
+
+model Role {
+  id          Int              @id @default(autoincrement())
+  name        String           @unique @db.VarChar(255)
+  createdAt   DateTime         @default(now()) @map("created_at")
+  updatedAt   DateTime         @default(now()) @updatedAt @map("updated_at")
+  users       UserRole[]
+  permissions RolePermission[]
+
+  @@map("roles")
+}
+
+model Permission {
+  id        Int              @id @default(autoincrement())
+  name      String           @unique @db.VarChar(255)
+  createdAt DateTime         @default(now()) @map("created_at")
+  updatedAt DateTime         @default(now()) @updatedAt @map("updated_at")
+  roles     RolePermission[]
+
+  @@map("permissions")
+}
+
+model UserRole {
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  role      Role     @relation(fields: [roleId], references: [id])
+  roleId    Int
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@id([userId, roleId])
+  @@map("users_roles")
+}
+
+model RolePermission {
+  permission   Permission @relation(fields: [permissionId], references: [id])
+  permissionId Int
+  role         Role       @relation(fields: [roleId], references: [id])
+  roleId       Int
+  createdAt    DateTime   @default(now()) @map("created_at")
+
+  @@id([permissionId, roleId])
+  @@map("roles_permissions")
 }
