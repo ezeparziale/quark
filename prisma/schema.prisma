@@ -18,14 +18,14 @@ model User {
   active              Boolean              @default(false)
   confirmedEmail      Boolean              @default(false) @map("confirmed_email")
   createdAt           DateTime             @default(now()) @map("created_at")
-  updatedAt           DateTime             @updatedAt @map("updated_at")
+  updatedAt           DateTime             @default(now()) @updatedAt @map("updated_at")
   usernameUpdatedAt   DateTime?            @map("username_updated_at")
-  changeEmailRequests changeEmailRequest[]
+  changeEmailRequests ChangeEmailRequest[]
 
   @@map("users")
 }
 
-model changeEmailRequest {
+model ChangeEmailRequest {
   id        Int      @id @default(autoincrement())
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String   @map("user_id")
@@ -34,6 +34,7 @@ model changeEmailRequest {
   token     String
   isUsed    Boolean  @default(false) @map("is_used")
   createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
   @@map("change_email_requests")
 }
