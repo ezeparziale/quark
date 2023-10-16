@@ -7,9 +7,9 @@ import { getServerSession } from "next-auth/next"
 import Container from "@/components/container"
 import { Separator } from "@/components/ui/separator"
 
-import DeleteAccount from "./deleteAccount-form"
-import EmailForm from "./email-form"
-import UsernameForm from "./username-form"
+import DeleteAccount from "./_components/delete-account-form"
+import EmailForm from "./_components/email-form"
+import UsernameForm from "./_components/username-form"
 
 export default async function Settings() {
   const session = await getServerSession(authOptions)
