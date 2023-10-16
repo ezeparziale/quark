@@ -121,11 +121,27 @@ export const authOptions: NextAuthOptions = {
       return true
     },
     async jwt({ token, user }) {
-      if (user) token.active = user.active
+      if (user) {
+        if (user?.email) {
+          const userExists = await prismadb.user.findUnique({
+            where: {
+              email: user?.email,
+            },
+          })
+
+          if (userExists) {
+            token.id = userExists.id
+            token.active = userExists.active
+          }
+        }
+      }
       return token
     },
     async session({ session, user, token }) {
-      if (session?.user) session.user.active = token.active
+      if (token) {
+        session.user.id = token.id
+        session.user.active = token.active
+      }
       return session
     },
   },
