@@ -196,3 +196,64 @@ export async function deleteAccount({
     return { success: false }
   }
 }
+
+interface IDeleteUser {
+  id: string
+}
+
+interface IUser {
+  username: string
+  email: string
+  active: boolean
+  confirmedEmail: boolean
+}
+
+export async function deleteUser({ id }: IDeleteUser) {
+  try {
+    console.log("Deleting user...")
+    await prismadb.user.delete({ where: { id } })
+    return { success: true }
+  } catch (error) {
+    return { success: false }
+  }
+}
+
+export async function addUser({
+  username,
+  email,
+  active,
+  confirmedEmail,
+}: IUser): Promise<DataResult<IUser>> {
+  try {
+    const session = await getServerSession(authOptions)
+    const errors: { email: string[]; username: string[] } = {
+      email: [],
+      username: [],
+    }
+    console.log("Adding user...")
+    const emailAlreadyExists = await prismadb.user.findUnique({
+      where: { email },
+    })
+    if (emailAlreadyExists) {
+      errors.email.push(`An account with the email ${email} already exists.`)
+    }
+
+    const usenameAlreadyExists = await prismadb.user.findUnique({
+      where: { username },
+    })
+    if (usenameAlreadyExists) {
+      errors.username.push("Username already exists.")
+    }
+
+    if (errors.email.length || errors.username.length) {
+      return { success: false, errors }
+    }
+
+    await prismadb.user.create({
+      data: { username, email, active, confirmedEmail, hashedPassword: "" },
+    })
+    return { success: true }
+  } catch (error) {
+    return { success: false }
+  }
+}
