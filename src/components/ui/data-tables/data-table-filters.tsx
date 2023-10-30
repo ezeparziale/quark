@@ -20,7 +20,7 @@ export function DataTableHeaderFilters<TData>({
 }: DataTablePaginationProps<TData>) {
   return (
     <div className="flex items-center justify-between py-4">
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-2 text-sm">
         <span>Show</span>
         <Select
           defaultValue="10"
