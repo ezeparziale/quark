@@ -45,10 +45,6 @@ export default function DeleteAccount() {
   const [isOpen, setIsOpen] = useState(false)
 
   const form = useForm<FormData>({
-    defaultValues: {
-      userEmail: "",
-      confirmString: undefined,
-    },
     resolver: zodResolver(formSchema),
   })
 

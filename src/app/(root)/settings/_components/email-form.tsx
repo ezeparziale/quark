@@ -29,7 +29,7 @@ type FormData = z.infer<typeof formSchema>
 export default function EmailForm({ email }: { email: string }) {
   const form = useForm<FormData>({
     defaultValues: {
-      newEmail: email || "",
+      newEmail: email,
     },
     resolver: zodResolver(formSchema),
   })

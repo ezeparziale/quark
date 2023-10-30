@@ -21,7 +21,7 @@ import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
 
 const formSchema = z.object({
-  username: z.string().trim(),
+  username: z.string().trim().min(1).max(60),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -29,7 +29,7 @@ type FormData = z.infer<typeof formSchema>
 export default function UsernameForm({ username }: { username: string }) {
   const form = useForm<FormData>({
     defaultValues: {
-      username: username || "",
+      username: username,
     },
     resolver: zodResolver(formSchema),
   })
