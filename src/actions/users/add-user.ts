@@ -1,11 +1,6 @@
 import { getServerAuthSession } from "@/lib/auth"
+import { DataResult } from "@/types/types"
 import prismadb from "@/utils/prismadb"
-
-type DataResult<T> = {
-  success: boolean
-  errors?: { [P in keyof T]?: string[] }
-  message?: String
-}
 
 interface IUser {
   username: string

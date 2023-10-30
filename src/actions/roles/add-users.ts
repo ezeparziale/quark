@@ -1,12 +1,7 @@
 "use server"
 
+import { DataResult } from "@/types/types"
 import prismadb from "@/utils/prismadb"
-
-type DataResult<T> = {
-  success: boolean
-  errors?: { [P in keyof T]?: string[] }
-  message?: String
-}
 
 interface IRole {
   id?: (string | undefined)[] | undefined

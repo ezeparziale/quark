@@ -1,15 +1,10 @@
 import { getServerAuthSession } from "@/lib/auth"
+import { DataResult } from "@/types/types"
 import prismadb from "@/utils/prismadb"
 
 type FormDataDeleteAccount = {
   userEmail: string
   confirmString: string
-}
-
-type DataResult<T> = {
-  success: boolean
-  errors?: { [P in keyof T]?: string[] }
-  message?: String
 }
 
 export async function deleteAccount({

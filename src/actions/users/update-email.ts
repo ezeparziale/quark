@@ -2,18 +2,13 @@ import UpdateEmail from "@/emails/update-email"
 import { env } from "@/env.mjs"
 import { getServerAuthSession } from "@/lib/auth"
 import { sendMail } from "@/services/mail"
+import { DataResult } from "@/types/types"
 import { generate_user_token } from "@/utils/jwt"
 import prismadb from "@/utils/prismadb"
 import { render } from "@react-email/render"
 
 type FormDataNewEmail = {
   newEmail: string
-}
-
-type DataResult<T> = {
-  success: boolean
-  errors?: { [P in keyof T]?: string[] }
-  message?: String
 }
 
 const TEN_MINUTES_IN_MILLIS = 10 * 60 * 1000

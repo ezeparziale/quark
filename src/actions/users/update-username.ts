@@ -1,16 +1,11 @@
 "use server"
 
 import { getServerAuthSession } from "@/lib/auth"
+import { DataResult } from "@/types/types"
 import prismadb from "@/utils/prismadb"
 
 type FormDataUsername = {
   username: string
-}
-
-type DataResult<T> = {
-  success: boolean
-  errors?: { [P in keyof T]?: string[] }
-  message?: String
 }
 
 const THIRTY_DAYS = 30
