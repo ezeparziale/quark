@@ -20,17 +20,9 @@ import {
 import Logo from "../logo"
 import ThemeSwitch from "../theme-switch"
 import LoginButton from "./login-button"
+import { INavigation } from "./navbar"
 
-interface INavigation {
-  name: string
-  href: string
-}
-const navigation: INavigation[] = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-]
-
-export default function MobileNav() {
+export default function MobileNav({ navigation }: { navigation: INavigation[] }) {
   const pathname = usePathname()
 
   const [openSheet, setOpenSheet] = useState(false)

@@ -8,17 +8,9 @@ import { cn } from "@/lib/utils"
 import Logo from "../logo"
 import ThemeSwitch from "../theme-switch"
 import LoginButton from "./login-button"
+import { INavigation } from "./navbar"
 
-interface INavigation {
-  name: string
-  href: string
-}
-const navigation: INavigation[] = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-]
-
-export default function DesktopNav() {
+export default function DesktopNav({ navigation }: { navigation: INavigation[] }) {
   const pathname = usePathname()
 
   return (
