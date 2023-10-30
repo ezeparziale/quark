@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import type { NextFetchEvent, NextRequest } from "next/server"
 
+import { env } from "@/env.mjs"
 import { getToken } from "next-auth/jwt"
 
 export default async function middleware(req: NextRequest, event: NextFetchEvent) {
@@ -18,15 +19,13 @@ export default async function middleware(req: NextRequest, event: NextFetchEvent
   }
 
   if (isAuthenticated && token) {
-    const NEXTAUTH_URL_INTERNAL = process.env.NEXTAUTH_URL_INTERNAL
-
-    const resp = await fetch(`${NEXTAUTH_URL_INTERNAL}/api/user`, {
+    const resp = await fetch(`${env.NEXTAUTH_URL}/api/user`, {
       method: "POST",
       body: JSON.stringify({ email: token?.email }),
     })
     if (!resp.ok) {
       return NextResponse.redirect(
-        `${NEXTAUTH_URL_INTERNAL}/auth/logout/?callbackUrl=/auth/error/?error=AccessDenied`,
+        `${env.NEXTAUTH_URL}/auth/logout/?callbackUrl=/auth/error/?error=AccessDenied`,
       )
     }
   }

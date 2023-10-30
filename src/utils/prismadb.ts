@@ -1,3 +1,4 @@
+import { env } from "@/env.mjs"
 import { PrismaClient } from "@prisma/client"
 
 declare global {
@@ -7,9 +8,8 @@ declare global {
 const prismadb =
   globalThis.prisma ||
   new PrismaClient({
-    log:
-      process.env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
+    log: env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
   })
-if (process.env.NODE_ENV !== "production") globalThis.prisma = prismadb
+if (env.NODE_ENV !== "production") globalThis.prisma = prismadb
 
 export default prismadb

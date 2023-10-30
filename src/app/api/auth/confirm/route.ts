@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 
 import ConfirmEmail from "@/emails/confirm-email"
+import { env } from "@/env.mjs"
 import { sendMail } from "@/services/mail"
 import { generate_user_token } from "@/utils/jwt"
 import prismadb from "@/utils/prismadb"
@@ -24,7 +25,7 @@ export async function POST(req: Request) {
 
     const token: string = generate_user_token(email)
 
-    const url: string = `${process.env.NEXTAUTH_URL}/auth/confirm/${token}`
+    const url: string = `${env.NEXTAUTH_URL}/auth/confirm/${token}`
 
     const emailHtml = render(ConfirmEmail({ url }))
 

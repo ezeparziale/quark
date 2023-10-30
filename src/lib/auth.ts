@@ -1,3 +1,4 @@
+import { env } from "@/env.mjs"
 import prismadb from "@/utils/prismadb"
 import bcrypt from "bcrypt"
 import { NextAuthOptions, getServerSession } from "next-auth"
@@ -7,8 +8,8 @@ import GoogleProvider from "next-auth/providers/google"
 export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
     }),
     Credentials({
       name: "credentials",
