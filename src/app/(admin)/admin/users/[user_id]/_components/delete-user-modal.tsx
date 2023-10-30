@@ -29,9 +29,10 @@ export default function DeleteUserModal({ user }: { user: User }) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="destructive" className="ml-2" disabled={buttonDisable}>
-          <Trash2 className="w- h-4" />
-          Delete
+        <Button variant="destructive" disabled={buttonDisable}>
+          <Trash2 className="h-4 w-4" />
+          <span className="sr-only">delete user</span>
+          <span className="ml-2 hidden md:block">Delete</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
