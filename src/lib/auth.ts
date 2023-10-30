@@ -1,6 +1,6 @@
 import prismadb from "@/utils/prismadb"
 import bcrypt from "bcrypt"
-import { NextAuthOptions } from "next-auth"
+import { NextAuthOptions, getServerSession } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google"
 
@@ -146,3 +146,5 @@ export const authOptions: NextAuthOptions = {
     },
   },
 }
+
+export const getServerAuthSession = () => getServerSession(authOptions)
