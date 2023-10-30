@@ -1,6 +1,7 @@
 "use client"
 
 import { updateUsername } from "@/actions/update-user"
+import { addServerErrors } from "@/lib/utils"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
@@ -24,18 +25,6 @@ const formSchema = yup.object({
 })
 
 type FormData = yup.InferType<typeof formSchema>
-
-function addServerErrors<T>(
-  errors: { [P in keyof T]?: string[] },
-  setError: (fieldName: keyof T, error: { type: string; message: string }) => void,
-) {
-  return Object.keys(errors).forEach((key) => {
-    setError(key as keyof T, {
-      type: "server",
-      message: errors[key as keyof T]!.join(". "),
-    })
-  })
-}
 
 export default function UsernameForm({ username }: { username: string }) {
   const form = useForm<FormData>({

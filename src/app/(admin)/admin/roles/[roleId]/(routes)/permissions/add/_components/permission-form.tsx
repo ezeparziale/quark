@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 
 import { addPermissionsToRoles } from "@/actions/roles/add-permissions"
+import { addServerErrors } from "@/lib/utils"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
@@ -38,21 +39,6 @@ type IPros = {
   }[]
   selectedValues: Set<string>
   roleId: string
-}
-
-function addServerErrors<T>(
-  errors: { [P in keyof T]?: string[] },
-  setError: (fieldName: keyof T, error: { type: string; message: string }) => void,
-) {
-  return Object.keys(errors).forEach((key) => {
-    const errorMessages = errors[key as keyof T]
-    if (errorMessages && errorMessages.length > 0) {
-      setError(key as keyof T, {
-        type: "server",
-        message: errors[key as keyof T]!.join(". "),
-      })
-    }
-  })
 }
 
 export default function AddPermissionForm({

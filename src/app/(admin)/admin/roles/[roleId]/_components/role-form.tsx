@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 
 import { createRole } from "@/actions/roles/create"
 import { editRole } from "@/actions/roles/edit"
+import { addServerErrors } from "@/lib/utils"
 import { yupResolver } from "@hookform/resolvers/yup"
 import type { Role } from "@prisma/client"
 import { Loader2 } from "lucide-react"
@@ -31,21 +32,6 @@ const formSchema = yup.object({
 })
 
 type FormData = yup.InferType<typeof formSchema>
-
-function addServerErrors<T>(
-  errors: { [P in keyof T]?: string[] },
-  setError: (fieldName: keyof T, error: { type: string; message: string }) => void,
-) {
-  return Object.keys(errors).forEach((key) => {
-    const errorMessages = errors[key as keyof T]
-    if (errorMessages && errorMessages.length > 0) {
-      setError(key as keyof T, {
-        type: "server",
-        message: errors[key as keyof T]!.join(". "),
-      })
-    }
-  })
-}
 
 export default function RoleForm({ role }: { role: Role | null }) {
   const roleId = role?.id
