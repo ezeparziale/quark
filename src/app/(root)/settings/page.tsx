@@ -1,8 +1,7 @@
 import { redirect } from "next/navigation"
 
 import { getCurrentUser } from "@/actions/getCurrentUser"
-import { authOptions } from "@/lib/auth"
-import { getServerSession } from "next-auth/next"
+import { getServerAuthSession } from "@/lib/auth"
 
 import Container from "@/components/container"
 import { Separator } from "@/components/ui/separator"
@@ -12,7 +11,7 @@ import EmailForm from "./_components/email-form"
 import UsernameForm from "./_components/username-form"
 
 export default async function Settings() {
-  const session = await getServerSession(authOptions)
+  const session = await getServerAuthSession()
 
   if (!session) {
     redirect("/auth/login?callbackUrl=/settings")
