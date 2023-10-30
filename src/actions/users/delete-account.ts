@@ -1,3 +1,5 @@
+"use server"
+
 import { getServerAuthSession } from "@/lib/auth"
 import { DataResult } from "@/types/types"
 import prismadb from "@/utils/prismadb"

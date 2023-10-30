@@ -1,3 +1,5 @@
+"use server"
+
 import prismadb from "@/utils/prismadb"
 
 interface IDeleteUser {

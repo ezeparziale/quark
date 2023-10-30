@@ -1,3 +1,5 @@
+"use server"
+
 import UpdateEmail from "@/emails/update-email"
 import { env } from "@/env.mjs"
 import { getServerAuthSession } from "@/lib/auth"
