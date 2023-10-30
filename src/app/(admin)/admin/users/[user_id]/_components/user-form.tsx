@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 
-import { addUser } from "@/actions/users/update-user"
+import { addUser } from "@/actions/users/add-user"
 import { addServerErrors } from "@/lib/utils"
 import { yupResolver } from "@hookform/resolvers/yup"
 import type { User } from "@prisma/client"

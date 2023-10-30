@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"
 
 import { useState } from "react"
 
-import { deleteUser } from "@/actions/users/update-user"
+import { deleteUser } from "@/actions/users/delete-user"
 import type { User } from "@prisma/client"
 import { Trash2 } from "lucide-react"
 import { useSession } from "next-auth/react"
