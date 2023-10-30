@@ -28,7 +28,7 @@ import { toast, useToast } from "@/components/ui/use-toast"
 
 const formSchema = z
   .object({
-    username: z.string().trim(),
+    username: z.string().trim().min(1).max(60),
     email: z.string().email(),
     password: z
       .string()
