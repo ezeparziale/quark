@@ -29,7 +29,7 @@ export default function CellActions({ row }: { row: IRolesColumns }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(row.id)}>
+        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(String(row.id))}>
           Copy role ID
         </DropdownMenuItem>
         <DropdownMenuSeparator />
