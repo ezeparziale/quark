@@ -27,7 +27,7 @@ import { toast } from "@/components/ui/use-toast"
 
 const formSchema = z.object({
   email: z.string().email(),
-  password: z.string({ required_error: "Password is required" }),
+  password: z.string(),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -42,10 +42,6 @@ export default function LoginPage() {
   const activated = searchParams.has("activated")
 
   const form = useForm<FormData>({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
     resolver: zodResolver(formSchema),
   })
 

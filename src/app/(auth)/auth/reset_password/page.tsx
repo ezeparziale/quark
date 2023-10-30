@@ -36,9 +36,6 @@ export default function ForgotPasswordPage() {
   const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm<FormData>({
-    defaultValues: {
-      email: "",
-    },
     resolver: zodResolver(formSchema),
   })
 

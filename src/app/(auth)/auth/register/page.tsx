@@ -31,7 +31,7 @@ const formSchema = z
     username: z.string().trim(),
     email: z.string().email(),
     password: z
-      .string({ required_error: "Password is required" })
+      .string()
       .min(8, "Password must be at least 8 characters")
       .max(60, "Password must not exceed 60 characters"),
     confirmPassword: z.string({ required_error: "Please confirm your password" }),
@@ -52,12 +52,6 @@ export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm<FormData>({
-    defaultValues: {
-      username: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    },
     resolver: zodResolver(formSchema),
   })
 

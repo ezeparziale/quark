@@ -38,9 +38,6 @@ export default function ConfirmEmailPage() {
   const error = searchParams.has("error")
 
   const form = useForm<FormData>({
-    defaultValues: {
-      email: "",
-    },
     resolver: zodResolver(formSchema),
   })
 
