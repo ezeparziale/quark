@@ -1,12 +1,11 @@
 "use server"
 
 import UpdateEmail from "@/emails/updateEmail"
-import { authOptions } from "@/lib/auth"
+import { getServerAuthSession } from "@/lib/auth"
 import { sendMail } from "@/services/mail"
 import { generate_user_token } from "@/utils/jwt"
 import prismadb from "@/utils/prismadb"
 import { render } from "@react-email/render"
-import { getServerSession } from "next-auth"
 
 type FormDataUsername = {
   username: string
@@ -33,7 +32,7 @@ const TEN_MINUTES_IN_MILLIS = 10 * 60 * 1000
 export async function updateUsername({
   username,
 }: FormDataUsername): Promise<DataResult<FormDataUsername>> {
-  const session = await getServerSession(authOptions)
+  const session = await getServerAuthSession()
   try {
     const email = session?.user.email
 
@@ -84,7 +83,7 @@ export async function updateUsername({
 export async function updateEmail({
   newEmail,
 }: FormDataNewEmail): Promise<DataResult<FormDataNewEmail>> {
-  const session = await getServerSession(authOptions)
+  const session = await getServerAuthSession()
   try {
     const email = session?.user.email
 
@@ -162,7 +161,7 @@ export async function deleteAccount({
   userEmail,
   confirmString,
 }: FormDataDeleteAccount): Promise<DataResult<FormDataDeleteAccount>> {
-  const session = await getServerSession(authOptions)
+  const session = await getServerAuthSession()
   const errors: { userEmail: string[]; confirmString: string[] } = {
     userEmail: [],
     confirmString: [],
@@ -210,7 +209,6 @@ interface IUser {
 
 export async function deleteUser({ id }: IDeleteUser) {
   try {
-    console.log("Deleting user...")
     await prismadb.user.delete({ where: { id } })
     return { success: true }
   } catch (error) {
@@ -225,12 +223,11 @@ export async function addUser({
   confirmedEmail,
 }: IUser): Promise<DataResult<IUser>> {
   try {
-    const session = await getServerSession(authOptions)
+    const session = await getServerAuthSession()
     const errors: { email: string[]; username: string[] } = {
       email: [],
       username: [],
     }
-    console.log("Adding user...")
     const emailAlreadyExists = await prismadb.user.findUnique({
       where: { email },
     })

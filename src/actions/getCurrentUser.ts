@@ -1,11 +1,10 @@
 "use server"
 
-import { authOptions } from "@/lib/auth"
+import { getServerAuthSession } from "@/lib/auth"
 import prismadb from "@/utils/prismadb"
-import { getServerSession } from "next-auth"
 
 export async function getCurrentUser() {
-  const session = await getServerSession(authOptions)
+  const session = await getServerAuthSession()
   try {
     const email = session?.user.email
 
