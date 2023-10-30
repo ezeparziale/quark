@@ -1,10 +1,9 @@
 import Link from "next/link"
 import { redirect } from "next/navigation"
 
-import { authOptions } from "@/lib/auth"
+import { getServerAuthSession } from "@/lib/auth"
 import prismadb from "@/utils/prismadb"
 import { Plus } from "lucide-react"
-import { getServerSession } from "next-auth"
 
 import Container from "@/components/container"
 import { Button } from "@/components/ui/button"
@@ -14,7 +13,7 @@ import { DataTable } from "./_components/data-tables"
 import { columns } from "./columns"
 
 export default async function UsersAdmin() {
-  const session = await getServerSession(authOptions)
+  const session = await getServerAuthSession()
 
   if (!session) {
     redirect("/auth/login?callbackUrl=/admin/users")
@@ -22,17 +21,6 @@ export default async function UsersAdmin() {
 
   const data = await prismadb.user.findMany()
 
-  const roles = await prismadb.user.findUnique({
-    where: { id: session.user.id },
-    include: {
-      roles: {
-        include: {
-          role: { include: { permissions: { include: { permission: true } } } },
-        },
-      },
-    },
-  })
-  console.log(roles?.roles)
   return (
     <>
       <Container>
