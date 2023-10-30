@@ -43,6 +43,7 @@ model ChangeEmailRequest {
 model Role {
   id          Int              @id @default(autoincrement())
   name        String           @unique @db.VarChar(255)
+  description String           @db.VarChar(255)
   createdAt   DateTime         @default(now()) @map("created_at")
   updatedAt   DateTime         @default(now()) @updatedAt @map("updated_at")
   users       UserRole[]
@@ -52,11 +53,12 @@ model Role {
 }
 
 model Permission {
-  id        Int              @id @default(autoincrement())
-  name      String           @unique @db.VarChar(255)
-  createdAt DateTime         @default(now()) @map("created_at")
-  updatedAt DateTime         @default(now()) @updatedAt @map("updated_at")
-  roles     RolePermission[]
+  id          Int              @id @default(autoincrement())
+  name        String           @unique @db.VarChar(255)
+  description String           @db.VarChar(255)
+  createdAt   DateTime         @default(now()) @map("created_at")
+  updatedAt   DateTime         @default(now()) @updatedAt @map("updated_at")
+  roles       RolePermission[]
 
   @@map("permissions")
 }
