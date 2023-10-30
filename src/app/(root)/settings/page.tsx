@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 
-import { getCurrentUser } from "@/actions/get-current-user"
+import { getCurrentUser } from "@/actions/users/get-current-user"
 import { getServerAuthSession } from "@/lib/auth"
 
 import Container from "@/components/container"

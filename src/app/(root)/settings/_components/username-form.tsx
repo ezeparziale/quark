@@ -1,6 +1,6 @@
 "use client"
 
-import { updateUsername } from "@/actions/update-user"
+import { updateUsername } from "@/actions/users/update-user"
 import { addServerErrors } from "@/lib/utils"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Loader2 } from "lucide-react"

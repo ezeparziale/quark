@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 
-import { getCurrentUser } from "@/actions/get-current-user"
+import { getCurrentUser } from "@/actions/users/get-current-user"
 import prismadb from "@/utils/prismadb"
 
 async function hasRequiredPermissions(requiredPermissions: string[]): Promise<boolean> {
