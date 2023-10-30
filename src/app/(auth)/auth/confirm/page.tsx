@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import axios from "axios"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
-import * as z from "z"
+import * as z from "zod"
 
 import AuthTemplate from "@/components/auth/auth-template"
 import { Button } from "@/components/ui/button"
