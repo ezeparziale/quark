@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 
-import ConfirmEmail from "@/emails/confirmEmail"
+import ConfirmEmail from "@/emails/confirm-email"
 import { sendMail } from "@/services/mail"
 import { generate_user_token } from "@/utils/jwt"
 import prismadb from "@/utils/prismadb"

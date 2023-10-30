@@ -1,6 +1,6 @@
 "use server"
 
-import UpdateEmail from "@/emails/updateEmail"
+import UpdateEmail from "@/emails/update-email"
 import { getServerAuthSession } from "@/lib/auth"
 import { sendMail } from "@/services/mail"
 import { generate_user_token } from "@/utils/jwt"

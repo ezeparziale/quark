@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 
-import ResetPasswordEmail from "@/emails/resetEmail"
+import ResetPasswordEmail from "@/emails/reset-email"
 import { sendMail } from "@/services/mail"
 import { generate_user_token } from "@/utils/jwt"
 import prismadb from "@/utils/prismadb"
