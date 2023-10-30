@@ -5,11 +5,11 @@ import { useRouter } from "next/navigation"
 
 import { useState } from "react"
 
-import { yupResolver } from "@hookform/resolvers/yup"
+import { zodResolver } from "@hookform/resolvers/zod"
 import axios from "axios"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
-import * as yup from "yup"
+import * as z from "zod"
 
 import AuthTemplate from "@/components/auth/auth-template"
 import { Button } from "@/components/ui/button"
@@ -24,11 +24,11 @@ import {
 import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
 
-const formSchema = yup.object({
-  email: yup.string().email().required(),
+const formSchema = z.object({
+  email: z.string().email(),
 })
 
-type FormData = yup.InferType<typeof formSchema>
+type FormData = z.infer<typeof formSchema>
 
 export default function ForgotPasswordPage() {
   const router = useRouter()
@@ -39,7 +39,7 @@ export default function ForgotPasswordPage() {
     defaultValues: {
       email: "",
     },
-    resolver: yupResolver(formSchema),
+    resolver: zodResolver(formSchema),
   })
 
   async function onSubmit(data: FormData) {

@@ -5,10 +5,10 @@ import { useRouter } from "next/navigation"
 
 import { addUsersToRoles } from "@/actions/roles/add-users"
 import { addServerErrors } from "@/lib/utils"
-import { yupResolver } from "@hookform/resolvers/yup"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
-import * as yup from "yup"
+import * as z from "zod"
 
 import { ComboboxMulti } from "@/components/combobox-multi"
 import { Button } from "@/components/ui/button"
@@ -23,12 +23,12 @@ import {
 } from "@/components/ui/form"
 import { toast } from "@/components/ui/use-toast"
 
-const formSchema = yup.object({
-  id: yup.array().of(yup.string()),
-  roleId: yup.string().required(),
+const formSchema = z.object({
+  id: z.array(z.string()),
+  roleId: z.string(),
 })
 
-type FormData = yup.InferType<typeof formSchema>
+type FormData = z.infer<typeof formSchema>
 
 type IPros = {
   title: string
@@ -49,7 +49,7 @@ export default function AddUserForm({ options, selectedValues, title, roleId }: 
       id: Array.from(selectedValues) || [],
       roleId: roleId,
     },
-    resolver: yupResolver(formSchema),
+    resolver: zodResolver(formSchema),
   })
 
   const onSubmit = async (data: FormData) => {

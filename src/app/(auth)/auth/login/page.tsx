@@ -5,12 +5,12 @@ import { useRouter, useSearchParams } from "next/navigation"
 
 import { useState } from "react"
 
-import { yupResolver } from "@hookform/resolvers/yup"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import { FaGoogle } from "react-icons/fa6"
-import * as yup from "yup"
+import * as z from "zod"
 
 import AuthTemplate from "@/components/auth/auth-template"
 import { Button } from "@/components/ui/button"
@@ -25,12 +25,12 @@ import {
 import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
 
-const formSchema = yup.object({
-  email: yup.string().email().required(),
-  password: yup.string().required("Password is required"),
+const formSchema = z.object({
+  email: z.string().email(),
+  password: z.string({ required_error: "Password is required" }),
 })
 
-type FormData = yup.InferType<typeof formSchema>
+type FormData = z.infer<typeof formSchema>
 
 export default function LoginPage() {
   const router = useRouter()
@@ -46,7 +46,7 @@ export default function LoginPage() {
       email: "",
       password: "",
     },
-    resolver: yupResolver(formSchema),
+    resolver: zodResolver(formSchema),
   })
 
   const onSubmit = (data: FormData) => {

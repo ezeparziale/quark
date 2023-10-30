@@ -5,11 +5,11 @@ import { useRouter } from "next/navigation"
 
 import { addUser } from "@/actions/users/add-user"
 import { addServerErrors } from "@/lib/utils"
-import { yupResolver } from "@hookform/resolvers/yup"
+import { zodResolver } from "@hookform/resolvers/zod"
 import type { User } from "@prisma/client"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
-import * as yup from "yup"
+import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -25,14 +25,14 @@ import {
 import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
 
-const formSchema = yup.object({
-  email: yup.string().email().required(),
-  username: yup.string().required(),
-  active: yup.boolean().default(false).optional(),
-  confirmedEmail: yup.boolean().default(false).optional(),
+const formSchema = z.object({
+  email: z.string().email(),
+  username: z.string().trim(),
+  active: z.boolean().default(false),
+  confirmedEmail: z.boolean().default(false),
 })
 
-type FormData = yup.InferType<typeof formSchema>
+type FormData = z.infer<typeof formSchema>
 
 export default function UserForm({ user }: { user: User | null }) {
   const router = useRouter()
@@ -44,7 +44,7 @@ export default function UserForm({ user }: { user: User | null }) {
       active: user?.active || false,
       confirmedEmail: user?.confirmedEmail || false,
     },
-    resolver: yupResolver(formSchema),
+    resolver: zodResolver(formSchema),
   })
 
   const action = user ? "Edit" : "Create"

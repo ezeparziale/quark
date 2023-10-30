@@ -5,11 +5,11 @@ import { useRouter } from "next/navigation"
 
 import { useState } from "react"
 
-import { yupResolver } from "@hookform/resolvers/yup"
+import { zodResolver } from "@hookform/resolvers/zod"
 import axios from "axios"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
-import * as yup from "yup"
+import * as z from "zod"
 
 import AuthTemplate from "@/components/auth/auth-template"
 import { Button } from "@/components/ui/button"
@@ -24,19 +24,20 @@ import {
 import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
 
-const formSchema = yup.object({
-  password: yup
-    .string()
-    .min(8, "Password must be at least 8 characters")
-    .max(60, "Password must not exceed 60 characters")
-    .required("Password is required"),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref("password")], "Password must match")
-    .required("Please confirm your password"),
-})
+const formSchema = z
+  .object({
+    password: z
+      .string({ required_error: "Password is required" })
+      .min(8, "Password must be at least 8 characters")
+      .max(60, "Password must not exceed 60 characters"),
+    confirmPassword: z.string({ required_error: "Please confirm your password" }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  })
 
-type FormData = yup.InferType<typeof formSchema>
+type FormData = z.infer<typeof formSchema>
 
 export default function ResetPasswordTokenPage({
   params,
@@ -52,7 +53,7 @@ export default function ResetPasswordTokenPage({
       password: "",
       confirmPassword: "",
     },
-    resolver: yupResolver(formSchema),
+    resolver: zodResolver(formSchema),
   })
 
   const onSubmit = async (data: FormData) => {

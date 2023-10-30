@@ -5,11 +5,11 @@ import { useRouter } from "next/navigation"
 
 import { createPermission } from "@/actions/permissions/create"
 import { addServerErrors } from "@/lib/utils"
-import { yupResolver } from "@hookform/resolvers/yup"
+import { zodResolver } from "@hookform/resolvers/zod"
 import type { Permission } from "@prisma/client"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
-import * as yup from "yup"
+import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -24,12 +24,12 @@ import {
 import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
 
-const formSchema = yup.object({
-  name: yup.string().min(1).max(255).required(),
-  description: yup.string().min(1).max(255).required(),
+const formSchema = z.object({
+  name: z.string().trim().min(1).max(255),
+  description: z.string().trim().min(1).max(255),
 })
 
-type FormData = yup.InferType<typeof formSchema>
+type FormData = z.infer<typeof formSchema>
 
 export default function PermissionForm({
   permission,
@@ -43,7 +43,7 @@ export default function PermissionForm({
       name: permission?.name || "",
       description: permission?.description || "",
     },
-    resolver: yupResolver(formSchema),
+    resolver: zodResolver(formSchema),
   })
 
   const action = permission ? "Edit" : "Create"

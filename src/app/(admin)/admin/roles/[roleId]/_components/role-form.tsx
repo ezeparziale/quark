@@ -6,11 +6,11 @@ import { useRouter } from "next/navigation"
 import { createRole } from "@/actions/roles/create"
 import { editRole } from "@/actions/roles/edit"
 import { addServerErrors } from "@/lib/utils"
-import { yupResolver } from "@hookform/resolvers/yup"
+import { zodResolver } from "@hookform/resolvers/zod"
 import type { Role } from "@prisma/client"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
-import * as yup from "yup"
+import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -25,13 +25,13 @@ import {
 import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
 
-const formSchema = yup.object({
-  id: yup.number().optional(),
-  name: yup.string().min(1).max(255).required(),
-  description: yup.string().min(1).max(255).required(),
+const formSchema = z.object({
+  id: z.number().optional(),
+  name: z.string().min(1).max(255),
+  description: z.string().min(1).max(255),
 })
 
-type FormData = yup.InferType<typeof formSchema>
+type FormData = z.infer<typeof formSchema>
 
 export default function RoleForm({ role }: { role: Role | null }) {
   const roleId = role?.id
@@ -43,7 +43,7 @@ export default function RoleForm({ role }: { role: Role | null }) {
       name: role?.name || "",
       description: role?.description || "",
     },
-    resolver: yupResolver(formSchema),
+    resolver: zodResolver(formSchema),
   })
 
   const action = role ? "Edit" : "Create"

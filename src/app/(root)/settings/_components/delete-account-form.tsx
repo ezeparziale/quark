@@ -6,10 +6,10 @@ import { useState } from "react"
 
 import { deleteAccount } from "@/actions/users/delete-account"
 import { addServerErrors } from "@/lib/utils"
-import { yupResolver } from "@hookform/resolvers/yup"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
-import * as yup from "yup"
+import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -33,20 +33,12 @@ import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { toast } from "@/components/ui/use-toast"
 
-const formSchema = yup.object({
-  userEmail: yup.string().email().required().label("Email"),
-  confirmString: yup
-    .string()
-    .test(
-      "delete my account",
-      "Please type 'delete my account'",
-      (value) => value === "delete my account",
-    )
-    .required()
-    .label("Confirm string"),
+const formSchema = z.object({
+  userEmail: z.string().email(),
+  confirmString: z.literal("delete my account"),
 })
 
-type FormData = yup.InferType<typeof formSchema>
+type FormData = z.infer<typeof formSchema>
 
 export default function DeleteAccount() {
   const router = useRouter()
@@ -55,9 +47,9 @@ export default function DeleteAccount() {
   const form = useForm<FormData>({
     defaultValues: {
       userEmail: "",
-      confirmString: "",
+      confirmString: undefined,
     },
-    resolver: yupResolver(formSchema),
+    resolver: zodResolver(formSchema),
   })
 
   const onSubmit = async (data: FormData) => {

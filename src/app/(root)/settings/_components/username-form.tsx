@@ -2,10 +2,10 @@
 
 import { updateUsername } from "@/actions/users/update-username"
 import { addServerErrors } from "@/lib/utils"
-import { yupResolver } from "@hookform/resolvers/yup"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
-import * as yup from "yup"
+import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -20,18 +20,18 @@ import {
 import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
 
-const formSchema = yup.object({
-  username: yup.string().required(),
+const formSchema = z.object({
+  username: z.string().trim(),
 })
 
-type FormData = yup.InferType<typeof formSchema>
+type FormData = z.infer<typeof formSchema>
 
 export default function UsernameForm({ username }: { username: string }) {
   const form = useForm<FormData>({
     defaultValues: {
       username: username || "",
     },
-    resolver: yupResolver(formSchema),
+    resolver: zodResolver(formSchema),
   })
 
   const onSubmit = async (data: FormData) => {
