@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 
 const errorTypes: { [key: string]: string } = {
   AccessDenied: "Oops! This user account is blocked",
+  AccessUnauthorized: "Oops! Access Unauthorized",
   ConfirmEmail: "Please confirm your email",
   Default: "Something went wrong!",
 }
