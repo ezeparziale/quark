@@ -11,7 +11,7 @@ import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
 
-import AuthTemplate from "@/components/auth/authTemplate"
+import AuthTemplate from "@/components/auth/auth-template"
 import { Button } from "@/components/ui/button"
 import {
   Form,

@@ -1,5 +1,5 @@
-import DesktopNav from "./desktopNav"
-import MobileNav from "./mobileNav"
+import DesktopNav from "./desktop-nav"
+import MobileNav from "./mobile-nav"
 
 export default function Navbar() {
   return (

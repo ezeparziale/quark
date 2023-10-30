@@ -18,7 +18,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-import UserAvatar from "./userAvatar"
+import UserAvatar from "./user-avatar"
 
 interface IMenu {
   name: string

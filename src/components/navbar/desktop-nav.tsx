@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 
 import Logo from "../logo"
-import ThemeSwitch from "../themeSwitch"
-import LoginButton from "./loginButton"
+import ThemeSwitch from "../theme-switch"
+import LoginButton from "./login-button"
 
 interface INavigation {
   name: string
