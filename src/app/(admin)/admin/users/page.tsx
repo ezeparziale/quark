@@ -7,9 +7,9 @@ import { Plus } from "lucide-react"
 
 import Container from "@/components/container"
 import { Button } from "@/components/ui/button"
+import { DataTable } from "@/components/ui/data-tables/data-table"
 import { Separator } from "@/components/ui/separator"
 
-import { DataTable } from "./_components/data-tables"
 import { columns } from "./columns"
 
 export default async function UsersAdmin() {
