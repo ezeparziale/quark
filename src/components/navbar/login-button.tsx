@@ -79,7 +79,7 @@ export default function LoginButton({
                   href={item.href}
                   onClick={() => setOpenSheet?.(false)}
                   className={cn(
-                    "-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 hover:bg-gray-50 dark:hover:bg-accent",
+                    "-mx-3 block rounded-lg px-3 py-2 text-sm font-semibold leading-7 hover:bg-gray-50 dark:hover:bg-accent",
                     pathname === item.href ? "text-foreground" : "text-foreground/60",
                   )}
                 >
