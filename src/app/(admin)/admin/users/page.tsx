@@ -38,7 +38,7 @@ export default async function UsersAdmin() {
           </Button>
         </div>
         <Separator className="my-6" />
-        <DataTable columns={columns} data={data} />
+        <DataTable columns={columns} data={data} searchField="email" />
       </Container>
     </>
   )
