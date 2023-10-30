@@ -58,7 +58,7 @@ export default function CellActions({ row }: { row: IColumns }) {
             Copy user ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => router.push(`/admin/user/${userId}`)}>
+          <DropdownMenuItem onClick={() => router.push(`/admin/users/${userId}`)}>
             View user
           </DropdownMenuItem>
           <DialogTrigger asChild>
