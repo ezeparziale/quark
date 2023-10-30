@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 
-import { addUser } from "@/actions/updateUser"
+import { addUser } from "@/actions/update-user"
 import { yupResolver } from "@hookform/resolvers/yup"
 import type { User } from "@prisma/client"
 import { Loader2 } from "lucide-react"

@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"
 
 import { useState } from "react"
 
-import { deleteAccount } from "@/actions/updateUser"
+import { deleteAccount } from "@/actions/update-user"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
