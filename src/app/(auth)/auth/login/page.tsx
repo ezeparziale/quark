@@ -82,10 +82,8 @@ export default function LoginPage() {
 
   return (
     <AuthTemplate>
-      <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-slate-50 md:text-2xl">
-        Log in
-      </h2>
-      <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+      <h1 className="text-2xl font-bold tracking-tight md:text-3xl">Log in</h1>
+      <p className="text-sm text-muted-foreground">
         New to Quark?{" "}
         <Link
           className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
@@ -137,12 +135,7 @@ export default function LoginPage() {
                 Forgot password?
               </Link>
             </div>
-            <Button
-              size="sm"
-              className="w-full font-bold"
-              disabled={isLoading}
-              type="submit"
-            >
+            <Button size="sm" className="w-full" disabled={isLoading} type="submit">
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Log in
             </Button>
@@ -150,7 +143,7 @@ export default function LoginPage() {
         </Form>
       </div>
       <div className="relative mt-8">
-        <hr className="border-t border-gray-400 " />
+        <hr className="border-t border-gray-400" />
         <div className="absolute inset-0 flex items-center justify-center">
           <span className="bg-white px-3 text-sm text-gray-400 dark:bg-black">
             Or with
@@ -159,7 +152,7 @@ export default function LoginPage() {
       </div>
       <div className="mt-8 grid grid-cols-1">
         <Button
-          className="w-full font-bold"
+          className="w-full"
           size="sm"
           disabled={isLoading}
           onClick={() => signIn("google", { callbackUrl })}

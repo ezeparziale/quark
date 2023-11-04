@@ -55,9 +55,9 @@ export default function Error() {
           {errorMessage.message}
         </h2>
         <Button asChild variant="default" size="sm" className="mt-6">
-          <Link href="/auth/login">
+          <Link href="/">
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to login
+            Back to home
           </Link>
         </Button>
       </div>

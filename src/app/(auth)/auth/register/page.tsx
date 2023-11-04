@@ -92,10 +92,8 @@ export default function RegisterPage() {
 
   return (
     <AuthTemplate>
-      <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-slate-50 md:text-2xl">
-        Sign up
-      </h2>
-      <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+      <h1 className="text-2xl font-bold tracking-tight md:text-3xl">Sign up</h1>
+      <p className="text-sm text-muted-foreground">
         Already have an account?{" "}
         <Link
           className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
@@ -171,12 +169,7 @@ export default function RegisterPage() {
                 </FormItem>
               )}
             />
-            <Button
-              size="sm"
-              className="w-full font-bold"
-              disabled={isLoading}
-              type="submit"
-            >
+            <Button size="sm" className="w-full" disabled={isLoading} type="submit">
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Sign up
             </Button>
@@ -192,7 +185,7 @@ export default function RegisterPage() {
       <div className="mt-8 grid grid-cols-1">
         <Button
           size="sm"
-          className="w-full font-bold"
+          className="w-full"
           disabled={isLoading}
           onClick={() => signIn("google", { callbackUrl })}
         >

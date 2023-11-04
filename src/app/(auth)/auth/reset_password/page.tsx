@@ -62,9 +62,9 @@ export default function ForgotPasswordPage() {
 
   return (
     <AuthTemplate>
-      <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-slate-50 md:text-2xl">
+      <h1 className="text-2xl font-bold tracking-tight md:text-3xl">
         Reset your password
-      </h2>
+      </h1>
       <div className="my-7">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
@@ -85,14 +85,14 @@ export default function ForgotPasswordPage() {
               <Button
                 variant="default"
                 size="sm"
-                className="w-full font-bold"
+                className="w-full"
                 disabled={isLoading}
                 type="submit"
               >
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Reset password
               </Button>
-              <Button asChild variant="ghost" size="sm" className="font-bold">
+              <Button asChild variant="ghost" size="sm">
                 <Link href="/auth/login">Back to login</Link>
               </Button>
             </div>

@@ -71,10 +71,10 @@ export default function ConfirmEmailPage() {
 
   return (
     <AuthTemplate>
-      <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-slate-50 md:text-2xl">
+      <h1 className="text-2xl font-bold tracking-tight md:text-3xl">
         Your email address has not been confirmed yet
-      </h2>
-      <p className="pt-4 text-sm font-medium text-slate-500 dark:text-slate-400">
+      </h1>
+      <p className="pt-4 text-sm text-muted-foreground">
         To access all the features of our platform, please verify your email or request
         a new confirmation email.
       </p>
@@ -95,16 +95,11 @@ export default function ConfirmEmailPage() {
               )}
             />
             <div className="flex flex-col items-center justify-center space-y-3">
-              <Button
-                size="sm"
-                className="w-full font-bold"
-                disabled={isLoading}
-                type="submit"
-              >
+              <Button size="sm" className="w-full" disabled={isLoading} type="submit">
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Send verification
               </Button>
-              <Button asChild variant="ghost" size="sm" className="font-bold">
+              <Button asChild variant="ghost" size="sm">
                 <Link href="/auth/login">Back to login</Link>
               </Button>
             </div>
