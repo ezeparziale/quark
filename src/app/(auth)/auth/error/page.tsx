@@ -1,16 +1,26 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { redirect, useSearchParams } from "next/navigation"
 
+import { ArrowLeft } from "lucide-react"
+
+import Container from "@/components/container"
 import Logo from "@/components/logo"
 import { Button } from "@/components/ui/button"
 
-const errorTypes: { [key: string]: string } = {
-  AccessDenied: "Oops! This user account is blocked",
-  AccessUnauthorized: "Oops! Access Unauthorized",
-  ConfirmEmail: "Please confirm your email",
-  Default: "Something went wrong!",
+const errorTypes: { [key: string]: { message: string; icon?: string } } = {
+  AccessDenied: {
+    message: "Oops! This user account is blocked",
+    icon: "calling-help",
+  },
+  AccessUnauthorized: {
+    message: "Oops! Access Unauthorized",
+    icon: "calling-help",
+  },
+  ConfirmEmail: { message: "Please confirm your email" },
+  Default: { message: "Something went wrong!", icon: "crashed-error" },
 }
 
 export default function Error() {
@@ -24,18 +34,33 @@ export default function Error() {
   }
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center">
-      <div className="rounded-lg border p-4">
-        <div className="flex flex-col space-y-6">
-          <Logo />
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-slate-50 md:text-2xl">
-            {errorMessage}
-          </h2>
-          <Button asChild variant="default" size="sm" className="font-bold">
-            <Link href="/auth/login">Back to login</Link>
-          </Button>
-        </div>
+    <Container>
+      <div className="mt-20 flex flex-col items-center">
+        <Logo />
+        <Image
+          alt="missing site"
+          src={`/error/${errorMessage.icon}-gray.svg`}
+          width={400}
+          height={400}
+          className="dark:hidden"
+        />
+        <Image
+          alt="missing site"
+          src={`/error/${errorMessage.icon}-white.svg`}
+          width={400}
+          height={400}
+          className="hidden dark:block"
+        />
+        <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
+          {errorMessage.message}
+        </h2>
+        <Button asChild variant="default" size="sm" className="mt-6">
+          <Link href="/auth/login">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to login
+          </Link>
+        </Button>
       </div>
-    </div>
+    </Container>
   )
 }
