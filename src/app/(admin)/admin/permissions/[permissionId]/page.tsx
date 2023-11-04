@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 import prismadb from "@/utils/prismadb"
 
 import Container from "@/components/container"
+import { CopyButtonData } from "@/components/copy-clipboard-button"
 import { Separator } from "@/components/ui/separator"
 
 import DeletePermissionModal from "./_components/delete-permission-modal"
@@ -38,7 +39,7 @@ export default async function PermissionPage({
   const permission = await getPermission()
 
   const title = permission ? "Edit permission" : "Create permission"
-  const description = permission ? "Edit a permission." : "Add a new permission"
+  const description = permission ? `ID: ${permission.id}` : "Add a new permission"
 
   return (
     <>
@@ -46,7 +47,10 @@ export default async function PermissionPage({
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
             <h2 className="text-2xl font-bold tracking-tight">{title}</h2>
-            <p className="text-muted-foreground">{description}</p>
+            <div className="flex items-center justify-start">
+              <p className="text-muted-foreground">{description}</p>
+              {permission?.id && <CopyButtonData textToCopy={String(permission.id)} />}
+            </div>
           </div>
           {permission && <DeletePermissionModal permission={permission} />}
         </div>

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 import prismadb from "@/utils/prismadb"
 
 import Container from "@/components/container"
+import { CopyButtonData } from "@/components/copy-clipboard-button"
 import { Separator } from "@/components/ui/separator"
 
 import DeleteUserModal from "./_components/delete-user-modal"
@@ -26,7 +27,7 @@ export default async function UserView({ params }: { params: { user_id: string }
   const user = await getUser()
 
   const title = user ? "Edit user" : "Create user"
-  const description = user ? "Edit a user." : "Add a new user"
+  const description = user ? `ID: ${user.id}` : "Add a new user"
 
   return (
     <>
@@ -34,7 +35,10 @@ export default async function UserView({ params }: { params: { user_id: string }
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
             <h2 className="text-2xl font-bold tracking-tight">{title}</h2>
-            <p className="text-muted-foreground">{description}</p>
+            <div className="flex items-center justify-start">
+              <p className="text-muted-foreground">{description}</p>
+              {user?.id && <CopyButtonData textToCopy={user.id} />}
+            </div>
           </div>
           {user && <DeleteUserModal user={user} />}
         </div>

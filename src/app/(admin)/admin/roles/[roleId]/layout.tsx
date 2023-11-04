@@ -3,9 +3,9 @@ import { notFound } from "next/navigation"
 import prismadb from "@/utils/prismadb"
 
 import Container from "@/components/container"
+import { CopyButtonData } from "@/components/copy-clipboard-button"
 import { Separator } from "@/components/ui/separator"
 
-import CopyIdButton from "./_components/copy-id-button"
 import DeleteUserModal from "./_components/delete-role-modal"
 import { SidebarNav } from "./_components/sidebar-nav"
 
@@ -77,7 +77,7 @@ export default async function SettingsLayout({
             <h2 className="text-2xl font-bold tracking-tight">{title}</h2>
             <div className="flex items-center justify-start">
               <p className="text-muted-foreground">{description}</p>
-              <CopyIdButton id={params.roleId} />
+              <CopyButtonData textToCopy={params.roleId} />
             </div>
           </div>
           {role && <DeleteUserModal role={role} />}
