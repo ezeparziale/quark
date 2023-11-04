@@ -5,7 +5,6 @@ import { getServerAuthSession } from "@/lib/auth"
 import prismadb from "@/utils/prismadb"
 import { Plus } from "lucide-react"
 
-import Container from "@/components/container"
 import { Button } from "@/components/ui/button"
 import { DataTable } from "@/components/ui/data-tables/data-table"
 import { Separator } from "@/components/ui/separator"
@@ -23,23 +22,21 @@ export default async function RolesAdmin() {
 
   return (
     <>
-      <Container>
-        <div className="flex items-center justify-between">
-          <div className="space-y-0.5">
-            <h2 className="text-2xl font-bold tracking-tight">Roles</h2>
-            <p className="text-muted-foreground">Manage all roles.</p>
-          </div>
-          <Button asChild>
-            <Link href="/admin/roles/new">
-              <Plus className="h-4 w-4" />
-              <span className="sr-only">create role</span>
-              <span className="ml-2 hidden md:block">Create</span>
-            </Link>
-          </Button>
+      <div className="flex items-center justify-between">
+        <div className="space-y-0.5">
+          <h2 className="text-2xl font-bold tracking-tight">Roles</h2>
+          <p className="text-muted-foreground">Manage all roles.</p>
         </div>
-        <Separator className="my-6" />
-        <DataTable columns={columns} data={data} searchField={"name"} />
-      </Container>
+        <Button asChild>
+          <Link href="/admin/roles/new">
+            <Plus className="h-4 w-4" />
+            <span className="sr-only">create role</span>
+            <span className="ml-2 hidden md:block">Create</span>
+          </Link>
+        </Button>
+      </div>
+      <Separator className="my-6" />
+      <DataTable columns={columns} data={data} searchField={"name"} />
     </>
   )
 }

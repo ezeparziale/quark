@@ -71,31 +71,29 @@ export default async function SettingsLayout({
 
   return (
     <>
-      <Container>
-        <div className="flex items-center justify-between">
-          <div className="space-y-0.5">
-            <h2 className="text-2xl font-bold tracking-tight">{title}</h2>
-            <div className="flex items-center justify-start">
-              <p className="text-muted-foreground">{description}</p>
-              <CopyButtonData textToCopy={params.roleId} />
-            </div>
+      <div className="flex items-center justify-between">
+        <div className="space-y-0.5">
+          <h2 className="text-2xl font-bold tracking-tight">{title}</h2>
+          <div className="flex items-center justify-start">
+            <p className="text-muted-foreground">{description}</p>
+            <CopyButtonData textToCopy={params.roleId} />
           </div>
-          {role && <DeleteUserModal role={role} />}
         </div>
-        <Separator className="my-6" />
-        {role ? (
-          <>
-            <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-              <aside className="lg:w-1/5">
-                <SidebarNav items={sidebarNavItems} />
-              </aside>
-              <div className="flex-1">{children}</div>
-            </div>
-          </>
-        ) : (
-          <>{children}</>
-        )}
-      </Container>
+        {role && <DeleteUserModal role={role} />}
+      </div>
+      <Separator className="my-6" />
+      {role ? (
+        <>
+          <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
+            <aside className="lg:w-1/5">
+              <SidebarNav items={sidebarNavItems} />
+            </aside>
+            <div className="flex-1">{children}</div>
+          </div>
+        </>
+      ) : (
+        <>{children}</>
+      )}
     </>
   )
 }
