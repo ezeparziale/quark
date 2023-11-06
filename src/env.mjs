@@ -12,7 +12,7 @@ export const env = createEnv({
       process.env.NODE_ENV === "production" ? z.string() : z.string().optional(),
     NEXTAUTH_URL: z.preprocess(
       (str) => process.env.VERCEL_URL ?? str,
-      process.env.VERCEL ? z.string() : z.string().url(),
+      process.env.VERCEL_URL ? z.string() : z.string().url(),
     ),
     // Auth Google
     GOOGLE_CLIENT_ID: z.string(),
