@@ -78,7 +78,7 @@ export default async function SettingsLayout({
           <h2 className="text-2xl font-bold tracking-tight">{title}</h2>
           <div className="flex items-center justify-start">
             <p className="text-muted-foreground">{description}</p>
-            <CopyButtonData textToCopy={params.roleId} />
+            {role?.id && <CopyButtonData textToCopy={params.roleId} />}
           </div>
         </div>
         {role && <DeleteUserModal role={role} />}
