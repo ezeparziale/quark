@@ -3,7 +3,6 @@ import { notFound } from "next/navigation"
 import prismadb from "@/utils/prismadb"
 
 import BackButtonLink from "@/components/back-button-link"
-import Container from "@/components/container"
 import { CopyButtonData } from "@/components/copy-clipboard-button"
 import { Separator } from "@/components/ui/separator"
 
