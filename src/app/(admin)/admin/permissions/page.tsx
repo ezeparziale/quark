@@ -5,6 +5,7 @@ import { getServerAuthSession } from "@/lib/auth"
 import prismadb from "@/utils/prismadb"
 import { Plus } from "lucide-react"
 
+import BackButtonLink from "@/components/back-button-link"
 import { Button } from "@/components/ui/button"
 import { DataTable } from "@/components/ui/data-tables/data-table"
 import { Separator } from "@/components/ui/separator"
@@ -22,6 +23,7 @@ export default async function PermissionsAdmin() {
 
   return (
     <>
+      <BackButtonLink link={"/admin"} />
       <div className="flex items-center justify-between">
         <div className="space-y-0.5">
           <h2 className="text-2xl font-bold tracking-tight">Permissions</h2>

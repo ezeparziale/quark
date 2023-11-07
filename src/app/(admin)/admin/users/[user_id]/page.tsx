@@ -2,6 +2,7 @@ import { notFound } from "next/navigation"
 
 import prismadb from "@/utils/prismadb"
 
+import BackButtonLink from "@/components/back-button-link"
 import { CopyButtonData } from "@/components/copy-clipboard-button"
 import { Separator } from "@/components/ui/separator"
 
@@ -30,6 +31,7 @@ export default async function UserView({ params }: { params: { user_id: string }
 
   return (
     <>
+      <BackButtonLink link={"/admin/users"} />
       <div className="flex items-center justify-between">
         <div className="space-y-0.5">
           <h2 className="text-2xl font-bold tracking-tight">{title}</h2>
