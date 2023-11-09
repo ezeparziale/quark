@@ -1,12 +1,13 @@
 import { notFound } from "next/navigation"
 
+import { withRoles } from "@/lib/rbac"
 import prismadb from "@/utils/prismadb"
 
 import { Separator } from "@/components/ui/separator"
 
 import RoleForm from "./_components/role-form"
 
-export default async function RoleView({ params }: { params: { roleId: string } }) {
+const RoleAdminPage = async ({ params }: { params: { roleId: string } }) => {
   const getRole = async () => {
     if (params.roleId === "new") {
       return null
@@ -46,3 +47,5 @@ export default async function RoleView({ params }: { params: { roleId: string } 
     </>
   )
 }
+
+export default withRoles(RoleAdminPage, ["admin:all"])

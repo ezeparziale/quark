@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation"
 
+import { withRoles } from "@/lib/rbac"
 import prismadb from "@/utils/prismadb"
 
 import BackButtonLink from "@/components/back-button-link"
@@ -9,11 +10,11 @@ import { Separator } from "@/components/ui/separator"
 import DeletePermissionModal from "./_components/delete-permission-modal"
 import PermissionForm from "./_components/permission-form"
 
-export default async function PermissionPage({
+const PermissionAdminPage = async ({
   params,
 }: {
   params: { permissionId: string }
-}) {
+}) => {
   const getPermission = async () => {
     if (params.permissionId === "new") {
       return null
@@ -59,3 +60,5 @@ export default async function PermissionPage({
     </>
   )
 }
+
+export default withRoles(PermissionAdminPage, ["admin:all"])

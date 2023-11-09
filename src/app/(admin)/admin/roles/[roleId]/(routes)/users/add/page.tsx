@@ -1,3 +1,4 @@
+import { withRoles } from "@/lib/rbac"
 import prismadb from "@/utils/prismadb"
 
 import { Separator } from "@/components/ui/separator"
@@ -6,7 +7,7 @@ import AddUserForm from "./_components/user-form"
 
 const title = "Users"
 
-export default async function page({ params }: { params: { roleId: string } }) {
+const RolesAdminAddUsersPage = async ({ params }: { params: { roleId: string } }) => {
   const { roleId } = params
 
   const selectedOptions = await prismadb.role.findUnique({
@@ -43,3 +44,5 @@ export default async function page({ params }: { params: { roleId: string } }) {
     </>
   )
 }
+
+export default withRoles(RolesAdminAddUsersPage, ["admin:all"])

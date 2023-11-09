@@ -2,6 +2,7 @@ import Link from "next/link"
 import { redirect } from "next/navigation"
 
 import { getServerAuthSession } from "@/lib/auth"
+import { withRoles } from "@/lib/rbac"
 import prismadb from "@/utils/prismadb"
 import { Plus } from "lucide-react"
 
@@ -12,7 +13,7 @@ import { Separator } from "@/components/ui/separator"
 
 import { columns } from "./columns"
 
-export default async function RolesAdmin() {
+const RolesAdminPage = async () => {
   const session = await getServerAuthSession()
 
   if (!session) {
@@ -42,3 +43,5 @@ export default async function RolesAdmin() {
     </>
   )
 }
+
+export default withRoles(RolesAdminPage, ["admin:all"])

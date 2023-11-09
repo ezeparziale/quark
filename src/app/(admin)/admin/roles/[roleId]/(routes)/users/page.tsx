@@ -2,6 +2,7 @@ import Link from "next/link"
 
 import React from "react"
 
+import { withRoles } from "@/lib/rbac"
 import prismadb from "@/utils/prismadb"
 import { Plus } from "lucide-react"
 
@@ -11,7 +12,7 @@ import { Separator } from "@/components/ui/separator"
 
 import { columns } from "./_components/columns"
 
-export default async function page({ params }: { params: { roleId: string } }) {
+const RolesAdminUsersPage = async ({ params }: { params: { roleId: string } }) => {
   const { roleId } = params
 
   const data = await prismadb.role.findUnique({
@@ -43,3 +44,5 @@ export default async function page({ params }: { params: { roleId: string } }) {
     </>
   )
 }
+
+export default withRoles(RolesAdminUsersPage, ["admin:all"])

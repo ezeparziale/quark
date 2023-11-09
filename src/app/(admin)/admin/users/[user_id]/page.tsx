@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation"
 
+import { withRoles } from "@/lib/rbac"
 import prismadb from "@/utils/prismadb"
 
 import BackButtonLink from "@/components/back-button-link"
@@ -9,7 +10,7 @@ import { Separator } from "@/components/ui/separator"
 import DeleteUserModal from "./_components/delete-user-modal"
 import UserForm from "./_components/user-form"
 
-export default async function UserView({ params }: { params: { user_id: string } }) {
+const UserAdminPage = async ({ params }: { params: { user_id: string } }) => {
   const getUser = async () => {
     if (params.user_id === "new-user") {
       return null
@@ -47,3 +48,5 @@ export default async function UserView({ params }: { params: { user_id: string }
     </>
   )
 }
+
+export default withRoles(UserAdminPage, ["admin:all"])
