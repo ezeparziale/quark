@@ -25,3 +25,6 @@ Quark is a template ready for tools using @nextjs 14 🚀
 - React server actions
 - Admin mode
 - Email react-email
+- Validation @zodtypes
+- Tables tanstack/react-table
+- Forms @HookForm
