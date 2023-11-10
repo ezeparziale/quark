@@ -4,14 +4,14 @@ Quark is a template ready for tools using @nextjs 14 🚀
 
 :star: Features:
 
-- Login/Sign up with Credentials or Google account
+- Log in/Sign up with credentials or Google account
 - Reset password
 - Confirm account via email
-- Light/Dark mode
+- Light and Dark mode
 - Account settings
 - Admin mode
 - Role-based access control
-- More features are comming...
+- More features are coming...
 
 :construction_worker: Built using:
 
