@@ -109,7 +109,7 @@ export default function AddUserForm({ options, selectedValues, title, roleId }: 
             {action}
           </Button>
           <Button size="sm" className="w-full md:w-1/5" variant="outline" asChild>
-            <Link href={`/admin/roles/${roleId}/permissions`}>Cancel</Link>
+            <Link href={`/admin/roles/${roleId}/users`}>Cancel</Link>
           </Button>
         </div>
       </form>
