@@ -25,6 +25,18 @@
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
     --radius: 0.5rem;
+    --success: 99 71% 54%;
+    --success-foreground: 99 71% 54%;
+    --success-background: 100 73% 93%;
+    --danger: 9 100% 56%;
+    --danger-foreground: 9 100% 56%;
+    --danger-background: 8 100% 93%;
+    --warning: 40 100% 50%;
+    --warning-foreground: 40 100% 50%;
+    --warning-background: 41 100% 92%;
+    --info: 191 97% 47%;
+    --info-foreground: 191 97% 47%;
+    --info-background: 191 86% 92%;
   }
  
   .dark {
@@ -47,5 +59,17 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
+    --success: 99 71% 54%;
+    --success-foreground: 99 71% 54%;
+    --success-background: 150 14% 25%;
+    --danger: 9 100% 56%;
+    --danger-foreground: 9 100% 56%;
+    --danger-background: 338 24% 24%;
+    --warning: 40 100% 50%;
+    --warning-foreground: 40 100% 50%;
+    --warning-background: 26 18%, 26%;
+    --info: 191 97% 47%;
+    --info-foreground: 191 97% 47%;
+    --info-background: 206 43% 25%;
   }
 }
