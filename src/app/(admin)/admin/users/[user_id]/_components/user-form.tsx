@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 
 import { addUser } from "@/actions/users/add-user"
+import { editUser } from "@/actions/users/edit-user"
 import { addServerErrors } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { User } from "@prisma/client"
@@ -26,6 +27,7 @@ import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
 
 const formSchema = z.object({
+  id: z.string().optional(),
   email: z.string().email(),
   username: z.string().trim(),
   active: z.boolean().default(false),
@@ -35,10 +37,13 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>
 
 export default function UserForm({ user }: { user: User | null }) {
+  const userId = user?.id
+
   const router = useRouter()
 
   const form = useForm<FormData>({
     defaultValues: {
+      id: user?.id || undefined,
       email: user?.email || "",
       username: user?.username || "",
       active: user?.active || false,
@@ -49,7 +54,7 @@ export default function UserForm({ user }: { user: User | null }) {
 
   const action = user ? "Edit" : "Create"
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmitCreate = async (data: FormData) => {
     const result = await addUser(data)
     if (result.success) {
       router.push("/admin/users")
@@ -66,10 +71,31 @@ export default function UserForm({ user }: { user: User | null }) {
     }
   }
 
+  const onSubmitEdit = async (data: FormData) => {
+    const result = await editUser({ id: String(userId), ...data })
+    if (result.success) {
+      form.reset({ ...data })
+      router.refresh()
+    } else {
+      if (result.errors) {
+        addServerErrors(result.errors, form.setError)
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Something went wrong",
+        })
+      }
+    }
+  }
+
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={
+          action === "Create"
+            ? form.handleSubmit(onSubmitCreate)
+            : form.handleSubmit(onSubmitEdit)
+        }
         className="flex w-full flex-col space-y-4 md:w-2/3"
       >
         <FormField
