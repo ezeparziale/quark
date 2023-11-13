@@ -15,7 +15,7 @@ const getSideBarNavItems = (id: number) => {
   return [
     {
       title: "Settings",
-      href: `/admin/roles/${id}`,
+      href: baseHref,
       type: "parent",
     },
     {
