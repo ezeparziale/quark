@@ -20,11 +20,11 @@ import { Separator } from "@/components/ui/separator"
 type IPros = {
   title: string
   options: {
-    value: string
+    value: string | number
     label: string
     disabled?: boolean
   }[]
-  selectedValues: Set<string>
+  selectedValues: Set<string | number>
   limit?: number
   className?: string
   form?: any
