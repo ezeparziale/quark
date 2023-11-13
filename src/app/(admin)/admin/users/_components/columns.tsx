@@ -6,7 +6,7 @@ import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 
-import CellActions from "./_components/cell-actions"
+import CellActions from "./cell-actions"
 
 export interface IUsersColumns {
   id: string

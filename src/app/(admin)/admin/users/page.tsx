@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button"
 import { DataTable } from "@/components/ui/data-tables/data-table"
 import { Separator } from "@/components/ui/separator"
 
-import { columns } from "./columns"
+import { columns } from "./_components/columns"
 
 const UsersAdminPage = async () => {
   const session = await getServerAuthSession()
