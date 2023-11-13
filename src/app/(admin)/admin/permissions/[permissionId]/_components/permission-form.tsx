@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 
 import { createPermission } from "@/actions/permissions/create"
+import { editPermission } from "@/actions/permissions/edit"
 import { addServerErrors } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Permission } from "@prisma/client"
@@ -25,6 +26,7 @@ import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
 
 const formSchema = z.object({
+  id: z.number().optional(),
   name: z.string().trim().min(1).max(255),
   description: z.string().trim().min(1).max(255),
 })
@@ -36,10 +38,13 @@ export default function PermissionForm({
 }: {
   permission: Permission | null
 }) {
+  const permissionId = permission?.id
+
   const router = useRouter()
 
   const form = useForm<FormData>({
     defaultValues: {
+      id: permission?.id || undefined,
       name: permission?.name || "",
       description: permission?.description || "",
     },
@@ -48,7 +53,7 @@ export default function PermissionForm({
 
   const action = permission ? "Edit" : "Create"
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmitCreate = async (data: FormData) => {
     const result = await createPermission(data)
     if (result.success) {
       router.push("/admin/permissions")
@@ -65,10 +70,31 @@ export default function PermissionForm({
     }
   }
 
+  const onSubmitEdit = async (data: FormData) => {
+    const result = await editPermission({ id: Number(permissionId), ...data })
+    if (result.success) {
+      form.reset({ ...data })
+      router.refresh()
+    } else {
+      if (result.errors) {
+        addServerErrors(result.errors, form.setError)
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Something went wrong",
+        })
+      }
+    }
+  }
+
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={
+          action === "Create"
+            ? form.handleSubmit(onSubmitCreate)
+            : form.handleSubmit(onSubmitEdit)
+        }
         className="flex w-full flex-col space-y-8 md:w-2/3"
       >
         <FormField
