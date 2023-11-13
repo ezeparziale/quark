@@ -31,7 +31,7 @@ const UsersAdminPage = async () => {
           <p className="text-muted-foreground">Manage all users account.</p>
         </div>
         <Button asChild>
-          <Link href="/admin/users/new-user">
+          <Link href="/admin/users/new">
             <Plus className="h-4 w-4" />
             <span className="sr-only">create user</span>
             <span className="ml-2 hidden md:block">Create</span>
