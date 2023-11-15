@@ -86,7 +86,7 @@ export default function LoginPage() {
       <p className="text-sm text-muted-foreground">
         New to Quark?{" "}
         <Link
-          className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+          className="font-semibold leading-6 text-purple-600 hover:text-green-400"
           href="/auth/register"
         >
           Sign up for an account
@@ -130,7 +130,7 @@ export default function LoginPage() {
             <div className="flex flex-row items-center justify-between pb-6">
               <Link
                 href="/auth/reset_password"
-                className="text-sm font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                className="text-sm font-semibold leading-6 text-purple-600 hover:text-green-400"
               >
                 Forgot password?
               </Link>
