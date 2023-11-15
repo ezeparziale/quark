@@ -11,7 +11,7 @@ export interface IColumns {
   userId: string
   roleId: number
   role: {
-    id: string
+    id: number
     name: string
   }
 }
