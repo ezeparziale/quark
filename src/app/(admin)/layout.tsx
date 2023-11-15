@@ -5,7 +5,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       <Navbar />
-      <main className="bg-white dark:bg-zinc-950">
+      <main>
         <Container>{children}</Container>
       </main>
     </>
