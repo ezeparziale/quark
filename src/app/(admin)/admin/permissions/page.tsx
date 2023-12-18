@@ -2,7 +2,7 @@ import Link from "next/link"
 import { redirect } from "next/navigation"
 
 import { getServerAuthSession } from "@/lib/auth"
-import { withRoles } from "@/lib/rbac"
+import { protectPage } from "@/lib/rbac"
 import prismadb from "@/utils/prismadb"
 import { Plus } from "lucide-react"
 
@@ -13,7 +13,9 @@ import { Separator } from "@/components/ui/separator"
 
 import { columns } from "./_components/columns"
 
-const PermissionsAdminPage = async () => {
+export default async function PermissionsAdminPage() {
+  await protectPage(["admin:all"])
+
   const session = await getServerAuthSession()
 
   if (!session) {
@@ -43,5 +45,3 @@ const PermissionsAdminPage = async () => {
     </>
   )
 }
-
-export default withRoles(PermissionsAdminPage, ["admin:all"])

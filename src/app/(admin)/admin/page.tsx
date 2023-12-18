@@ -1,13 +1,15 @@
 import { Suspense } from "react"
 
-import { withRoles } from "@/lib/rbac"
+import { protectPage } from "@/lib/rbac"
 import prismadb from "@/utils/prismadb"
 import { KeySquare, UnlockIcon, User } from "lucide-react"
 
 import CardKPI from "./_components/card-kpi"
 import CardKPILoading from "./_components/card-kpi-loading"
 
-const AdminPage = async () => {
+export default async function AdminPage() {
+  await protectPage(["admin:all"])
+
   const totalUsers = await prismadb.user.count()
   const totalRoles = await prismadb.role.count()
   const totalPermissions = await prismadb.permission.count()
@@ -31,5 +33,3 @@ const AdminPage = async () => {
     </>
   )
 }
-
-export default withRoles(AdminPage, ["admin:all"])

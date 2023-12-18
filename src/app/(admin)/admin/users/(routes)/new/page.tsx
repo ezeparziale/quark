@@ -1,8 +1,10 @@
-import { withRoles } from "@/lib/rbac"
+import { protectPage } from "@/lib/rbac"
 
 import UserForm from "../../_components/user-form"
 
-const NewUserPage = async ({ params }: { params: { userId: string } }) => {
+export default async function NewUserPage({ params }: { params: { userId: string } }) {
+  await protectPage(["admin:all"])
+
   return (
     <>
       <div className="space-y-6">
@@ -11,5 +13,3 @@ const NewUserPage = async ({ params }: { params: { userId: string } }) => {
     </>
   )
 }
-
-export default withRoles(NewUserPage, ["admin:all"])

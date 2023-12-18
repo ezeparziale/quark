@@ -1,13 +1,19 @@
 import { notFound } from "next/navigation"
 
-import { withRoles } from "@/lib/rbac"
+import { protectPage } from "@/lib/rbac"
 import prismadb from "@/utils/prismadb"
 
 import { Separator } from "@/components/ui/separator"
 
 import UserForm from "../../_components/user-form"
 
-const UserAdminPage = async ({ params }: { params: { userId: string } }) => {
+export default async function UserAdminPage({
+  params,
+}: {
+  params: { userId: string }
+}) {
+  await protectPage(["admin:all"])
+
   const getUser = async () => {
     const id = params.userId
 
@@ -39,5 +45,3 @@ const UserAdminPage = async ({ params }: { params: { userId: string } }) => {
     </>
   )
 }
-
-export default withRoles(UserAdminPage, ["admin:all"])

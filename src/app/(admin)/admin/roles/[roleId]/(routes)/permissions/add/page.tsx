@@ -1,4 +1,4 @@
-import { withRoles } from "@/lib/rbac"
+import { protectPage } from "@/lib/rbac"
 import prismadb from "@/utils/prismadb"
 
 import { Separator } from "@/components/ui/separator"
@@ -7,11 +7,13 @@ import AddPermissionForm from "./_components/permission-form"
 
 const title = "Permissions"
 
-const RolesAdminAddPermissionsPage = async ({
+export default async function RolesAdminAddPermissionsPage({
   params,
 }: {
   params: { roleId: string }
-}) => {
+}) {
+  await protectPage(["admin:all"])
+
   const { roleId } = params
 
   const selectedOptions = await prismadb.role.findUnique({
@@ -52,5 +54,3 @@ const RolesAdminAddPermissionsPage = async ({
     </>
   )
 }
-
-export default withRoles(RolesAdminAddPermissionsPage, ["admin:all"])

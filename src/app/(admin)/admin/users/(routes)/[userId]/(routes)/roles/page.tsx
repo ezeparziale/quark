@@ -2,7 +2,7 @@ import Link from "next/link"
 
 import React from "react"
 
-import { withRoles } from "@/lib/rbac"
+import { protectPage } from "@/lib/rbac"
 import prismadb from "@/utils/prismadb"
 import { Plus } from "lucide-react"
 
@@ -12,7 +12,13 @@ import { Separator } from "@/components/ui/separator"
 
 import { columns } from "./_components/columns"
 
-const UsersAdminRolesPage = async ({ params }: { params: { userId: string } }) => {
+export default async function UsersAdminRolesPage({
+  params,
+}: {
+  params: { userId: string }
+}) {
+  await protectPage(["admin:all"])
+
   const { userId } = params
 
   const data = await prismadb.user.findUnique({
@@ -44,5 +50,3 @@ const UsersAdminRolesPage = async ({ params }: { params: { userId: string } }) =
     </>
   )
 }
-
-export default withRoles(UsersAdminRolesPage, ["admin:all"])
