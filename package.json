@@ -52,6 +52,7 @@
     "react-email": "1.9.5",
     "react-hook-form": "7.47.0",
     "react-icons": "4.11.0",
+    "sonner": "1.2.4",
     "tailwind-merge": "2.0.0",
     "tailwindcss-animate": "1.0.7",
     "yup": "1.3.2",
