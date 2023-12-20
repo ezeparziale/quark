@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 
 import { cn } from "@/lib/utils"
 import { GeistSans } from "geist/font/sans"
+import { Toaster as Toaster2 } from "sonner"
 
 import { Toaster } from "@/components/ui/toaster"
 
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Providers>
             <div className="flex-1">{children}</div>
             <Toaster />
+            <Toaster2 richColors closeButton />
           </Providers>
         </div>
       </body>
