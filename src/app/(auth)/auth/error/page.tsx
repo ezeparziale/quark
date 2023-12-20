@@ -1,8 +1,6 @@
-"use client"
-
 import Image from "next/image"
 import Link from "next/link"
-import { redirect, useSearchParams } from "next/navigation"
+import { redirect } from "next/navigation"
 
 import { ArrowLeft } from "lucide-react"
 
@@ -23,9 +21,8 @@ const errorTypes: { [key: string]: { message: string; icon?: string } } = {
   Default: { message: "Something went wrong!", icon: "crashed-error" },
 }
 
-export default function Error() {
-  const searchParams = useSearchParams()
-  const errorParam: string | null = searchParams.get("error") as string
+export default function Error({ searchParams }: { searchParams: { error: string } }) {
+  const errorParam: string | null = searchParams.error
   const errorMessage =
     errorParam && errorTypes[errorParam] ? errorTypes[errorParam] : errorTypes.Default
 
