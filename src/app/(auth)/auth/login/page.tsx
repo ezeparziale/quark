@@ -40,6 +40,7 @@ export default function LoginPage() {
   const searchParams = useSearchParams()
   const callbackUrl: string = (searchParams.get("callbackUrl") as string) ?? "/"
   const activated = searchParams?.get("activated") ?? null
+  const updatedEmail = searchParams?.get("updatedEmail") ?? null
 
   useEffect(() => {
     setTimeout(() => {
@@ -48,6 +49,14 @@ export default function LoginPage() {
       }
     }, 100)
   }, [activated])
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (updatedEmail === "1") {
+        toast("Please login with your new email", { id: updatedEmail })
+      }
+    }, 100)
+  }, [updatedEmail])
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),

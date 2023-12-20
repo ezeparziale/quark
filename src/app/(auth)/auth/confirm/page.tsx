@@ -3,12 +3,13 @@
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import axios from "axios"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 import * as z from "zod"
 
 import AuthTemplate from "@/components/auth/auth-template"
@@ -22,7 +23,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { toast } from "@/components/ui/use-toast"
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -35,18 +35,19 @@ export default function ConfirmEmailPage() {
   const searchParams = useSearchParams()
 
   const [isLoading, setIsLoading] = useState(false)
-  const error = searchParams.has("error")
+  const error = searchParams?.get("error") ?? null
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
   })
 
-  if (error) {
-    toast({
-      variant: "destructive",
-      title: "Token expired or invalid",
-    })
-  }
+  useEffect(() => {
+    setTimeout(() => {
+      if (error === "1") {
+        toast.error("Token expired or invalid", { id: error })
+      }
+    }, 100)
+  }, [error])
 
   async function onSubmit(data: FormData) {
     setIsLoading(true)
@@ -54,15 +55,11 @@ export default function ConfirmEmailPage() {
     await axios
       .post("/api/auth/confirm", data)
       .then(() => {
-        toast({
-          title: "Check your email",
-        })
+        toast("Please check your email to confirm your account")
         router.push("/auth/login")
       })
       .catch((error) => {
-        toast({
-          title: "Something went wrong",
-        })
+        toast.error("Something went wrong, Please try again.")
       })
       .finally(() => {
         setIsLoading(false)

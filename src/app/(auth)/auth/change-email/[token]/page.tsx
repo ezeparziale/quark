@@ -26,7 +26,7 @@ export default function ChangeEmailTokenPage({
       }).then((res) => {
         if (res.status === 201) {
           setLoading(false)
-          router.push("/auth/logout")
+          router.push("/auth/logout?callbackUrl=/auth/login?updatedEmail=1")
         } else {
           router.push("/auth/error")
         }
