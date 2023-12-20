@@ -3,13 +3,14 @@
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import { FaGoogle } from "react-icons/fa6"
+import { toast } from "sonner"
 import * as z from "zod"
 
 import AuthTemplate from "@/components/auth/auth-template"
@@ -23,7 +24,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { toast } from "@/components/ui/use-toast"
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -39,7 +39,15 @@ export default function LoginPage() {
 
   const searchParams = useSearchParams()
   const callbackUrl: string = (searchParams.get("callbackUrl") as string) ?? "/"
-  const activated = searchParams.has("activated")
+  const activated = searchParams?.get("activated") ?? null
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (activated === "1") {
+        toast.success("Account activated", { id: activated })
+      }
+    }, 100)
+  }, [activated])
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -65,18 +73,9 @@ export default function LoginPage() {
         if (callback?.error === "ConfirmEmail") {
           router.push("/auth/error/?error=ConfirmEmail")
         } else {
-          toast({
-            variant: "destructive",
-            title: "Wrong credentials",
-          })
+          toast.error("Wrong credentials")
         }
       }
-    })
-  }
-
-  if (activated) {
-    toast({
-      title: "Account activated",
     })
   }
 
