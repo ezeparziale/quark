@@ -40,6 +40,7 @@ export default function Error({ searchParams }: { searchParams: { error: string 
           width={400}
           height={400}
           className="dark:hidden"
+          priority
         />
         <Image
           alt="missing site"
@@ -47,6 +48,7 @@ export default function Error({ searchParams }: { searchParams: { error: string 
           width={400}
           height={400}
           className="hidden dark:block"
+          priority
         />
         <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
           {errorMessage.message}
