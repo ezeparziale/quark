@@ -42,7 +42,7 @@ export default function ForgotPasswordPage() {
   async function onSubmit(data: FormData) {
     setIsLoading(true)
     await axios
-      .post("/api/auth/reset_password", data)
+      .post("/api/auth/reset-password", data)
       .then(() => {
         toast({
           title: "Check your email",

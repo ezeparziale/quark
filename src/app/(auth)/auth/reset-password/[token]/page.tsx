@@ -59,7 +59,7 @@ export default function ResetPasswordTokenPage({
   const onSubmit = async (data: FormData) => {
     setIsLoading(true)
     const resp = await axios
-      .post(`/api/auth/reset_password/${params.token}`, data)
+      .post(`/api/auth/reset-password/${params.token}`, data)
       .then(() => {
         toast({
           title: "Password updated",
@@ -68,7 +68,7 @@ export default function ResetPasswordTokenPage({
       })
       .catch((error) => {
         if (error.response.status == 401) {
-          router.push("/auth/reset_password")
+          router.push("/auth/reset-password")
           toast({
             title: error.response.data.message,
           })
@@ -139,7 +139,7 @@ export default function ResetPasswordTokenPage({
                 Change password
               </Button>
               <Button asChild variant="ghost" size="sm">
-                <Link href="/auth/reset_password">Back</Link>
+                <Link href="/auth/reset-password">Back</Link>
               </Button>
             </div>
           </form>

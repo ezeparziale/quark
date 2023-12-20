@@ -75,7 +75,7 @@ export async function updateEmail({
           },
         })
 
-        const url: string = `${env.NEXTAUTH_URL}/auth/change_email/${token}`
+        const url: string = `${env.NEXTAUTH_URL}/auth/change-email/${token}`
 
         const emailHtml = render(
           UpdateEmail({ username: user.username, newEmail, url }),
