@@ -5,6 +5,7 @@ import { addServerErrors } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
@@ -18,7 +19,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { toast } from "@/components/ui/use-toast"
 
 const formSchema = z.object({
   username: z.string().trim().min(1).max(60),
@@ -42,10 +42,7 @@ export default function UsernameForm({ username }: { username: string }) {
       if (result.errors) {
         addServerErrors(result.errors, form.setError)
       } else {
-        toast({
-          variant: "destructive",
-          title: "Something went wrong",
-        })
+        toast.error("Something went wrong")
       }
     }
   }

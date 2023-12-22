@@ -8,6 +8,7 @@ import { addServerErrors } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 import * as z from "zod"
 
 import { ComboboxMulti } from "@/components/combobox-multi"
@@ -21,7 +22,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { toast } from "@/components/ui/use-toast"
 
 const formSchema = z.object({
   id: z.array(z.string()),
@@ -61,10 +61,7 @@ export default function AddUserForm({ options, selectedValues, title, roleId }: 
       if (result.errors) {
         addServerErrors(result.errors, form.setError)
       } else {
-        toast({
-          variant: "destructive",
-          title: "Something went wrong",
-        })
+        toast.error("Something went wrong")
       }
     }
   }

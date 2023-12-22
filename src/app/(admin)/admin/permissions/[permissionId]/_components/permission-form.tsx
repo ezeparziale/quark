@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import type { Permission } from "@prisma/client"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
@@ -23,7 +24,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { toast } from "@/components/ui/use-toast"
 
 const formSchema = z.object({
   id: z.number().optional(),
@@ -62,10 +62,7 @@ export default function PermissionForm({
       if (result.errors) {
         addServerErrors(result.errors, form.setError)
       } else {
-        toast({
-          variant: "destructive",
-          title: "Something went wrong",
-        })
+        toast.error("Something went wrong")
       }
     }
   }
@@ -79,10 +76,7 @@ export default function PermissionForm({
       if (result.errors) {
         addServerErrors(result.errors, form.setError)
       } else {
-        toast({
-          variant: "destructive",
-          title: "Something went wrong",
-        })
+        toast.error("Something went wrong")
       }
     }
   }

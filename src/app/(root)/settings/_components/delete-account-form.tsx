@@ -9,6 +9,7 @@ import { addServerErrors } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
@@ -31,7 +32,6 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
-import { toast } from "@/components/ui/use-toast"
 
 const formSchema = z.object({
   userEmail: z.string().email(),
@@ -56,10 +56,7 @@ export default function DeleteAccount() {
       if (result.errors) {
         addServerErrors(result.errors, form.setError)
       } else {
-        toast({
-          variant: "destructive",
-          title: "Something went wrong",
-        })
+        toast.error("Something went wrong")
       }
     }
   }

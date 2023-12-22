@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import axios from "axios"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 import * as z from "zod"
 
 import AuthTemplate from "@/components/auth/auth-template"
@@ -22,7 +23,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { toast } from "@/components/ui/use-toast"
 
 const formSchema = z
   .object({
@@ -61,21 +61,15 @@ export default function ResetPasswordTokenPage({
     const resp = await axios
       .post(`/api/auth/reset-password/${params.token}`, data)
       .then(() => {
-        toast({
-          title: "Password updated",
-        })
+        toast.success("Password updated")
         router.push("/auth/login")
       })
       .catch((error) => {
         if (error.response.status == 401) {
           router.push("/auth/reset-password")
-          toast({
-            title: error.response.data.message,
-          })
+          toast.error(error.response.data.message)
         } else {
-          toast({
-            title: "Something went wrong",
-          })
+          toast.error("Something went wrong")
         }
       })
       .finally(() => {

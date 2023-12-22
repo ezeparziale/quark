@@ -11,6 +11,7 @@ import { Loader2 } from "lucide-react"
 import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import { FaGoogle } from "react-icons/fa6"
+import { toast } from "sonner"
 import * as z from "zod"
 
 import AuthTemplate from "@/components/auth/auth-template"
@@ -24,7 +25,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { toast, useToast } from "@/components/ui/use-toast"
 
 const formSchema = z
   .object({
@@ -62,9 +62,7 @@ export default function RegisterPage() {
       .post("/api/auth/register", data)
       .then(async () => {
         await axios.post("/api/auth/confirm", { email: data.email })
-        toast({
-          title: "User created",
-        })
+        toast.success("User created")
         router.push("/auth/login")
       })
       .catch((error) => {
@@ -79,10 +77,7 @@ export default function RegisterPage() {
               }),
           )
         } else {
-          toast({
-            variant: "destructive",
-            title: "Something went wrong",
-          })
+          toast.error("Something went wrong")
         }
       })
       .finally(() => {

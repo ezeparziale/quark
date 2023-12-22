@@ -5,6 +5,7 @@ import { addServerErrors } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
@@ -18,7 +19,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { toast } from "@/components/ui/use-toast"
 
 const formSchema = z.object({
   newEmail: z.string().email(),
@@ -38,15 +38,13 @@ export default function EmailForm({ email }: { email: string }) {
     const result = await updateEmail(data)
     if (result.success) {
       form.reset({ newEmail: data.newEmail })
+      toast("Please check your email to confirm your new email")
     } else {
       if (result.errors) {
         form.reset({ ...form.formState.defaultValues })
         addServerErrors(result.errors, form.setError)
       } else {
-        toast({
-          variant: "destructive",
-          title: "Something went wrong",
-        })
+        toast.error("Something went wrong, Please try again.")
       }
     }
   }

@@ -2,9 +2,8 @@ import type { Metadata } from "next"
 
 import { cn } from "@/lib/utils"
 import { GeistSans } from "geist/font/sans"
-import { Toaster as Toaster2 } from "sonner"
 
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/sonner"
 
 import "@/styles/globals.css"
 
@@ -24,8 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="relative flex min-h-screen flex-col">
           <Providers>
             <div className="flex-1">{children}</div>
-            <Toaster />
-            <Toaster2 richColors closeButton />
+            <Toaster richColors closeButton />
           </Providers>
         </div>
       </body>

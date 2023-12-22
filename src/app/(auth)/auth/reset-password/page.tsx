@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import axios from "axios"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 import * as z from "zod"
 
 import AuthTemplate from "@/components/auth/auth-template"
@@ -22,7 +23,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { toast } from "@/components/ui/use-toast"
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -44,16 +44,11 @@ export default function ForgotPasswordPage() {
     await axios
       .post("/api/auth/reset-password", data)
       .then(() => {
-        toast({
-          title: "Check your email",
-        })
+        toast.success("Check your email")
         router.push("/auth/login")
       })
       .catch((error) => {
-        toast({
-          variant: "destructive",
-          title: "Something went wrong",
-        })
+        toast.error("Something went wrong")
       })
       .finally(() => {
         setIsLoading(false)
