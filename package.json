@@ -25,7 +25,6 @@
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-separator": "1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
-    "@radix-ui/react-toast": "^1.1.4",
     "@react-email/button": "0.0.11",
     "@react-email/column": "0.0.8",
     "@react-email/img": "0.0.6",
