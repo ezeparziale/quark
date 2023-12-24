@@ -28,6 +28,7 @@ type IPros = {
   limit?: number
   className?: string
   form?: any
+  field?: string
 }
 
 export function ComboboxMulti({
@@ -37,6 +38,7 @@ export function ComboboxMulti({
   limit = 20,
   className,
   form,
+  field,
 }: IPros) {
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState("")
@@ -54,7 +56,7 @@ export function ComboboxMulti({
           <div className="flex grow items-center justify-start">
             {selectedValues?.size > 0 && (
               <>
-                <div className="">
+                <div>
                   {selectedValues.size > limit ? (
                     <Badge variant="secondary" className="rounded-sm px-1 font-normal">
                       {selectedValues.size} selected
@@ -78,11 +80,12 @@ export function ComboboxMulti({
           </div>
           {selectedValues.size > 0 && (
             <Button
+              type="button"
               variant="ghost"
               size="sm"
               onClick={() => {
                 selectedValues.clear()
-                form.setValue("id", [], {
+                form.setValue(field || "id", [], {
                   shouldValidate: true,
                   shouldDirty: true,
                 })
@@ -97,7 +100,14 @@ export function ComboboxMulti({
             </Button>
           )}
           <Separator orientation="vertical" className="mr-1 h-4" />
-          <Button variant="ghost" size="sm" className="">
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={() => {
+              setOpen(true)
+            }}
+          >
             <div className="w-50 flex-initial">
               <div className="flex flex-initial">
                 <Plus className="h-4 w-4" />
@@ -124,7 +134,7 @@ export function ComboboxMulti({
                     } else {
                       selectedValues.add(option.value)
                     }
-                    form.setValue("id", Array.from(selectedValues).sort(), {
+                    form.setValue(field || "id", Array.from(selectedValues).sort(), {
                       shouldValidate: true,
                       shouldDirty: true,
                     })

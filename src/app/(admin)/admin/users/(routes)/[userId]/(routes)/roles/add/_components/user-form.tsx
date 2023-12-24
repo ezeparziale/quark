@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/form"
 
 const formSchema = z.object({
-  id: z.array(z.number()),
+  rolesIds: z.array(z.number()),
   userId: z.string(),
 })
 
@@ -41,12 +41,14 @@ type IPros = {
   userId: string
 }
 
+const action = "Save"
+
 export default function AddRoleForm({ options, selectedValues, title, userId }: IPros) {
   const router = useRouter()
 
   const form = useForm<FormData>({
     defaultValues: {
-      id: Array.from(selectedValues) || [],
+      rolesIds: Array.from(selectedValues) || [],
       userId: userId,
     },
     resolver: zodResolver(formSchema),
@@ -56,7 +58,6 @@ export default function AddRoleForm({ options, selectedValues, title, userId }: 
     const result = await addRolesToUser(data)
     if (result.success) {
       router.push(`/admin/users/${userId}/roles`)
-      router.refresh()
     } else {
       if (result.errors) {
         addServerErrors(result.errors, form.setError)
@@ -66,7 +67,6 @@ export default function AddRoleForm({ options, selectedValues, title, userId }: 
     }
   }
 
-  const action = "Save"
   return (
     <Form {...form}>
       <form
@@ -75,7 +75,7 @@ export default function AddRoleForm({ options, selectedValues, title, userId }: 
       >
         <FormField
           control={form.control}
-          name="id"
+          name="rolesIds"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Roles</FormLabel>
@@ -86,6 +86,7 @@ export default function AddRoleForm({ options, selectedValues, title, userId }: 
                   selectedValues={selectedValues}
                   className="w-2/5"
                   form={form}
+                  field={field.name}
                 />
               </FormControl>
               <FormDescription>Choose your roles</FormDescription>
