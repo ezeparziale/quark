@@ -6,7 +6,7 @@ export default function UserAvatar() {
   const { data: session, status } = useSession()
 
   return (
-    <Avatar>
+    <Avatar className="h-8 w-8">
       <AvatarImage
         src={session?.user?.image as string}
         alt={session?.user?.image as string}
