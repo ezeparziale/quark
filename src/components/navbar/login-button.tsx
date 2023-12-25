@@ -15,6 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
@@ -24,11 +25,12 @@ interface IMenu {
   name: string
   href: string
   separator: boolean
+  shortcut?: string
 }
 const menu: IMenu[] = [
-  { name: "Profile", href: "/profile", separator: false },
-  { name: "Settings", href: "/settings", separator: false },
-  { name: "Log Out", href: "/auth/logout", separator: true },
+  { name: "Profile", href: "/profile", separator: false, shortcut: "⇧⌘P" },
+  { name: "Settings", href: "/settings", separator: false, shortcut: "⇧⌘S" },
+  { name: "Log out", href: "/auth/logout", separator: true },
 ]
 
 export default function LoginButton({
@@ -50,8 +52,14 @@ export default function LoginButton({
               <UserAvatar />
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuLabel>Signed in as</DropdownMenuLabel>
-              <DropdownMenuLabel>{session?.user?.email}</DropdownMenuLabel>
+              <DropdownMenuLabel className="font-normal">
+                <div className="flex flex-col space-y-1">
+                  <p className="text-sm font-medium leading-none">Signed in as</p>
+                  <p className="text-xs leading-none text-muted-foreground">
+                    {session?.user?.email}
+                  </p>
+                </div>
+              </DropdownMenuLabel>
               <DropdownMenuSeparator />
               {menu.map((item, index) => (
                 <React.Fragment key={index}>
@@ -64,6 +72,9 @@ export default function LoginButton({
                     className={cn(pathname === item.href && "bg-muted")}
                   >
                     {item.name}
+                    {item.shortcut && (
+                      <DropdownMenuShortcut>{item.shortcut}</DropdownMenuShortcut>
+                    )}
                   </DropdownMenuItem>
                 </React.Fragment>
               ))}
