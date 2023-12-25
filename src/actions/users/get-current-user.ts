@@ -1,10 +1,19 @@
 "use server"
 
+import { redirect } from "next/navigation"
+
 import { getServerAuthSession } from "@/lib/auth"
 import prismadb from "@/utils/prismadb"
 
-export async function getCurrentUser() {
+export async function getCurrentUser(redirectPage?: string) {
   const session = await getServerAuthSession()
+
+  if (redirectPage) {
+    if (!session) {
+      redirect(redirectPage)
+    }
+  }
+
   try {
     const email = session?.user.email
 
