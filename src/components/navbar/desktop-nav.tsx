@@ -15,7 +15,7 @@ export default function DesktopNav({ navigation }: { navigation: INavigation[] }
 
   return (
     <>
-      <div className="hidden items-center lg:flex lg:gap-x-6">
+      <div className="hidden items-center lg:flex lg:space-x-6">
         <Logo />
 
         {navigation.map((item) => (
@@ -23,8 +23,8 @@ export default function DesktopNav({ navigation }: { navigation: INavigation[] }
             key={`menu_lg_${item.name}`}
             href={item.href}
             className={cn(
-              "text-sm font-bold transition-colors hover:text-foreground/80",
-              pathname === item.href ? "text-foreground" : "text-foreground/60",
+              "text-sm font-medium transition-colors hover:text-primary",
+              pathname != item.href && "text-muted-foreground",
             )}
           >
             {item.name}

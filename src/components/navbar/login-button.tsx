@@ -61,6 +61,7 @@ export default function LoginButton({
                   <DropdownMenuItem
                     key={`menu_dropdown_${index}`}
                     onClick={() => router.push(item.href)}
+                    className={cn(pathname === item.href && "bg-muted")}
                   >
                     {item.name}
                   </DropdownMenuItem>
@@ -79,8 +80,8 @@ export default function LoginButton({
                   href={item.href}
                   onClick={() => setOpenSheet?.(false)}
                   className={cn(
-                    "-mx-3 block rounded-lg px-3 py-2 text-sm font-semibold leading-7 hover:bg-gray-50 dark:hover:bg-accent",
-                    pathname === item.href ? "text-foreground" : "text-foreground/60",
+                    "-mx-3 block px-3 py-2 text-sm font-medium transition-colors hover:text-primary",
+                    pathname != item.href && "text-muted-foreground",
                   )}
                 >
                   {item.name}

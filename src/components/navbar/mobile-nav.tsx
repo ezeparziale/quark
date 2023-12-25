@@ -38,7 +38,7 @@ export default function MobileNav({ navigation }: { navigation: INavigation[] })
           <SheetTrigger asChild aria-controls="radix-:Ribdd9j9:">
             <button
               type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-white"
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-primary"
             >
               <span className="sr-only">Open main menu</span>
               <Menu className="h-6 w-6" aria-hidden="true" />
@@ -51,7 +51,7 @@ export default function MobileNav({ navigation }: { navigation: INavigation[] })
               </SheetTitle>
             </SheetHeader>
             <div className="mt-6 flow-root">
-              <div className="-my-6 divide-y divide-gray-500/10 dark:divide-white/50">
+              <div className="-my-6 divide-y">
                 <div className="space-y-2 py-6">
                   {navigation.map((item) => (
                     <SheetClose asChild key={item.name}>
@@ -59,10 +59,8 @@ export default function MobileNav({ navigation }: { navigation: INavigation[] })
                         key={`sheet_close_${item.name}`}
                         href={item.href}
                         className={cn(
-                          "-mx-3 block rounded-lg px-3 py-2 text-sm font-bold transition-colors hover:text-foreground/80",
-                          pathname === item.href
-                            ? "text-foreground"
-                            : "text-foreground/60",
+                          "-mx-3 block px-3 py-2 text-sm font-medium transition-colors hover:text-primary",
+                          pathname != item.href && "text-muted-foreground",
                         )}
                       >
                         {item.name}
