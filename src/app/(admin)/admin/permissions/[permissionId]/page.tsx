@@ -41,8 +41,12 @@ export default async function PermissionAdminPage({
 
   const permission = await getPermission()
 
-  const title = permission ? "Edit permission" : "Create permission"
-  const description = permission ? `ID: ${permission.id}` : "Add a new permission"
+  const title = permission
+    ? `Edit permission ${permission.name}`
+    : "Create new permission"
+  const description = permission
+    ? `ID: ${permission.id}`
+    : "Create a permission which can be assigned to your roles."
 
   return (
     <>
