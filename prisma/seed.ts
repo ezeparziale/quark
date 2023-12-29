@@ -3,11 +3,12 @@ import { PrismaClient } from "@prisma/client"
 const prisma = new PrismaClient()
 async function main() {
   const permission = await prisma.permission.upsert({
-    where: { name: "admin:all" },
+    where: { key: "admin:all" },
     update: {},
     create: {
-      name: "admin:all",
-      description: "Admin permission",
+      name: "Admin permission",
+      description: "Permission to access the admin section	",
+      key: "admin:all",
     },
   })
 
