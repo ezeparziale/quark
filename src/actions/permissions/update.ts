@@ -12,7 +12,7 @@ interface IPermission {
   key: string
 }
 
-export async function editPermission({
+export async function updatePermission({
   id,
   name,
   description,
