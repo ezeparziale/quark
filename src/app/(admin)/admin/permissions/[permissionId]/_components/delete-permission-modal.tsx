@@ -52,9 +52,8 @@ export default function DeleteUserModal({ permission }: { permission: Permission
 
   const onSubmit = async (data: FormData) => {
     await deletePermission(permission)
-    setIsOpen(false)
+    toast.success("Permission deleted successfully!", { duration: 4000 })
     router.push("/admin/permissions")
-    toast.success("Permission deleted successfully!")
   }
 
   return (
