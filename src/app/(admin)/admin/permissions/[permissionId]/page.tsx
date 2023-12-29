@@ -7,8 +7,8 @@ import BackButtonLink from "@/components/back-button-link"
 import { CopyButtonData } from "@/components/copy-clipboard-button"
 import { Separator } from "@/components/ui/separator"
 
+import PermissionForm from "../_components/permission-form"
 import DeletePermissionModal from "./_components/delete-permission-modal"
-import PermissionForm from "./_components/permission-form"
 
 export default async function PermissionAdminPage({
   params,
@@ -18,35 +18,27 @@ export default async function PermissionAdminPage({
   await protectPage(["admin:all"])
 
   const getPermission = async () => {
-    if (params.permissionId === "new") {
-      return null
-    } else {
-      const id = Number(params.permissionId)
+    const id = Number(params.permissionId)
 
-      if (!id) {
-        return notFound()
-      }
-
-      const permission = await prismadb.permission.findUnique({
-        where: { id },
-      })
-
-      if (!permission) {
-        return notFound()
-      }
-
-      return permission
+    if (!id) {
+      return notFound()
     }
+
+    const permission = await prismadb.permission.findUnique({
+      where: { id },
+    })
+
+    if (!permission) {
+      return notFound()
+    }
+
+    return permission
   }
 
   const permission = await getPermission()
 
-  const title = permission
-    ? `Edit permission ${permission.name}`
-    : "Create new permission"
-  const description = permission
-    ? `ID: ${permission.id}`
-    : "Create a permission which can be assigned to your roles."
+  const title = `Edit permission ${permission.name}`
+  const description = `ID: ${permission.id}`
 
   return (
     <>
