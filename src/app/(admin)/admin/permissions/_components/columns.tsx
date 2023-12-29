@@ -11,6 +11,7 @@ export interface IColumns {
   id: number
   name: string
   description: string
+  key: string
 }
 
 export const columns: ColumnDef<IColumns>[] = [
@@ -43,6 +44,26 @@ export const columns: ColumnDef<IColumns>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Description
+          {column.getIsSorted() === false ? (
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          ) : column.getIsSorted() === "asc" ? (
+            <ArrowUp className="ml-2 h-4 w-4" />
+          ) : (
+            <ArrowDown className="ml-2 h-4 w-4" />
+          )}
+        </Button>
+      )
+    },
+  },
+  {
+    accessorKey: "key",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Key
           {column.getIsSorted() === false ? (
             <ArrowUpDown className="ml-2 h-4 w-4" />
           ) : column.getIsSorted() === "asc" ? (

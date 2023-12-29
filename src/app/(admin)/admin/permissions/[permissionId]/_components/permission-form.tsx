@@ -27,8 +27,9 @@ import { Input } from "@/components/ui/input"
 
 const formSchema = z.object({
   id: z.number().optional(),
-  name: z.string().trim().min(1).max(255),
+  name: z.string().trim().min(1).max(45),
   description: z.string().trim().min(1).max(255),
+  key: z.string().trim().min(1).max(255),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -47,11 +48,12 @@ export default function PermissionForm({
       id: permission?.id || undefined,
       name: permission?.name || "",
       description: permission?.description || "",
+      key: permission?.key || "",
     },
     resolver: zodResolver(formSchema),
   })
 
-  const action = permission ? "Edit" : "Create"
+  const action = permission ? "Update" : "Create"
 
   const onSubmitCreate = async (data: FormData) => {
     const result = await createPermission(data)
@@ -104,7 +106,23 @@ export default function PermissionForm({
                   disabled={form.formState.isSubmitting}
                 />
               </FormControl>
-              <FormDescription>Permission name</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="key"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Key</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder=""
+                  {...field}
+                  disabled={form.formState.isSubmitting}
+                />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
