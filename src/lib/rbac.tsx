@@ -22,7 +22,7 @@ async function hasRequiredPermissions(requiredPermissions: string[]): Promise<bo
     return userRoles.some((userRole) => {
       return requiredPermissions.some((permission) => {
         return userRole.role.permissions.some(
-          (rolePermission) => rolePermission.permission.name === permission,
+          (rolePermission) => rolePermission.permission.key === permission,
         )
       })
     })
