@@ -22,7 +22,7 @@ export default async function PermissionsAdminPage() {
     redirect("/auth/login?callbackUrl=/admin/permissions")
   }
 
-  const data = await prismadb.permission.findMany()
+  const data = await prismadb.permission.findMany({ orderBy: { updatedAt: "desc" } })
 
   return (
     <>
