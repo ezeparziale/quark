@@ -4,7 +4,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 
 import { createPermission } from "@/actions/permissions/create"
-import { editPermission } from "@/actions/permissions/edit"
+import { updatePermission } from "@/actions/permissions/update"
 import { addServerErrors } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Permission } from "@prisma/client"
@@ -29,16 +29,20 @@ const formSchema = z.object({
   id: z.number().optional(),
   name: z.string().trim().min(1).max(45),
   description: z.string().trim().min(1).max(255),
-  key: z.string().trim().min(1).max(255),
+  key: z
+    .string()
+    .trim()
+    .refine((data) => /^[a-zA-Z0-9_]+:[a-zA-Z0-9_]+$/.test(data), {
+      message: "The permission must follow the format 'feature:permission'",
+    })
+    .refine((data) => data.length <= 255, {
+      message: "String must contain at most 255 character(s)",
+    }),
 })
 
 type FormData = z.infer<typeof formSchema>
 
-export default function PermissionForm({
-  permission,
-}: {
-  permission: Permission | null
-}) {
+export default function PermissionForm({ permission }: { permission?: Permission }) {
   const permissionId = permission?.id
 
   const router = useRouter()
@@ -59,7 +63,7 @@ export default function PermissionForm({
     const result = await createPermission(data)
     if (result.success) {
       router.push("/admin/permissions")
-      router.refresh()
+      toast.success("Permission created successfully!")
     } else {
       if (result.errors) {
         addServerErrors(result.errors, form.setError)
@@ -70,7 +74,7 @@ export default function PermissionForm({
   }
 
   const onSubmitEdit = async (data: FormData) => {
-    const result = await editPermission({ id: Number(permissionId), ...data })
+    const result = await updatePermission({ id: Number(permissionId), ...data })
     if (result.success) {
       form.reset({ ...data })
       router.refresh()
@@ -101,7 +105,7 @@ export default function PermissionForm({
               <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input
-                  placeholder=""
+                  placeholder="e.g. Create posts"
                   {...field}
                   disabled={form.formState.isSubmitting}
                 />
@@ -118,7 +122,7 @@ export default function PermissionForm({
               <FormLabel>Key</FormLabel>
               <FormControl>
                 <Input
-                  placeholder=""
+                  placeholder="feature:permission"
                   {...field}
                   disabled={form.formState.isSubmitting}
                 />
@@ -135,7 +139,7 @@ export default function PermissionForm({
               <FormLabel>Description</FormLabel>
               <FormControl>
                 <Input
-                  placeholder=""
+                  placeholder="e.g. A user who is allowed to create a post"
                   {...field}
                   disabled={form.formState.isSubmitting}
                 />
