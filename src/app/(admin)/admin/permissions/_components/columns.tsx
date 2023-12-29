@@ -3,6 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react"
 
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 
 import CellActions from "./cell-actions"
@@ -73,6 +74,9 @@ export const columns: ColumnDef<IColumns>[] = [
           )}
         </Button>
       )
+    },
+    cell: ({ row }) => {
+      return <Badge variant={"secondary"}>{row.original.key}</Badge>
     },
   },
   {
