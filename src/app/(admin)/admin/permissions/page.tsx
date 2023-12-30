@@ -14,13 +14,13 @@ import { Separator } from "@/components/ui/separator"
 import { columns } from "./_components/columns"
 
 export default async function PermissionsAdminPage() {
-  await protectPage(["admin:all"])
-
   const session = await getServerAuthSession()
 
   if (!session) {
     redirect("/auth/login?callbackUrl=/admin/permissions")
   }
+
+  await protectPage(["admin:all"])
 
   const data = await prismadb.permission.findMany({ orderBy: { updatedAt: "desc" } })
 
