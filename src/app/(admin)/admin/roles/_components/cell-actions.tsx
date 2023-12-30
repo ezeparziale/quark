@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-import { IRolesColumns } from "../columns"
+import { IRolesColumns } from "./columns"
 
 export default function CellActions({ row }: { row: IRolesColumns }) {
   const router = useRouter()

@@ -1,6 +1,7 @@
 "use server"
 
-import { getServerAuthSession } from "@/lib/auth"
+import { revalidatePath } from "next/cache"
+
 import { DataResult } from "@/types/types"
 import prismadb from "@/utils/prismadb"
 
@@ -10,13 +11,12 @@ interface IRole {
   description: string
 }
 
-export async function editRole({
+export async function updateRole({
   id,
   name,
   description,
 }: IRole): Promise<DataResult<IRole>> {
   try {
-    const session = await getServerAuthSession()
     const errors: { name: string[]; description: string[] } = {
       name: [],
       description: [],
@@ -33,6 +33,9 @@ export async function editRole({
     }
 
     await prismadb.role.update({ where: { id }, data: { name, description } })
+
+    revalidatePath(`/admin/roles/`)
+
     return { success: true }
   } catch (error) {
     return { success: false }

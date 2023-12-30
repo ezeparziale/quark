@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button"
 import { DataTable } from "@/components/ui/data-tables/data-table"
 import { Separator } from "@/components/ui/separator"
 
-import { columns } from "./columns"
+import { columns } from "./_components/columns"
 
 export default async function RolesAdminPage() {
   const session = await getServerAuthSession()
@@ -22,7 +22,7 @@ export default async function RolesAdminPage() {
 
   await protectPage(["admin:all"])
 
-  const data = await prismadb.role.findMany()
+  const data = await prismadb.role.findMany({ orderBy: { updatedAt: "desc" } })
 
   return (
     <>

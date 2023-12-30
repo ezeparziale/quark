@@ -1,6 +1,7 @@
 "use server"
 
-import { getServerAuthSession } from "@/lib/auth"
+import { revalidatePath } from "next/cache"
+
 import { DataResult } from "@/types/types"
 import prismadb from "@/utils/prismadb"
 
@@ -14,7 +15,6 @@ export async function createRole({
   description,
 }: IRole): Promise<DataResult<IRole>> {
   try {
-    const session = await getServerAuthSession()
     const errors: { name: string[]; description: string[] } = {
       name: [],
       description: [],
@@ -33,6 +33,9 @@ export async function createRole({
     await prismadb.role.create({
       data: { name, description },
     })
+
+    revalidatePath(`/admin/roles/`)
+
     return { success: true }
   } catch (error) {
     return { success: false }

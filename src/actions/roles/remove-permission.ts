@@ -1,5 +1,7 @@
 "use server"
 
+import { revalidatePath } from "next/cache"
+
 import prismadb from "@/utils/prismadb"
 
 interface IDeleteRolePermission {
@@ -15,6 +17,9 @@ export async function removePermission({
     await prismadb.rolePermission.deleteMany({
       where: { roleId, permissionId },
     })
+
+    revalidatePath(`/admin/roles/permissions`)
+
     return { success: true }
   } catch (error) {
     return { success: false }

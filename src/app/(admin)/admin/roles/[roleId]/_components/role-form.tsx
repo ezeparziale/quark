@@ -4,7 +4,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 
 import { createRole } from "@/actions/roles/create"
-import { editRole } from "@/actions/roles/edit"
+import { updateRole } from "@/actions/roles/update"
 import { addServerErrors } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Role } from "@prisma/client"
@@ -63,7 +63,7 @@ export default function RoleForm({ role }: { role: Role | null }) {
   }
 
   const onSubmitEdit = async (data: FormData) => {
-    const result = await editRole({ id: Number(roleId), ...data })
+    const result = await updateRole({ id: Number(roleId), ...data })
     if (result.success) {
       form.reset({ ...data })
       router.refresh()
