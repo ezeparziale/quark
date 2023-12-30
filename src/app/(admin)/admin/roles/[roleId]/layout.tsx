@@ -66,8 +66,10 @@ export default async function SettingsLayout({
 
   const role = await getRole()
 
-  const title = role ? `Edit role: ${role.name}` : "Create role"
-  const description = role ? `ID: ${role.id}` : "Add a new role"
+  const title = role ? `Edit role ${role.name}` : "Create new role"
+  const description = role
+    ? `ID: ${role.id}`
+    : "Create a role which can be assigned to your users."
 
   return (
     <>
