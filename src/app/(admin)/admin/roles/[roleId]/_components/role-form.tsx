@@ -94,7 +94,7 @@ export default function RoleForm({ role }: { role: Role | null }) {
               <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input
-                  placeholder=""
+                  placeholder="e.g. Read Access"
                   {...field}
                   disabled={form.formState.isSubmitting}
                 />
@@ -112,7 +112,7 @@ export default function RoleForm({ role }: { role: Role | null }) {
               <FormLabel>Description</FormLabel>
               <FormControl>
                 <Input
-                  placeholder=""
+                  placeholder="e.g. A user who is allowed to access all posts in viewer mode"
                   {...field}
                   disabled={form.formState.isSubmitting}
                 />
