@@ -20,27 +20,27 @@ export function DataTableHeaderFilters<TData>({
 }: DataTablePaginationProps<TData>) {
   return (
     <div className="flex items-center justify-between py-4">
-      <div className="flex items-center space-x-2 text-sm">
-        <span>Show</span>
+      <div className="flex items-center space-x-2">
+        <p className="text-sm font-medium">Show</p>
         <Select
           defaultValue="10"
-          value={table.getState().pagination.pageSize as unknown as string}
-          onValueChange={(e) => {
-            table.setPageSize(Number(e))
+          value={`${table.getState().pagination.pageSize}`}
+          onValueChange={(value) => {
+            table.setPageSize(Number(value))
           }}
         >
-          <SelectTrigger className="w-[70px]">
-            <SelectValue />
+          <SelectTrigger className="h-8 w-[70px]">
+            <SelectValue placeholder={table.getState().pagination.pageSize} />
           </SelectTrigger>
           <SelectContent>
             {[10, 25, 50, 100].map((pageSize) => (
-              <SelectItem key={pageSize} value={pageSize as unknown as string}>
+              <SelectItem key={pageSize} value={`${pageSize}`}>
                 {pageSize}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
-        <span>entries</span>
+        <p className="text-sm font-medium">entries</p>
       </div>
       <Input
         placeholder="Filter"
@@ -48,7 +48,7 @@ export function DataTableHeaderFilters<TData>({
         onChange={(event) =>
           table.getColumn(searchField)?.setFilterValue(event.target.value)
         }
-        className="max-w-sm"
+        className="h-8 w-[150px] lg:w-[250px]"
       />
     </div>
   )

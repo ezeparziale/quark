@@ -1,4 +1,10 @@
 import { Table } from "@tanstack/react-table"
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronsLeft,
+  ChevronsRight,
+} from "lucide-react"
 
 import { Button } from "../button"
 import { Input } from "../input"
@@ -11,14 +17,11 @@ export function DataTablePagination<TData>({ table }: DataTablePaginationProps<T
   return (
     <div className="flex items-center justify-between space-x-2 py-4">
       <div className="flex items-center space-x-2">
-        <span className="flex items-center gap-1 text-sm">
-          <div>Page</div>
-          <strong>
-            {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
-          </strong>
-        </span>
-        <span className="flex items-center gap-1 text-sm">
-          | Go to page:
+        <div className="flex w-[100px] items-center justify-start text-sm font-medium">
+          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+        </div>
+        <span className="flex items-center justify-start gap-1 text-sm font-medium">
+          Go to page:
           <Input
             type="number"
             defaultValue={table.getState().pagination.pageIndex + 1}
@@ -26,26 +29,46 @@ export function DataTablePagination<TData>({ table }: DataTablePaginationProps<T
               const page = e.target.value ? Number(e.target.value) - 1 : 0
               table.setPageIndex(page)
             }}
-            className="w-16 rounded border p-1 text-sm"
+            className="h-8 w-16"
           />
         </span>
       </div>
       <div className="flex items-center space-x-2">
         <Button
           variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
+          className="hidden h-8 w-8 p-0 lg:flex"
+          onClick={() => table.setPageIndex(0)}
           disabled={!table.getCanPreviousPage()}
         >
-          Previous
+          <span className="sr-only">Go to first page</span>
+          <ChevronsLeft className="h-4 w-4" />
         </Button>
         <Button
           variant="outline"
-          size="sm"
+          className="h-8 w-8 p-0"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          <span className="sr-only">Go to previous page</span>
+          <ChevronLeftIcon className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="outline"
+          className="h-8 w-8 p-0"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          Next
+          <span className="sr-only">Go to next page</span>
+          <ChevronRightIcon className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="outline"
+          className="hidden h-8 w-8 p-0 lg:flex"
+          onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+          disabled={!table.getCanNextPage()}
+        >
+          <span className="sr-only">Go to last page</span>
+          <ChevronsRight className="h-4 w-4" />
         </Button>
       </div>
     </div>
