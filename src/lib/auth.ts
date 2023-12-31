@@ -1,3 +1,4 @@
+import { getUserByEmail, getUserByUsername } from "@/data/user"
 import { env } from "@/env.mjs"
 import prismadb from "@/utils/prismadb"
 import bcrypt from "bcrypt"
@@ -19,30 +20,20 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         try {
-          if (!credentials?.email || !credentials?.password) {
-            return null
-          }
+          if (!credentials?.email || !credentials?.password) return null
 
-          const user = await prismadb.user.findUnique({
-            where: {
-              email: credentials.email,
-            },
-          })
+          const user = await getUserByEmail(credentials.email)
 
-          if (!user || !user?.hashedPassword) {
-            return null
-          }
+          if (!user || !user?.hashedPassword) return null
 
-          const isCorrectPassword = await bcrypt.compare(
+          const passwordsMatch = await bcrypt.compare(
             credentials.password,
             user.hashedPassword,
           )
 
-          if (!isCorrectPassword) {
-            return null
-          }
+          if (passwordsMatch) return user
 
-          return user
+          return null
         } catch (error) {
           return null
         }
@@ -63,43 +54,28 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
       if (account?.type === "credentials") {
-        const userExists = await prismadb.user.findUnique({
-          where: {
-            email: user?.email as string,
-          },
-        })
+        const userExists = await getUserByEmail(user?.email as string)
 
-        if (userExists && userExists.confirmedEmail === false) {
+        if (userExists && userExists.confirmedEmail === false)
           throw Error("ConfirmEmail")
-        }
 
-        if (userExists && userExists.active === false) {
-          return false
-        }
+        if (userExists && userExists.active === false) return false
       }
 
       if (account?.type === "oauth") {
-        const userExists = await prismadb.user.findUnique({
-          where: {
-            email: profile?.email,
-          },
-        })
+        const userExists = await getUserByEmail(profile?.email as string)
 
         if (userExists && userExists.confirmedEmail === false) {
           throw Error("ConfirmEmail")
         }
 
-        if (userExists && userExists.active === false) {
-          return false
-        }
+        if (userExists && userExists.active === false) return false
 
         if (!userExists) {
           let username: string = (profile?.name as string).replace(" ", ".")
 
           while (true) {
-            const usernameExists = await prismadb.user.findUnique({
-              where: { username },
-            })
+            const usernameExists = await getUserByUsername(username)
 
             if (usernameExists) {
               username = username + "." + Math.floor(Math.random() * 100000)
@@ -124,11 +100,7 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         if (user?.email) {
-          const userExists = await prismadb.user.findUnique({
-            where: {
-              email: user?.email,
-            },
-          })
+          const userExists = await getUserByEmail(user?.email)
 
           if (userExists) {
             token.id = userExists.id
