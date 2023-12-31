@@ -8,17 +8,17 @@ import Container from "@/components/container"
 import Logo from "@/components/logo"
 import { Button } from "@/components/ui/button"
 
-const errorTypes: { [key: string]: { message: string; icon?: string } } = {
+const errorTypes: { [key: string]: { message: string; img?: string } } = {
   AccessDenied: {
     message: "Oops! This user account is blocked",
-    icon: "calling-help",
+    img: "calling-help",
   },
   AccessUnauthorized: {
     message: "Oops! Access Unauthorized",
-    icon: "calling-help",
+    img: "calling-help",
   },
   ConfirmEmail: { message: "Please confirm your email" },
-  Default: { message: "Something went wrong!", icon: "crashed-error" },
+  Default: { message: "Something went wrong!", img: "crashed-error" },
 }
 
 export default function Error({ searchParams }: { searchParams: { error: string } }) {
@@ -36,7 +36,7 @@ export default function Error({ searchParams }: { searchParams: { error: string 
         <Logo />
         <Image
           alt="missing site"
-          src={`/error/${errorMessage.icon}-gray.svg`}
+          src={`/error/${errorMessage.img}-gray.svg`}
           width={400}
           height={400}
           className="dark:hidden"
@@ -44,7 +44,7 @@ export default function Error({ searchParams }: { searchParams: { error: string 
         />
         <Image
           alt="missing site"
-          src={`/error/${errorMessage.icon}-white.svg`}
+          src={`/error/${errorMessage.img}-white.svg`}
           width={400}
           height={400}
           className="hidden dark:block"
