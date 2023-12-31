@@ -42,7 +42,7 @@ export default async function RolesAdminPermissionsPage({
             <Link href={`/admin/roles/${roleId}/permissions/add`}>
               <Plus className="h-4 w-4" />
               <span className="sr-only">add permission to role</span>
-              <span className="ml-2 hidden md:block">Add permission</span>
+              <span className="ml-2 hidden md:block">Add permissions</span>
             </Link>
           </Button>
         </div>

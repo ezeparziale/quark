@@ -17,7 +17,6 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -33,7 +32,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>
 
-export default function RoleForm({ role }: { role: Role | null }) {
+export default function RoleForm({ role }: { role?: Role }) {
   const roleId = role?.id
   const router = useRouter()
 
@@ -46,7 +45,7 @@ export default function RoleForm({ role }: { role: Role | null }) {
     resolver: zodResolver(formSchema),
   })
 
-  const action = role ? "Edit" : "Create"
+  const action = role ? "Update" : "Create"
 
   const onSubmitCreate = async (data: FormData) => {
     const result = await createRole(data)
@@ -99,7 +98,6 @@ export default function RoleForm({ role }: { role: Role | null }) {
                   disabled={form.formState.isSubmitting}
                 />
               </FormControl>
-              <FormDescription>Role name</FormDescription>
               <FormMessage />
             </FormItem>
           )}

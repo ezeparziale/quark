@@ -4,6 +4,7 @@ import React, { useState } from "react"
 
 import { removePermission } from "@/actions/roles/remove-permission"
 import { MoreHorizontal } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -34,23 +35,28 @@ export default function CellActions({ row }: { row: IColumns }) {
   const { roleId, permissionId } = row!
   const name = row?.permission.name
 
-  function handleConfirmation() {
-    removePermission({ roleId, permissionId })
-    setIsOpen(false)
-    router.push(`/admin/roles/${roleId}/permissions`)
-    router.refresh()
+  async function handleConfirmation() {
+    const result = await removePermission({ roleId, permissionId })
+    if (result.success) {
+      setIsOpen(false)
+    } else {
+      toast.error("Something went wrong")
+    }
   }
 
   return (
     <Dialog open={open} onOpenChange={setIsOpen}>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 p-0">
+          <Button
+            variant="ghost"
+            className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
+          >
             <span className="sr-only">Open menu</span>
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align="end" className="w-[160px]">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem
             onClick={() => navigator.clipboard.writeText(String(permissionId))}
@@ -91,7 +97,7 @@ export default function CellActions({ row }: { row: IColumns }) {
             variant="destructive"
             onClick={() => handleConfirmation()}
           >
-            Delete
+            Remove
           </Button>
         </DialogFooter>
       </DialogContent>

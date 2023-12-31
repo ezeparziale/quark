@@ -43,34 +43,27 @@ export default async function SettingsLayout({
   const sidebarNavItems = getSideBarNavItems(Number(params.roleId))
 
   const getRole = async () => {
-    if (params.roleId === "new") {
-      return null
-    } else {
-      const id = Number(params.roleId)
+    const id = Number(params.roleId)
 
-      if (!id) {
-        return notFound()
-      }
-
-      const role = await prismadb.role.findUnique({
-        where: { id },
-      })
-
-      if (!role) {
-        return notFound()
-      }
-
-      return role
+    if (!id) {
+      return notFound()
     }
+
+    const role = await prismadb.role.findUnique({
+      where: { id },
+    })
+
+    if (!role) {
+      return notFound()
+    }
+
+    return role
   }
 
   const role = await getRole()
 
-  const title = role ? `Edit role ${role.name}` : "Create new role"
-  const description = role
-    ? `ID: ${role.id}`
-    : "Create a role which can be assigned to your users."
-
+  const title = `Edit role ${role.name}`
+  const description = `ID: ${role.id}`
   return (
     <>
       <BackButtonLink link={"/admin/roles"} />
@@ -79,24 +72,18 @@ export default async function SettingsLayout({
           <h2 className="text-2xl font-bold tracking-tight">{title}</h2>
           <div className="flex items-center justify-start">
             <p className="text-muted-foreground">{description}</p>
-            {role?.id && <CopyButtonData textToCopy={params.roleId} />}
+            <CopyButtonData textToCopy={params.roleId} />
           </div>
         </div>
-        {role && <DeleteUserModal role={role} />}
+        <DeleteUserModal role={role} />
       </div>
       <Separator className="my-6" />
-      {role ? (
-        <>
-          <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-            <aside className="lg:w-1/5">
-              <SidebarNav items={sidebarNavItems} />
-            </aside>
-            <div className="flex-1">{children}</div>
-          </div>
-        </>
-      ) : (
-        <>{children}</>
-      )}
+      <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
+        <aside className="lg:w-1/5">
+          <SidebarNav items={sidebarNavItems} />
+        </aside>
+        <div className="flex-1">{children}</div>
+      </div>
     </>
   )
 }

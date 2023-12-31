@@ -26,7 +26,7 @@ export const columns: ColumnDef<IColumns>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Name
+          Email
           {column.getIsSorted() === false ? (
             <ArrowUpDown className="ml-2 h-4 w-4" />
           ) : column.getIsSorted() === "asc" ? (

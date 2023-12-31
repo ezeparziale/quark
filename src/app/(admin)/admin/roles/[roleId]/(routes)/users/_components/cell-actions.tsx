@@ -4,6 +4,7 @@ import React, { useState } from "react"
 
 import { removeUser } from "@/actions/roles/remove-user"
 import { MoreHorizontal } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -34,23 +35,28 @@ export default function CellActions({ row }: { row: IColumns }) {
   const { roleId, userId } = row!
   const email = row?.user.email
 
-  function handleConfirmation() {
-    removeUser({ roleId, userId })
-    setIsOpen(false)
-    router.push(`/admin/roles/${roleId}/users`)
-    router.refresh()
+  async function handleConfirmation() {
+    const result = await removeUser({ roleId, userId })
+    if (result.success) {
+      setIsOpen(false)
+    } else {
+      toast.error("Something went wrong")
+    }
   }
 
   return (
     <Dialog open={open} onOpenChange={setIsOpen}>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 p-0">
+          <Button
+            variant="ghost"
+            className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
+          >
             <span className="sr-only">Open menu</span>
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align="end" className="w-[160px]">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem
             onClick={() => navigator.clipboard.writeText(String(userId))}
@@ -88,7 +94,7 @@ export default function CellActions({ row }: { row: IColumns }) {
             variant="destructive"
             onClick={() => handleConfirmation()}
           >
-            Delete
+            Remove
           </Button>
         </DialogFooter>
       </DialogContent>

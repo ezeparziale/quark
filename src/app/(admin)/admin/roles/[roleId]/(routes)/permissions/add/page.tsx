@@ -25,7 +25,7 @@ export default async function RolesAdminAddPermissionsPage({
 
   const options = permissions.map((permission) => ({
     value: String(permission.id),
-    label: permission.name,
+    label: permission.key,
   }))
 
   const selectedValues = new Set(
