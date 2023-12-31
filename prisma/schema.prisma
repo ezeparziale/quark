@@ -42,7 +42,8 @@ model ChangeEmailRequest {
 
 model Role {
   id          Int              @id @default(autoincrement())
-  name        String           @unique @db.VarChar(255)
+  name        String           @unique @db.VarChar(45)
+  key         String           @unique @db.VarChar(255)
   description String           @db.VarChar(255)
   createdAt   DateTime         @default(now()) @map("created_at")
   updatedAt   DateTime         @default(now()) @updatedAt @map("updated_at")
