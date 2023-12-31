@@ -26,8 +26,9 @@ import { Input } from "@/components/ui/input"
 
 const formSchema = z.object({
   id: z.number().optional(),
-  name: z.string().min(1).max(255),
+  name: z.string().min(1).max(45),
   description: z.string().min(1).max(255),
+  key: z.string().min(1).max(255),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -41,6 +42,7 @@ export default function RoleForm({ role }: { role?: Role }) {
       id: role?.id || undefined,
       name: role?.name || "",
       description: role?.description || "",
+      key: role?.key || "",
     },
     resolver: zodResolver(formSchema),
   })
@@ -94,6 +96,23 @@ export default function RoleForm({ role }: { role?: Role }) {
               <FormControl>
                 <Input
                   placeholder="e.g. Read Access"
+                  {...field}
+                  disabled={form.formState.isSubmitting}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="key"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Key</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="admin"
                   {...field}
                   disabled={form.formState.isSubmitting}
                 />

@@ -38,7 +38,7 @@ export default function DeleteUserModal({ role }: { role: Role }) {
   const [isOpen, setIsOpen] = useState(false)
 
   const formSchema = z.object({
-    confirmString: z.literal(role.name, {
+    confirmString: z.literal(role.key, {
       errorMap: () => ({ message: "Incorrect role key" }),
     }),
   })
@@ -86,7 +86,7 @@ export default function DeleteUserModal({ role }: { role: Role }) {
                 render={({ field }) => (
                   <FormItem>
                     <FormDescription>
-                      Enter the role key <b>{role.name}</b> to continue.
+                      Enter the role key <b>{role.key}</b> to continue.
                     </FormDescription>
                     <FormControl>
                       <Input
