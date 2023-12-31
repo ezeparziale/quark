@@ -1,9 +1,9 @@
 import { useRouter } from "next/navigation"
 
-import React, { useState } from "react"
+import React, { useState, useTransition } from "react"
 
 import { removeUser } from "@/actions/roles/remove-user"
-import { MoreHorizontal } from "lucide-react"
+import { Loader2, MoreHorizontal } from "lucide-react"
 import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
@@ -29,6 +29,7 @@ import { IColumns } from "./columns"
 
 export default function CellActions({ row }: { row: IColumns }) {
   const router = useRouter()
+  const [isPending, startTransition] = useTransition()
 
   const [open, setIsOpen] = useState(false)
 
@@ -36,12 +37,14 @@ export default function CellActions({ row }: { row: IColumns }) {
   const email = row?.user.email
 
   async function handleConfirmation() {
-    const result = await removeUser({ roleId, userId })
-    if (result.success) {
-      setIsOpen(false)
-    } else {
-      toast.error("Something went wrong")
-    }
+    startTransition(async () => {
+      const result = await removeUser({ roleId, userId })
+      if (result.success) {
+        setIsOpen(false)
+      } else {
+        toast.error("Something went wrong")
+      }
+    })
   }
 
   return (
@@ -86,6 +89,7 @@ export default function CellActions({ row }: { row: IColumns }) {
               setIsOpen(false)
             }}
             type="button"
+            disabled={isPending}
           >
             Cancel
           </Button>
@@ -93,7 +97,9 @@ export default function CellActions({ row }: { row: IColumns }) {
             type="submit"
             variant="destructive"
             onClick={() => handleConfirmation()}
+            disabled={isPending}
           >
+            {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Remove
           </Button>
         </DialogFooter>
