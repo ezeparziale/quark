@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     }
 
     if (!userExist.active) {
-      return NextResponse.json({ message: "Somenthing went wrong" }, { status: 404 })
+      return NextResponse.json({ message: "Something went wrong" }, { status: 404 })
     }
 
     const token: string = generate_user_token(email)

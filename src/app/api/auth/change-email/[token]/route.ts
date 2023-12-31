@@ -49,6 +49,6 @@ export async function GET(req: Request, { params }: { params: { token: string } 
       )
     }
   } catch (error: any) {
-    return NextResponse.json({ message: "Somenthing went wrong" }, { status: 500 })
+    return NextResponse.json({ message: "Something went wrong" }, { status: 500 })
   }
 }
