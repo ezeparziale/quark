@@ -3,8 +3,6 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 
-import { useState } from "react"
-
 import { zodResolver } from "@hookform/resolvers/zod"
 import axios from "axios"
 import { Loader2 } from "lucide-react"
@@ -33,14 +31,11 @@ type FormData = z.infer<typeof formSchema>
 export default function ForgotPasswordPage() {
   const router = useRouter()
 
-  const [isLoading, setIsLoading] = useState(false)
-
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
   })
 
   async function onSubmit(data: FormData) {
-    setIsLoading(true)
     await axios
       .post("/api/auth/reset-password", data)
       .then(() => {
@@ -49,9 +44,6 @@ export default function ForgotPasswordPage() {
       })
       .catch((error) => {
         toast.error("Something went wrong")
-      })
-      .finally(() => {
-        setIsLoading(false)
       })
   }
 
@@ -70,7 +62,11 @@ export default function ForgotPasswordPage() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="" {...field} disabled={isLoading} />
+                    <Input
+                      placeholder=""
+                      {...field}
+                      disabled={form.formState.isSubmitting}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -81,10 +77,12 @@ export default function ForgotPasswordPage() {
                 variant="default"
                 size="sm"
                 className="w-full"
-                disabled={isLoading}
+                disabled={form.formState.isSubmitting}
                 type="submit"
               >
-                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {form.formState.isSubmitting && (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                )}
                 Reset password
               </Button>
               <Button asChild variant="ghost" size="sm">

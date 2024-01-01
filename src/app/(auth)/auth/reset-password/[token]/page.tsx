@@ -3,8 +3,6 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 
-import { useState } from "react"
-
 import { zodResolver } from "@hookform/resolvers/zod"
 import axios from "axios"
 import { Loader2 } from "lucide-react"
@@ -46,8 +44,6 @@ export default function ResetPasswordTokenPage({
 }) {
   const router = useRouter()
 
-  const [isLoading, setIsLoading] = useState(false)
-
   const form = useForm<FormData>({
     defaultValues: {
       password: "",
@@ -57,7 +53,6 @@ export default function ResetPasswordTokenPage({
   })
 
   const onSubmit = async (data: FormData) => {
-    setIsLoading(true)
     const resp = await axios
       .post(`/api/auth/reset-password/${params.token}`, data)
       .then(() => {
@@ -71,9 +66,6 @@ export default function ResetPasswordTokenPage({
         } else {
           toast.error("Something went wrong")
         }
-      })
-      .finally(() => {
-        setIsLoading(false)
       })
   }
 
@@ -95,7 +87,7 @@ export default function ResetPasswordTokenPage({
                     <Input
                       placeholder=""
                       {...field}
-                      disabled={isLoading}
+                      disabled={form.formState.isSubmitting}
                       type="password"
                     />
                   </FormControl>
@@ -113,7 +105,7 @@ export default function ResetPasswordTokenPage({
                     <Input
                       placeholder=""
                       {...field}
-                      disabled={isLoading}
+                      disabled={form.formState.isSubmitting}
                       type="password"
                     />
                   </FormControl>
@@ -126,10 +118,12 @@ export default function ResetPasswordTokenPage({
                 variant="default"
                 size="sm"
                 className="w-full"
-                disabled={isLoading}
+                disabled={form.formState.isSubmitting}
                 type="submit"
               >
-                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {form.formState.isSubmitting && (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                )}
                 Change password
               </Button>
               <Button asChild variant="ghost" size="sm">
