@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server"
 
-import { verify_user_token } from "@/utils/jwt"
+import { verifyUserToken } from "@/lib/jwt"
 import prismadb from "@/utils/prismadb"
 
 export async function GET(req: Request, { params }: { params: { token: string } }) {
   try {
     const { token } = params
 
-    const userEmail = verify_user_token(token)
+    const userEmail = verifyUserToken(token)
 
     if (userEmail === false) {
       return NextResponse.json(

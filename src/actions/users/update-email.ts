@@ -3,9 +3,9 @@
 import UpdateEmail from "@/emails/update-email"
 import { env } from "@/env.mjs"
 import { getServerAuthSession } from "@/lib/auth"
+import { generateUserToken } from "@/lib/jwt"
 import { sendMail } from "@/services/mail"
 import { DataResult } from "@/types/types"
-import { generate_user_token } from "@/utils/jwt"
 import prismadb from "@/utils/prismadb"
 import { render } from "@react-email/render"
 
@@ -64,7 +64,7 @@ export async function updateEmail({
           }
         }
 
-        const token: string = generate_user_token(email)
+        const token: string = generateUserToken(email)
 
         const newRequest = await prismadb.changeEmailRequest.create({
           data: {

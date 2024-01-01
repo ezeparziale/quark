@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server"
 
+import { getUserByEmail } from "@/data/user"
 import ResetPasswordEmail from "@/emails/reset-email"
 import { env } from "@/env.mjs"
+import { generateUserToken } from "@/lib/jwt"
 import { sendMail } from "@/services/mail"
-import { generate_user_token } from "@/utils/jwt"
 import prismadb from "@/utils/prismadb"
 import { render } from "@react-email/render"
 
@@ -13,13 +14,13 @@ export async function POST(req: Request) {
 
     const { email } = body
 
-    const userExists = await prismadb.user.findUnique({ where: { email } })
+    const existingUser = await getUserByEmail(email)
 
-    if (!userExists) {
-      return NextResponse.json({ error: "Email not exists" }, { status: 404 })
+    if (!existingUser) {
+      return NextResponse.json({ error: "Email does not exists" }, { status: 404 })
     }
 
-    const token: string = generate_user_token(email)
+    const token: string = generateUserToken(email)
 
     const url: string = `${env.NEXTAUTH_URL}/auth/reset-password/${token}`
 

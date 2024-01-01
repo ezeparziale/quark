@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 
-import { verify_user_token } from "@/utils/jwt"
+import { getUserByEmail } from "@/data/user"
+import { verifyUserToken } from "@/lib/jwt"
 import prismadb from "@/utils/prismadb"
 import bcrypt from "bcrypt"
 
@@ -8,9 +9,9 @@ export async function GET(req: Request, { params }: { params: { token: string } 
   try {
     const { token } = params
 
-    const userEmail = verify_user_token(token)
+    const email = verifyUserToken(token)
 
-    if (userEmail === false) {
+    if (!email) {
       return NextResponse.json(
         { message: "Token is invalid or expired" },
         { status: 401 },
@@ -29,26 +30,26 @@ export async function POST(req: Request, { params }: { params: { token: string }
     const { password } = body
     const { token } = params
 
-    const userEmail = verify_user_token(token)
+    const email = verifyUserToken(token)
 
-    if (userEmail === false) {
+    if (!email) {
       return NextResponse.json(
         { message: "Token is invalid or expired" },
         { status: 401 },
       )
     }
 
-    const userExists = await prismadb.user.findUnique({ where: { email: userEmail } })
+    const existingUser = await getUserByEmail(email)
 
-    if (!userExists) {
-      return NextResponse.json({ error: "Email not exists" }, { status: 404 })
+    if (!existingUser) {
+      return NextResponse.json({ error: "Email does not exists" }, { status: 404 })
     }
 
     const hashedPassword = await bcrypt.hash(password, 12)
 
     await prismadb.user.update({
       where: {
-        email: userEmail,
+        id: existingUser.id,
       },
       data: {
         hashedPassword,

@@ -7,7 +7,7 @@ type UserToken = {
   exp: number
 }
 
-export function verify_user_token(token: string) {
+export function verifyUserToken(token: string) {
   try {
     const decodedToken = jwt.verify(token, env.JWT_SECRET_KEY) as UserToken
     const userEmail = decodedToken.email
@@ -17,7 +17,7 @@ export function verify_user_token(token: string) {
   }
 }
 
-export function generate_user_token(email: string): string {
+export function generateUserToken(email: string): string {
   const token: string = jwt.sign({ email }, env.JWT_SECRET_KEY, {
     expiresIn: env.JWT_EXPIRED_IN,
   })
