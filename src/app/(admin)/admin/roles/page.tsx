@@ -1,16 +1,12 @@
-import Link from "next/link"
 import { redirect } from "next/navigation"
 
 import { getServerAuthSession } from "@/lib/auth"
 import { protectPage } from "@/lib/rbac"
 import prismadb from "@/utils/prismadb"
-import { Plus } from "lucide-react"
 
-import BackButtonLink from "@/components/back-button-link"
-import { Button } from "@/components/ui/button"
 import { DataTable } from "@/components/ui/data-tables/data-table"
-import { Separator } from "@/components/ui/separator"
 
+import MainAdminHeader from "../_components/main-admin-header"
 import { columns } from "./_components/columns"
 
 export default async function RolesAdminPage() {
@@ -25,23 +21,13 @@ export default async function RolesAdminPage() {
   const data = await prismadb.role.findMany({ orderBy: { updatedAt: "desc" } })
 
   return (
-    <>
-      <BackButtonLink link={"/admin"} />
-      <div className="flex items-center justify-between">
-        <div className="space-y-0.5">
-          <h2 className="text-2xl font-bold tracking-tight">Roles</h2>
-          <p className="text-muted-foreground">Manage all roles.</p>
-        </div>
-        <Button asChild>
-          <Link href="/admin/roles/new">
-            <Plus className="h-4 w-4" />
-            <span className="sr-only">create role</span>
-            <span className="ml-2 hidden md:block">Create</span>
-          </Link>
-        </Button>
-      </div>
-      <Separator className="my-6" />
+    <MainAdminHeader
+      title="Roles"
+      description="Manage all roles."
+      actionHrefLink="/admin/roles/new"
+      actionLabelSrOnly="create role"
+    >
       <DataTable columns={columns} data={data} searchField={"name"} />
-    </>
+    </MainAdminHeader>
   )
 }
