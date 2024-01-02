@@ -1,5 +1,7 @@
 "use server"
 
+import { revalidatePath } from "next/cache"
+
 import { DataResult } from "@/types/types"
 import prismadb from "@/utils/prismadb"
 
@@ -11,7 +13,7 @@ interface IUser {
   confirmedEmail: boolean
 }
 
-export async function editUser({
+export async function updateUser({
   id,
   username,
   email,
@@ -45,6 +47,9 @@ export async function editUser({
       where: { id },
       data: { username, email, active, confirmedEmail, hashedPassword: "" },
     })
+
+    revalidatePath(`/admin/users/${id}`)
+
     return { success: true }
   } catch (error) {
     return { success: false }

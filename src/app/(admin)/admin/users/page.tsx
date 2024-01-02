@@ -22,7 +22,7 @@ export default async function UsersAdminPage() {
 
   await protectPage(["admin:all"])
 
-  const data = await prismadb.user.findMany()
+  const data = await prismadb.user.findMany({ orderBy: { updatedAt: "desc" } })
 
   return (
     <>
@@ -30,7 +30,7 @@ export default async function UsersAdminPage() {
       <div className="flex items-center justify-between">
         <div className="space-y-0.5">
           <h2 className="text-2xl font-bold tracking-tight">Users</h2>
-          <p className="text-muted-foreground">Manage all users account.</p>
+          <p className="text-muted-foreground">Manage all user accounts.</p>
         </div>
         <Button asChild>
           <Link href="/admin/users/new">

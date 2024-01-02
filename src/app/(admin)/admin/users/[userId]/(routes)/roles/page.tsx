@@ -25,7 +25,6 @@ export default async function UsersAdminRolesPage({
     where: { id: userId },
     include: { roles: { include: { role: true } } },
   })
-
   const data2 = data?.roles || []
 
   return (

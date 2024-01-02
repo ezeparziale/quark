@@ -4,7 +4,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 
 import { addUser } from "@/actions/users/add-user"
-import { editUser } from "@/actions/users/edit-user"
+import { updateUser } from "@/actions/users/update-user"
 import { addServerErrors } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { User } from "@prisma/client"
@@ -36,7 +36,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>
 
-export default function UserForm({ user }: { user: User | null }) {
+export default function UserForm({ user }: { user?: User }) {
   const userId = user?.id
 
   const router = useRouter()
@@ -52,13 +52,12 @@ export default function UserForm({ user }: { user: User | null }) {
     resolver: zodResolver(formSchema),
   })
 
-  const action = user ? "Edit" : "Create"
+  const action = user ? "Update" : "Create"
 
   const onSubmitCreate = async (data: FormData) => {
     const result = await addUser(data)
     if (result.success) {
       router.push("/admin/users")
-      router.refresh()
     } else {
       if (result.errors) {
         addServerErrors(result.errors, form.setError)
@@ -68,8 +67,8 @@ export default function UserForm({ user }: { user: User | null }) {
     }
   }
 
-  const onSubmitEdit = async (data: FormData) => {
-    const result = await editUser({ id: String(userId), ...data })
+  const onSubmitUpdate = async (data: FormData) => {
+    const result = await updateUser({ id: String(userId), ...data })
     if (result.success) {
       form.reset({ ...data })
       router.refresh()
@@ -88,7 +87,7 @@ export default function UserForm({ user }: { user: User | null }) {
         onSubmit={
           action === "Create"
             ? form.handleSubmit(onSubmitCreate)
-            : form.handleSubmit(onSubmitEdit)
+            : form.handleSubmit(onSubmitUpdate)
         }
         className="flex w-full flex-col space-y-4 md:w-2/3"
       >

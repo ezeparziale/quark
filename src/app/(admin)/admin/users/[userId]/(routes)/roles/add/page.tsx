@@ -3,11 +3,11 @@ import prismadb from "@/utils/prismadb"
 
 import { Separator } from "@/components/ui/separator"
 
-import AddUserForm from "./_components/user-form"
+import AddRoleToUserForm from "./_components/add-role-to-user-form"
 
 const title = "Roles"
 
-export default async function UsersAdminAddRolesPage({
+export default async function UsersAdminAddRolesToUserPage({
   params,
 }: {
   params: { userId: string }
@@ -40,7 +40,7 @@ export default async function UsersAdminAddRolesPage({
           </div>
         </div>
         <Separator />
-        <AddUserForm
+        <AddRoleToUserForm
           options={options}
           selectedValues={selectedValues}
           title={title}

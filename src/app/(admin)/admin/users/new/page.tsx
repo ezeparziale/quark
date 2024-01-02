@@ -1,13 +1,15 @@
+import { protectPage } from "@/lib/rbac"
+
 import BackButtonLink from "@/components/back-button-link"
 import { Separator } from "@/components/ui/separator"
 
-export default async function NewUserLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  const title = "Create user"
-  const description = "Add a new user"
+import UserForm from "../_components/user-form"
+
+const title = "Create user"
+const description = "Add a new user"
+
+export default async function NewPermissionPage() {
+  await protectPage(["admin:all"])
 
   return (
     <>
@@ -21,7 +23,7 @@ export default async function NewUserLayout({
         </div>
       </div>
       <Separator className="my-6" />
-      {children}
+      <UserForm />
     </>
   )
 }

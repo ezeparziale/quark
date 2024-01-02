@@ -5,7 +5,7 @@ import prismadb from "@/utils/prismadb"
 
 import { Separator } from "@/components/ui/separator"
 
-import UserForm from "../../_components/user-form"
+import UserForm from "../_components/user-form"
 
 export default async function UserAdminPage({
   params,

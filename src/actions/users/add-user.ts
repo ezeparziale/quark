@@ -1,6 +1,7 @@
 "use server"
 
-import { getServerAuthSession } from "@/lib/auth"
+import { revalidatePath } from "next/cache"
+
 import { DataResult } from "@/types/types"
 import prismadb from "@/utils/prismadb"
 
@@ -18,7 +19,6 @@ export async function addUser({
   confirmedEmail,
 }: IUser): Promise<DataResult<IUser>> {
   try {
-    const session = await getServerAuthSession()
     const errors: { email: string[]; username: string[] } = {
       email: [],
       username: [],
@@ -44,6 +44,9 @@ export async function addUser({
     await prismadb.user.create({
       data: { username, email, active, confirmedEmail, hashedPassword: "" },
     })
+
+    revalidatePath(`/admin/users`)
+
     return { success: true }
   } catch (error) {
     return { success: false }

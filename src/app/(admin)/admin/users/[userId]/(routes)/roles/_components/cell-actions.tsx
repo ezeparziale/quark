@@ -1,9 +1,10 @@
 import { useRouter } from "next/navigation"
 
-import React, { useState } from "react"
+import React, { useState, useTransition } from "react"
 
 import { removeRolToUser } from "@/actions/users/remove-role"
-import { MoreHorizontal } from "lucide-react"
+import { Loader2, MoreHorizontal } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -28,6 +29,7 @@ import { IColumns } from "./columns"
 
 export default function CellActions({ row }: { row: IColumns }) {
   const router = useRouter()
+  const [isPending, startTransition] = useTransition()
 
   const [open, setIsOpen] = useState(false)
 
@@ -35,10 +37,14 @@ export default function CellActions({ row }: { row: IColumns }) {
   const name = row?.role.name
 
   function handleConfirmation() {
-    removeRolToUser({ roleId, userId })
-    setIsOpen(false)
-    router.push(`/admin/users/${userId}/roles`)
-    router.refresh()
+    startTransition(async () => {
+      const result = await removeRolToUser({ roleId, userId })
+      if (result.success) {
+        setIsOpen(false)
+      } else {
+        toast.error("Something went wrong")
+      }
+    })
   }
 
   return (
@@ -87,8 +93,10 @@ export default function CellActions({ row }: { row: IColumns }) {
             type="submit"
             variant="destructive"
             onClick={() => handleConfirmation()}
+            disabled={isPending}
           >
-            Delete
+            {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            Remove
           </Button>
         </DialogFooter>
       </DialogContent>
