@@ -1,11 +1,9 @@
 import { protectPage } from "@/lib/rbac"
 import prismadb from "@/utils/prismadb"
 
-import { Separator } from "@/components/ui/separator"
+import PageAdminHeader from "@/components/admin/page-admin-header"
 
 import AddPermissionForm from "./_components/permission-form"
-
-const title = "Permissions"
 
 export default async function RolesAdminAddPermissionsPage({
   params,
@@ -32,25 +30,17 @@ export default async function RolesAdminAddPermissionsPage({
     selectedOptions?.permissions.map((permission) => String(permission.permissionId)),
   )
 
+  const title = "Permissions"
+  const description = "Add permissions to this role"
+
   return (
-    <>
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <div className="space-y-0.5">
-            <h3 className="text-lg font-medium">Permissions</h3>
-            <p className="text-sm text-muted-foreground">
-              Add permissions to this role
-            </p>
-          </div>
-        </div>
-        <Separator />
-        <AddPermissionForm
-          options={options}
-          selectedValues={selectedValues}
-          title={title}
-          roleId={roleId}
-        />
-      </div>
-    </>
+    <PageAdminHeader title={title} description={description}>
+      <AddPermissionForm
+        options={options}
+        selectedValues={selectedValues}
+        title={title}
+        roleId={roleId}
+      />
+    </PageAdminHeader>
   )
 }

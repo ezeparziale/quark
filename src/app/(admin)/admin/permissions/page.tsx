@@ -4,9 +4,9 @@ import { getServerAuthSession } from "@/lib/auth"
 import { protectPage } from "@/lib/rbac"
 import prismadb from "@/utils/prismadb"
 
+import MainAdminHeader from "@/components/admin/main-admin-header"
 import { DataTable } from "@/components/ui/data-tables/data-table"
 
-import MainAdminHeader from "../_components/main-admin-header"
 import { columns } from "./_components/columns"
 
 export default async function PermissionsAdminPage() {

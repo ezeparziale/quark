@@ -1,7 +1,5 @@
 import Link from "next/link"
 
-import React from "react"
-
 import { Plus } from "lucide-react"
 
 import BackButtonLink from "@/components/back-button-link"
