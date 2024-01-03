@@ -48,10 +48,10 @@ export default async function PermissionAdminPage({
           <h2 className="text-2xl font-bold tracking-tight">{title}</h2>
           <div className="flex items-center justify-start">
             <p className="text-muted-foreground">{description}</p>
-            {permission?.id && <CopyButtonData textToCopy={String(permission.id)} />}
+            <CopyButtonData textToCopy={String(permission.id)} />
           </div>
         </div>
-        {permission && <DeletePermissionModal permission={permission} />}
+        <DeletePermissionModal permission={permission} />
       </div>
       <Separator className="my-6" />
       <PermissionForm permission={permission} />
