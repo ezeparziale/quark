@@ -4,7 +4,7 @@ import { getUserByEmail } from "@/data/user"
 import ResetPasswordEmail from "@/emails/reset-email"
 import { env } from "@/env.mjs"
 import { generateUserToken } from "@/lib/jwt"
-import { sendMail } from "@/services/mail"
+import { sendMail } from "@/lib/mail"
 import prismadb from "@/utils/prismadb"
 import { render } from "@react-email/render"
 

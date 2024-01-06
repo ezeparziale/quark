@@ -3,7 +3,7 @@ import { NextResponse } from "next/server"
 import ConfirmEmail from "@/emails/confirm-email"
 import { env } from "@/env.mjs"
 import { generateUserToken } from "@/lib/jwt"
-import { sendMail } from "@/services/mail"
+import { sendMail } from "@/lib/mail"
 import prismadb from "@/utils/prismadb"
 import { render } from "@react-email/render"
 
