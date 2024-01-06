@@ -3,11 +3,10 @@ import type { Metadata } from "next"
 import { cn } from "@/lib/utils"
 import { GeistSans } from "geist/font/sans"
 
+import Providers from "@/components/providers"
 import { Toaster } from "@/components/ui/sonner"
 
 import "@/styles/globals.css"
-
-import Providers from "./providers"
 
 export const metadata: Metadata = {
   title: "Quark",
