@@ -9,7 +9,7 @@ const description = "Create a permission which can be assigned to your roles."
 const linkBack = "/admin/permissions"
 
 export default async function NewPermissionPage() {
-  await protectPage(["admin:all"])
+  await protectPage({ permission: "admin:all" })
 
   return (
     <PageNewAdminHeader title={title} description={description} linkBack={linkBack}>

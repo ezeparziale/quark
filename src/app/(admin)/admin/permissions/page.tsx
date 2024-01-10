@@ -16,7 +16,7 @@ export default async function PermissionsAdminPage() {
     redirect("/auth/login?callbackUrl=/admin/permissions")
   }
 
-  await protectPage(["admin:all"])
+  await protectPage({ permission: "admin:all" })
 
   const data = await prismadb.permission.findMany({ orderBy: { updatedAt: "desc" } })
 

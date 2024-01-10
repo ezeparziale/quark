@@ -11,7 +11,7 @@ export default async function RolesAdminPermissionsPage({
 }: {
   params: { roleId: string }
 }) {
-  await protectPage(["admin:all"])
+  await protectPage({ permission: "admin:all" })
 
   const { roleId } = params
 

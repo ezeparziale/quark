@@ -15,7 +15,7 @@ export default async function PermissionAdminPage({
 }: {
   params: { permissionId: string }
 }) {
-  await protectPage(["admin:all"])
+  await protectPage({ permission: "admin:all" })
 
   const getPermission = async () => {
     const id = Number(params.permissionId)

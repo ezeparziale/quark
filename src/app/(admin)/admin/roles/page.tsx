@@ -16,7 +16,7 @@ export default async function RolesAdminPage() {
     redirect("/auth/login?callbackUrl=/admin/roles")
   }
 
-  await protectPage(["admin:all"])
+  await protectPage({ permission: "admin:all" })
 
   const data = await prismadb.role.findMany({ orderBy: { updatedAt: "desc" } })
 

@@ -9,7 +9,7 @@ const description = "Add a new user"
 const linkBack = "/admin/users"
 
 export default async function NewPermissionPage() {
-  await protectPage(["admin:all"])
+  await protectPage({ permission: "admin:all" })
 
   return (
     <PageNewAdminHeader title={title} description={description} linkBack={linkBack}>
