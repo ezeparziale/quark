@@ -1,18 +1,16 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function CardKPILoading() {
   return (
     <Card>
-      <div className="animate-pulse">
-        <CardHeader className="flex flex-row items-center justify-between space-x-2 space-y-0 pb-2">
-          <CardTitle className="h-4 w-2/3 rounded bg-slate-700"></CardTitle>
-          <div className="h-6 w-6 rounded bg-slate-700"></div>
-        </CardHeader>
-        <CardContent>
-          <div className="h-6 w-20 rounded bg-slate-700 text-2xl font-bold"></div>
-          <p className="mt-3 h-2 w-20 rounded bg-slate-700 text-xs text-muted-foreground"></p>
-        </CardContent>
-      </div>
+      <CardHeader className="flex flex-row items-center justify-between space-x-2 space-y-0 pb-2">
+        <Skeleton className="h-[20px] w-[100px]" />
+        <Skeleton className="h-6 w-6" />
+      </CardHeader>
+      <CardContent>
+        <Skeleton className="h-8 w-20" />
+      </CardContent>
     </Card>
   )
 }
