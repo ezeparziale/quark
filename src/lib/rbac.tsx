@@ -5,53 +5,117 @@ import { redirect } from "next/navigation"
 import { getCurrentUser } from "@/actions/users/get-current-user"
 import prismadb from "@/utils/prismadb"
 
+type RolesCheck = { role: string; permission?: never }
+type PermissionsCheck = { permission: string; role?: never }
+
+type Opts = RolesCheck | PermissionsCheck
+
 async function getUserRoles(userId: string) {
-  const userRoles = await prismadb.userRole.findMany({
-    where: { userId },
-    include: {
-      role: { include: { permissions: { include: { permission: true } } } },
-    },
-  })
+  const userRoles = await prismadb.userRole
+    .findMany({
+      where: { userId },
+      select: {
+        role: {
+          select: {
+            key: true,
+          },
+        },
+      },
+    })
+    .then((userRoles) => userRoles.map((userRole) => userRole.role.key))
+
   return userRoles
 }
 
-async function hasRequiredPermissions(requiredPermissions: string[]): Promise<boolean> {
+async function getUserPermissions(userId: string) {
+  const userPermissions = await prismadb.userRole
+    .findMany({
+      where: { userId },
+      select: {
+        role: {
+          select: {
+            permissions: {
+              select: {
+                permission: {
+                  select: {
+                    key: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    })
+    .then((userRoles) => userRoles.flatMap((userRole) => userRole.role.permissions))
+    .then((permissions) => permissions.map((permission) => permission.permission.key))
+
+  return userPermissions
+}
+
+async function hasRequiredPermission(permission: string): Promise<boolean> {
   const user = await getCurrentUser()
   if (user) {
-    const userRoles = await getUserRoles(user.id)
-    return userRoles.some((userRole) => {
-      return requiredPermissions.some((permission) => {
-        return userRole.role.permissions.some(
-          (rolePermission) => rolePermission.permission.key === permission,
-        )
-      })
-    })
+    const userPermissions = await getUserPermissions(user.id)
+    return userPermissions.includes(permission)
   }
   return false
 }
 
-export async function protectPage(requiredPermissions: string[]) {
-  const hasPermission = await hasRequiredPermissions(requiredPermissions)
-  if (hasPermission) {
-    return true
-  } else {
-    redirect("/auth/error/?error=AccessUnauthorized")
+async function hasRequiredRole(role: string): Promise<boolean> {
+  const user = await getCurrentUser()
+  if (user) {
+    const userRoles = await getUserRoles(user.id)
+
+    return userRoles.includes(role)
   }
+  return false
+}
+
+export async function protectPage({ role, permission }: Opts) {
+  if (role) {
+    const hasRole = await hasRequiredRole(role)
+    if (hasRole) return true
+  }
+  if (permission) {
+    const hasPermission = await hasRequiredPermission(permission)
+    if (hasPermission) return true
+  }
+
+  redirect("/auth/error/?error=AccessUnauthorized")
 }
 
 export async function ProtectComponent({
   children,
-  requiredPermissions,
+  requiredRole,
+  requiredPermission,
   fallback,
-}: {
-  children: any
-  requiredPermissions: string[]
-  fallback?: any
-}) {
-  const hasPermission = await hasRequiredPermissions(requiredPermissions)
-  if (hasPermission) {
-    return <>{children}</>
+}:
+  | {
+      children: React.ReactNode
+      requiredRole: string
+      requiredPermission?: never
+      fallback?: React.ReactElement
+    }
+  | {
+      children: React.ReactNode
+      requiredRole?: never
+      requiredPermission: string
+      fallback?: React.ReactElement
+    }) {
+  if (requiredRole) {
+    const hasRoles = await hasRequiredRole(requiredRole)
+    if (hasRoles) {
+      return <>{children}</>
+    }
   }
+  if (requiredPermission) {
+    const hasPermission = await hasRequiredPermission(requiredPermission)
+    if (hasPermission) {
+      return <>{children}</>
+    }
+  }
+
   if (fallback) {
     return <>{fallback}</>
   }
@@ -59,17 +123,13 @@ export async function ProtectComponent({
   return null
 }
 
-type RoleCheck = { role: string[]; permission?: never }
-type PermissionCheck = { permission: string[]; role?: never }
-
-type Opts = RoleCheck | PermissionCheck
-
-export async function has(check: Opts): Promise<boolean> {
-  if (check.role) {
-    return false
+export async function has({ role, permission }: Opts): Promise<boolean> {
+  if (role) {
+    const hasRole = await hasRequiredRole(role)
+    return hasRole
   }
-  if (check.permission) {
-    const hasPermission = await hasRequiredPermissions(check.permission!)
+  if (permission) {
+    const hasPermission = await hasRequiredPermission(permission)
     return hasPermission
   }
   return false
