@@ -19,7 +19,7 @@ export function DataTableHeaderFilters<TData>({
   searchField,
 }: DataTablePaginationProps<TData>) {
   return (
-    <div className="flex items-center justify-between py-4">
+    <div className="flex items-center justify-between">
       <div className="flex items-center space-x-2">
         <p className="text-sm font-medium">Show</p>
         <Select

@@ -56,11 +56,11 @@ export function DataTable<TData, TValue>({
   })
 
   return (
-    <div>
+    <div className="space-y-4">
       <DataTableHeaderFilters table={table} searchField={searchField} />
-      <div className="rounded-md border">
+      <div className="rounded-md border border-input">
         <Table>
-          <TableHeader>
+          <TableHeader className="[&_tr]:border-input">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
