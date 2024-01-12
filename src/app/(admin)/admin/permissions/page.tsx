@@ -1,13 +1,14 @@
 import { redirect } from "next/navigation"
 
+import { Suspense } from "react"
+
 import { getServerAuthSession } from "@/lib/auth"
 import { protectPage } from "@/lib/rbac"
-import prismadb from "@/utils/prismadb"
 
 import MainAdminHeader from "@/components/admin/main-admin-header"
-import { DataTable } from "@/components/ui/data-tables/data-table"
 
-import { columns } from "./_components/columns"
+import LoadingPermissionsTable from "./_components/loading-page"
+import TablePermissions from "./_components/table-permissions"
 
 export default async function PermissionsAdminPage() {
   const session = await getServerAuthSession()
@@ -18,8 +19,6 @@ export default async function PermissionsAdminPage() {
 
   await protectPage({ permission: "admin:all" })
 
-  const data = await prismadb.permission.findMany({ orderBy: { updatedAt: "desc" } })
-
   return (
     <MainAdminHeader
       title="Permissions"
@@ -27,7 +26,9 @@ export default async function PermissionsAdminPage() {
       actionHrefLink="/admin/permissions/new"
       actionLabelSrOnly="create permission"
     >
-      <DataTable columns={columns} data={data} searchField={"name"} />
+      <Suspense fallback={<LoadingPermissionsTable />}>
+        <TablePermissions />
+      </Suspense>
     </MainAdminHeader>
   )
 }
