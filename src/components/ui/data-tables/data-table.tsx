@@ -58,9 +58,9 @@ export function DataTable<TData, TValue>({
   return (
     <div className="space-y-4">
       <DataTableHeaderFilters table={table} searchField={searchField} />
-      <div className="rounded-md border border-input">
+      <div className="rounded-md border">
         <Table>
-          <TableHeader className="[&_tr]:border-input">
+          <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -81,7 +81,7 @@ export function DataTable<TData, TValue>({
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} className="border-input">
+                <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
