@@ -52,7 +52,7 @@ export async function POST(req: Request, { params }: { params: { token: string }
         id: existingUser.id,
       },
       data: {
-        hashedPassword,
+        password: hashedPassword,
       },
     })
     return NextResponse.json({ message: "Password updated" }, { status: 200 })

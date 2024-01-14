@@ -45,7 +45,7 @@ export async function updateUser({
 
     await prismadb.user.update({
       where: { id },
-      data: { username, email, active, confirmedEmail, hashedPassword: "" },
+      data: { username, email, active, confirmedEmail },
     })
 
     revalidatePath(`/admin/users/${id}`)

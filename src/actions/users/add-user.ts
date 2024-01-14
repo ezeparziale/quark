@@ -42,7 +42,7 @@ export async function addUser({
     }
 
     await prismadb.user.create({
-      data: { username, email, active, confirmedEmail, hashedPassword: "" },
+      data: { username, email, active, confirmedEmail },
     })
 
     revalidatePath(`/admin/users`)

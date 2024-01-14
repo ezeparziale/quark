@@ -24,11 +24,11 @@ export const authOptions: NextAuthOptions = {
 
           const user = await getUserByEmail(credentials.email)
 
-          if (!user || !user?.hashedPassword) return null
+          if (!user || !user?.password) return null
 
           const passwordsMatch = await bcrypt.compare(
             credentials.password,
-            user.hashedPassword,
+            user.password,
           )
 
           if (passwordsMatch) return user
@@ -88,7 +88,6 @@ export const authOptions: NextAuthOptions = {
             data: {
               username,
               email: profile?.email as string,
-              hashedPassword: "",
               active: true,
               confirmedEmail: true,
             },
