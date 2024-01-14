@@ -18,6 +18,7 @@ const errorTypes: { [key: string]: { message: string; img?: string } } = {
     img: "calling-help",
   },
   ConfirmEmail: { message: "Please confirm your email" },
+  TokenExpired: { message: "Oops! Token expired", img: "crashed-error" },
   Default: { message: "Something went wrong!", img: "crashed-error" },
 }
 
