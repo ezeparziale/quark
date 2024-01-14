@@ -15,7 +15,7 @@ model User {
   id                  String               @id @default(uuid())
   username            String               @unique @db.VarChar(255)
   email               String               @unique @db.VarChar(255)
-  hashedPassword      String               @map("hashed_password")
+  password            String?              @db.VarChar(255)
   active              Boolean              @default(false)
   confirmedEmail      Boolean              @default(false) @map("confirmed_email")
   createdAt           DateTime             @default(now()) @map("created_at")
