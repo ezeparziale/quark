@@ -50,42 +50,46 @@ export default function EmailForm({ email }: { email: string }) {
   }
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex w-full flex-col space-y-4 md:w-2/3"
-      >
-        <FormField
-          control={form.control}
-          name="newEmail"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder=""
-                  {...field}
-                  disabled={form.formState.isSubmitting}
-                  autoComplete="email"
-                />
-              </FormControl>
-              <FormDescription>We will email you to verify the change.</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button
-          size="sm"
-          className="w-full md:w-1/5"
-          disabled={form.formState.isSubmitting || !form.formState.isDirty}
-          type="submit"
+    <div className="rounded-md border border-border p-6">
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex w-full flex-col space-y-4 md:w-2/3"
         >
-          {form.formState.isSubmitting && (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          )}
-          Save
-        </Button>
-      </form>
-    </Form>
+          <FormField
+            control={form.control}
+            name="newEmail"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder=""
+                    {...field}
+                    disabled={form.formState.isSubmitting}
+                    autoComplete="email"
+                  />
+                </FormControl>
+                <FormDescription>
+                  We will email you to verify the change.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button
+            size="sm"
+            className="w-full md:w-1/5"
+            disabled={form.formState.isSubmitting || !form.formState.isDirty}
+            type="submit"
+          >
+            {form.formState.isSubmitting && (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            )}
+            Save
+          </Button>
+        </form>
+      </Form>
+    </div>
   )
 }

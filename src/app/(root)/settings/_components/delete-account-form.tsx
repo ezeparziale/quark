@@ -62,107 +62,105 @@ export default function DeleteAccount() {
   }
 
   return (
-    <>
-      <div className="">
-        <h3 className="text-md">Delete account</h3>
-        <p className="pt-2 text-sm text-muted-foreground">
-          Are your sure you wannt to delete your account?
-        </p>
-        <p className="text-sm text-muted-foreground">
-          Once you delete your account, there is no going back. Please be certain.
-        </p>
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogTrigger asChild>
-            <Button
-              variant="destructive"
-              className="mt-4 flex w-full flex-col md:w-auto"
-              onClick={() => {
-                form.reset({ ...form.formState.defaultValues }, { keepErrors: false })
-              }}
-              type="button"
-            >
-              Delete account
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-              <DialogTitle>Delete account</DialogTitle>
-              <DialogDescription>
-                Quark will delete all your data in the site.
-              </DialogDescription>
-            </DialogHeader>
-            <Separator />
-            <div className="flex flex-col items-start space-y-4">
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="flex w-full flex-col space-y-4"
-                >
-                  <FormField
-                    control={form.control}
-                    name="userEmail"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormDescription>Please add your email</FormDescription>
-                        <FormControl>
-                          <Input
-                            placeholder=""
-                            {...field}
-                            disabled={form.formState.isSubmitting}
-                            autoComplete="email"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
+    <div className="rounded-md border border-destructive p-6">
+      <h3 className="text-md">Delete account</h3>
+      <p className="pt-2 text-sm text-muted-foreground">
+        Are your sure you wannt to delete your account?
+      </p>
+      <p className="text-sm text-muted-foreground">
+        Once you delete your account, there is no going back. Please be certain.
+      </p>
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogTrigger asChild>
+          <Button
+            variant="destructive"
+            className="mt-4 flex w-full flex-col md:w-auto"
+            onClick={() => {
+              form.reset({ ...form.formState.defaultValues }, { keepErrors: false })
+            }}
+            type="button"
+          >
+            Delete account
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Delete account</DialogTitle>
+            <DialogDescription>
+              Quark will delete all your data in the site.
+            </DialogDescription>
+          </DialogHeader>
+          <Separator />
+          <div className="flex flex-col items-start space-y-4">
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="flex w-full flex-col space-y-4"
+              >
+                <FormField
+                  control={form.control}
+                  name="userEmail"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormDescription>Please add your email</FormDescription>
+                      <FormControl>
+                        <Input
+                          placeholder=""
+                          {...field}
+                          disabled={form.formState.isSubmitting}
+                          autoComplete="email"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="confirmString"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormDescription>
+                        To verify, type <b>delete my account</b> below
+                      </FormDescription>
+                      <FormControl>
+                        <Input
+                          placeholder=""
+                          {...field}
+                          disabled={form.formState.isSubmitting}
+                          autoComplete="no"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <DialogFooter>
+                  <Button
+                    variant="ghost"
+                    onClick={() => {
+                      setIsOpen(false)
+                    }}
+                    type="button"
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    disabled={form.formState.isSubmitting || !form.formState.isDirty}
+                    type="submit"
+                  >
+                    {form.formState.isSubmitting && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="confirmString"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormDescription>
-                          To verify, type <b>delete my account</b> below
-                        </FormDescription>
-                        <FormControl>
-                          <Input
-                            placeholder=""
-                            {...field}
-                            disabled={form.formState.isSubmitting}
-                            autoComplete="no"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <DialogFooter>
-                    <Button
-                      variant="ghost"
-                      onClick={() => {
-                        setIsOpen(false)
-                      }}
-                      type="button"
-                    >
-                      Cancel
-                    </Button>
-                    <Button
-                      variant="destructive"
-                      disabled={form.formState.isSubmitting || !form.formState.isDirty}
-                      type="submit"
-                    >
-                      {form.formState.isSubmitting && (
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      )}
-                      Delete account
-                    </Button>
-                  </DialogFooter>
-                </form>
-              </Form>
-            </div>
-          </DialogContent>
-        </Dialog>
-      </div>
-    </>
+                    Delete account
+                  </Button>
+                </DialogFooter>
+              </form>
+            </Form>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
   )
 }
