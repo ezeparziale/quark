@@ -1,6 +1,6 @@
 import { protectPage } from "@/lib/rbac"
 
-import PageNewAdminHeader from "@/components/admin/page-new-admin-header"
+import { PageHeader } from "@/components/page-header"
 
 import PermissionForm from "../_components/permission-form"
 
@@ -12,8 +12,9 @@ export default async function NewPermissionPage() {
   await protectPage({ permission: "admin:all" })
 
   return (
-    <PageNewAdminHeader title={title} description={description} linkBack={linkBack}>
+    <>
+      <PageHeader title={title} description={description} linkBack={linkBack} />
       <PermissionForm />
-    </PageNewAdminHeader>
+    </>
   )
 }

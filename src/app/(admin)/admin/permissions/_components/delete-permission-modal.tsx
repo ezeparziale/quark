@@ -33,7 +33,11 @@ import {
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 
-export default function DeleteUserModal({ permission }: { permission: Permission }) {
+export default function DeletePermissionModal({
+  permission,
+}: {
+  permission: Permission
+}) {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
 

@@ -5,8 +5,9 @@ import { Suspense } from "react"
 import { getServerAuthSession } from "@/lib/auth"
 import { protectPage } from "@/lib/rbac"
 
-import MainAdminHeader from "@/components/admin/main-admin-header"
+import { PageHeader } from "@/components/page-header"
 
+import CreatePermissionButton from "./_components/create-permission-button"
 import LoadingPermissionsTable from "./_components/loading-page"
 import TablePermissions from "./_components/table-permissions"
 
@@ -20,15 +21,16 @@ export default async function PermissionsAdminPage() {
   await protectPage({ permission: "admin:all" })
 
   return (
-    <MainAdminHeader
-      title="Permissions"
-      description="Manage all permissions."
-      actionHrefLink="/admin/permissions/new"
-      actionLabelSrOnly="create permission"
-    >
+    <>
+      <PageHeader
+        title="Permissions"
+        description="Manage all permissions."
+        action={<CreatePermissionButton />}
+        linkBack="/admin"
+      />
       <Suspense fallback={<LoadingPermissionsTable />}>
         <TablePermissions />
       </Suspense>
-    </MainAdminHeader>
+    </>
   )
 }
