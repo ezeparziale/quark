@@ -5,10 +5,10 @@ import { Suspense } from "react"
 import { getServerAuthSession } from "@/lib/auth"
 import { protectPage } from "@/lib/rbac"
 
+import TableLoading from "@/components/admin/table-loading"
 import { PageHeader } from "@/components/page-header"
 
 import CreateRoleButton from "./_components/create-role-button"
-import LoadingRolesTable from "./_components/loading-roles-table"
 import RolesTable from "./_components/roles-table"
 
 export default async function RolesAdminPage() {
@@ -28,7 +28,7 @@ export default async function RolesAdminPage() {
         action={<CreateRoleButton />}
         linkBack="/admin"
       />
-      <Suspense fallback={<LoadingRolesTable />}>
+      <Suspense fallback={<TableLoading />}>
         <RolesTable />
       </Suspense>
     </>

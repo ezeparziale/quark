@@ -5,10 +5,10 @@ import { Suspense } from "react"
 import { getServerAuthSession } from "@/lib/auth"
 import { protectPage } from "@/lib/rbac"
 
+import TableLoading from "@/components/admin/table-loading"
 import { PageHeader } from "@/components/page-header"
 
 import CreatePermissionButton from "./_components/create-permission-button"
-import LoadingPermissionsTable from "./_components/loading-permissions-table"
 import PermissionsTable from "./_components/permissions-table"
 
 export default async function PermissionsAdminPage() {
@@ -28,7 +28,7 @@ export default async function PermissionsAdminPage() {
         action={<CreatePermissionButton />}
         linkBack="/admin"
       />
-      <Suspense fallback={<LoadingPermissionsTable />}>
+      <Suspense fallback={<TableLoading />}>
         <PermissionsTable />
       </Suspense>
     </>

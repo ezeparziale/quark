@@ -5,10 +5,10 @@ import { Suspense } from "react"
 import { getServerAuthSession } from "@/lib/auth"
 import { protectPage } from "@/lib/rbac"
 
+import TableLoading from "@/components/admin/table-loading"
 import { PageHeader } from "@/components/page-header"
 
 import CreateUserButton from "./_components/create-user-button"
-import LoadingUsersTable from "./_components/loading-users-table"
 import UsersTable from "./_components/users-table"
 
 export default async function UsersAdminPage() {
@@ -28,7 +28,7 @@ export default async function UsersAdminPage() {
         action={<CreateUserButton />}
         linkBack="/admin"
       />
-      <Suspense fallback={<LoadingUsersTable />}>
+      <Suspense fallback={<TableLoading />}>
         <UsersTable />
       </Suspense>
     </>

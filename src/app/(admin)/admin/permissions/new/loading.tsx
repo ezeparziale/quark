@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 
-export default function LoadingCreateRolePage() {
+export default function LoadingCreatePermissionPage() {
   return (
     <div className="space-y-6">
       <Skeleton className="mb-6 h-8 w-16 p-0" />
