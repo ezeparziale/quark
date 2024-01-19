@@ -2,11 +2,11 @@
 
 import { useRouter, useSearchParams } from "next/navigation"
 
-import { useEffect } from "react"
+import { Suspense, useEffect } from "react"
 
 import { signOut } from "next-auth/react"
 
-export default function Logout() {
+function Logout() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const callbackUrl: string = (searchParams.get("callbackUrl") as string) ?? "/"
@@ -19,4 +19,11 @@ export default function Logout() {
   }, [router, callbackUrl])
 
   return null
+}
+export default function LogoutPage() {
+  return (
+    <Suspense>
+      <Logout />
+    </Suspense>
+  )
 }

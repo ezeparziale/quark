@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 
-import { useState } from "react"
+import { Suspense, useState } from "react"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import axios from "axios"
@@ -43,7 +43,7 @@ const formSchema = z
 
 type FormData = z.infer<typeof formSchema>
 
-export default function RegisterPage() {
+function RegisterForm() {
   const router = useRouter()
 
   const searchParams = useSearchParams()
@@ -188,5 +188,13 @@ export default function RegisterPage() {
         </Button>
       </div>
     </AuthTemplate>
+  )
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense>
+      <RegisterForm />
+    </Suspense>
   )
 }

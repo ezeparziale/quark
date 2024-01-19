@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import axios from "axios"
@@ -30,7 +30,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>
 
-export default function ConfirmEmailPage() {
+function ConfirmForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -104,5 +104,13 @@ export default function ConfirmEmailPage() {
         </Form>
       </div>
     </AuthTemplate>
+  )
+}
+
+export default function ConfirmEmailPage() {
+  return (
+    <Suspense>
+      <ConfirmForm />
+    </Suspense>
   )
 }
