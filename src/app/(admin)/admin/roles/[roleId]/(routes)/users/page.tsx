@@ -1,9 +1,10 @@
 import { protectPage } from "@/lib/rbac"
 import prismadb from "@/utils/prismadb"
 
-import PageAdminHeader from "@/components/admin/page-admin-header"
+import { PageSection } from "@/components/page-header"
 import { DataTable } from "@/components/ui/data-tables/data-table"
 
+import AddUserButton from "./_components/add-user-button"
 import { columns } from "./_components/columns"
 
 export default async function RolesAdminUsersPage({
@@ -24,15 +25,15 @@ export default async function RolesAdminUsersPage({
 
   const title = "Users"
   const description = "Add users to this role"
-  const action = {
-    actionHrefLink: `/admin/roles/${roleId}/users/add`,
-    actionLabel: "Add users",
-    actionLabelSrOnly: "add users to this role",
-  }
 
   return (
-    <PageAdminHeader title={title} description={description} action={{ action }}>
+    <>
+      <PageSection
+        title={title}
+        description={description}
+        action={<AddUserButton id={Number(roleId)} />}
+      />
       <DataTable columns={columns} data={data2} searchField={"email"} />
-    </PageAdminHeader>
+    </>
   )
 }

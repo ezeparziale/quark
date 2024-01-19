@@ -33,7 +33,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 
-export default function DeleteUserModal({ role }: { role: Role }) {
+export default function DeleteRoleModal({ role }: { role: Role }) {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
 

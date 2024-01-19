@@ -3,9 +3,9 @@ import { notFound } from "next/navigation"
 import { protectPage } from "@/lib/rbac"
 import prismadb from "@/utils/prismadb"
 
-import PageAdminHeader from "@/components/admin/page-admin-header"
+import { PageSection } from "@/components/page-header"
 
-import RoleForm from "../_components/role-form"
+import RoleForm from "../_components/create-role-form"
 
 export default async function RoleAdminPage({
   params,
@@ -38,8 +38,9 @@ export default async function RoleAdminPage({
   const description = "Manage role settings"
 
   return (
-    <PageAdminHeader title={title} description={description}>
+    <>
+      <PageSection title={title} description={description} />
       <RoleForm role={role} />
-    </PageAdminHeader>
+    </>
   )
 }

@@ -33,7 +33,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>
 
-export default function RoleForm({ role }: { role?: Role }) {
+export default function CreateRoleForm({ role }: { role?: Role }) {
   const roleId = role?.id
   const router = useRouter()
 
@@ -53,7 +53,7 @@ export default function RoleForm({ role }: { role?: Role }) {
     const result = await createRole(data)
     if (result.success) {
       router.push("/admin/roles")
-      router.refresh()
+      toast.success("Role created successfully!")
     } else {
       if (result.errors) {
         addServerErrors(result.errors, form.setError)

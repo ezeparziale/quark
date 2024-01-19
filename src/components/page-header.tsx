@@ -20,6 +20,15 @@ function PageHeaderContent({ title, description, copy }: PageHeaderContentProps)
   )
 }
 
+function PageSectionContent({ title, description }: PageHeaderContentProps) {
+  return (
+    <div>
+      <h3 className="text-lg font-medium">{title}</h3>
+      <p className="text-sm text-muted-foreground">{description}</p>
+    </div>
+  )
+}
+
 interface PageHeaderProps {
   title: string
   description: string
@@ -43,6 +52,26 @@ export function PageHeader({
         {action}
       </div>
       <Separator className="my-6" />
+    </>
+  )
+}
+
+interface PageSectionProps {
+  title: string
+  description: string
+  action?: React.ReactNode
+}
+
+export function PageSection({ title, description, action }: PageSectionProps) {
+  return (
+    <>
+      <div className="mb-6 space-y-6">
+        <div className="flex items-center justify-between">
+          <PageSectionContent title={title} description={description} />
+          {action}
+        </div>
+        <Separator />
+      </div>
     </>
   )
 }
