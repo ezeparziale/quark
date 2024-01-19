@@ -8,8 +8,8 @@ import { protectPage } from "@/lib/rbac"
 import { PageHeader } from "@/components/page-header"
 
 import CreatePermissionButton from "./_components/create-permission-button"
-import LoadingPermissionsTable from "./_components/loading-page"
-import TablePermissions from "./_components/table-permissions"
+import LoadingPermissionsTable from "./_components/loading-permissions-table"
+import PermissionsTable from "./_components/permissions-table"
 
 export default async function PermissionsAdminPage() {
   const session = await getServerAuthSession()
@@ -29,7 +29,7 @@ export default async function PermissionsAdminPage() {
         linkBack="/admin"
       />
       <Suspense fallback={<LoadingPermissionsTable />}>
-        <TablePermissions />
+        <PermissionsTable />
       </Suspense>
     </>
   )
