@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 
-export default function CardKPILoading() {
+export default function CardKpiLoading() {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-x-2 space-y-0 pb-2">

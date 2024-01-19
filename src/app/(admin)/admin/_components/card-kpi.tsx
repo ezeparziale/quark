@@ -7,7 +7,7 @@ interface IProps {
   extra?: string
 }
 
-export default function CardKPI({ title, Icon, kpi, extra }: IProps) {
+export default function CardKpi({ title, Icon, kpi, extra }: IProps) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
