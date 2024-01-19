@@ -43,12 +43,7 @@ type IPros = {
 
 const action = "Save"
 
-export default function AddRoleToUserForm({
-  options,
-  selectedValues,
-  title,
-  userId,
-}: IPros) {
+export default function AddRoleForm({ options, selectedValues, title, userId }: IPros) {
   const router = useRouter()
 
   const form = useForm<FormData>({

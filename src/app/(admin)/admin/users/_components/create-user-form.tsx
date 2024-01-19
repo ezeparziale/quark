@@ -36,7 +36,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>
 
-export default function UserForm({ user }: { user?: User }) {
+export default function CreateUserForm({ user }: { user?: User }) {
   const userId = user?.id
 
   const router = useRouter()

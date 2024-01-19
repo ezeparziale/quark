@@ -1,13 +1,15 @@
 import { redirect } from "next/navigation"
 
+import { Suspense } from "react"
+
 import { getServerAuthSession } from "@/lib/auth"
 import { protectPage } from "@/lib/rbac"
-import prismadb from "@/utils/prismadb"
 
-import MainAdminHeader from "@/components/admin/main-admin-header"
-import { DataTable } from "@/components/ui/data-tables/data-table"
+import { PageHeader } from "@/components/page-header"
 
-import { columns } from "./_components/columns"
+import CreateUserButton from "./_components/create-user-button"
+import LoadingUsersTable from "./_components/loading-users-table"
+import UsersTable from "./_components/users-table"
 
 export default async function UsersAdminPage() {
   const session = await getServerAuthSession()
@@ -18,16 +20,17 @@ export default async function UsersAdminPage() {
 
   await protectPage({ permission: "admin:all" })
 
-  const data = await prismadb.user.findMany({ orderBy: { updatedAt: "desc" } })
-
   return (
-    <MainAdminHeader
-      title="Users"
-      description="Manage all user accounts."
-      actionHrefLink="/admin/users/new"
-      actionLabelSrOnly="create user"
-    >
-      <DataTable columns={columns} data={data} searchField="email" />
-    </MainAdminHeader>
+    <>
+      <PageHeader
+        title="Users"
+        description="Manage all user accounts."
+        action={<CreateUserButton />}
+        linkBack="/admin"
+      />
+      <Suspense fallback={<LoadingUsersTable />}>
+        <UsersTable />
+      </Suspense>
+    </>
   )
 }

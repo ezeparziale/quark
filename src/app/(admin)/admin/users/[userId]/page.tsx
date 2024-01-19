@@ -3,9 +3,9 @@ import { notFound } from "next/navigation"
 import { protectPage } from "@/lib/rbac"
 import prismadb from "@/utils/prismadb"
 
-import PageAdminHeader from "@/components/admin/page-admin-header"
+import { PageSection } from "@/components/page-header"
 
-import UserForm from "../_components/user-form"
+import UserForm from "../_components/create-user-form"
 
 export default async function UserAdminPage({
   params,
@@ -34,8 +34,9 @@ export default async function UserAdminPage({
   const description = "Manage user settings"
 
   return (
-    <PageAdminHeader title={title} description={description}>
+    <>
+      <PageSection title={title} description={description} />
       <UserForm user={user} />
-    </PageAdminHeader>
+    </>
   )
 }
