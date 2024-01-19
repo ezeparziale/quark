@@ -6,7 +6,7 @@ import { ArrowLeft } from "lucide-react"
 
 import { Button } from "./ui/button"
 
-export default function BackButtonLink({ link }: { link: string }) {
+export default function BackLinkButton({ link }: { link: string }) {
   return (
     <Button size="sm" variant="link" className="mb-6 p-0 text-muted-foreground" asChild>
       <Link href={link}>
