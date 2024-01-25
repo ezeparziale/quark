@@ -11,7 +11,7 @@ interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
   items: {
     href: string
     title: string
-    type: string
+    type: "parent" | "child"
   }[]
 }
 
