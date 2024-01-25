@@ -26,7 +26,6 @@ export default async function RolesAdminPage() {
         title="Roles"
         description="Manage all roles."
         action={<CreateRoleButton />}
-        linkBack="/admin"
       />
       <Suspense fallback={<TableLoading />}>
         <RolesTable />

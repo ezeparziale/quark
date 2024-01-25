@@ -26,7 +26,6 @@ export default async function UsersAdminPage() {
         title="Users"
         description="Manage all user accounts."
         action={<CreateUserButton />}
-        linkBack="/admin"
       />
       <Suspense fallback={<TableLoading />}>
         <UsersTable />

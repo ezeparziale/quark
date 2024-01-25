@@ -26,7 +26,6 @@ export default async function PermissionsAdminPage() {
         title="Permissions"
         description="Manage all permissions."
         action={<CreatePermissionButton />}
-        linkBack="/admin"
       />
       <Suspense fallback={<TableLoading />}>
         <PermissionsTable />
