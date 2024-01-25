@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils"
+
 import BackLinkButton from "./back-link-button"
 import { CopyButtonData } from "./copy-clipboard-button"
 import { Separator } from "./ui/separator"
@@ -47,7 +49,12 @@ export function PageHeader({
   return (
     <>
       {linkBack && <BackLinkButton link={linkBack} />}
-      <div className="flex items-center justify-between space-x-4">
+      <div
+        className={cn(
+          "flex items-center justify-between space-x-4",
+          linkBack ? "mt-4" : "mt-14",
+        )}
+      >
         <PageHeaderContent title={title} description={description} copy={copy} />
         {action}
       </div>
