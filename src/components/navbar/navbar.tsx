@@ -13,13 +13,10 @@ const navigation: INavigation[] = [
 export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <nav
-        className="container flex h-14 max-w-7xl items-center justify-between px-4 py-6 sm:px-6 lg:px-8"
-        aria-label="Global"
-      >
+      <div className="container flex h-14 max-w-screen-2xl items-center">
         <DesktopNav navigation={navigation} />
         <MobileNav navigation={navigation} />
-      </nav>
+      </div>
     </header>
   )
 }
