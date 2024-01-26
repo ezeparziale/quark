@@ -18,27 +18,31 @@ export default function HeaderHav({ items }: NavProps) {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/80 bg-background">
-      <nav
+      <ul
         className="container flex h-14 max-w-screen-2xl items-center"
         aria-label="sub-header"
       >
         {items.map((item) => (
-          <Link
+          <li
             key={item.href}
-            href={item.href}
             className={cn(
-              "inline-block border-b-2 p-3",
-              "text-sm font-medium",
+              "mt-2 border-b-2 p-3",
               (item.type === "parent" && pathname === item.href) ||
                 (item.type === "child" && pathname.includes(item.href))
                 ? "border-primary text-primary"
                 : "border-transparent text-muted-foreground",
             )}
           >
-            {item.title}
-          </Link>
+            <Link
+              key={item.href}
+              href={item.href}
+              className="p-2 text-sm font-medium hover:rounded-lg hover:bg-muted"
+            >
+              {item.title}
+            </Link>
+          </li>
         ))}
-      </nav>
+      </ul>
     </header>
   )
 }
