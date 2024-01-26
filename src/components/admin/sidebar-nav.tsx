@@ -4,15 +4,12 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { cn } from "@/lib/utils"
+import { NavItem } from "@/types/types"
 
 import { buttonVariants } from "@/components/ui/button"
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
-  items: {
-    href: string
-    title: string
-    type: "parent" | "child"
-  }[]
+  items: NavItem[]
 }
 
 export function SidebarNav({ className, items, ...props }: SidebarNavProps) {

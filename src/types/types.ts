@@ -3,3 +3,9 @@ export type DataResult<T> = {
   errors?: { [P in keyof T]?: string[] }
   message?: String
 }
+
+export type NavItem = {
+  title: string
+  href: string
+  type: "parent" | "child"
+}

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation"
 
+import { NavItem } from "@/types/types"
 import prismadb from "@/utils/prismadb"
 
 import { SidebarNav } from "@/components/admin/sidebar-nav"
@@ -7,7 +8,7 @@ import { PageHeader } from "@/components/page-header"
 
 import DeleteRoleModal from "./_components/delete-role-modal"
 
-const getSideBarNavItems = (id: number) => {
+const getSideBarNavItems = (id: number): NavItem[] => {
   const baseHref = `/admin/roles/${id}`
 
   return [
