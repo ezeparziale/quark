@@ -17,32 +17,26 @@ export default function HeaderHav({ items }: NavProps) {
   const pathname = usePathname()
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/80 bg-background">
-      <ul
-        className="container flex h-14 max-w-screen-2xl items-center"
+    <header className="sticky top-0 z-50 h-[56px] border-b bg-background">
+      <div
+        className="container flex w-full max-w-screen-2xl items-center"
         aria-label="sub-header"
       >
         {items.map((item) => (
-          <li
+          <Link
             key={item.href}
+            href={item.href}
             className={cn(
-              "mt-2 border-b-2 p-3",
-              (item.type === "parent" && pathname === item.href) ||
-                (item.type === "child" && pathname.includes(item.href))
-                ? "border-primary text-primary"
-                : "border-transparent text-muted-foreground",
+              "relative inline-block cursor-pointer text-sm font-normal text-muted-foreground no-underline transition-all duration-200",
+              ((item.type === "parent" && pathname === item.href) ||
+                (item.type === "child" && pathname.includes(item.href))) &&
+                "text-primary before:absolute before:inset-x-[9px] before:-bottom-1 before:block before:h-0 before:border-b-2 before:border-solid before:border-primary before:content-['']",
             )}
           >
-            <Link
-              key={item.href}
-              href={item.href}
-              className="p-2 text-sm font-medium hover:rounded-lg hover:bg-muted"
-            >
-              {item.title}
-            </Link>
-          </li>
+            <div className="my-2 rounded-md px-3 py-2 hover:bg-muted">{item.title}</div>
+          </Link>
         ))}
-      </ul>
+      </div>
     </header>
   )
 }
