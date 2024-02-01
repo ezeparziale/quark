@@ -19,7 +19,7 @@ export default function DesktopNav({ navigation }: { navigation: INavigation[] }
 
   return (
     <>
-      <div className="hidden items-center lg:flex">
+      <div className="hidden items-center lg:flex lg:space-x-6">
         <Logo />
         {!session &&
           navigation.map((item) => (
@@ -34,8 +34,12 @@ export default function DesktopNav({ navigation }: { navigation: INavigation[] }
               {item.name}
             </Link>
           ))}
-        <SlashIcon className="mx-3 hidden size-4 -rotate-[15deg] text-foreground/10 md:block" />
-        {session && <ToolSwitcher />}
+        {session && (
+          <>
+            <SlashIcon className="mx-3 hidden size-4 -rotate-[15deg] text-foreground/10 md:block" />
+            <ToolSwitcher />
+          </>
+        )}
       </div>
       <div className="hidden lg:flex lg:flex-1 lg:justify-end">
         <ThemeSwitch />
