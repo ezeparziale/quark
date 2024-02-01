@@ -7,6 +7,7 @@ import { useState } from "react"
 
 import { cn } from "@/lib/utils"
 import { Menu } from "lucide-react"
+import { useSession } from "next-auth/react"
 
 import {
   Sheet,
@@ -21,16 +22,20 @@ import Logo from "../logo"
 import ThemeSwitch from "../theme-switch"
 import LoginButton from "./login-button"
 import { INavigation } from "./navbar"
+import ToolSwitcher from "./tool-switcher"
 
 export default function MobileNav({ navigation }: { navigation: INavigation[] }) {
   const pathname = usePathname()
 
   const [openSheet, setOpenSheet] = useState(false)
 
+  const { data: session } = useSession()
+
   return (
     <div className="flex flex-grow items-center justify-between lg:hidden">
-      <div>
+      <div className="flex items-center justify-between">
         <Logo />
+        {session && <ToolSwitcher />}
       </div>
       <div className="flex items-center">
         <ThemeSwitch />
