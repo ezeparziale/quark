@@ -2,12 +2,12 @@ import Image from "next/image"
 
 import { Loader2 } from "lucide-react"
 
-import Container from "@/components/container"
 import Logo from "@/components/logo"
+import MaxWidthWrapper from "@/components/max-width-wrapper"
 
 export default function LoadingConfirmEmail() {
   return (
-    <Container>
+    <MaxWidthWrapper>
       <div className="mt-20 flex flex-col items-center">
         <Logo />
         <Image
@@ -33,6 +33,6 @@ export default function LoadingConfirmEmail() {
           </h2>
         </div>
       </div>
-    </Container>
+    </MaxWidthWrapper>
   )
 }

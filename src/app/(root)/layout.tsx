@@ -1,4 +1,4 @@
-import Container from "@/components/container"
+import MaxWidthWrapper from "@/components/max-width-wrapper"
 import Navbar from "@/components/navbar/navbar"
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -6,7 +6,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <>
       <Navbar />
       <main>
-        <Container>{children}</Container>
+        <MaxWidthWrapper>{children}</MaxWidthWrapper>
       </main>
     </>
   )

@@ -4,8 +4,8 @@ import { redirect } from "next/navigation"
 
 import { ArrowLeft } from "lucide-react"
 
-import Container from "@/components/container"
 import Logo from "@/components/logo"
+import MaxWidthWrapper from "@/components/max-width-wrapper"
 import { Button } from "@/components/ui/button"
 
 const errorTypes: { [key: string]: { message: string; img?: string } } = {
@@ -32,7 +32,7 @@ export default function Error({ searchParams }: { searchParams: { error: string 
   }
 
   return (
-    <Container>
+    <MaxWidthWrapper>
       <div className="mt-20 flex flex-col items-center">
         <Logo />
         <Image
@@ -61,6 +61,6 @@ export default function Error({ searchParams }: { searchParams: { error: string 
           </Link>
         </Button>
       </div>
-    </Container>
+    </MaxWidthWrapper>
   )
 }

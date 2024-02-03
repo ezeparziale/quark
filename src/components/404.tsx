@@ -7,8 +7,8 @@ import React from "react"
 
 import { ArrowLeft } from "lucide-react"
 
-import Container from "./container"
 import Logo from "./logo"
+import MaxWidthWrapper from "./max-width-wrapper"
 import { Button } from "./ui/button"
 
 export default function NotFound404({
@@ -23,7 +23,7 @@ export default function NotFound404({
   showLogo?: boolean
 }) {
   return (
-    <Container>
+    <MaxWidthWrapper>
       <div className="flex flex-col items-center">
         {showLogo && <Logo />}
         <Image
@@ -48,6 +48,6 @@ export default function NotFound404({
           </Link>
         </Button>
       </div>
-    </Container>
+    </MaxWidthWrapper>
   )
 }
