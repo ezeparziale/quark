@@ -34,6 +34,7 @@
     "@react-email/text": "0.0.7",
     "@t3-oss/env-nextjs": "0.7.1",
     "@tanstack/react-table": "8.10.7",
+    "@vercel/speed-insights": "1.0.9",
     "axios": "1.6.0",
     "bcrypt": "5.1.1",
     "class-variance-authority": "0.7.0",
