@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 
 import { cn } from "@/lib/utils"
+import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { GeistSans } from "geist/font/sans"
 
@@ -22,7 +23,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <div className="relative flex min-h-screen flex-col">
           <Providers>
-            <div className="flex-1">{children}</div>
+            <div className="flex-1">
+              {children}
+              <SpeedInsights />
+              <Analytics />
+            </div>
             <Toaster richColors closeButton />
           </Providers>
         </div>
