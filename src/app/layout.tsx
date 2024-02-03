@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 
 import { cn } from "@/lib/utils"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { GeistSans } from "geist/font/sans"
 
 import Providers from "@/components/providers"
