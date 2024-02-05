@@ -17,7 +17,7 @@ export default function NavTabs({ items }: NavProps) {
   const pathname = usePathname()
 
   return (
-    <header className="sticky top-0 z-50 h-[56px] border-b bg-background">
+    <nav className="sticky top-0 z-50 h-[56px] border-b bg-background">
       <div
         className="container flex w-full max-w-screen-2xl items-center"
         aria-label="sub-header"
@@ -37,6 +37,6 @@ export default function NavTabs({ items }: NavProps) {
           </Link>
         ))}
       </div>
-    </header>
+    </nav>
   )
 }
