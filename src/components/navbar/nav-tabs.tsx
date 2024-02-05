@@ -13,7 +13,7 @@ interface NavProps extends React.HTMLAttributes<HTMLElement> {
   }[]
 }
 
-export default function HeaderHav({ items }: NavProps) {
+export default function NavTabs({ items }: NavProps) {
   const pathname = usePathname()
 
   return (

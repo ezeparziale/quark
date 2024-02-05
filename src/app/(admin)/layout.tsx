@@ -1,5 +1,5 @@
-import HeaderHav from "@/components/admin/header-nav"
 import MaxWidthWrapper from "@/components/max-width-wrapper"
+import NavTabs from "@/components/navbar/nav-tabs"
 import Navbar from "@/components/navbar/navbar"
 
 export interface INavigation {
@@ -19,7 +19,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <>
       <Navbar />
-      <HeaderHav items={navigation} />
+      <NavTabs items={navigation} />
       <main>
         <MaxWidthWrapper>{children}</MaxWidthWrapper>
       </main>
