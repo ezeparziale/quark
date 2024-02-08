@@ -41,6 +41,7 @@
     "class-variance-authority": "0.7.0",
     "clsx": "2.0.0",
     "cmdk": "^0.2.0",
+    "framer-motion": "11.0.3",
     "geist": "1.1.0",
     "jsonwebtoken": "9.0.2",
     "lucide-react": "0.309.0",
