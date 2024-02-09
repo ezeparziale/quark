@@ -9,3 +9,9 @@ export type NavItem = {
   href: string
   type: "parent" | "child"
 }
+
+export interface ITools {
+  label: string
+  value?: string
+  href: string
+}

@@ -2,11 +2,11 @@
 
 import { usePathname, useRouter } from "next/navigation"
 
-import * as React from "react"
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 
+import useTools from "@/lib/swr/use-tools"
 import { cn } from "@/lib/utils"
-import { Check, ChevronsUpDown, PlusCircle, ShieldCheck } from "lucide-react"
+import { Check, ChevronsUpDown, PlusCircle } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -20,33 +20,21 @@ import {
 } from "@/components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 
-interface IToolsProps {
-  label: string
-  value?: string
-  href: string
-  icon?: React.JSX.Element
-}
-
-const tools: IToolsProps[] = [
-  {
-    label: "Admin",
-    value: "admin",
-    href: "/admin",
-    icon: <ShieldCheck className="mr-2 h-4 w-4" />,
-  },
-]
+import { Skeleton } from "../ui/skeleton"
 
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>
 
 interface ToolSwitcherProps extends PopoverTriggerProps {}
 
 export default function ToolSwitcher({ className }: ToolSwitcherProps) {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
 
+  const { tools, isLoading } = useTools()
+
   const selected = useMemo(() => {
-    const selectTool = tools.find((tool) => pathname.startsWith(tool.href))
+    const selectTool = tools?.find((tool) => pathname.startsWith(tool.href))
 
     if (selectTool) return { ...selectTool }
 
@@ -54,7 +42,9 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
       label: "Select a tool",
       href: "/",
     }
-  }, [pathname])
+  }, [pathname, tools])
+
+  if (!tools || isLoading) return <Skeleton className="h-8 w-[200px]" />
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -66,7 +56,6 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
           aria-label="Select a tool"
           className={cn("w-[200px] justify-between", className)}
         >
-          {selected.icon}
           {selected.label}
           <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -86,7 +75,6 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
                   }}
                   className="text-sm"
                 >
-                  {tool.icon}
                   {tool.label}
                   <Check
                     className={cn(
