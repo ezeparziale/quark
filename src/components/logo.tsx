@@ -28,13 +28,15 @@ export default function Logo({ disableScale }: { disableScale?: boolean }) {
       const largest = Math.max(outMin, outMax)
       const smallest = Math.min(outMin, outMax)
       return Math.min(Math.max(newValue, smallest), largest)
-    }, [num])
+    }, [inMax, inMin, num, outMax, outMin])
 
     return mappedValue
   }
 
-  const scale = useRange(y, 0, 50, 1, 0.6)
-  const logoScale = disableScale ? 0.8 : scale
+  const scale = useRange(y, 0, 50, 1, 0.7)
+  const scaleY = useRange(y, 0, 50, 0, 1)
+  const logoScale = disableScale ? 1 : scale
+  const size = 32
 
   return (
     <div className="flex justify-center">
@@ -43,28 +45,28 @@ export default function Logo({ disableScale }: { disableScale?: boolean }) {
           <Image
             src={`/logo/logo-light.svg`}
             alt={"logo"}
-            width={40}
-            height={40}
+            width={size}
+            height={size}
             className={cn(
               "z-50 block dark:hidden",
-              !disableScale && "fixed left-6 top-3",
+              !disableScale && "fixed left-6 top-[16px]",
             )}
             style={{
-              width: `${40 * logoScale}px`,
+              width: `${size * logoScale}px`,
+              transform: `translate(0px, -${5 * scaleY}px)`,
             }}
           />
-
           <Image
             src={`/logo/logo-dark.svg`}
             alt={"logo"}
-            width={40}
-            height={40}
+            width={size}
+            height={size}
             className={cn(
               "z-50 hidden dark:block",
               !disableScale && "fixed left-6 top-3",
             )}
             style={{
-              width: `${40 * logoScale}px`,
+              width: `${size * logoScale}px`,
             }}
           />
           <span className="sr-only">quark</span>
