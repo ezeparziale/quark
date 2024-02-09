@@ -4,6 +4,7 @@ import { usePathname, useRouter } from "next/navigation"
 import React, { Dispatch, SetStateAction } from "react"
 
 import { cn } from "@/lib/utils"
+import { useSession } from "next-auth/react"
 
 import {
   DropdownMenu,
@@ -15,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
+import { Skeleton } from "../ui/skeleton"
 import UserAvatar from "./user-avatar"
 
 interface IMenu {
@@ -24,6 +26,7 @@ interface IMenu {
   shortcut?: string
 }
 const menu: IMenu[] = [
+  { name: "My tools", href: "/tools", separator: false },
   { name: "Profile", href: "/profile", separator: false, shortcut: "⇧⌘P" },
   { name: "Settings", href: "/settings", separator: false, shortcut: "⇧⌘S" },
   { name: "Log out", href: "/auth/logout", separator: true, shortcut: "⇧⌘Q" },
@@ -31,17 +34,20 @@ const menu: IMenu[] = [
 
 export default function UserNav({
   setOpenSheet,
-  email,
 }: {
   setOpenSheet?: Dispatch<SetStateAction<boolean>>
-  email: string
 }) {
   const router = useRouter()
   const pathname = usePathname()
+  const { data: session, status } = useSession()
+
+  if (status != "authenticated") {
+    return <Skeleton className="h-8 w-8 gap-x-6 rounded-full" />
+  }
 
   return (
     <>
-      <div className="hidden lg:flex lg:gap-x-6">
+      <div className="hidden items-center lg:ml-0 lg:flex">
         <DropdownMenu>
           <DropdownMenuTrigger>
             <UserAvatar />
@@ -50,7 +56,9 @@ export default function UserNav({
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
                 <p className="text-sm font-medium leading-none">Signed in as</p>
-                <p className="text-xs leading-none text-muted-foreground">{email}</p>
+                <p className="text-xs leading-none text-muted-foreground">
+                  {session.user.email!}
+                </p>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
