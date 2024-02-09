@@ -6,7 +6,7 @@ export default function AuthTemplate({ children }: { children: React.ReactNode }
       <section className="mx-auto flex w-full items-start px-8 md:w-1/3 md:items-center md:px-0">
         <div className="relative mx-auto my-auto flex w-full min-w-min max-w-sm origin-left transform flex-row items-center py-4 pt-4 md:-left-4 md:mx-0 md:py-4">
           <div className="flex items-center bg-background py-8">
-            <Logo />
+            <Logo disableScale={true} />
           </div>
         </div>
       </section>
