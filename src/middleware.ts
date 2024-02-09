@@ -11,7 +11,7 @@ export default async function middleware(req: NextRequest, event: NextFetchEvent
       req.nextUrl.pathname.startsWith("/auth/register")) &&
     isAuthenticated
   ) {
-    return NextResponse.redirect(new URL("/", req.url))
+    return NextResponse.redirect(new URL("/tools", req.url))
   }
   if (req.nextUrl.pathname.startsWith("/auth/")) {
     return NextResponse.next()
