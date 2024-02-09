@@ -46,7 +46,7 @@ export default function Logo({ disableScale }: { disableScale?: boolean }) {
             width={40}
             height={40}
             className={cn(
-              " z-50 block dark:hidden",
+              "z-50 block dark:hidden",
               !disableScale && "fixed left-6 top-3",
             )}
             style={{
@@ -60,7 +60,7 @@ export default function Logo({ disableScale }: { disableScale?: boolean }) {
             width={40}
             height={40}
             className={cn(
-              " z-50 hidden dark:block",
+              "z-50 hidden dark:block",
               !disableScale && "fixed left-6 top-3",
             )}
             style={{
@@ -70,8 +70,8 @@ export default function Logo({ disableScale }: { disableScale?: boolean }) {
           <span className="sr-only">quark</span>
           <p
             className={cn(
-              "hidden font-bold text-primary antialiased sm:text-sm md:block md:text-2xl lg:text-2xl",
-              !disableScale && "pl-12",
+              "hidden pl-12 font-bold text-primary antialiased sm:text-sm md:block md:text-2xl lg:text-2xl",
+              disableScale && "pl-3",
             )}
           >
             quark
