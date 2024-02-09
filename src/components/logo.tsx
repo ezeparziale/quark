@@ -67,6 +67,7 @@ export default function Logo({ disableScale }: { disableScale?: boolean }) {
             )}
             style={{
               width: `${size * logoScale}px`,
+              transform: `translate(0px, -${5 * scaleY}px)`,
             }}
           />
           <span className="sr-only">quark</span>
