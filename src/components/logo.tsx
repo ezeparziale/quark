@@ -49,7 +49,7 @@ export default function Logo({ disableScale }: { disableScale?: boolean }) {
             height={size}
             className={cn(
               "z-50 block dark:hidden",
-              !disableScale && "fixed left-6 top-[16px]",
+              !disableScale && "fixed left-6 top-4",
             )}
             style={{
               width: `${size * logoScale}px`,
@@ -63,7 +63,7 @@ export default function Logo({ disableScale }: { disableScale?: boolean }) {
             height={size}
             className={cn(
               "z-50 hidden dark:block",
-              !disableScale && "fixed left-6 top-3",
+              !disableScale && "fixed left-6 top-4",
             )}
             style={{
               width: `${size * logoScale}px`,
