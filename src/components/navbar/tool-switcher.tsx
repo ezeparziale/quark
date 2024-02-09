@@ -44,7 +44,7 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
     }
   }, [pathname, tools])
 
-  if (!tools || isLoading) return <Skeleton className="h-8 w-[200px]" />
+  if (!tools || isLoading) return <Skeleton className="h-8 w-36 md:w-48" />
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -54,13 +54,13 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
           role="combobox"
           aria-expanded={open}
           aria-label="Select a tool"
-          className={cn("w-[200px] justify-between", className)}
+          className={cn("w-36 justify-between md:w-48", className)}
         >
           {selected.label}
           <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-36 p-0 md:w-48">
         <Command>
           <CommandList>
             <CommandInput placeholder="Search tool..." />
