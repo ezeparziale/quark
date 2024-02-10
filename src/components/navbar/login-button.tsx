@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 
 export default function LoginButton() {
   return (
-    <div className="flex space-x-1">
+    <div className="flex space-x-2">
       <Button asChild variant="outline" size="default">
         <Link href="/auth/login">Log in</Link>
       </Button>
