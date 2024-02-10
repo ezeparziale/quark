@@ -38,7 +38,7 @@ function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
 
   const searchParams = useSearchParams()
-  const callbackUrl: string = (searchParams.get("callbackUrl") as string) ?? "/"
+  const callbackUrl: string = (searchParams.get("callbackUrl") as string) ?? "/tools"
   const activated = searchParams?.get("activated") ?? null
   const updatedEmail = searchParams?.get("updatedEmail") ?? null
 
