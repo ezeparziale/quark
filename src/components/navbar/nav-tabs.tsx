@@ -38,7 +38,7 @@ export default function NavTabs({ items }: NavProps) {
       const largest = Math.max(outMin, outMax)
       const smallest = Math.min(outMin, outMax)
       return Math.min(Math.max(newValue, smallest), largest)
-    }, [num])
+    }, [inMax, inMin, num, outMax, outMin])
 
     return mappedValue
   }
@@ -49,7 +49,7 @@ export default function NavTabs({ items }: NavProps) {
 
   return (
     <>
-      <nav className="sticky top-0 z-40 mb-[-3px] mt-[-10px] flex h-[46px] items-center justify-start space-x-1 overflow-x-auto border-b bg-background pl-3">
+      <nav className="sticky top-0 z-40 mb-[-3px] mt-[-10px] flex h-[46px] items-center justify-start space-x-1 overflow-x-auto border-b bg-background px-4">
         {items.map((item) => (
           <Link
             key={item.href}
