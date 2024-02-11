@@ -1,7 +1,7 @@
 import { ITools } from "@/types/types"
 import { NotebookPen, ShieldCheck } from "lucide-react"
 
-export const toolsConfig: ITools[] = [
+export const TOOLS: ITools[] = [
   {
     label: "Blog",
     value: "blog",

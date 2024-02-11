@@ -1,5 +1,5 @@
-import { toolsConfig } from "@/constants"
 import { ITools } from "@/types/types"
+import { TOOLS } from "@/utils"
 import useSWR from "swr"
 
 interface SWRError extends Error {
@@ -27,7 +27,7 @@ export default function useTools() {
 
   const tools = data?.map((tool) => ({
     ...tool,
-    icon: toolsConfig.find((filteredTool) => filteredTool.value === tool.value)?.icon,
+    icon: TOOLS.find((filteredTool) => filteredTool.value === tool.value)?.icon,
   }))
 
   return { tools, error, isLoading }

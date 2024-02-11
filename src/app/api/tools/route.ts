@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 
-import { toolsConfig } from "@/constants"
+import { TOOLS } from "@/utils"
 
 export async function GET(req: Request) {
-  return NextResponse.json(toolsConfig, { status: 200 })
+  return NextResponse.json(TOOLS, { status: 200 })
 }
