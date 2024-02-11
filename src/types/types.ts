@@ -14,4 +14,5 @@ export interface ITools {
   label: string
   value?: string
   href: string
+  icon: JSX.Element
 }

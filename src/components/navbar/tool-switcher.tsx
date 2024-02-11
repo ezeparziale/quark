@@ -41,6 +41,8 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
     return {
       label: "Select a tool",
       href: "/",
+      value: null,
+      icon: null,
     }
   }, [pathname, tools])
 
@@ -56,8 +58,9 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
           aria-label="Select a tool"
           className={cn("w-36 justify-between md:w-48", className)}
         >
+          {selected.icon}
           {selected.label}
-          <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
+          <ChevronsUpDown className="ml-auto size-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-36 p-0 md:w-48">
@@ -75,6 +78,7 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
                   }}
                   className="text-sm"
                 >
+                  {tool.icon}
                   {tool.label}
                   <Check
                     className={cn(

@@ -1,3 +1,4 @@
+import { toolsConfig } from "@/constants"
 import { ITools } from "@/types/types"
 import useSWR from "swr"
 
@@ -22,7 +23,12 @@ export async function fetcher<JSON = any>(
 }
 
 export default function useTools() {
-  const { data: tools, error, isLoading } = useSWR<ITools[]>("/api/tools", fetcher)
+  const { data, error, isLoading } = useSWR<ITools[]>("/api/tools", fetcher)
+
+  const tools = data?.map((tool) => ({
+    ...tool,
+    icon: toolsConfig.find((filteredTool) => filteredTool.value === tool.value)?.icon,
+  }))
 
   return { tools, error, isLoading }
 }
