@@ -42,7 +42,11 @@ export default function UserNav({
   const { data: session, status } = useSession()
 
   if (status != "authenticated") {
-    return <Skeleton className="h-8 w-8 gap-x-6 rounded-full" />
+    return (
+      <div className="flex items-center">
+        <Skeleton className="h-8 w-8 gap-x-6 rounded-full" />
+      </div>
+    )
   }
 
   return (
