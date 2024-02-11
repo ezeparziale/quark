@@ -4,7 +4,7 @@ import ConfirmEmail from "@/emails/confirm-email"
 import { env } from "@/env.mjs"
 import { generateUserToken } from "@/lib/jwt"
 import { sendMail } from "@/lib/mail"
-import prismadb from "@/utils/prismadb"
+import prismadb from "@/lib/prismadb"
 import { render } from "@react-email/render"
 
 export async function POST(req: Request) {

@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation"
 
 import { getServerAuthSession } from "@/lib/auth"
-import prismadb from "@/utils/prismadb"
+import prismadb from "@/lib/prismadb"
 
 export async function getCurrentUser(redirectPage?: string) {
   const session = await getServerAuthSession()

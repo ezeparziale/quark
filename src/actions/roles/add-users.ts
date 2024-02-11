@@ -2,8 +2,8 @@
 
 import { revalidatePath } from "next/cache"
 
+import prismadb from "@/lib/prismadb"
 import { DataResult } from "@/types/types"
-import prismadb from "@/utils/prismadb"
 
 interface IRole {
   id?: (string | undefined)[] | undefined

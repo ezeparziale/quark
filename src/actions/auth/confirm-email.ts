@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation"
 
 import { verifyUserToken } from "@/lib/jwt"
-import prismadb from "@/utils/prismadb"
+import prismadb from "@/lib/prismadb"
 
 interface IPros {
   token: string

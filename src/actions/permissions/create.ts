@@ -3,8 +3,8 @@
 import { revalidatePath } from "next/cache"
 
 import { getServerAuthSession } from "@/lib/auth"
+import prismadb from "@/lib/prismadb"
 import { DataResult } from "@/types/types"
-import prismadb from "@/utils/prismadb"
 
 interface IPermission {
   name: string

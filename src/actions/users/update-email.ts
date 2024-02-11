@@ -5,8 +5,8 @@ import { env } from "@/env.mjs"
 import { getServerAuthSession } from "@/lib/auth"
 import { generateUserToken } from "@/lib/jwt"
 import { sendMail } from "@/lib/mail"
+import prismadb from "@/lib/prismadb"
 import { DataResult } from "@/types/types"
-import prismadb from "@/utils/prismadb"
 import { render } from "@react-email/render"
 
 type FormDataNewEmail = {

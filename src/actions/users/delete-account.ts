@@ -1,8 +1,8 @@
 "use server"
 
 import { getServerAuthSession } from "@/lib/auth"
+import prismadb from "@/lib/prismadb"
 import { DataResult } from "@/types/types"
-import prismadb from "@/utils/prismadb"
 
 type FormDataDeleteAccount = {
   userEmail: string

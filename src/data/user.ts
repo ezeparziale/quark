@@ -1,4 +1,4 @@
-import prismadb from "@/utils/prismadb"
+import prismadb from "@/lib/prismadb"
 
 export const getUserByEmail = async (email: string) => {
   try {

@@ -1,4 +1,4 @@
-import prismadb from "@/utils/prismadb"
+import prismadb from "@/lib/prismadb"
 
 import { DataTable } from "@/components/ui/data-tables/data-table"
 

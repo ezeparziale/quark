@@ -1,5 +1,5 @@
+import prismadb from "@/lib/prismadb"
 import { protectPage } from "@/lib/rbac"
-import prismadb from "@/utils/prismadb"
 
 import { PageSection } from "@/components/page-header"
 

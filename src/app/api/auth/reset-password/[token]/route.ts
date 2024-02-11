@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 
 import { getUserByEmail } from "@/data/user"
 import { verifyUserToken } from "@/lib/jwt"
-import prismadb from "@/utils/prismadb"
+import prismadb from "@/lib/prismadb"
 import bcrypt from "bcrypt"
 
 export async function POST(req: Request, { params }: { params: { token: string } }) {

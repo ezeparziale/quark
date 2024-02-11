@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache"
 
-import prismadb from "@/utils/prismadb"
+import prismadb from "@/lib/prismadb"
 
 interface IDeleteRolePermission {
   roleId: number

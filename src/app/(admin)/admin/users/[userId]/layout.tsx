@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation"
 
+import prismadb from "@/lib/prismadb"
 import { NavItem } from "@/types/types"
-import prismadb from "@/utils/prismadb"
 
 import { SidebarNav } from "@/components/admin/sidebar-nav"
 import { PageHeader } from "@/components/page-header"

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation"
 
+import prismadb from "@/lib/prismadb"
 import { protectPage } from "@/lib/rbac"
-import prismadb from "@/utils/prismadb"
 
 import { PageHeader } from "@/components/page-header"
 
