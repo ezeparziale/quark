@@ -82,7 +82,7 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
                   {tool.label}
                   <Check
                     className={cn(
-                      "ml-auto h-4 w-4",
+                      "ml-auto size-4",
                       selected.value === tool.value ? "opacity-100" : "opacity-0",
                     )}
                   />
@@ -98,7 +98,7 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
                   setOpen(false)
                 }}
               >
-                <PlusCircle className="mr-2 h-4 w-4" />
+                <PlusCircle className="mr-2 size-4" />
                 Add new tools
               </CommandItem>
             </CommandGroup>
