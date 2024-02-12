@@ -32,6 +32,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 export default function DeleteRoleModal({ role }: { role: Role }) {
   const router = useRouter()
@@ -58,13 +59,24 @@ export default function DeleteRoleModal({ role }: { role: Role }) {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Button variant="destructive" className="ml-2">
-          <Trash2 className="h-4 w-4" />
-          <span className="sr-only">delete role</span>
-          <span className="ml-2 hidden md:block">Delete</span>
-        </Button>
-      </DialogTrigger>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <DialogTrigger asChild>
+            <Button variant="destructive">
+              <Trash2 className="size-4" />
+              <span className="sr-only">delete role</span>
+              <span className="ml-2 hidden md:block">Delete role</span>
+            </Button>
+          </DialogTrigger>
+        </TooltipTrigger>
+        <TooltipContent
+          className="border-destructive md:hidden"
+          side="left"
+          sideOffset={18}
+        >
+          <p>Delete role</p>
+        </TooltipContent>
+      </Tooltip>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Delete role</DialogTitle>

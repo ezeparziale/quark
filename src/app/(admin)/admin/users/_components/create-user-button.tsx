@@ -3,15 +3,23 @@ import Link from "next/link"
 import { Plus } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 export default function CreateUserButton() {
   return (
-    <Button asChild>
-      <Link href="/admin/users/new">
-        <Plus className="h-4 w-4" />
-        <span className="sr-only">create user</span>
-        <span className="ml-2 hidden md:block">User</span>
-      </Link>
-    </Button>
+    <Tooltip>
+      <TooltipTrigger>
+        <Button asChild>
+          <Link href="/admin/users/new">
+            <Plus className="size-4" />
+            <span className="sr-only">create user</span>
+            <span className="ml-2 hidden md:block">Create user</span>
+          </Link>
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent className="md:hidden" side="left" sideOffset={18}>
+        <p>Create user</p>
+      </TooltipContent>
+    </Tooltip>
   )
 }
