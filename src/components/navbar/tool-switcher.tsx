@@ -6,7 +6,7 @@ import { useMemo, useState } from "react"
 
 import useTools from "@/lib/swr/use-tools"
 import { cn } from "@/lib/utils"
-import { Check, ChevronsUpDown, PlusCircle } from "lucide-react"
+import { Check, ChevronsUpDown, LayoutGrid, PlusCircle } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -42,11 +42,11 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
       label: "Select a tool",
       href: "/",
       value: null,
-      icon: null,
+      icon: <LayoutGrid className="mr-2 size-4" />,
     }
   }, [pathname, tools])
 
-  if (!tools || isLoading) return <Skeleton className="h-8 w-36 md:w-48" />
+  if (!tools || isLoading) return <Skeleton className="h-8 w-40 md:w-48" />
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -56,14 +56,14 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
           role="combobox"
           aria-expanded={open}
           aria-label="Select a tool"
-          className={cn("w-36 justify-between md:w-48", className)}
+          className={cn("w-40 justify-between md:w-48", className)}
         >
           {selected.icon}
           {selected.label}
           <ChevronsUpDown className="ml-auto size-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-36 p-0 md:w-48">
+      <PopoverContent className="w-40 p-0 md:w-48">
         <Command>
           <CommandList>
             <CommandInput placeholder="Search tool..." />
