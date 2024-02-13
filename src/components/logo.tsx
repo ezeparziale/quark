@@ -8,7 +8,13 @@ import { useMemo, useState } from "react"
 import { cn } from "@/lib/utils"
 import { useMotionValueEvent, useScroll } from "framer-motion"
 
-export default function Logo({ disableScale }: { disableScale?: boolean }) {
+export default function Logo({
+  disableScale,
+  disableName,
+}: {
+  disableScale?: boolean
+  disableName?: boolean
+}) {
   const { scrollY } = useScroll()
   const [y, setY] = useState(0)
 
@@ -53,7 +59,7 @@ export default function Logo({ disableScale }: { disableScale?: boolean }) {
             )}
             style={{
               width: `${size * logoScale}px`,
-              transform: `translate(0px, -${5 * scaleY}px)`,
+              transform: `translate(0px, -${8 * scaleY}px)`,
             }}
           />
           <Image
@@ -67,18 +73,20 @@ export default function Logo({ disableScale }: { disableScale?: boolean }) {
             )}
             style={{
               width: `${size * logoScale}px`,
-              transform: `translate(0px, -${5 * scaleY}px)`,
+              transform: `translate(0px, -${8 * scaleY}px)`,
             }}
           />
           <span className="sr-only">quark</span>
-          <p
-            className={cn(
-              "hidden pl-12 font-bold text-primary antialiased sm:text-sm md:block md:text-2xl lg:text-2xl",
-              disableScale && "pl-3",
-            )}
-          >
-            quark
-          </p>
+          {!disableName && (
+            <p
+              className={cn(
+                "hidden pl-12 font-bold text-primary antialiased sm:text-sm md:block md:text-2xl lg:text-2xl",
+                disableScale && "pl-3",
+              )}
+            >
+              quark
+            </p>
+          )}
         </div>
       </Link>
     </div>
