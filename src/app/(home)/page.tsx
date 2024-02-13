@@ -1,6 +1,7 @@
 import Link from "next/link"
 
-import { ArrowRight, Github } from "lucide-react"
+import { ArrowRight } from "lucide-react"
+import { RxGithubLogo } from "react-icons/rx"
 
 import { Button } from "@/components/ui/button"
 
@@ -30,7 +31,7 @@ export default function Home() {
                 target="_blank"
                 rel="noreferrer"
               >
-                <Github className="mr-3 h-4 w-4" />
+                <RxGithubLogo className="mr-3 h-4 w-4" />
                 GitHub
               </Link>
             </Button>
