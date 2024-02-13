@@ -25,7 +25,7 @@ export default function NotFound404({
   return (
     <MaxWidthWrapper>
       <div className="flex flex-col items-center">
-        {showLogo && <Logo />}
+        {showLogo && <Logo disableScale />}
         <Image
           alt="missing site"
           src={`/not-found/falling-gray.svg`}

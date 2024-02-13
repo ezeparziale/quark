@@ -34,7 +34,7 @@ export default function Error({ searchParams }: { searchParams: { error: string 
   return (
     <MaxWidthWrapper>
       <div className="mt-20 flex flex-col items-center">
-        <Logo />
+        <Logo disableScale />
         <Image
           alt="missing site"
           src={`/error/${errorMessage.img}-gray.svg`}
