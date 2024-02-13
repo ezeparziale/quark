@@ -1,6 +1,7 @@
 import MaxWidthWrapper from "@/components/max-width-wrapper"
 import NavTabs from "@/components/navbar/nav-tabs"
 import Navbar from "@/components/navbar/navbar"
+import { SiteFooter } from "@/components/site-footer"
 
 export interface INavigation {
   title: string
@@ -21,8 +22,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <Navbar />
       <NavTabs items={navigation} />
       <main>
-        <MaxWidthWrapper>{children}</MaxWidthWrapper>
+        <MaxWidthWrapper className="min-h-screen">{children}</MaxWidthWrapper>
       </main>
+      <SiteFooter />
     </>
   )
 }
