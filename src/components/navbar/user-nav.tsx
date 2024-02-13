@@ -4,6 +4,7 @@ import { usePathname, useRouter } from "next/navigation"
 import React, { Dispatch, SetStateAction } from "react"
 
 import { cn } from "@/lib/utils"
+import { LayoutGrid, LogOut, Settings, User } from "lucide-react"
 import { useSession } from "next-auth/react"
 
 import {
@@ -24,12 +25,36 @@ interface IMenu {
   href: string
   separator: boolean
   shortcut?: string
+  icon?: JSX.Element
 }
 const menu: IMenu[] = [
-  { name: "My tools", href: "/tools", separator: false },
-  { name: "Profile", href: "/profile", separator: false, shortcut: "⇧⌘P" },
-  { name: "Settings", href: "/settings", separator: false, shortcut: "⇧⌘S" },
-  { name: "Log out", href: "/auth/logout", separator: true, shortcut: "⇧⌘Q" },
+  {
+    name: "My tools",
+    href: "/tools",
+    separator: false,
+    icon: <LayoutGrid className="mr-2 size-4" />,
+  },
+  {
+    name: "Profile",
+    href: "/profile",
+    separator: false,
+    shortcut: "⇧⌘P",
+    icon: <User className="mr-2 size-4" />,
+  },
+  {
+    name: "Settings",
+    href: "/settings",
+    separator: false,
+    shortcut: "⇧⌘S",
+    icon: <Settings className="mr-2 size-4" />,
+  },
+  {
+    name: "Log out",
+    href: "/auth/logout",
+    separator: true,
+    shortcut: "⇧⌘Q",
+    icon: <LogOut className="mr-2 size-4" />,
+  },
 ]
 
 export default function UserNav({
@@ -76,6 +101,7 @@ export default function UserNav({
                   onClick={() => router.push(item.href)}
                   className={cn(pathname === item.href && "bg-muted")}
                 >
+                  {item.icon}
                   {item.name}
                   {item.shortcut && (
                     <DropdownMenuShortcut>{item.shortcut}</DropdownMenuShortcut>
@@ -100,7 +126,10 @@ export default function UserNav({
                   pathname != item.href && "text-muted-foreground",
                 )}
               >
-                {item.name}
+                <div className="flex items-center">
+                  {item.icon}
+                  {item.name}
+                </div>
               </Link>
             ))}
           </div>
