@@ -4,8 +4,16 @@ import { useRouter } from "next/navigation"
 
 import { useCallback, useEffect, useState } from "react"
 
-import { LayoutGrid, LogOut, NotebookPen, Settings, User } from "lucide-react"
+import {
+  LayoutGrid,
+  LogOut,
+  LucideIcon,
+  NotebookPen,
+  Settings,
+  User,
+} from "lucide-react"
 import { useTheme } from "next-themes"
+import { IconType } from "react-icons/lib"
 import { RxDesktop, RxMoon, RxSun } from "react-icons/rx"
 
 import {
@@ -17,6 +25,30 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command"
+
+interface IQuickLinks {
+  icon: LucideIcon
+  label: string
+  href: string
+}
+
+interface ITheme {
+  icon: IconType
+  label: string
+  action: string
+}
+
+const quickLinks: IQuickLinks[] = [
+  { icon: User, label: "Profile", href: "/profile" },
+  { icon: Settings, label: "Settings", href: "/settings" },
+  { icon: LogOut, label: "Log out", href: "/auth/logout" },
+]
+
+const themeItems: ITheme[] = [
+  { icon: RxSun, label: "Light", action: "light" },
+  { icon: RxMoon, label: "dark", action: "dark" },
+  { icon: RxDesktop, label: "System", action: "system" },
+]
 
 export function CommandMenu() {
   const [open, setOpen] = useState(false)
@@ -72,44 +104,30 @@ export function CommandMenu() {
           </CommandGroup>
           <CommandSeparator />
           <CommandGroup heading="Quick">
-            <CommandItem
-              onSelect={() => {
-                runCommand(() => router.push("/profile"))
-              }}
-            >
-              <User className="mr-2 size-4" />
-              <span>Profile</span>
-            </CommandItem>
-            <CommandItem
-              onSelect={() => {
-                runCommand(() => router.push("/settings"))
-              }}
-            >
-              <Settings className="mr-2 size-4" />
-              <span>Settings</span>
-            </CommandItem>
-            <CommandItem
-              onSelect={() => {
-                runCommand(() => router.push("/auth/logout"))
-              }}
-            >
-              <LogOut className="mr-2 size-4" />
-              <span>Log out</span>
-            </CommandItem>
+            {quickLinks.map((quickLink, index) => (
+              <CommandItem
+                key={index}
+                onSelect={() => {
+                  runCommand(() => router.push(quickLink.href))
+                }}
+              >
+                <quickLink.icon className="mr-2 size-4" />
+                <span>{quickLink.label}</span>
+              </CommandItem>
+            ))}
           </CommandGroup>
           <CommandGroup heading="Theme">
-            <CommandItem onSelect={() => runCommand(() => setTheme("light"))}>
-              <RxSun className="mr-2 size-4" />
-              Light
-            </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => setTheme("dark"))}>
-              <RxMoon className="mr-2 size-4" />
-              Dark
-            </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => setTheme("system"))}>
-              <RxDesktop className="mr-2 size-4" />
-              System
-            </CommandItem>
+            {themeItems.map((theme, index) => (
+              <CommandItem
+                key={index}
+                onSelect={() => {
+                  runCommand(() => setTheme(theme.action))
+                }}
+              >
+                <theme.icon className="mr-2 size-4" />
+                <span>{theme.label}</span>
+              </CommandItem>
+            ))}
           </CommandGroup>
         </CommandList>
       </CommandDialog>
