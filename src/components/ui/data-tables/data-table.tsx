@@ -1,5 +1,7 @@
 "use client"
 
+import Image from "next/image"
+
 import { useState } from "react"
 
 import {
@@ -23,6 +25,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
+import { Button } from "../button"
 import { DataTableHeaderFilters } from "./data-table-filters"
 import { DataTablePagination } from "./data-table-pagination"
 
@@ -54,6 +57,12 @@ export function DataTable<TData, TValue>({
       columnFilters,
     },
   })
+
+  const clearSearch = () => {
+    setColumnFilters([])
+  }
+
+  const hasFiltersApplied = columnFilters.length > 0
 
   return (
     <div className="space-y-4">
@@ -89,10 +98,35 @@ export function DataTable<TData, TValue>({
                   ))}
                 </TableRow>
               ))
+            ) : data.length === 0 && !hasFiltersApplied ? (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="text-center">
+                  No data available.
+                </TableCell>
+              </TableRow>
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
+                <TableCell colSpan={columns.length} className="space-y-3 text-center">
+                  <div className="flex items-center justify-center">
+                    <Image
+                      src={"/illustrations/no-results-light.svg"}
+                      alt="no results"
+                      width={250}
+                      height={250}
+                      className="block dark:hidden"
+                    />
+                    <Image
+                      src={"/illustrations/no-results-dark.svg"}
+                      alt="no results"
+                      width={250}
+                      height={250}
+                      className="hidden dark:block"
+                    />
+                  </div>
+                  <div>No results. Please try again.</div>
+                  <Button onClick={clearSearch} variant={"default"} size={"sm"}>
+                    Clear search
+                  </Button>
                 </TableCell>
               </TableRow>
             )}
