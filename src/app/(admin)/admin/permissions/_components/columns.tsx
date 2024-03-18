@@ -76,7 +76,7 @@ export const columns: ColumnDef<IColumns>[] = [
       )
     },
     cell: ({ row }) => {
-      return <Badge variant={"secondary"}>{row.original.key}</Badge>
+      return <Badge variant={"gray-subtle"}>{row.original.key}</Badge>
     },
   },
   {
