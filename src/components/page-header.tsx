@@ -13,9 +13,9 @@ interface PageHeaderContentProps {
 function PageHeaderContent({ title, description, copy }: PageHeaderContentProps) {
   return (
     <div className="space-y-0.5">
-      <h2 className="text-2xl font-bold tracking-tight">{title}</h2>
+      <h2 className="text-xl font-bold tracking-tight md:text-2xl">{title}</h2>
       <div className="flex items-center justify-start">
-        <p className="text-muted-foreground">{description}</p>
+        <p className="text-sm text-muted-foreground md:text-base">{description}</p>
         {copy && <CopyButtonData textToCopy={copy} />}
       </div>
     </div>
