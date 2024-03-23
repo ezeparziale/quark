@@ -10,12 +10,18 @@ import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
 import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
@@ -38,7 +44,7 @@ export default function EmailForm({ email }: { email: string }) {
     const result = await updateEmail(data)
     if (result.success) {
       form.reset({ newEmail: data.newEmail })
-      toast("Please check your email to confirm your new email")
+      toast.info("Please check your email to confirm your new email")
     } else {
       if (result.errors) {
         form.reset({ ...form.formState.defaultValues })
@@ -50,46 +56,45 @@ export default function EmailForm({ email }: { email: string }) {
   }
 
   return (
-    <div className="rounded-md border border-border p-6">
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex w-full flex-col space-y-4 md:w-2/3"
-        >
-          <FormField
-            control={form.control}
-            name="newEmail"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder=""
-                    {...field}
-                    disabled={form.formState.isSubmitting}
-                    autoComplete="email"
-                  />
-                </FormControl>
-                <FormDescription>
-                  We will email you to verify the change.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button
-            size="sm"
-            className="w-full md:w-1/5"
-            disabled={form.formState.isSubmitting || !form.formState.isDirty}
-            type="submit"
-          >
-            {form.formState.isSubmitting && (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            )}
-            Save
-          </Button>
-        </form>
-      </Form>
-    </div>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <Card>
+          <CardHeader>
+            <CardTitle>Email</CardTitle>
+            <CardDescription>We will email you to verify the change.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <FormField
+              control={form.control}
+              name="newEmail"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder=""
+                      {...field}
+                      disabled={form.formState.isSubmitting}
+                      autoComplete="email"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </CardContent>
+          <CardFooter className="border-t px-6 py-4">
+            <Button
+              disabled={form.formState.isSubmitting || !form.formState.isDirty}
+              type="submit"
+            >
+              {form.formState.isSubmitting && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )}
+              Save
+            </Button>
+          </CardFooter>
+        </Card>
+      </form>
+    </Form>
   )
 }
