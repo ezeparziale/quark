@@ -5,11 +5,11 @@ import { Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
-export default function CreatePermissionButton() {
+export default function CreatePermissionButton({ ...props }) {
   return (
     <Tooltip>
       <TooltipTrigger>
-        <Button asChild>
+        <Button asChild {...props}>
           <Link href="/admin/permissions/new">
             <Plus className="size-4" />
             <span className="sr-only">create permission</span>
