@@ -15,6 +15,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
+import { SearchX } from "lucide-react"
 
 import {
   Table,
@@ -28,17 +29,20 @@ import {
 import { Button } from "../button"
 import { DataTableHeaderFilters } from "./data-table-filters"
 import { DataTablePagination } from "./data-table-pagination"
+import EmptyState from "./empty-state"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   searchField: string
+  emptyState?: React.ReactNode
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   searchField,
+  emptyState,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -64,6 +68,14 @@ export function DataTable<TData, TValue>({
 
   const hasFiltersApplied = columnFilters.length > 0
 
+  if (data.length === 0 && !hasFiltersApplied) {
+    return (
+      <div className="flex h-80 flex-1 items-center justify-center rounded-md border">
+        {emptyState ? emptyState : <EmptyState />}
+      </div>
+    )
+  }
+
   return (
     <div className="space-y-4">
       <DataTableHeaderFilters table={table} searchField={searchField} />
@@ -88,48 +100,41 @@ export function DataTable<TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+            {table.getRowModel().rows?.length
+              ? table.getRowModel().rows.map((row) => (
+                  <TableRow key={row.id}>
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              : getFilteredRowModel.length === 0 &&
+                hasFiltersApplied && (
+                  <TableRow>
+                    <TableCell
+                      colSpan={columns.length}
+                      className="space-y-3 text-center"
+                    >
+                      <EmptyState
+                        title="No results found"
+                        description="Please try again"
+                        Icon={SearchX}
+                        button={
+                          <Button
+                            onClick={clearSearch}
+                            variant={"default"}
+                            size={"sm"}
+                            className="my-4"
+                          >
+                            Clear search
+                          </Button>
+                        }
+                      />
                     </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : data.length === 0 && !hasFiltersApplied ? (
-              <TableRow>
-                <TableCell colSpan={columns.length} className="text-center">
-                  No data available.
-                </TableCell>
-              </TableRow>
-            ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className="space-y-3 text-center">
-                  <div className="flex items-center justify-center">
-                    <Image
-                      src={"/illustrations/no-results-light.svg"}
-                      alt="no results"
-                      width={250}
-                      height={250}
-                      className="block dark:hidden"
-                    />
-                    <Image
-                      src={"/illustrations/no-results-dark.svg"}
-                      alt="no results"
-                      width={250}
-                      height={250}
-                      className="hidden dark:block"
-                    />
-                  </div>
-                  <div>No results. Please try again.</div>
-                  <Button onClick={clearSearch} variant={"default"} size={"sm"}>
-                    Clear search
-                  </Button>
-                </TableCell>
-              </TableRow>
-            )}
+                  </TableRow>
+                )}
           </TableBody>
         </Table>
       </div>
