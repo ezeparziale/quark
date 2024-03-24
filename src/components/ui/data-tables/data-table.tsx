@@ -70,7 +70,7 @@ export function DataTable<TData, TValue>({
 
   if (data.length === 0 && !hasFiltersApplied) {
     return (
-      <div className="flex h-80 flex-1 items-center justify-center rounded-md border">
+      <div className="flex h-60 flex-1 items-center justify-center rounded-md border">
         {emptyState ? emptyState : <EmptyState />}
       </div>
     )
