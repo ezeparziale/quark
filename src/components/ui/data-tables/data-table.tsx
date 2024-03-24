@@ -120,8 +120,8 @@ export function DataTable<TData, TValue>({
                       <EmptyState
                         title="No results found"
                         description="Please try again"
-                        Icon={SearchX}
-                        button={
+                        icon={SearchX}
+                        action={
                           <Button
                             onClick={clearSearch}
                             variant={"default"}
