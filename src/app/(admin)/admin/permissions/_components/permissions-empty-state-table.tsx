@@ -7,10 +7,10 @@ import CreatePermissionButton from "./create-permission-button"
 export default function PermissionsEmptyStateTable() {
   return (
     <EmptyState
-      Icon={FilePlus}
+      icon={FilePlus}
       title="You have no permissions"
       description="You can start creating permissions"
-      button={<CreatePermissionButton className="mt-4" />}
+      action={<CreatePermissionButton />}
     />
   )
 }
