@@ -73,11 +73,7 @@ export default function DeletePermissionModal({
             </Button>
           </DialogTrigger>
         </TooltipTrigger>
-        <TooltipContent
-          className="border-destructive md:hidden"
-          side="left"
-          sideOffset={18}
-        >
+        <TooltipContent className="border-destructive md:hidden" align={"end"}>
           <p>Delete permission</p>
         </TooltipContent>
       </Tooltip>

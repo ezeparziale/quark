@@ -69,11 +69,7 @@ export default function DeleteRoleModal({ role }: { role: Role }) {
             </Button>
           </DialogTrigger>
         </TooltipTrigger>
-        <TooltipContent
-          className="border-destructive md:hidden"
-          side="left"
-          sideOffset={18}
-        >
+        <TooltipContent className="border-destructive md:hidden" align={"end"}>
           <p>Delete role</p>
         </TooltipContent>
       </Tooltip>

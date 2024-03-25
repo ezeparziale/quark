@@ -76,11 +76,7 @@ export default function DeleteUserModal({ user }: { user: User }) {
             </Button>
           </DialogTrigger>
         </TooltipTrigger>
-        <TooltipContent
-          className="border-destructive md:hidden"
-          side="left"
-          sideOffset={18}
-        >
+        <TooltipContent className="border-destructive md:hidden" align={"end"}>
           <p>Delete user</p>
         </TooltipContent>
       </Tooltip>
