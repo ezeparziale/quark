@@ -6,6 +6,8 @@ import { Check, Copy } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip"
+
 interface IProps extends React.ComponentProps<"div"> {
   textToCopy: string
 }
@@ -20,10 +22,15 @@ export function CopyButtonData({ textToCopy, className, ...props }: IProps) {
 
   return (
     <div className={cn("flex items-center justify-end", className)} {...props}>
-      <Button variant="secondary" className="mx-2 h-6 w-6 p-0" onClick={onCopy}>
-        {isCopied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-        <span className="sr-only">Copy</span>
-      </Button>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button variant="secondary" className="mx-2 h-6 w-6 p-0" onClick={onCopy}>
+            {isCopied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+            <span className="sr-only">Copy</span>
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>Copy</TooltipContent>
+      </Tooltip>
     </div>
   )
 }
