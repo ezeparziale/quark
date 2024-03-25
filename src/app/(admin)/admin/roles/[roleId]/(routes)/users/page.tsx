@@ -31,7 +31,7 @@ export default async function RolesAdminUsersPage({
       <PageSection
         title={title}
         description={description}
-        action={<AddUserButton id={Number(roleId)} />}
+        actions={<AddUserButton id={Number(roleId)} />}
       />
       <DataTable columns={columns} data={data2} searchField={"email"} />
     </>

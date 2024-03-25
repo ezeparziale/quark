@@ -25,7 +25,7 @@ export default async function RolesAdminPage() {
       <PageHeader
         title="Roles"
         description="Manage all roles."
-        action={<CreateRoleButton />}
+        actions={<CreateRoleButton />}
       />
       <Suspense fallback={<TableLoading />}>
         <RolesTable />

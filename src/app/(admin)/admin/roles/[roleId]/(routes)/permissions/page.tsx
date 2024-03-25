@@ -31,7 +31,7 @@ export default async function RolesAdminPermissionsPage({
       <PageSection
         title={title}
         description={description}
-        action={<AddPermissionButton id={Number(roleId)} />}
+        actions={<AddPermissionButton id={Number(roleId)} />}
       />
       <DataTable
         columns={columns}

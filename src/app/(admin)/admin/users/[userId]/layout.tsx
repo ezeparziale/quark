@@ -68,7 +68,7 @@ export default async function SettingsLayout({
         description={description}
         linkBack={linkBack}
         copy={copy}
-        action={<DeleteUserModal user={user} />}
+        actions={<DeleteUserModal user={user} />}
       />
       <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
         <aside className="lg:w-1/5">

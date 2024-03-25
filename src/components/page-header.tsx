@@ -8,7 +8,7 @@ import { Skeleton } from "./ui/skeleton"
 interface PageHeaderProps {
   title: string
   description: string
-  action?: React.ReactNode
+  actions?: React.ReactNode | React.ReactNode[]
   linkBack?: string
   copy?: string
 }
@@ -16,7 +16,7 @@ interface PageHeaderProps {
 export function PageHeader({
   title,
   description,
-  action,
+  actions,
   linkBack,
   copy,
 }: PageHeaderProps) {
@@ -36,7 +36,9 @@ export function PageHeader({
             {copy && <CopyButtonData textToCopy={copy} />}
           </div>
         </div>
-        {action}
+        {actions ? (
+          <div className="flex flex-1 items-center justify-end gap-2">{actions}</div>
+        ) : null}
       </div>
       <Separator className="my-6" />
     </>
@@ -62,10 +64,10 @@ PageHeader.Skeleton = PageHeaderSkeleton
 interface PageSectionProps {
   title: string
   description: string
-  action?: React.ReactNode
+  actions?: React.ReactNode | React.ReactNode[]
 }
 
-export function PageSection({ title, description, action }: PageSectionProps) {
+export function PageSection({ title, description, actions }: PageSectionProps) {
   return (
     <>
       <div className="mb-6 space-y-6">
@@ -74,7 +76,9 @@ export function PageSection({ title, description, action }: PageSectionProps) {
             <h3 className="text-lg font-medium">{title}</h3>
             <p className="text-sm text-muted-foreground">{description}</p>
           </div>
-          {action}
+          {actions ? (
+            <div className="flex flex-1 items-center justify-end gap-2">{actions}</div>
+          ) : null}
         </div>
         <Separator />
       </div>

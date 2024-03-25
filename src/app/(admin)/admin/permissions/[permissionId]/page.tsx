@@ -47,7 +47,7 @@ export default async function PermissionAdminPage({
         description={description}
         linkBack={linkBack}
         copy={copy}
-        action={<DeletePermissionModal permission={permission} />}
+        actions={<DeletePermissionModal permission={permission} />}
       />
       <PermissionForm permission={permission} />
     </>

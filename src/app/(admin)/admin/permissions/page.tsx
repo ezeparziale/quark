@@ -25,7 +25,7 @@ export default async function PermissionsAdminPage() {
       <PageHeader
         title="Permissions"
         description="Manage all permissions."
-        action={<CreatePermissionButton />}
+        actions={<CreatePermissionButton />}
       />
       <Suspense fallback={<TableLoading />}>
         <PermissionsTable />

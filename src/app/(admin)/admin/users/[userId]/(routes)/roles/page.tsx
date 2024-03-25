@@ -30,7 +30,7 @@ export default async function UsersAdminRolesPage({
       <PageSection
         title={title}
         description={description}
-        action={<AddRoleButton id={userId} />}
+        actions={<AddRoleButton id={userId} />}
       />
       <DataTable columns={columns} data={data2} searchField={"name"} />
     </>
