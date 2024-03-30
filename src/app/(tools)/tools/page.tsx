@@ -10,7 +10,7 @@ export default function ToolsPage() {
           </h2>
         </MaxWidthWrapper>
       </div>
-      <div className="min-h-screen w-full bg-neutral-50 dark:bg-background">
+      <div className="min-h-screen w-full bg-muted/40 dark:bg-background">
         <MaxWidthWrapper>
           <div className="my-10 grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-3"></div>
         </MaxWidthWrapper>
