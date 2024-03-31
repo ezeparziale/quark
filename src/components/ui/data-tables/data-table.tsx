@@ -126,7 +126,7 @@ export function DataTable<TData, TValue>({
                             onClick={clearSearch}
                             variant={"default"}
                             size={"sm"}
-                            className="my-4"
+                            className="mb-4"
                           >
                             Clear search
                           </Button>
