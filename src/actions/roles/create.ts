@@ -3,40 +3,42 @@
 import { revalidatePath } from "next/cache"
 
 import prismadb from "@/lib/prismadb"
+import { has } from "@/lib/rbac"
+import { validateSchemaAction } from "@/lib/validate-schema-action"
+import { rolesSchema } from "@/schemas/roles"
 import { DataResult } from "@/types/types"
+import * as z from "zod"
 
-interface IRole {
-  name: string
-  description: string
-  key: string
-}
+type FormData = z.infer<typeof rolesSchema>
 
-export async function createRole({
-  name,
-  description,
-  key,
-}: IRole): Promise<DataResult<IRole>> {
+async function handler(formData: FormData): Promise<DataResult<FormData>> {
+  const { name, description, key } = formData
+
   try {
-    const errors: { name: string[]; description: string[]; key: string[] } = {
-      name: [],
-      description: [],
-      key: [],
-    }
-    const roleAlreadyExists = await prismadb.role.findUnique({
-      where: { name },
-    })
-    if (roleAlreadyExists) {
-      errors.name.push(`A role with the name '${name}' already exists.`)
+    const isAuthorized = await has({ role: "admin" })
+
+    if (!isAuthorized) {
+      return { success: false, message: "Unauthorized" }
     }
 
-    const roleKeyAlreadyExists = await prismadb.role.findUnique({
-      where: { key },
+    const errors: Record<string, string[]> = { name: [], key: [], description: [] }
+
+    const roleAlreadyExist = await prismadb.role.findFirst({
+      where: {
+        OR: [{ name }, { key }],
+      },
     })
-    if (roleKeyAlreadyExists) {
-      errors.key.push(`A role with the key '${key}' already exists.`)
+
+    if (roleAlreadyExist) {
+      if (roleAlreadyExist.name === name) {
+        errors.name.push(`A role with the name '${name}' already exists.`)
+      }
+      if (roleAlreadyExist.key === key) {
+        errors.key.push(`A role with the key '${key}' already exists.`)
+      }
     }
 
-    if (errors.name.length || errors.description.length || errors.key.length) {
+    if (Object.values(errors).some((errorArray) => errorArray.length > 0)) {
       return { success: false, errors }
     }
 
@@ -48,6 +50,9 @@ export async function createRole({
 
     return { success: true }
   } catch (error) {
-    return { success: false }
+    console.error("Error creating role:", error)
+    return { success: false, message: "Something went wrong" }
   }
 }
+
+export const createRole = validateSchemaAction(rolesSchema, handler)
