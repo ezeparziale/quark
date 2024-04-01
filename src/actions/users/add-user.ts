@@ -3,41 +3,44 @@
 import { revalidatePath } from "next/cache"
 
 import prismadb from "@/lib/prismadb"
+import { has } from "@/lib/rbac"
+import { validateSchemaAction } from "@/lib/validate-schema-action"
+import { userSchema } from "@/schemas/users"
 import { DataResult } from "@/types/types"
+import * as z from "zod"
 
-interface IUser {
-  username: string
-  email: string
-  active: boolean
-  confirmedEmail: boolean
-}
+type FormData = z.infer<typeof userSchema>
 
-export async function addUser({
-  username,
-  email,
-  active,
-  confirmedEmail,
-}: IUser): Promise<DataResult<IUser>> {
+async function handler(formData: FormData): Promise<DataResult<FormData>> {
+  const { email, username, active, confirmedEmail } = formData
+
   try {
-    const errors: { email: string[]; username: string[] } = {
-      email: [],
-      username: [],
-    }
-    const emailAlreadyExists = await prismadb.user.findUnique({
-      where: { email },
-    })
-    if (emailAlreadyExists) {
-      errors.email.push(`An account with the email ${email} already exists.`)
+    const isAuthorized = await has({ role: "admin" })
+
+    if (!isAuthorized) {
+      return { success: false, message: "Unauthorized" }
     }
 
-    const usenameAlreadyExists = await prismadb.user.findUnique({
-      where: { username },
+    const errors: Record<string, string[]> = { email: [], username: [] }
+
+    const userAlreadyExist = await prismadb.user.findMany({
+      where: {
+        OR: [{ email }, { username }],
+      },
     })
-    if (usenameAlreadyExists) {
-      errors.username.push("Username already exists.")
+
+    if (userAlreadyExist.length > 0) {
+      userAlreadyExist.forEach((user) => {
+        if (user.email === email) {
+          errors.email.push(`An account with the email '${email}' already exists.`)
+        }
+        if (user.username === username) {
+          errors.username.push(`Username '${username}' already exists.`)
+        }
+      })
     }
 
-    if (errors.email.length || errors.username.length) {
+    if (Object.values(errors).some((errorArray) => errorArray.length > 0)) {
       return { success: false, errors }
     }
 
@@ -49,6 +52,9 @@ export async function addUser({
 
     return { success: true }
   } catch (error) {
-    return { success: false }
+    console.error("Error creating user:", error)
+    return { success: false, message: "Something went wrong" }
   }
 }
+
+export const addUser = validateSchemaAction(userSchema, handler)
