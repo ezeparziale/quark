@@ -8,14 +8,14 @@ import AddUserForm from "../_components/add-user-form"
 export default async function RolesAdminAddUsersPage({
   params,
 }: {
-  params: { roleId: string }
+  params: { roleId: number }
 }) {
   await protectPage({ permission: "admin:all" })
 
-  const { roleId } = params
+  const roleId = Number(params.roleId)
 
   const selectedOptions = await prismadb.role.findUnique({
-    where: { id: Number(roleId) },
+    where: { id: roleId },
     include: { users: { include: { user: true } } },
   })
 
@@ -28,17 +28,14 @@ export default async function RolesAdminAddUsersPage({
 
   const selectedValues = new Set(selectedOptions?.users.map((user) => user.userId))
 
-  const title = "Users"
-  const description = "Add users to this role"
-
   return (
     <>
-      <PageSection title={title} description={description} />
+      <PageSection title="Users" description="Add users to this role." />
       <AddUserForm
         options={options}
         selectedValues={selectedValues}
-        title={title}
-        roleId={roleId}
+        title="Users"
+        roleId={String(roleId)}
       />
     </>
   )

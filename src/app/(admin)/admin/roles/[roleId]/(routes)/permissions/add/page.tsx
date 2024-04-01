@@ -8,14 +8,14 @@ import AddPermissionForm from "../_components/add-permission-form"
 export default async function RolesAdminAddPermissionsPage({
   params,
 }: {
-  params: { roleId: string }
+  params: { roleId: number }
 }) {
   await protectPage({ permission: "admin:all" })
 
-  const { roleId } = params
+  const roleId = Number(params.roleId)
 
   const selectedOptions = await prismadb.role.findUnique({
-    where: { id: Number(roleId) },
+    where: { id: roleId },
     include: { permissions: { include: { permission: true } } },
   })
 
@@ -30,17 +30,14 @@ export default async function RolesAdminAddPermissionsPage({
     selectedOptions?.permissions.map((permission) => String(permission.permissionId)),
   )
 
-  const title = "Permissions"
-  const description = "Add permissions to this role"
-
   return (
     <>
-      <PageSection title={title} description={description} />
+      <PageSection title="Permissions" description="Add permissions to this role." />
       <AddPermissionForm
         options={options}
         selectedValues={selectedValues}
-        title={title}
-        roleId={roleId}
+        title="Permissions"
+        roleId={String(roleId)}
       />
     </>
   )

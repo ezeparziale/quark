@@ -2,7 +2,7 @@ import { useRouter } from "next/navigation"
 
 import React, { useState, useTransition } from "react"
 
-import { removePermission } from "@/actions/roles/remove-permission"
+import { removePermission } from "@/actions/roles"
 import { Loader2, MoreHorizontal } from "lucide-react"
 import { toast } from "sonner"
 
@@ -41,8 +41,9 @@ export default function CellActions({ row }: { row: IColumns }) {
       const result = await removePermission({ roleId, permissionId })
       if (result.success) {
         setIsOpen(false)
+        toast.success("Permission removed successfully!")
       } else {
-        toast.error("Something went wrong")
+        toast.error(result.message)
       }
     })
   }

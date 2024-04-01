@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 
-import { addUsersToRoles } from "@/actions/roles/add-users"
+import { addUsersToRoles } from "@/actions/roles"
 import { addServerErrors } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
@@ -24,8 +24,8 @@ import {
 } from "@/components/ui/form"
 
 const formSchema = z.object({
-  id: z.array(z.string()),
   roleId: z.string(),
+  userIds: z.array(z.string()),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -46,8 +46,8 @@ export default function AddUserForm({ options, selectedValues, title, roleId }: 
 
   const form = useForm<FormData>({
     defaultValues: {
-      id: Array.from(selectedValues) || [],
       roleId: roleId,
+      userIds: Array.from(selectedValues) || [],
     },
     resolver: zodResolver(formSchema),
   })
@@ -57,9 +57,12 @@ export default function AddUserForm({ options, selectedValues, title, roleId }: 
     if (result.success) {
       router.push(`/admin/roles/${roleId}/users`)
       router.refresh()
+      toast.success("Users updated successfully!")
     } else {
       if (result.errors) {
         addServerErrors(result.errors, form.setError)
+      } else if (result.message) {
+        toast.error(result.message)
       } else {
         toast.error("Something went wrong")
       }
@@ -75,7 +78,7 @@ export default function AddUserForm({ options, selectedValues, title, roleId }: 
       >
         <FormField
           control={form.control}
-          name="id"
+          name="userIds"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Users</FormLabel>
@@ -86,6 +89,7 @@ export default function AddUserForm({ options, selectedValues, title, roleId }: 
                   selectedValues={selectedValues}
                   className="w-2/5"
                   form={form}
+                  field={field.name}
                 />
               </FormControl>
               <FormDescription>Choose your users</FormDescription>

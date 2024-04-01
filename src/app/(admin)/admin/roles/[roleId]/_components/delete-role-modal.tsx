@@ -2,9 +2,9 @@
 
 import { useRouter } from "next/navigation"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-import { deleteRole } from "@/actions/roles/delete"
+import { deleteRole } from "@/actions/roles"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Role } from "@prisma/client"
 import { Loader2, Trash2 } from "lucide-react"
@@ -51,11 +51,21 @@ export default function DeleteRoleModal({ role }: { role: Role }) {
     resolver: zodResolver(formSchema),
   })
 
-  const onSubmit = async (data: FormData) => {
-    await deleteRole(role)
-    toast.success("Role deleted successfully!", { duration: 4000 })
-    router.push("/admin/roles")
+  const onSubmit = async () => {
+    const result = await deleteRole(role)
+    if (result.success) {
+      toast.success("Role deleted successfully!", { duration: 4000 })
+      router.push("/admin/roles")
+    } else {
+      toast.error(result.message)
+    }
   }
+
+  useEffect(() => {
+    if (isOpen === false) {
+      form.reset()
+    }
+  }, [isOpen, form])
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -110,7 +120,7 @@ export default function DeleteRoleModal({ role }: { role: Role }) {
               />
               <DialogFooter>
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   onClick={() => {
                     setIsOpen(false)
                   }}

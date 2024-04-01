@@ -32,7 +32,7 @@ const getSideBarNavItems = (id: number): NavItem[] => {
 
 interface SettingsLayoutProps {
   children: React.ReactNode
-  params: { roleId: string }
+  params: { roleId: number }
 }
 
 export default async function SettingsLayout({
@@ -41,38 +41,27 @@ export default async function SettingsLayout({
 }: SettingsLayoutProps) {
   const sidebarNavItems = getSideBarNavItems(Number(params.roleId))
 
-  const getRole = async () => {
-    const id = Number(params.roleId)
+  const id = Number(params.roleId)
 
-    if (!id) {
-      return notFound()
-    }
-
-    const role = await prismadb.role.findUnique({
-      where: { id },
-    })
-
-    if (!role) {
-      return notFound()
-    }
-
-    return role
+  if (!id) {
+    return notFound()
   }
 
-  const role = await getRole()
+  const role = await prismadb.role.findUnique({
+    where: { id },
+  })
 
-  const title = `Edit role ${role.name}`
-  const description = `ID: ${role.id}`
-  const copy = String(`${role.id}`)
-  const linkBack = "/admin/roles"
+  if (!role) {
+    return notFound()
+  }
 
   return (
     <>
       <PageHeader
-        title={title}
-        description={description}
-        linkBack={linkBack}
-        copy={copy}
+        title={`Edit role ${role.name}`}
+        description={`ID: ${role.id}`}
+        linkBack="/admin/roles"
+        copy={String(`${role.id}`)}
         actions={<DeleteRoleModal role={role} />}
       />
       <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">

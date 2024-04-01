@@ -2,7 +2,7 @@ import { useRouter } from "next/navigation"
 
 import React, { useState, useTransition } from "react"
 
-import { removeUser } from "@/actions/roles/remove-user"
+import { removeUser } from "@/actions/roles"
 import { Loader2, MoreHorizontal } from "lucide-react"
 import { toast } from "sonner"
 
@@ -41,8 +41,9 @@ export default function CellActions({ row }: { row: IColumns }) {
       const result = await removeUser({ roleId, userId })
       if (result.success) {
         setIsOpen(false)
+        toast.success("User removed successfully!")
       } else {
-        toast.error("Something went wrong")
+        toast.error(result.message)
       }
     })
   }

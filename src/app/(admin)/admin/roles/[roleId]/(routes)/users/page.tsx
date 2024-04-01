@@ -6,34 +6,37 @@ import { DataTable } from "@/components/ui/data-tables/data-table"
 
 import AddUserButton from "./_components/add-user-button"
 import { columns } from "./_components/columns"
+import AddUsersEmptyStateTable from "./_components/users-empty-state-table"
 
 export default async function RolesAdminUsersPage({
   params,
 }: {
-  params: { roleId: string }
+  params: { roleId: number }
 }) {
   await protectPage({ permission: "admin:all" })
 
-  const { roleId } = params
+  const roleId = Number(params.roleId)
 
   const data = await prismadb.role.findUnique({
-    where: { id: Number(roleId) },
+    where: { id: roleId },
     include: { users: { include: { user: true } } },
   })
 
-  const data2 = data?.users || []
-
-  const title = "Users"
-  const description = "Add users to this role"
+  const dataUsers = data?.users || []
 
   return (
     <>
       <PageSection
-        title={title}
-        description={description}
+        title="Users"
+        description="Add users to this role."
         actions={<AddUserButton id={Number(roleId)} />}
       />
-      <DataTable columns={columns} data={data2} searchField={"email"} />
+      <DataTable
+        columns={columns}
+        data={dataUsers}
+        searchField={"email"}
+        emptyState={<AddUsersEmptyStateTable id={roleId} />}
+      />
     </>
   )
 }

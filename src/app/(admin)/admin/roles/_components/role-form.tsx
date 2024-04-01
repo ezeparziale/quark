@@ -3,9 +3,9 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 
-import { createRole } from "@/actions/roles/create"
-import { updateRole } from "@/actions/roles/update"
+import { createRole, updateRole } from "@/actions/roles"
 import { addServerErrors } from "@/lib/utils"
+import { rolesSchema } from "@/schemas/roles"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Role } from "@prisma/client"
 import { Loader2 } from "lucide-react"
@@ -24,17 +24,9 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
-const formSchema = z.object({
-  id: z.number().optional(),
-  name: z.string().min(1).max(45),
-  description: z.string().min(1).max(255),
-  key: z.string().min(1).max(255),
-})
+type FormData = z.infer<typeof rolesSchema>
 
-type FormData = z.infer<typeof formSchema>
-
-export default function CreateRoleForm({ role }: { role?: Role }) {
-  const roleId = role?.id
+export default function RoleForm({ role }: { role?: Role }) {
   const router = useRouter()
 
   const form = useForm<FormData>({
@@ -44,7 +36,7 @@ export default function CreateRoleForm({ role }: { role?: Role }) {
       description: role?.description || "",
       key: role?.key || "",
     },
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(rolesSchema),
   })
 
   const action = role ? "Update" : "Create"
@@ -57,20 +49,25 @@ export default function CreateRoleForm({ role }: { role?: Role }) {
     } else {
       if (result.errors) {
         addServerErrors(result.errors, form.setError)
+      } else if (result.message) {
+        toast.error(result.message)
       } else {
         toast.error("Something went wrong")
       }
     }
   }
 
-  const onSubmitEdit = async (data: FormData) => {
-    const result = await updateRole({ id: Number(roleId), ...data })
+  const onSubmitUpdate = async (data: FormData) => {
+    const result = await updateRole(data)
     if (result.success) {
       form.reset({ ...data })
       router.refresh()
+      toast.success("Role updated successfully!")
     } else {
       if (result.errors) {
         addServerErrors(result.errors, form.setError)
+      } else if (result.message) {
+        toast.error(result.message)
       } else {
         toast.error("Something went wrong")
       }
@@ -83,7 +80,7 @@ export default function CreateRoleForm({ role }: { role?: Role }) {
         onSubmit={
           action === "Create"
             ? form.handleSubmit(onSubmitCreate)
-            : form.handleSubmit(onSubmitEdit)
+            : form.handleSubmit(onSubmitUpdate)
         }
         className="flex w-full flex-col space-y-8 md:w-2/3"
       >
