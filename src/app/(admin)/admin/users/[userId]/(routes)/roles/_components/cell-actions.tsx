@@ -41,8 +41,9 @@ export default function CellActions({ row }: { row: IColumns }) {
       const result = await removeRolToUser({ roleId, userId })
       if (result.success) {
         setIsOpen(false)
+        toast.success("Role removed successfully!")
       } else {
-        toast.error("Something went wrong")
+        toast.error(result.message)
       }
     })
   }

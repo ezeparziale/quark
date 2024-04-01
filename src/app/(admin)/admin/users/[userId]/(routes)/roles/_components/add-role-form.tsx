@@ -24,8 +24,8 @@ import {
 } from "@/components/ui/form"
 
 const formSchema = z.object({
-  rolesIds: z.array(z.number()),
   userId: z.string(),
+  roleIds: z.array(z.number()),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -41,15 +41,13 @@ type IPros = {
   userId: string
 }
 
-const action = "Save"
-
 export default function AddRoleForm({ options, selectedValues, title, userId }: IPros) {
   const router = useRouter()
 
   const form = useForm<FormData>({
     defaultValues: {
-      rolesIds: Array.from(selectedValues) || [],
       userId: userId,
+      roleIds: Array.from(selectedValues) || [],
     },
     resolver: zodResolver(formSchema),
   })
@@ -58,9 +56,12 @@ export default function AddRoleForm({ options, selectedValues, title, userId }: 
     const result = await addRolesToUser(data)
     if (result.success) {
       router.push(`/admin/users/${userId}/roles`)
+      toast.success("Roles updated successfully!")
     } else {
       if (result.errors) {
         addServerErrors(result.errors, form.setError)
+      } else if (result.message) {
+        toast.error(result.message)
       } else {
         toast.error("Something went wrong")
       }
@@ -75,7 +76,7 @@ export default function AddRoleForm({ options, selectedValues, title, userId }: 
       >
         <FormField
           control={form.control}
-          name="rolesIds"
+          name="roleIds"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Roles</FormLabel>
@@ -104,7 +105,7 @@ export default function AddRoleForm({ options, selectedValues, title, userId }: 
             {form.formState.isSubmitting && (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             )}
-            {action}
+            Save
           </Button>
           <Button size="sm" className="w-full md:w-1/5" variant="outline" asChild>
             <Link href={`/admin/users/${userId}/roles`}>Cancel</Link>

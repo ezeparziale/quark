@@ -2,19 +2,19 @@ import { protectPage } from "@/lib/rbac"
 
 import { PageHeader } from "@/components/page-header"
 
-import CreateUserForm from "../_components/create-user-form"
+import UserForm from "../_components/user-form"
 
-const title = "Create user"
-const description = "Add a new user"
-const linkBack = "/admin/users"
-
-export default async function NewPermissionPage() {
+export default async function NewUserPage() {
   await protectPage({ permission: "admin:all" })
 
   return (
     <>
-      <PageHeader title={title} description={description} linkBack={linkBack} />
-      <CreateUserForm />
+      <PageHeader
+        title="Create user"
+        description="Add a new user."
+        linkBack="/admin/users"
+      />
+      <UserForm />
     </>
   )
 }

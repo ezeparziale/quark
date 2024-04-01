@@ -1,11 +1,11 @@
 import { notFound } from "next/navigation"
 
-import prismadb from "@/lib/prismadb"
+import { getUserById } from "@/data/user"
 import { protectPage } from "@/lib/rbac"
 
 import { PageSection } from "@/components/page-header"
 
-import UserForm from "../_components/create-user-form"
+import UserForm from "../_components/user-form"
 
 export default async function UserAdminPage({
   params,
@@ -14,28 +14,17 @@ export default async function UserAdminPage({
 }) {
   await protectPage({ permission: "admin:all" })
 
-  const getUser = async () => {
-    const id = params.userId
+  const { userId } = params
 
-    const user = await prismadb.user.findUnique({
-      where: { id },
-    })
+  const user = await getUserById(userId)
 
-    if (!user) {
-      return notFound()
-    }
-
-    return user
+  if (!user) {
+    return notFound()
   }
-
-  const user = await getUser()
-
-  const title = "Settings"
-  const description = "Manage user settings"
 
   return (
     <>
-      <PageSection title={title} description={description} />
+      <PageSection title="Settings" description="Manage user settings." />
       <UserForm user={user} />
     </>
   )

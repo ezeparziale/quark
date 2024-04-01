@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { addUser } from "@/actions/users/add-user"
 import { updateUser } from "@/actions/users/update-user"
 import { addServerErrors } from "@/lib/utils"
+import { userSchema } from "@/schemas/users"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { User } from "@prisma/client"
 import { Loader2 } from "lucide-react"
@@ -26,19 +27,9 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
-const formSchema = z.object({
-  id: z.string().optional(),
-  email: z.string().email(),
-  username: z.string().trim(),
-  active: z.boolean().default(false),
-  confirmedEmail: z.boolean().default(false),
-})
+type FormData = z.infer<typeof userSchema>
 
-type FormData = z.infer<typeof formSchema>
-
-export default function CreateUserForm({ user }: { user?: User }) {
-  const userId = user?.id
-
+export default function UserForm({ user }: { user?: User }) {
   const router = useRouter()
 
   const form = useForm<FormData>({
@@ -49,7 +40,7 @@ export default function CreateUserForm({ user }: { user?: User }) {
       active: user?.active || false,
       confirmedEmail: user?.confirmedEmail || false,
     },
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(userSchema),
   })
 
   const action = user ? "Update" : "Create"
@@ -58,9 +49,12 @@ export default function CreateUserForm({ user }: { user?: User }) {
     const result = await addUser(data)
     if (result.success) {
       router.push("/admin/users")
+      toast.success("User created successfully!")
     } else {
       if (result.errors) {
         addServerErrors(result.errors, form.setError)
+      } else if (result.message) {
+        toast.error(result.message)
       } else {
         toast.error("Something went wrong")
       }
@@ -68,13 +62,16 @@ export default function CreateUserForm({ user }: { user?: User }) {
   }
 
   const onSubmitUpdate = async (data: FormData) => {
-    const result = await updateUser({ id: String(userId), ...data })
+    const result = await updateUser(data)
     if (result.success) {
       form.reset({ ...data })
       router.refresh()
+      toast.success("User updated successfully!")
     } else {
       if (result.errors) {
         addServerErrors(result.errors, form.setError)
+      } else if (result.message) {
+        toast.error(result.message)
       } else {
         toast.error("Something went wrong")
       }

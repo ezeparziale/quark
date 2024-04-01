@@ -17,7 +17,7 @@ export default function CreateUserButton() {
           </Link>
         </Button>
       </TooltipTrigger>
-      <TooltipContent className="md:hidden" side="left" sideOffset={18}>
+      <TooltipContent className="md:hidden" align={"end"}>
         <p>Create user</p>
       </TooltipContent>
     </Tooltip>

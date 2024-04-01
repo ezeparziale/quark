@@ -28,16 +28,13 @@ export default async function UsersAdminAddRolesToUserPage({
 
   const selectedValues = new Set(selectedOptions?.roles.map((role) => role.roleId))
 
-  const title = "Roles"
-  const description = "Add roles to this user"
-
   return (
     <>
-      <PageSection title={title} description={description} />
+      <PageSection title="Roles" description="Add roles to this user." />
       <AddRoleForm
         options={options}
         selectedValues={selectedValues}
-        title={title}
+        title="Roles"
         userId={userId}
       />
     </>

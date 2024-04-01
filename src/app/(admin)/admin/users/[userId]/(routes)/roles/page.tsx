@@ -6,6 +6,7 @@ import { DataTable } from "@/components/ui/data-tables/data-table"
 
 import AddRoleButton from "./_components/add-role-button"
 import { columns } from "./_components/columns"
+import AddRolesEmptyStateTable from "./_components/roles-empty-state-table"
 
 export default async function UsersAdminRolesPage({
   params,
@@ -20,19 +21,22 @@ export default async function UsersAdminRolesPage({
     where: { id: userId },
     include: { roles: { include: { role: true } } },
   })
-  const data2 = data?.roles || []
 
-  const title = "Roles"
-  const description = "Add roles to this user"
+  const dataRoles = data?.roles || []
 
   return (
     <>
       <PageSection
-        title={title}
-        description={description}
+        title="Roles"
+        description="Add roles to this user."
         actions={<AddRoleButton id={userId} />}
       />
-      <DataTable columns={columns} data={data2} searchField={"name"} />
+      <DataTable
+        columns={columns}
+        data={dataRoles}
+        searchField={"name"}
+        emptyState={<AddRolesEmptyStateTable id={userId} />}
+      />
     </>
   )
 }

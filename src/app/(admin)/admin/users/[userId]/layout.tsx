@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 
-import prismadb from "@/lib/prismadb"
+import { getUserById } from "@/data/user"
 import { NavItem } from "@/types/types"
 
 import { SidebarNav } from "@/components/admin/sidebar-nav"
@@ -34,40 +34,27 @@ export default async function SettingsLayout({
   children,
   params,
 }: SettingsLayoutProps) {
-  const sidebarNavItems = getSideBarNavItems(params.userId)
+  const { userId } = params
 
-  const getUser = async () => {
-    const id = params.userId
+  const sidebarNavItems = getSideBarNavItems(userId)
 
-    if (!id) {
-      return notFound()
-    }
-
-    const user = await prismadb.user.findUnique({
-      where: { id },
-    })
-
-    if (!user) {
-      return notFound()
-    }
-
-    return user
+  if (!userId) {
+    return notFound()
   }
 
-  const user = await getUser()
+  const user = await getUserById(userId)
 
-  const title = `Edit user ${user?.email}`
-  const description = `ID: ${user?.id}`
-  const copy = `${user.id}`
-  const linkBack = "/admin/users"
+  if (!user) {
+    return notFound()
+  }
 
   return (
     <>
       <PageHeader
-        title={title}
-        description={description}
-        linkBack={linkBack}
-        copy={copy}
+        title={`Edit user ${user?.email}`}
+        description={`ID: ${user?.id}`}
+        linkBack={"/admin/users"}
+        copy={`${user.id}`}
         actions={<DeleteUserModal user={user} />}
       />
       <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">

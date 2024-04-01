@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { deleteUser } from "@/actions/users/delete-user"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -54,22 +54,28 @@ export default function DeleteUserModal({ user }: { user: User }) {
     resolver: zodResolver(formSchema),
   })
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async () => {
     const result = await deleteUser(user)
     if (result.success) {
       toast.success("User deleted successfully!")
       router.push("/admin/users")
     } else {
-      toast.error("Something went wrong")
+      toast.error(result.message)
     }
   }
+
+  useEffect(() => {
+    if (isOpen === false) {
+      form.reset()
+    }
+  }, [isOpen, form])
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <Tooltip>
         <TooltipTrigger asChild>
           <DialogTrigger asChild>
-            <Button variant="destructive">
+            <Button variant="destructive" disabled={buttonDisable}>
               <Trash2 className="size-4" />
               <span className="sr-only">delete user</span>
               <span className="ml-2 hidden md:block">Delete user</span>
@@ -117,7 +123,7 @@ export default function DeleteUserModal({ user }: { user: User }) {
               />
               <DialogFooter>
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   onClick={() => {
                     setIsOpen(false)
                     form.reset()
