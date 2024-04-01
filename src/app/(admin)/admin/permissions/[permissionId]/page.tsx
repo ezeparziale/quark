@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 
-import prismadb from "@/lib/prismadb"
+import { getPermissionById } from "@/data/permission"
 import { protectPage } from "@/lib/rbac"
 
 import { PageHeader } from "@/components/page-header"
@@ -8,45 +8,32 @@ import { PageHeader } from "@/components/page-header"
 import DeletePermissionModal from "../_components/delete-permission-modal"
 import PermissionForm from "../_components/permission-form"
 
-export default async function PermissionAdminPage({
+export default async function EditPermissionPage({
   params,
 }: {
-  params: { permissionId: string }
+  params: { permissionId: number }
 }) {
   await protectPage({ permission: "admin:all" })
 
-  const getPermission = async () => {
-    const id = Number(params.permissionId)
+  const id = Number(params.permissionId)
 
-    if (!id) {
-      return notFound()
-    }
-
-    const permission = await prismadb.permission.findUnique({
-      where: { id },
-    })
-
-    if (!permission) {
-      return notFound()
-    }
-
-    return permission
+  if (!id) {
+    return notFound()
   }
 
-  const permission = await getPermission()
+  const permission = await getPermissionById(id)
 
-  const title = `Edit permission ${permission.name}`
-  const description = `ID: ${permission.id}`
-  const copy = String(`${permission.id}`)
-  const linkBack = "/admin/permissions"
+  if (!permission) {
+    return notFound()
+  }
 
   return (
     <>
       <PageHeader
-        title={title}
-        description={description}
-        linkBack={linkBack}
-        copy={copy}
+        title={`Edit permission ${permission.name}`}
+        description={`ID: ${permission.id}`}
+        linkBack={"/admin/permissions"}
+        copy={String(`${permission.id}`)}
         actions={<DeletePermissionModal permission={permission} />}
       />
       <PermissionForm permission={permission} />

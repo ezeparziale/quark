@@ -2,9 +2,9 @@
 
 import { useRouter } from "next/navigation"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-import { deletePermission } from "@/actions/permissions/delete"
+import { deletePermission } from "@/actions/permissions"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Permission } from "@prisma/client"
 import { Loader2, Trash2 } from "lucide-react"
@@ -55,11 +55,21 @@ export default function DeletePermissionModal({
     resolver: zodResolver(formSchema),
   })
 
-  const onSubmit = async (data: FormData) => {
-    await deletePermission(permission)
-    toast.success("Permission deleted successfully!", { duration: 4000 })
-    router.push("/admin/permissions")
+  const onSubmit = async () => {
+    const result = await deletePermission(permission)
+    if (result.success) {
+      toast.success("Permission deleted successfully!", { duration: 4000 })
+      router.push("/admin/permissions")
+    } else {
+      toast.error(result.message)
+    }
   }
+
+  useEffect(() => {
+    if (isOpen === false) {
+      form.reset()
+    }
+  }, [isOpen, form])
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -114,7 +124,7 @@ export default function DeletePermissionModal({
               />
               <DialogFooter>
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   onClick={() => {
                     setIsOpen(false)
                   }}

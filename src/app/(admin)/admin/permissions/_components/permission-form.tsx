@@ -3,9 +3,9 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 
-import { createPermission } from "@/actions/permissions/create"
-import { updatePermission } from "@/actions/permissions/update"
+import { createPermission, updatePermission } from "@/actions/permissions"
 import { addServerErrors } from "@/lib/utils"
+import { permissionSchema } from "@/schemas/permissions"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Permission } from "@prisma/client"
 import { Loader2 } from "lucide-react"
@@ -24,26 +24,9 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
-const formSchema = z.object({
-  id: z.number().optional(),
-  name: z.string().trim().min(1).max(45),
-  description: z.string().trim().min(1).max(255),
-  key: z
-    .string()
-    .trim()
-    .refine((data) => /^[a-zA-Z0-9_]+:[a-zA-Z0-9_]+$/.test(data), {
-      message: "The permission must follow the format 'feature:permission'",
-    })
-    .refine((data) => data.length <= 255, {
-      message: "String must contain at most 255 character(s)",
-    }),
-})
-
-type FormData = z.infer<typeof formSchema>
+type FormData = z.infer<typeof permissionSchema>
 
 export default function PermissionForm({ permission }: { permission?: Permission }) {
-  const permissionId = permission?.id
-
   const router = useRouter()
 
   const form = useForm<FormData>({
@@ -53,7 +36,7 @@ export default function PermissionForm({ permission }: { permission?: Permission
       description: permission?.description || "",
       key: permission?.key || "",
     },
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(permissionSchema),
   })
 
   const action = permission ? "Update" : "Create"
@@ -66,20 +49,25 @@ export default function PermissionForm({ permission }: { permission?: Permission
     } else {
       if (result.errors) {
         addServerErrors(result.errors, form.setError)
+      } else if (result.message) {
+        toast.error(result.message)
       } else {
         toast.error("Something went wrong")
       }
     }
   }
 
-  const onSubmitEdit = async (data: FormData) => {
-    const result = await updatePermission({ id: Number(permissionId), ...data })
+  const onSubmitUpdate = async (data: FormData) => {
+    const result = await updatePermission(data)
     if (result.success) {
       form.reset({ ...data })
       router.refresh()
+      toast.success("Permission updated successfully!")
     } else {
       if (result.errors) {
         addServerErrors(result.errors, form.setError)
+      } else if (result.message) {
+        toast.error(result.message)
       } else {
         toast.error("Something went wrong")
       }
@@ -92,7 +80,7 @@ export default function PermissionForm({ permission }: { permission?: Permission
         onSubmit={
           action === "Create"
             ? form.handleSubmit(onSubmitCreate)
-            : form.handleSubmit(onSubmitEdit)
+            : form.handleSubmit(onSubmitUpdate)
         }
         className="flex w-full flex-col space-y-8 md:w-2/3"
       >
