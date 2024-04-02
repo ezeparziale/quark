@@ -59,7 +59,7 @@ export default function Logo({
             )}
             style={{
               width: `${size * logoScale}px`,
-              transform: `translate(0px, -${4 * scaleY}px)`,
+              transform: `translate(0px, -${4 * scaleY * (disableScale ? 0 : 1)}px)`,
             }}
           />
           <Image
@@ -73,7 +73,7 @@ export default function Logo({
             )}
             style={{
               width: `${size * logoScale}px`,
-              transform: `translate(0px, -${4 * scaleY}px)`,
+              transform: `translate(0px, -${4 * scaleY * (disableScale ? 0 : 1)}px)`,
             }}
           />
           <span className="sr-only">quark</span>
