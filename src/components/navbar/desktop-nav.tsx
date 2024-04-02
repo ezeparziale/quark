@@ -19,7 +19,7 @@ export default function DesktopNav({ navigation }: { navigation: INavigation[] }
 
   return (
     <>
-      <nav className="hidden h-16 items-center justify-between px-6 lg:flex lg:flex-1">
+      <nav className="hidden h-14 items-center justify-between px-6 lg:flex lg:flex-1">
         <div className="flex items-center space-x-6 pr-6">
           <Logo />
           {isHome &&

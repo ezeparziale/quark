@@ -49,7 +49,7 @@ export default function NavTabs({ items }: NavProps) {
 
   return (
     <>
-      <nav className="sticky -top-1 z-40 mb-[-3px] mt-[-10px] flex h-[46px] items-center justify-start space-x-1 overflow-x-auto border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <nav className="sticky -top-1 z-40 mb-[-3px] flex h-[46px] items-center justify-start space-x-1 overflow-x-auto border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         {items.map((item) => (
           <Link
             key={item.href}

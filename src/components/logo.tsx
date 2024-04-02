@@ -55,11 +55,11 @@ export default function Logo({
             height={size}
             className={cn(
               "z-50 block dark:hidden",
-              !disableScale && "fixed left-6 top-4",
+              !disableScale && "fixed left-6 top-3",
             )}
             style={{
               width: `${size * logoScale}px`,
-              transform: `translate(0px, -${8 * scaleY}px)`,
+              transform: `translate(0px, -${4 * scaleY}px)`,
             }}
           />
           <Image
@@ -69,11 +69,11 @@ export default function Logo({
             height={size}
             className={cn(
               "z-50 hidden dark:block",
-              !disableScale && "fixed left-6 top-4",
+              !disableScale && "fixed left-6 top-3",
             )}
             style={{
               width: `${size * logoScale}px`,
-              transform: `translate(0px, -${8 * scaleY}px)`,
+              transform: `translate(0px, -${4 * scaleY}px)`,
             }}
           />
           <span className="sr-only">quark</span>

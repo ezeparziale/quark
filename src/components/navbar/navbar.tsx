@@ -12,7 +12,7 @@ const navigation: INavigation[] = [
 
 export default function Navbar() {
   return (
-    <header className="flex h-16 w-full">
+    <header className="flex h-14 w-full">
       <DesktopNav navigation={navigation} />
       <MobileNav navigation={navigation} />
     </header>

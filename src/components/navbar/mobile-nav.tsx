@@ -25,7 +25,7 @@ export default function MobileNav({ navigation }: { navigation: INavigation[] })
   const isHome = pathname === "/" || pathname === "/about"
 
   return (
-    <nav className="flex h-16 flex-1 items-center justify-between px-6 lg:hidden">
+    <nav className="flex h-14 flex-1 items-center justify-between px-6 lg:hidden">
       <div className="flex items-center justify-between">
         <Logo />
         {!isHome && (
