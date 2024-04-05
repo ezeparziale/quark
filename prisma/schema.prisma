@@ -23,6 +23,7 @@ model User {
   usernameUpdatedAt   DateTime?            @map("username_updated_at")
   changeEmailRequests ChangeEmailRequest[]
   roles               UserRole[]
+  toolsFavorites      UserToolFavorites[]
 
   @@map("users")
 }
@@ -50,6 +51,7 @@ model Role {
   updatedAt   DateTime         @default(now()) @updatedAt @map("updated_at")
   users       UserRole[]
   permissions RolePermission[]
+  tools       RoleTool[]
 
   @@map("roles")
 }
@@ -86,4 +88,40 @@ model RolePermission {
 
   @@id([permissionId, roleId])
   @@map("roles_permissions")
+}
+
+model Tool {
+  id          Int                 @id @default(autoincrement())
+  name        String              @unique @db.VarChar(45)
+  href        String              @unique @db.VarChar(255)
+  icon        String              @db.VarChar(45)
+  description String              @db.VarChar(255)
+  createdAt   DateTime            @default(now()) @map("created_at")
+  updatedAt   DateTime            @default(now()) @updatedAt @map("updated_at")
+  roles       RoleTool[]
+  favorites   UserToolFavorites[]
+
+  @@map("tools")
+}
+
+model RoleTool {
+  tool      Tool     @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  toolId    Int
+  role      Role     @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  roleId    Int
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@id([toolId, roleId])
+  @@map("roles_tools")
+}
+
+model UserToolFavorites {
+  tool      Tool     @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  toolId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@id([toolId, userId])
+  @@map("users_tools_favorites")
 }
