@@ -11,8 +11,9 @@ export type NavItem = {
 }
 
 export interface ITools {
-  label: string
-  value?: string
+  id: string
+  name: string
   href: string
-  icon: JSX.Element
+  icon: string
+  isFavorite: boolean
 }
