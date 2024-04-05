@@ -1,12 +1,13 @@
 "use client"
 
+import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
 
 import { useMemo, useState } from "react"
 
 import useTools from "@/lib/swr/use-tools"
 import { cn } from "@/lib/utils"
-import { Check, ChevronsUpDown, LayoutGrid, PlusCircle } from "lucide-react"
+import { Check, ChevronsUpDown, PlusCircle } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -39,10 +40,10 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
     if (selectTool) return { ...selectTool }
 
     return {
-      label: "Select a tool",
+      id: null,
+      name: "Select a tool",
       href: "/",
-      value: null,
-      icon: <LayoutGrid className="mr-2 size-4" />,
+      icon: "layout-grid",
     }
   }, [pathname, tools])
 
@@ -58,8 +59,21 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
           aria-label="Select a tool"
           className={cn("w-40 justify-between md:w-48", className)}
         >
-          {selected.icon}
-          {selected.label}
+          <Image
+            src={`/icons/${selected.icon}-light.svg`}
+            width={16}
+            height={16}
+            alt={`icon_${selected.name}`}
+            className="mr-2 block dark:hidden"
+          />
+          <Image
+            src={`/icons/${selected.icon}-dark.svg`}
+            width={16}
+            height={16}
+            alt={`icon_${selected.name}`}
+            className="mr-2 hidden dark:block"
+          />
+          {selected.name}
           <ChevronsUpDown className="ml-auto size-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -71,19 +85,32 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
             <CommandGroup key="Tools" heading="Tools">
               {tools.map((tool) => (
                 <CommandItem
-                  key={tool.value}
+                  key={tool.id}
                   onSelect={() => {
                     setOpen(false)
                     router.push(tool.href)
                   }}
                   className="text-sm"
                 >
-                  {tool.icon}
-                  {tool.label}
+                  <Image
+                    src={`/icons/${tool.icon}-light.svg`}
+                    width={16}
+                    height={16}
+                    alt={`icon_${tool.name}`}
+                    className="mr-2 block dark:hidden"
+                  />
+                  <Image
+                    src={`/icons/${tool.icon}-dark.svg`}
+                    width={16}
+                    height={16}
+                    alt={`icon_${tool.name}`}
+                    className="mr-2 hidden dark:block"
+                  />
+                  {tool.name}
                   <Check
                     className={cn(
                       "ml-auto size-4",
-                      selected.value === tool.value ? "opacity-100" : "opacity-0",
+                      selected.name === tool.name ? "opacity-100" : "opacity-0",
                     )}
                   />
                 </CommandItem>
