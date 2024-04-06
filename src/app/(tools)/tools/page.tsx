@@ -1,6 +1,34 @@
+import { redirect } from "next/navigation"
+
+import { Suspense } from "react"
+
+import { getServerAuthSession } from "@/lib/auth"
+
 import MaxWidthWrapper from "@/components/max-width-wrapper"
 
-export default function ToolsPage() {
+import AddToolButton from "./_components/add-tool-button"
+import CardSkeleton from "./_components/card-skeleton"
+import ToolSearch from "./_components/tool-search"
+import ToolsCards from "./_components/tools-cards"
+import ViewSwitch from "./_components/view-switch"
+
+export default async function ToolsPage({
+  searchParams,
+}: {
+  searchParams?: {
+    q?: string
+    view?: string
+  }
+}) {
+  const session = await getServerAuthSession()
+
+  if (!session) {
+    redirect("/auth/login?callbackUrl=/tools")
+  }
+
+  const search = searchParams?.q || ""
+  const view = searchParams?.view || "grid"
+
   return (
     <>
       <div className="flex h-36 items-center border-b border-border">
@@ -10,9 +38,16 @@ export default function ToolsPage() {
           </h2>
         </MaxWidthWrapper>
       </div>
-      <div className="min-h-screen w-full bg-muted/40 dark:bg-background">
+      <div className="min-h-screen w-full bg-muted/40">
         <MaxWidthWrapper>
-          <div className="my-10 grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-3"></div>
+          <div className="flex items-center space-x-2 pb-6">
+            <ToolSearch />
+            <ViewSwitch />
+            <AddToolButton />
+          </div>
+          <Suspense fallback={<CardSkeleton view={view} />}>
+            <ToolsCards view={view} search={search} />
+          </Suspense>
         </MaxWidthWrapper>
       </div>
     </>
