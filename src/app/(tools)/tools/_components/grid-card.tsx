@@ -22,7 +22,7 @@ type Props = {
 export default function GridCard({ tool, handleFavorite }: Props) {
   return (
     <>
-      <Card className="transition-colors hover:shadow-lg">
+      <Card className="transition-colors hover:shadow-md hover:dark:border-muted-foreground">
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
