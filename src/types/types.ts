@@ -10,8 +10,8 @@ export type NavItem = {
   type: "parent" | "child"
 }
 
-export interface ITools {
-  id: string
+export interface ITool {
+  id: number
   name: string
   href: string
   icon: string
