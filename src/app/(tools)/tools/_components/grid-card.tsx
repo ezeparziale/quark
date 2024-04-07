@@ -1,7 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
 
-import { MoreHorizontalIcon } from "lucide-react"
+import { ITool } from "@/types/types"
+import { MoreHorizontalIcon, Star } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
@@ -13,20 +14,12 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Skeleton } from "@/components/ui/skeleton"
 
-import { AddFavorite } from "./add-favorite-form"
-import { RemoveFavorite } from "./remove-favorite-form"
-
 type Props = {
-  tool: {
-    id: number
-    name: string
-    href: string
-    icon: string
-    isFavorite: boolean
-  }
+  tool: ITool
+  handleFavorite: (tool: ITool) => void
 }
 
-export default function GridCard({ tool }: Props) {
+export default function GridCard({ tool, handleFavorite }: Props) {
   return (
     <>
       <Card className="transition-colors hover:shadow-lg">
@@ -65,11 +58,20 @@ export default function GridCard({ tool }: Props) {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-40" align="end" forceMount>
-                  <DropdownMenuItem asChild>
+                  <DropdownMenuItem
+                    asChild
+                    onSelect={() => handleFavorite({ ...tool })}
+                  >
                     {tool.isFavorite ? (
-                      <RemoveFavorite id={tool.id} />
+                      <div className="flex flex-1 items-center justify-between">
+                        <span>Remove Favorite</span>
+                        <Star className="ml-2 size-4 fill-primary text-primary" />
+                      </div>
                     ) : (
-                      <AddFavorite id={tool.id} />
+                      <div className="flex flex-1 items-center justify-between">
+                        <span>Add Favorite</span>
+                        <Star className="ml-2 size-4" />
+                      </div>
                     )}
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>

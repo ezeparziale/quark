@@ -3,23 +3,16 @@
 import { revalidatePath } from "next/cache"
 
 import prismadb from "@/lib/prismadb"
-import * as z from "zod"
 
 import { getCurrentUser } from "./get-current-user"
 
-const schema = z.object({
-  toolId: z.number(),
-})
-
-export async function AddToolFavorite(prevState: any, formData: FormData) {
+export async function AddFavTool({ toolId }: { toolId: number }) {
   const currentUser = await getCurrentUser()
-
-  const data = schema.parse({ toolId: Number(formData.get("id")) })
 
   if (currentUser) {
     try {
       await prismadb.userToolFavorites.create({
-        data: { toolId: data.toolId, userId: currentUser.id },
+        data: { toolId: toolId, userId: currentUser.id },
       })
       revalidatePath("/tools")
       return { success: true, message: "Tool added to favorites!" }
@@ -32,15 +25,13 @@ export async function AddToolFavorite(prevState: any, formData: FormData) {
   }
 }
 
-export async function RemoveToolFavorite(prevState: any, formData: FormData) {
+export async function RemoveFavTool({ toolId }: { toolId: number }) {
   const currentUser = await getCurrentUser()
-
-  const data = schema.parse({ toolId: Number(formData.get("id")) })
 
   if (currentUser) {
     try {
       await prismadb.userToolFavorites.deleteMany({
-        where: { toolId: data.toolId, userId: currentUser.id },
+        where: { toolId: toolId, userId: currentUser.id },
       })
       revalidatePath("/tools")
       return { success: true, message: "Tool removed from favorites!" }

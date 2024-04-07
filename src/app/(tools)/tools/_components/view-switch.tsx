@@ -5,9 +5,9 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
 import { LayoutGridIcon, RowsIcon } from "lucide-react"
-import { useDebouncedCallback } from "use-debounce"
 
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 const toggleGroupItemClasses =
   "data-[state=on]:bg-muted-foreground/20 data-[state=on]:text-black data-[state=on]:dark:text-white"
@@ -27,7 +27,7 @@ export default function ViewSwitch() {
     }
   }, [value, searchParams])
 
-  const handleSearch = useDebouncedCallback((view: string) => {
+  const handleSearch = (view: string) => {
     const params = new URLSearchParams(searchParams)
     if (view) {
       params.set("view", view)
@@ -35,7 +35,7 @@ export default function ViewSwitch() {
       params.delete("view")
     }
     replace(`${pathname}?${params.toString()}`)
-  }, 300)
+  }
 
   return (
     <ToggleGroup
@@ -50,20 +50,36 @@ export default function ViewSwitch() {
       }}
       className="hidden lg:flex"
     >
-      <ToggleGroupItem
-        value="grid"
-        aria-label="Grid view"
-        className={toggleGroupItemClasses}
-      >
-        <LayoutGridIcon className="size-5" />
-      </ToggleGroupItem>
-      <ToggleGroupItem
-        value="list"
-        aria-label="List view"
-        className={toggleGroupItemClasses}
-      >
-        <RowsIcon className="size-5" />
-      </ToggleGroupItem>
+      <Tooltip>
+        <ToggleGroupItem
+          value="grid"
+          aria-label="Grid view"
+          className={toggleGroupItemClasses}
+          asChild
+        >
+          <TooltipTrigger>
+            <LayoutGridIcon className="size-5" />
+          </TooltipTrigger>
+        </ToggleGroupItem>
+        <TooltipContent>
+          <p>Grid view</p>
+        </TooltipContent>
+      </Tooltip>
+      <Tooltip>
+        <ToggleGroupItem
+          value="list"
+          aria-label="List view"
+          className={toggleGroupItemClasses}
+          asChild
+        >
+          <TooltipTrigger>
+            <RowsIcon className="size-5" />
+          </TooltipTrigger>
+        </ToggleGroupItem>
+        <TooltipContent>
+          <p>List view</p>
+        </TooltipContent>
+      </Tooltip>
     </ToggleGroup>
   )
 }

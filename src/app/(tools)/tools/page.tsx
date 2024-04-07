@@ -9,7 +9,7 @@ import MaxWidthWrapper from "@/components/max-width-wrapper"
 import AddToolButton from "./_components/add-tool-button"
 import CardSkeleton from "./_components/card-skeleton"
 import ToolSearch from "./_components/tool-search"
-import ToolsCards from "./_components/tools-cards"
+import ToolsSection from "./_components/tools-section"
 import ViewSwitch from "./_components/view-switch"
 
 export default async function ToolsPage({
@@ -46,7 +46,7 @@ export default async function ToolsPage({
             <AddToolButton />
           </div>
           <Suspense fallback={<CardSkeleton view={view} />}>
-            <ToolsCards view={view} search={search} />
+            <ToolsSection view={view} search={search} />
           </Suspense>
         </MaxWidthWrapper>
       </div>
