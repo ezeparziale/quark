@@ -24,6 +24,7 @@ model User {
   changeEmailRequests ChangeEmailRequest[]
   roles               UserRole[]
   toolsFavorites      UserToolFavorites[]
+  Feedback            Feedback[]
 
   @@map("users")
 }
@@ -124,4 +125,15 @@ model UserToolFavorites {
 
   @@id([toolId, userId])
   @@map("users_tools_favorites")
+}
+
+model Feedback {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  feedback  String
+  nps       Int?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("feedbacks")
 }
