@@ -7,7 +7,7 @@ import { useMemo, useState } from "react"
 
 import useTools from "@/lib/swr/use-tools"
 import { cn } from "@/lib/utils"
-import { Check, ChevronsUpDown, PlusCircle } from "lucide-react"
+import { Check, ChevronsUpDown, LayoutGrid, PlusCircle } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -120,6 +120,15 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
           <CommandSeparator />
           <CommandList>
             <CommandGroup>
+              <CommandItem
+                onSelect={() => {
+                  setOpen(false)
+                  router.push("/tools")
+                }}
+              >
+                <LayoutGrid className="mr-2 size-4" />
+                My tools
+              </CommandItem>
               <CommandItem
                 onSelect={() => {
                   setOpen(false)
