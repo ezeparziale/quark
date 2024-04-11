@@ -116,9 +116,7 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
                 </CommandItem>
               ))}
             </CommandGroup>
-          </CommandList>
-          <CommandSeparator />
-          <CommandList>
+            <CommandSeparator />
             <CommandGroup>
               <CommandItem
                 onSelect={() => {
