@@ -42,7 +42,7 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
     return {
       id: null,
       name: "Select a tool",
-      href: "/",
+      href: "/tools",
       icon: "layout-grid",
     }
   }, [pathname, tools])
@@ -80,7 +80,7 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
       <PopoverContent className="w-40 p-0 md:w-48">
         <Command>
           <CommandList>
-            <CommandInput placeholder="Search tool..." />
+            <CommandInput placeholder="Search tool..." showEscKey />
             <CommandEmpty>No tool found.</CommandEmpty>
             <CommandGroup key="Tools" heading="Tools">
               {tools.map((tool) => (
@@ -126,6 +126,12 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
               >
                 <LayoutGrid className="mr-2 size-4" />
                 My tools
+                <Check
+                  className={cn(
+                    "ml-auto size-4",
+                    pathname.endsWith("/tools") ? "opacity-100" : "opacity-0",
+                  )}
+                />
               </CommandItem>
               <CommandItem
                 onSelect={() => {
