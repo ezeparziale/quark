@@ -38,10 +38,15 @@ const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
   )
 }
 
+interface CommandInputProps
+  extends React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input> {
+  showEscKey?: boolean
+}
+
 const CommandInput = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.Input>,
-  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
->(({ className, ...props }, ref) => (
+  CommandInputProps
+>(({ className, showEscKey = false, ...props }, ref) => (
   <div className="flex items-center border-b px-3" cmdk-input-wrapper="">
     <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
     <CommandPrimitive.Input
@@ -52,6 +57,11 @@ const CommandInput = React.forwardRef<
       )}
       {...props}
     />
+    {showEscKey && (
+      <kbd className="pointer-events-none hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100 md:block">
+        <span className="text-xs">Esc</span>
+      </kbd>
+    )}
   </div>
 ))
 
