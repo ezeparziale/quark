@@ -1,3 +1,5 @@
+"server only"
+
 import prismadb from "@/lib/prismadb"
 
 export const getUserByEmail = async (email: string) => {
