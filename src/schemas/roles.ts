@@ -14,4 +14,5 @@ export const rolesSchema = z.object({
     .string()
     .min(1, "Key must contain at least 1 character")
     .max(255, "Key must contain at most 255 characters"),
+  toolId: z.number().optional(),
 })
