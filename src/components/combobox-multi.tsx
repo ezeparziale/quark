@@ -13,6 +13,7 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandList,
 } from "@/components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Separator } from "@/components/ui/separator"
@@ -120,38 +121,40 @@ export function ComboboxMulti({
         <Command>
           <CommandInput placeholder={`Search ${title}...`} />
           <CommandEmpty>No {title} found.</CommandEmpty>
-          <CommandGroup className="max-h-32 overflow-y-auto p-0">
-            {options.map((option) => {
-              const isSelected = selectedValues.has(option.value)
-              return (
-                <CommandItem
-                  key={option.value}
-                  disabled={option.disabled}
-                  className={option.disabled ? "opacity-50" : ""}
-                  onSelect={(currentValue) => {
-                    if (isSelected) {
-                      selectedValues.delete(option.value)
-                    } else {
-                      selectedValues.add(option.value)
-                    }
-                    form.setValue(field || "id", Array.from(selectedValues).sort(), {
-                      shouldValidate: true,
-                      shouldDirty: true,
-                    })
-                    setValue(currentValue === value ? "" : currentValue)
-                  }}
-                >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      isSelected ? "opacity-100" : "opacity-0",
-                    )}
-                  />
-                  {option.label}
-                </CommandItem>
-              )
-            })}
-          </CommandGroup>
+          <CommandList>
+            <CommandGroup className="max-h-32 overflow-y-auto p-0">
+              {options.map((option) => {
+                const isSelected = selectedValues.has(option.value)
+                return (
+                  <CommandItem
+                    key={option.value}
+                    disabled={option.disabled}
+                    className={option.disabled ? "opacity-50" : ""}
+                    onSelect={(currentValue) => {
+                      if (isSelected) {
+                        selectedValues.delete(option.value)
+                      } else {
+                        selectedValues.add(option.value)
+                      }
+                      form.setValue(field || "id", Array.from(selectedValues).sort(), {
+                        shouldValidate: true,
+                        shouldDirty: true,
+                      })
+                      setValue(currentValue === value ? "" : currentValue)
+                    }}
+                  >
+                    <Check
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        isSelected ? "opacity-100" : "opacity-0",
+                      )}
+                    />
+                    {option.label}
+                  </CommandItem>
+                )
+              })}
+            </CommandGroup>
+          </CommandList>
         </Command>
       </PopoverContent>
     </Popover>
