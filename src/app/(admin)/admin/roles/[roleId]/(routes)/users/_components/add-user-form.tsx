@@ -30,7 +30,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>
 
-type IPros = {
+type Pros = {
   title: string
   options: {
     value: string
@@ -41,7 +41,7 @@ type IPros = {
   roleId: string
 }
 
-export default function AddUserForm({ options, selectedValues, title, roleId }: IPros) {
+export default function AddUserForm({ options, selectedValues, title, roleId }: Pros) {
   const router = useRouter()
 
   const form = useForm<FormData>({
@@ -56,7 +56,6 @@ export default function AddUserForm({ options, selectedValues, title, roleId }: 
     const result = await addUsersToRoles(data)
     if (result.success) {
       router.push(`/admin/roles/${roleId}/users`)
-      router.refresh()
       toast.success("Users updated successfully!")
     } else {
       if (result.errors) {
@@ -69,7 +68,6 @@ export default function AddUserForm({ options, selectedValues, title, roleId }: 
     }
   }
 
-  const action = "Save"
   return (
     <Form {...form}>
       <form
@@ -107,7 +105,7 @@ export default function AddUserForm({ options, selectedValues, title, roleId }: 
             {form.formState.isSubmitting && (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             )}
-            {action}
+            Update
           </Button>
           <Button size="sm" className="w-full md:w-1/5" variant="outline" asChild>
             <Link href={`/admin/roles/${roleId}/users`}>Cancel</Link>
