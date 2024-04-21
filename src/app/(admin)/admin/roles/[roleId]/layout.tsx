@@ -27,6 +27,11 @@ const getSideBarNavItems = (id: number): NavItem[] => {
       href: `${baseHref}/users`,
       type: "child",
     },
+    {
+      title: "Tools",
+      href: `${baseHref}/tools`,
+      type: "child",
+    },
   ]
 }
 
