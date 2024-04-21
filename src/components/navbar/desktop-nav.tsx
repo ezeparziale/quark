@@ -43,7 +43,7 @@ export default function DesktopNav({ navigation }: { navigation: INavigation[] }
             </>
           )}
         </div>
-        <div className="flex space-x-3">
+        <div className="flex items-center space-x-3">
           {!isHome && <FeedbackButton />}
           <ThemeSwitch />
           {isHome && <LoginButton />}
