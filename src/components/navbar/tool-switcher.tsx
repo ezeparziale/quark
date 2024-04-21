@@ -129,7 +129,7 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
                 <Check
                   className={cn(
                     "ml-auto size-4",
-                    pathname.endsWith("/tools") ? "opacity-100" : "opacity-0",
+                    pathname === "/tools" ? "opacity-100" : "opacity-0",
                   )}
                 />
               </CommandItem>
