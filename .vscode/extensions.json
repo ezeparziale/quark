@@ -1,0 +1,27 @@
+{
+  "recommendations": [
+    // ESLint
+    "dbaeumer.vscode-eslint",
+
+    // Prettier
+    "esbenp.prettier-vscode",
+
+    // Tailwind CSS IntelliSense
+    "bradlc.vscode-tailwindcss",
+
+    // Prisma
+    "Prisma.prisma",
+
+    // Pretty TypeScript Errors
+    "YoavBls.pretty-ts-errors",
+
+    // ES7+ React/Redux/React-Native snippets
+    "dsznajder.es7-react-js-snippets",
+
+    // Error Lens
+    "usernamehw.errorlens",
+
+    // Console Ninja
+    "WallabyJs.console-ninja"
+  ]
+}
