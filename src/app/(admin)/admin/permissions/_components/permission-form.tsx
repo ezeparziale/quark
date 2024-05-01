@@ -3,15 +3,18 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 
-import { createPermission, updatePermission } from "@/actions/permissions"
-import { addServerErrors } from "@/lib/utils"
-import { permissionSchema } from "@/schemas/permissions"
 import { zodResolver } from "@hookform/resolvers/zod"
 import type { Permission } from "@prisma/client"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import * as z from "zod"
+
+import { addServerErrors } from "@/lib/utils"
+
+import { permissionSchema } from "@/schemas/permissions"
+
+import { createPermission, updatePermission } from "@/actions/permissions"
 
 import { Button } from "@/components/ui/button"
 import {

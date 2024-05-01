@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation"
 
-import { getToolById } from "@/data/tools"
 import { protectPage } from "@/lib/rbac"
+
+import { getToolById } from "@/data/tools"
 
 import { PageHeader } from "@/components/page-header"
 

@@ -14,7 +14,6 @@ import { FaGoogle } from "react-icons/fa6"
 import { toast } from "sonner"
 import * as z from "zod"
 
-import AuthTemplate from "@/components/auth/auth-template"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -25,6 +24,8 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+
+import AuthTemplate from "@/components/auth/auth-template"
 
 const formSchema = z
   .object({

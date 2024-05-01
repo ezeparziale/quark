@@ -1,8 +1,9 @@
 import prismadb from "@/lib/prismadb"
 import { protectPage } from "@/lib/rbac"
 
-import { PageSection } from "@/components/page-header"
 import { DataTable } from "@/components/ui/data-tables/data-table"
+
+import { PageSection } from "@/components/page-header"
 
 import AddPermissionButton from "./_components/add-permission-button"
 import { columns } from "./_components/columns"

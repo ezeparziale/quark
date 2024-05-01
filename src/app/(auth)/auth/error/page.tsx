@@ -4,9 +4,10 @@ import { redirect } from "next/navigation"
 
 import { ArrowLeft } from "lucide-react"
 
+import { Button } from "@/components/ui/button"
+
 import Logo from "@/components/logo"
 import MaxWidthWrapper from "@/components/max-width-wrapper"
-import { Button } from "@/components/ui/button"
 
 const errorTypes: { [key: string]: { message: string; img?: string } } = {
   AccessDenied: {

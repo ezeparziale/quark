@@ -2,9 +2,10 @@
 
 import { revalidatePath } from "next/cache"
 
+import type { Permission } from "@prisma/client"
+
 import prismadb from "@/lib/prismadb"
 import { has } from "@/lib/rbac"
-import type { Permission } from "@prisma/client"
 
 export async function deletePermission(permission: Permission) {
   try {

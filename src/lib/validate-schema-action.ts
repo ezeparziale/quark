@@ -1,5 +1,6 @@
-import { DataResult } from "@/types/types"
 import { z } from "zod"
+
+import { DataResult } from "@/types/types"
 
 export const validateSchemaAction = <T>(
   schema: z.Schema<T>,

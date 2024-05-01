@@ -5,8 +5,9 @@ import { usePathname } from "next/navigation"
 
 import { useMemo, useState } from "react"
 
-import { cn } from "@/lib/utils"
 import { motion, useMotionValueEvent, useScroll } from "framer-motion"
+
+import { cn } from "@/lib/utils"
 
 interface NavProps extends React.HTMLAttributes<HTMLElement> {
   items: {

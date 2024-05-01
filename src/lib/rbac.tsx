@@ -2,8 +2,9 @@
 
 import { redirect } from "next/navigation"
 
-import { getCurrentUser } from "@/actions/users/get-current-user"
 import prismadb from "@/lib/prismadb"
+
+import { getCurrentUser } from "@/actions/users/get-current-user"
 
 type RolesCheck = { role: string; permission?: never }
 type PermissionsCheck = { permission: string; role?: never }

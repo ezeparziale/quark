@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation"
 
-import { getUserById } from "@/data/user"
 import { NavItem } from "@/types/types"
+
+import { getUserById } from "@/data/user"
 
 import { SidebarNav } from "@/components/admin/sidebar-nav"
 import { PageHeader } from "@/components/page-header"

@@ -5,8 +5,9 @@ import Link from "next/link"
 
 import { useMemo, useState } from "react"
 
-import { cn } from "@/lib/utils"
 import { useMotionValueEvent, useScroll } from "framer-motion"
+
+import { cn } from "@/lib/utils"
 
 export default function Logo({
   disableScale,

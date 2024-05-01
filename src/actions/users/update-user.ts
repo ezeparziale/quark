@@ -2,12 +2,15 @@
 
 import { revalidatePath } from "next/cache"
 
+import * as z from "zod"
+
+import { DataResult } from "@/types/types"
+
 import prismadb from "@/lib/prismadb"
 import { has } from "@/lib/rbac"
 import { validateSchemaAction } from "@/lib/validate-schema-action"
+
 import { userSchema } from "@/schemas/users"
-import { DataResult } from "@/types/types"
-import * as z from "zod"
 
 type FormData = z.infer<typeof userSchema>
 

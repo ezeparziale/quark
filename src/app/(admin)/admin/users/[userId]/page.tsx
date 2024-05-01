@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation"
 
-import { getUserById } from "@/data/user"
 import { protectPage } from "@/lib/rbac"
+
+import { getUserById } from "@/data/user"
 
 import { PageSection } from "@/components/page-header"
 

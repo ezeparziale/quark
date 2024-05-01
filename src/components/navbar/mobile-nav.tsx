@@ -5,8 +5,9 @@ import { usePathname } from "next/navigation"
 
 import { useState } from "react"
 
-import { cn } from "@/lib/utils"
 import { Menu, SlashIcon } from "lucide-react"
+
+import { cn } from "@/lib/utils"
 
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 

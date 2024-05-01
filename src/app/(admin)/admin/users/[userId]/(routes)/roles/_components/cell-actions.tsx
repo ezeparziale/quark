@@ -2,9 +2,10 @@ import { useRouter } from "next/navigation"
 
 import React, { useState, useTransition } from "react"
 
-import { removeRolToUser } from "@/actions/users/remove-role"
 import { Loader2, MoreHorizontal } from "lucide-react"
 import { toast } from "sonner"
+
+import { removeRolToUser } from "@/actions/users/remove-role"
 
 import { Button } from "@/components/ui/button"
 import {

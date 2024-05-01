@@ -2,9 +2,10 @@
 
 import { revalidatePath } from "next/cache"
 
+import type { Role } from "@prisma/client"
+
 import prismadb from "@/lib/prismadb"
 import { has } from "@/lib/rbac"
-import type { Role } from "@prisma/client"
 
 export async function deleteRole(role: Role) {
   try {

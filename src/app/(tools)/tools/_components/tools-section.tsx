@@ -1,4 +1,5 @@
 import { getCurrentUser } from "@/actions/users/get-current-user"
+
 import { getUserTools } from "@/data/user"
 
 import ToolEmptyState from "./tool-empty-state"

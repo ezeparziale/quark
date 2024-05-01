@@ -1,7 +1,8 @@
 import { useState } from "react"
 
-import { ITool } from "@/types/types"
 import { ChevronDown, ChevronRight } from "lucide-react"
+
+import { ITool } from "@/types/types"
 
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"

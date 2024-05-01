@@ -1,8 +1,9 @@
 import Image from "next/image"
 import Link from "next/link"
 
-import { ITool } from "@/types/types"
 import { MoreHorizontalIcon, Star } from "lucide-react"
+
+import { ITool } from "@/types/types"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"

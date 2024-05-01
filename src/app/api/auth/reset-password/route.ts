@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server"
 
-import { getUserByEmail } from "@/data/user"
 import ResetPasswordEmail from "@/emails/reset-email"
 import { env } from "@/env.mjs"
+import { render } from "@react-email/render"
+
 import { generateUserToken } from "@/lib/jwt"
 import { sendMail } from "@/lib/mail"
-import { render } from "@react-email/render"
+
+import { getUserByEmail } from "@/data/user"
 
 export async function POST(req: Request) {
   try {

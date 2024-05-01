@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server"
 
-import { getUserByEmail } from "@/data/user"
+import bcrypt from "bcrypt"
+
 import { verifyUserToken } from "@/lib/jwt"
 import prismadb from "@/lib/prismadb"
-import bcrypt from "bcrypt"
+
+import { getUserByEmail } from "@/data/user"
 
 export async function POST(req: Request, { params }: { params: { token: string } }) {
   try {

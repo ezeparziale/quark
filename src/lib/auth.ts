@@ -1,10 +1,12 @@
-import { getUserByEmail, getUserByUsername } from "@/data/user"
 import { env } from "@/env.mjs"
-import prismadb from "@/lib/prismadb"
 import bcrypt from "bcrypt"
 import { NextAuthOptions, getServerSession } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google"
+
+import prismadb from "@/lib/prismadb"
+
+import { getUserByEmail, getUserByUsername } from "@/data/user"
 
 export const authOptions: NextAuthOptions = {
   providers: [

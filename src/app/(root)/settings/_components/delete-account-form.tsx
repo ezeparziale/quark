@@ -4,13 +4,15 @@ import { useRouter } from "next/navigation"
 
 import { useState } from "react"
 
-import { deleteAccount } from "@/actions/users/delete-account"
-import { addServerErrors } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import * as z from "zod"
+
+import { addServerErrors } from "@/lib/utils"
+
+import { deleteAccount } from "@/actions/users/delete-account"
 
 import { Button } from "@/components/ui/button"
 import {

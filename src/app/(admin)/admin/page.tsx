@@ -1,8 +1,9 @@
 import { Suspense } from "react"
 
+import { KeySquare, UnlockIcon, User } from "lucide-react"
+
 import prismadb from "@/lib/prismadb"
 import { protectPage } from "@/lib/rbac"
-import { KeySquare, UnlockIcon, User } from "lucide-react"
 
 import CardKpi from "./_components/card-kpi"
 import CardKpiLoading from "./_components/card-kpi-loading"

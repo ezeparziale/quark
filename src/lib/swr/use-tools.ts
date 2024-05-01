@@ -1,5 +1,6 @@
-import { ITool } from "@/types/types"
 import useSWR from "swr"
+
+import { ITool } from "@/types/types"
 
 import { fetcher } from "./fetcher"
 

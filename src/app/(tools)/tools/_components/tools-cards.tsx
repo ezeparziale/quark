@@ -2,9 +2,11 @@
 
 import { useOptimistic, useTransition } from "react"
 
-import { AddFavTool, RemoveFavTool } from "@/actions/users/update-tool-favorite"
-import { ITool } from "@/types/types"
 import { toast } from "sonner"
+
+import { ITool } from "@/types/types"
+
+import { AddFavTool, RemoveFavTool } from "@/actions/users/update-tool-favorite"
 
 import FavoritesSection from "./favorites-section"
 import GridCard from "./grid-card"

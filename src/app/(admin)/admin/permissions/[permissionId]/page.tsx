@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation"
 
-import { getPermissionById } from "@/data/permission"
 import { protectPage } from "@/lib/rbac"
+
+import { getPermissionById } from "@/data/permission"
 
 import { PageHeader } from "@/components/page-header"
 

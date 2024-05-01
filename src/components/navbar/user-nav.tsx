@@ -3,9 +3,10 @@ import { usePathname, useRouter } from "next/navigation"
 
 import React, { Dispatch, SetStateAction } from "react"
 
-import { cn } from "@/lib/utils"
 import { LayoutGrid, LogOut, Settings, User } from "lucide-react"
 import { useSession } from "next-auth/react"
+
+import { cn } from "@/lib/utils"
 
 import {
   DropdownMenu,

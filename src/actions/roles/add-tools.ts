@@ -2,9 +2,10 @@
 
 import { revalidatePath } from "next/cache"
 
+import { DataResult } from "@/types/types"
+
 import prismadb from "@/lib/prismadb"
 import { has } from "@/lib/rbac"
-import { DataResult } from "@/types/types"
 
 interface Props {
   roleId: number

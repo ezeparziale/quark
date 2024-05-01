@@ -1,12 +1,14 @@
 "use client"
 
-import { updateEmail } from "@/actions/users/update-email"
-import { addServerErrors } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import * as z from "zod"
+
+import { addServerErrors } from "@/lib/utils"
+
+import { updateEmail } from "@/actions/users/update-email"
 
 import { Button } from "@/components/ui/button"
 import {

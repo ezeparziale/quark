@@ -1,5 +1,6 @@
-import { PageHeader } from "@/components/page-header"
 import { Skeleton } from "@/components/ui/skeleton"
+
+import { PageHeader } from "@/components/page-header"
 
 export default function LoadingEditPermissionPage() {
   return (
