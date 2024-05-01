@@ -53,10 +53,7 @@ export default function CellActions({ row }: { row: IColumns }) {
     <Dialog open={open} onOpenChange={setIsOpen}>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
-          >
+          <Button variant="ghost" className="h-8 p-2 data-[state=open]:bg-muted">
             <span className="sr-only">Open menu</span>
             <MoreHorizontal className="size-4" />
           </Button>
