@@ -11,7 +11,9 @@
     }
   },
   "rules": {
-    "tailwindcss/classnames-order": "error"
+    "tailwindcss/classnames-order": "error",
+    "tailwindcss/enforces-negative-arbitrary-values": "off",
+    "tailwindcss/enforces-shorthand": "warn"
   },
   "overrides": [
     {
