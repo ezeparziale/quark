@@ -45,7 +45,7 @@ export default function MobileNav({ navigation }: { navigation: INavigation[] })
               className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-primary"
             >
               <span className="sr-only">Open main menu</span>
-              <Menu className="h-6 w-6" aria-hidden="true" />
+              <Menu className="size-6" aria-hidden="true" />
             </button>
           </SheetTrigger>
           <SheetContent className="fixed inset-y-0 right-0 w-full overflow-y-auto border-0 sm:border-l-2">

@@ -58,7 +58,7 @@ export default function CellActions({ row }: { row: IColumns }) {
             className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
           >
             <span className="sr-only">Open menu</span>
-            <MoreHorizontal className="h-4 w-4" />
+            <MoreHorizontal className="size-4" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-[160px]">
@@ -101,7 +101,7 @@ export default function CellActions({ row }: { row: IColumns }) {
             onClick={() => handleConfirmation()}
             disabled={isPending}
           >
-            {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {isPending && <Loader2 className="mr-2 size-4 animate-spin" />}
             Remove
           </Button>
         </DialogFooter>

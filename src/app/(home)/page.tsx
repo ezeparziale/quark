@@ -22,7 +22,7 @@ export default function Home() {
           <section className="flex w-full items-center justify-center space-x-4 py-4 md:pb-10">
             <Button size={"sm"} asChild>
               <Link href="/auth/login">
-                Get Started <ArrowRight className="ml-3 h-4 w-4" />
+                Get Started <ArrowRight className="ml-3 size-4" />
               </Link>
             </Button>
             <Button size={"sm"} variant={"outline"} asChild>
@@ -31,7 +31,7 @@ export default function Home() {
                 target="_blank"
                 rel="noreferrer"
               >
-                <RxGithubLogo className="mr-3 h-4 w-4" />
+                <RxGithubLogo className="mr-3 size-4" />
                 GitHub
               </Link>
             </Button>

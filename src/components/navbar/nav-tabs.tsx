@@ -60,7 +60,7 @@ export default function NavTabs({ items }: NavProps) {
               transform: `translateX(${navX}px)`,
             }}
           >
-            <div className="m-1 rounded-md px-3 py-2 pl-3 transition-all duration-75 hover:bg-muted">
+            <div className="m-1 rounded-md px-3 py-2 transition-all duration-75 hover:bg-muted">
               <p
                 className={cn(
                   "text-sm font-normal text-muted-foreground hover:text-primary",

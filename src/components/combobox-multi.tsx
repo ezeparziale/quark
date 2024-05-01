@@ -94,9 +94,9 @@ export function ComboboxMulti({
                 setOpen(false)
               }}
             >
-              <div className="w-50 flex-initial">
+              <div className="w-52 flex-initial">
                 <div className="flex flex-initial">
-                  <Trash className="h-4 w-4" />
+                  <Trash className="size-4" />
                 </div>
               </div>
             </Button>
@@ -110,9 +110,9 @@ export function ComboboxMulti({
               setOpen(true)
             }}
           >
-            <div className="w-50 flex-initial">
+            <div className="w-52 flex-initial">
               <div className="flex flex-initial">
-                <Plus className="h-4 w-4" />
+                <Plus className="size-4" />
               </div>
             </div>
           </Button>
@@ -146,7 +146,7 @@ export function ComboboxMulti({
                   >
                     <Check
                       className={cn(
-                        "mr-2 h-4 w-4",
+                        "mr-2 size-4",
                         isSelected ? "opacity-100" : "opacity-0",
                       )}
                     />

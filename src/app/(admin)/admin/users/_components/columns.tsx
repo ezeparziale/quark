@@ -27,11 +27,11 @@ export const columns: ColumnDef<IUsersColumns>[] = [
         >
           Email
           {column.getIsSorted() === false ? (
-            <ArrowUpDown className="ml-2 h-4 w-4" />
+            <ArrowUpDown className="ml-2 size-4" />
           ) : column.getIsSorted() === "asc" ? (
-            <ArrowUp className="ml-2 h-4 w-4" />
+            <ArrowUp className="ml-2 size-4" />
           ) : (
-            <ArrowDown className="ml-2 h-4 w-4" />
+            <ArrowDown className="ml-2 size-4" />
           )}
         </Button>
       )
@@ -47,11 +47,11 @@ export const columns: ColumnDef<IUsersColumns>[] = [
         >
           Username
           {column.getIsSorted() === false ? (
-            <ArrowUpDown className="ml-2 h-4 w-4" />
+            <ArrowUpDown className="ml-2 size-4" />
           ) : column.getIsSorted() === "asc" ? (
-            <ArrowUp className="ml-2 h-4 w-4" />
+            <ArrowUp className="ml-2 size-4" />
           ) : (
-            <ArrowDown className="ml-2 h-4 w-4" />
+            <ArrowDown className="ml-2 size-4" />
           )}
         </Button>
       )
@@ -68,11 +68,11 @@ export const columns: ColumnDef<IUsersColumns>[] = [
         >
           Confirmed Email
           {column.getIsSorted() === false ? (
-            <ArrowUpDown className="ml-2 h-4 w-4" />
+            <ArrowUpDown className="ml-2 size-4" />
           ) : column.getIsSorted() === "asc" ? (
-            <ArrowUp className="ml-2 h-4 w-4" />
+            <ArrowUp className="ml-2 size-4" />
           ) : (
-            <ArrowDown className="ml-2 h-4 w-4" />
+            <ArrowDown className="ml-2 size-4" />
           )}
         </Button>
       )
@@ -94,11 +94,11 @@ export const columns: ColumnDef<IUsersColumns>[] = [
         >
           Active
           {column.getIsSorted() === false ? (
-            <ArrowUpDown className="ml-2 h-4 w-4" />
+            <ArrowUpDown className="ml-2 size-4" />
           ) : column.getIsSorted() === "asc" ? (
-            <ArrowUp className="ml-2 h-4 w-4" />
+            <ArrowUp className="ml-2 size-4" />
           ) : (
-            <ArrowDown className="ml-2 h-4 w-4" />
+            <ArrowDown className="ml-2 size-4" />
           )}
         </Button>
       )

@@ -43,7 +43,7 @@ export default function NotFound404({
         <h2 className="text-2xl font-bold tracking-tight md:text-3xl">{message}</h2>
         <Button asChild variant="default" size="sm" className="mt-6">
           <Link href={link}>
-            <ArrowLeft className="mr-2 h-4 w-4" />
+            <ArrowLeft className="mr-2 size-4" />
             {linkText}
           </Link>
         </Button>

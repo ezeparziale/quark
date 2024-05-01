@@ -145,7 +145,7 @@ function LoginForm() {
               </Link>
             </div>
             <Button size="sm" className="w-full" disabled={isLoading} type="submit">
-              {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {isLoading && <Loader2 className="mr-2 size-4 animate-spin" />}
               Log in
             </Button>
           </form>

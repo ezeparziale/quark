@@ -26,7 +26,7 @@ export function CopyButtonData({ textToCopy, className, ...props }: IProps) {
       <Tooltip>
         <TooltipTrigger asChild>
           <Button variant="secondary" className="mx-2 h-6 w-6 p-0" onClick={onCopy}>
-            {isCopied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+            {isCopied ? <Check className="size-3" /> : <Copy className="size-3" />}
             <span className="sr-only">Copy</span>
           </Button>
         </TooltipTrigger>

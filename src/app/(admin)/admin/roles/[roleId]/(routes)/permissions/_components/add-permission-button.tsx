@@ -11,7 +11,7 @@ export default function AddPermissionButton({ id }: { id: number }) {
       <TooltipTrigger>
         <Button size={"sm"} asChild>
           <Link href={`/admin/roles/${id}/permissions/add`}>
-            <Plus className="h-4 w-4" />
+            <Plus className="size-4" />
             <span className="sr-only">add permissions</span>
             <span className="ml-2 hidden md:block">Add permissions</span>
           </Link>

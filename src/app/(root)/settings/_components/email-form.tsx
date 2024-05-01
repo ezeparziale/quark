@@ -90,7 +90,7 @@ export default function EmailForm({ email }: { email: string }) {
               type="submit"
             >
               {form.formState.isSubmitting && (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Loader2 className="mr-2 size-4 animate-spin" />
               )}
               Save
             </Button>

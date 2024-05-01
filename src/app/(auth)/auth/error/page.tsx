@@ -57,7 +57,7 @@ export default function Error({ searchParams }: { searchParams: { error: string 
         </h2>
         <Button asChild variant="default" size="sm" className="mt-6">
           <Link href="/">
-            <ArrowLeft className="mr-2 h-4 w-4" />
+            <ArrowLeft className="mr-2 size-4" />
             Back to home
           </Link>
         </Button>

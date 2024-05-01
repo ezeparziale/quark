@@ -70,7 +70,7 @@ export default function UserNav({
   if (status != "authenticated") {
     return (
       <div className="flex items-center">
-        <Skeleton className="h-8 w-8 gap-x-6 rounded-full" />
+        <Skeleton className="size-8 gap-x-6 rounded-full" />
       </div>
     )
   }
@@ -114,7 +114,7 @@ export default function UserNav({
         </DropdownMenu>
       </div>
       <div className="flex lg:hidden">
-        <div className="flex flex-grow flex-col">
+        <div className="flex grow flex-col">
           <UserAvatar />
           <div className="space-y-2 py-2">
             {menu.map((item, index) => (
