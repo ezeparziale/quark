@@ -7,7 +7,7 @@ async function main() {
     update: {},
     create: {
       name: "Admin permission",
-      description: "Permission to access the admin section	",
+      description: "Permission to access the admin section",
       key: "admin:all",
     },
   })
