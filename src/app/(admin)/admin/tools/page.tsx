@@ -2,7 +2,8 @@ import { redirect } from "next/navigation"
 
 import { Suspense } from "react"
 
-import { getServerAuthSession } from "@/lib/auth"
+import { auth } from "@/auth"
+
 import { protectPage } from "@/lib/rbac"
 
 import TableLoading from "@/components/admin/table-loading"
@@ -12,7 +13,7 @@ import CreateToolButton from "./_components/create-tool-button"
 import ToolsTable from "./_components/tools-table"
 
 export default async function ToolsAdminPage() {
-  const session = await getServerAuthSession()
+  const session = await auth()
 
   if (!session) {
     redirect("/auth/login?callbackUrl=/admin/tools")

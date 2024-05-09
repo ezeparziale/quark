@@ -1,8 +1,9 @@
 "use server"
 
+import { auth } from "@/auth"
+
 import { DataResult } from "@/types/types"
 
-import { getServerAuthSession } from "@/lib/auth"
 import prismadb from "@/lib/prismadb"
 
 type FormDataDeleteAccount = {
@@ -14,7 +15,7 @@ export async function deleteAccount({
   userEmail,
   confirmString,
 }: FormDataDeleteAccount): Promise<DataResult<FormDataDeleteAccount>> {
-  const session = await getServerAuthSession()
+  const session = await auth()
   const errors: { userEmail: string[]; confirmString: string[] } = {
     userEmail: [],
     confirmString: [],

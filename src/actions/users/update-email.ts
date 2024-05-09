@@ -1,12 +1,12 @@
 "use server"
 
+import { auth } from "@/auth"
 import UpdateEmail from "@/emails/update-email"
 import { env } from "@/env.mjs"
 import { render } from "@react-email/render"
 
 import { DataResult } from "@/types/types"
 
-import { getServerAuthSession } from "@/lib/auth"
 import { generateUserToken } from "@/lib/jwt"
 import { sendMail } from "@/lib/mail"
 import prismadb from "@/lib/prismadb"
@@ -20,7 +20,7 @@ const TEN_MINUTES_IN_MILLIS = 10 * 60 * 1000
 export async function updateEmail({
   newEmail,
 }: FormDataNewEmail): Promise<DataResult<FormDataNewEmail>> {
-  const session = await getServerAuthSession()
+  const session = await auth()
   try {
     const email = session?.user.email
 

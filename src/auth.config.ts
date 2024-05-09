@@ -1,6 +1,6 @@
 import { env } from "@/env.mjs"
-import bcrypt from "bcrypt"
-import { NextAuthOptions, getServerSession } from "next-auth"
+import bcrypt from "bcryptjs"
+import type { NextAuthConfig } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google"
 
@@ -8,7 +8,7 @@ import prismadb from "@/lib/prismadb"
 
 import { getUserByEmail, getUserByUsername } from "@/data/user"
 
-export const authOptions: NextAuthOptions = {
+export const authConfig = {
   providers: [
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
@@ -24,12 +24,12 @@ export const authOptions: NextAuthOptions = {
         try {
           if (!credentials?.email || !credentials?.password) return null
 
-          const user = await getUserByEmail(credentials.email)
+          const user = await getUserByEmail(credentials.email as string)
 
           if (!user || !user?.password) return null
 
           const passwordsMatch = await bcrypt.compare(
-            credentials.password,
+            credentials.password as string,
             user.password,
           )
 
@@ -119,6 +119,4 @@ export const authOptions: NextAuthOptions = {
       return session
     },
   },
-}
-
-export const getServerAuthSession = () => getServerSession(authOptions)
+} satisfies NextAuthConfig

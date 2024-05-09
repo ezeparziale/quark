@@ -2,7 +2,7 @@ import { redirect } from "next/navigation"
 
 import { Suspense } from "react"
 
-import { getServerAuthSession } from "@/lib/auth"
+import { auth } from "@/auth"
 
 import MaxWidthWrapper from "@/components/max-width-wrapper"
 
@@ -20,7 +20,7 @@ export default async function ToolsPage({
     view?: string
   }
 }) {
-  const session = await getServerAuthSession()
+  const session = await auth()
 
   if (!session) {
     redirect("/auth/login?callbackUrl=/tools")

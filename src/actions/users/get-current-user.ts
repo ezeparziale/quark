@@ -2,11 +2,12 @@
 
 import { redirect } from "next/navigation"
 
-import { getServerAuthSession } from "@/lib/auth"
+import { auth } from "@/auth"
+
 import prismadb from "@/lib/prismadb"
 
 export async function getCurrentUser(redirectPage?: string) {
-  const session = await getServerAuthSession()
+  const session = await auth()
 
   if (redirectPage) {
     if (!session) {

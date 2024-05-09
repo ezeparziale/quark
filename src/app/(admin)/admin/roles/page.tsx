@@ -2,7 +2,8 @@ import { redirect } from "next/navigation"
 
 import { Suspense } from "react"
 
-import { getServerAuthSession } from "@/lib/auth"
+import { auth } from "@/auth"
+
 import { protectPage } from "@/lib/rbac"
 
 import TableLoading from "@/components/admin/table-loading"
@@ -12,7 +13,7 @@ import CreateRoleButton from "./_components/create-role-button"
 import RolesTable from "./_components/roles-table"
 
 export default async function RolesAdminPage() {
-  const session = await getServerAuthSession()
+  const session = await auth()
 
   if (!session) {
     redirect("/auth/login?callbackUrl=/admin/roles")

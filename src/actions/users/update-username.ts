@@ -1,8 +1,9 @@
 "use server"
 
+import { auth } from "@/auth"
+
 import { DataResult } from "@/types/types"
 
-import { getServerAuthSession } from "@/lib/auth"
 import prismadb from "@/lib/prismadb"
 
 type FormDataUsername = {
@@ -14,7 +15,7 @@ const THIRTY_DAYS = 30
 export async function updateUsername({
   username,
 }: FormDataUsername): Promise<DataResult<FormDataUsername>> {
-  const session = await getServerAuthSession()
+  const session = await auth()
   try {
     const email = session?.user.email
 
