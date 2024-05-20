@@ -7,6 +7,7 @@ import GoogleProvider from "next-auth/providers/google"
 import { getUserByEmail } from "@/data/user"
 
 import { authConfig } from "./auth.config"
+import { loginSchema } from "./schemas/auth"
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -23,19 +24,20 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       },
       async authorize(credentials) {
         try {
-          if (!credentials?.email || !credentials?.password) return null
+          const parsedCredentials = loginSchema.safeParse(credentials)
 
-          const user = await getUserByEmail(credentials.email as string)
+          if (parsedCredentials.success) {
+            const { email, password } = parsedCredentials.data
+            const user = await getUserByEmail(email)
 
-          if (!user || !user?.password) return null
+            if (!user || !user?.password) return null
 
-          const passwordsMatch = await bcrypt.compare(
-            credentials.password as string,
-            user.password,
-          )
+            const passwordsMatch = await bcrypt.compare(password, user.password)
 
-          if (passwordsMatch) return user
+            if (passwordsMatch) return user
+          }
 
+          console.log("Invalid credentials")
           return null
         } catch (error) {
           return null
