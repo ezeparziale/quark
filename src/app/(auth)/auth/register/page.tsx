@@ -14,6 +14,8 @@ import { FaGoogle } from "react-icons/fa6"
 import { toast } from "sonner"
 import * as z from "zod"
 
+import { registerSchema } from "@/schemas/auth"
+
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -27,22 +29,7 @@ import { Input } from "@/components/ui/input"
 
 import AuthTemplate from "@/components/auth/auth-template"
 
-const formSchema = z
-  .object({
-    username: z.string().trim().min(1).max(60),
-    email: z.string().email(),
-    password: z
-      .string()
-      .min(8, "Password must be at least 8 characters")
-      .max(60, "Password must not exceed 60 characters"),
-    confirmPassword: z.string({ required_error: "Please confirm your password" }),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"],
-  })
-
-type FormData = z.infer<typeof formSchema>
+type FormData = z.infer<typeof registerSchema>
 
 function RegisterForm() {
   const router = useRouter()
@@ -53,7 +40,8 @@ function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm<FormData>({
-    resolver: zodResolver(formSchema),
+    defaultValues: { username: "", email: "", password: "", confirmPassword: "" },
+    resolver: zodResolver(registerSchema),
   })
 
   const onSubmit = async (data: FormData) => {

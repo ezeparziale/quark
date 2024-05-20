@@ -12,6 +12,8 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import * as z from "zod"
 
+import { confirmEmailRequestSchema } from "@/schemas/auth"
+
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -25,11 +27,7 @@ import { Input } from "@/components/ui/input"
 
 import AuthTemplate from "@/components/auth/auth-template"
 
-const formSchema = z.object({
-  email: z.string().email(),
-})
-
-type FormData = z.infer<typeof formSchema>
+type FormData = z.infer<typeof confirmEmailRequestSchema>
 
 function ConfirmForm() {
   const router = useRouter()
@@ -39,7 +37,7 @@ function ConfirmForm() {
   const error = searchParams?.get("error") ?? null
 
   const form = useForm<FormData>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(confirmEmailRequestSchema),
   })
 
   useEffect(() => {

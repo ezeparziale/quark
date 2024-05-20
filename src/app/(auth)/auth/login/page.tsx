@@ -13,6 +13,8 @@ import { FaGoogle } from "react-icons/fa6"
 import { toast } from "sonner"
 import * as z from "zod"
 
+import { loginSchema } from "@/schemas/auth"
+
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -26,12 +28,7 @@ import { Input } from "@/components/ui/input"
 
 import AuthTemplate from "@/components/auth/auth-template"
 
-const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string(),
-})
-
-type FormData = z.infer<typeof formSchema>
+type FormData = z.infer<typeof loginSchema>
 
 function LoginForm() {
   const router = useRouter()
@@ -60,7 +57,8 @@ function LoginForm() {
   }, [updatedEmail])
 
   const form = useForm<FormData>({
-    resolver: zodResolver(formSchema),
+    defaultValues: { email: "", password: "" },
+    resolver: zodResolver(loginSchema),
   })
 
   const onSubmit = (data: FormData) => {
@@ -83,7 +81,7 @@ function LoginForm() {
         if (callback?.error === "ConfirmEmail") {
           router.push("/auth/error/?error=ConfirmEmail")
         } else {
-          toast.error("Wrong credentials")
+          toast.error("Invalid credentials")
         }
       }
     })

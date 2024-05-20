@@ -10,6 +10,8 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import * as z from "zod"
 
+import { resetPasswordSchema } from "@/schemas/auth"
+
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -23,20 +25,7 @@ import { Input } from "@/components/ui/input"
 
 import AuthTemplate from "@/components/auth/auth-template"
 
-const formSchema = z
-  .object({
-    password: z
-      .string({ required_error: "Password is required" })
-      .min(8, "Password must be at least 8 characters")
-      .max(60, "Password must not exceed 60 characters"),
-    confirmPassword: z.string({ required_error: "Please confirm your password" }),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"],
-  })
-
-type FormData = z.infer<typeof formSchema>
+type FormData = z.infer<typeof resetPasswordSchema>
 
 export default function ResetPasswordTokenPage({
   params,
@@ -50,7 +39,7 @@ export default function ResetPasswordTokenPage({
       password: "",
       confirmPassword: "",
     },
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(resetPasswordSchema),
   })
 
   const onSubmit = async (data: FormData) => {
