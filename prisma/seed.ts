@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
+
 async function main() {
   const permission = await prisma.permission.upsert({
     where: { key: "admin:all" },
@@ -37,8 +38,35 @@ async function main() {
     },
   })
 
+  const tool = await prisma.tool.upsert({
+    where: { name: "Admin" },
+    update: {},
+    create: {
+      name: "Admin",
+      href: "/admin",
+      icon: "shield-check",
+      description: "Admin tool",
+    },
+  })
+
+  await prisma.roleTool.create({
+    data: {
+      tool: {
+        connect: {
+          id: tool.id,
+        },
+      },
+      role: {
+        connect: {
+          id: role.id,
+        },
+      },
+    },
+  })
+
   console.log({ permission, role })
 }
+
 main()
   .then(async () => {
     await prisma.$disconnect()
