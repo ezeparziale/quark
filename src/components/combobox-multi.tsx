@@ -94,11 +94,7 @@ export function ComboboxMulti({
                 setOpen(false)
               }}
             >
-              <div className="w-52 flex-initial">
-                <div className="flex flex-initial">
-                  <Trash className="size-4" />
-                </div>
-              </div>
+              <Trash className="size-4" />
             </Button>
           )}
           <Separator orientation="vertical" className="mr-1 h-4" />
@@ -110,11 +106,7 @@ export function ComboboxMulti({
               setOpen(true)
             }}
           >
-            <div className="w-52 flex-initial">
-              <div className="flex flex-initial">
-                <Plus className="size-4" />
-              </div>
-            </div>
+            <Plus className="size-4" />
           </Button>
         </div>
       </PopoverTrigger>
