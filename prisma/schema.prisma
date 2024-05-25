@@ -71,9 +71,9 @@ model Permission {
 
 model UserRole {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
+  userId    String   @map("user_id")
   role      Role     @relation(fields: [roleId], references: [id], onDelete: Cascade)
-  roleId    Int
+  roleId    Int      @map("role_id")
   createdAt DateTime @default(now()) @map("created_at")
 
   @@id([userId, roleId])
@@ -82,9 +82,9 @@ model UserRole {
 
 model RolePermission {
   permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
-  permissionId Int
+  permissionId Int        @map("permission_id")
   role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
-  roleId       Int
+  roleId       Int        @map("role_id")
   createdAt    DateTime   @default(now()) @map("created_at")
 
   @@id([permissionId, roleId])
@@ -107,9 +107,9 @@ model Tool {
 
 model RoleTool {
   tool      Tool     @relation(fields: [toolId], references: [id], onDelete: Cascade)
-  toolId    Int
+  toolId    Int      @map("tool_id")
   role      Role     @relation(fields: [roleId], references: [id], onDelete: Cascade)
-  roleId    Int
+  roleId    Int      @map("role_id")
   createdAt DateTime @default(now()) @map("created_at")
 
   @@id([toolId, roleId])
@@ -118,9 +118,9 @@ model RoleTool {
 
 model UserToolFavorites {
   tool      Tool     @relation(fields: [toolId], references: [id], onDelete: Cascade)
-  toolId    Int
+  toolId    Int      @map("tool_id")
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
+  userId    String   @map("user_id")
   createdAt DateTime @default(now()) @map("created_at")
 
   @@id([toolId, userId])
@@ -129,7 +129,7 @@ model UserToolFavorites {
 
 model Feedback {
   id        Int      @id @default(autoincrement())
-  userId    String
+  userId    String   @map("user_id")
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   feedback  String
   nps       Int?
