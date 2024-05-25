@@ -27,7 +27,7 @@ export const authConfig = {
         if (userExists && userExists.active === false) return false
       }
 
-      if (account?.type === "oauth") {
+      if (account?.provider === "google") {
         const userExists = await getUserByEmail(profile?.email as string)
 
         if (userExists && userExists.confirmedEmail === false) {
