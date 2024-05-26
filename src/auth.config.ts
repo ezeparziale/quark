@@ -67,7 +67,7 @@ export const authConfig = {
           const userExists = await getUserByEmail(user?.email)
 
           if (userExists) {
-            token.id = userExists.id
+            token.userId = userExists.id
             token.active = userExists.active
           }
         }
@@ -76,7 +76,7 @@ export const authConfig = {
     },
     async session({ session, user, token }) {
       if (token) {
-        session.user.id = token.id
+        session.user.userId = token.userId
         session.user.active = token.active
       }
       return session
