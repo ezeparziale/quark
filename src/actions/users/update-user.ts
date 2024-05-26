@@ -40,7 +40,6 @@ async function handler(formData: FormData): Promise<DataResult<FormData>> {
         }
         if (user.username === username) {
           errors.username.push(`Username '${username}' already exists.`)
-          errors.username.push(`Username '${username}' already exists.`)
         }
       })
     }
