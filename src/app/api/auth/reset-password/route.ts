@@ -23,7 +23,7 @@ export async function POST(req: Request) {
 
     const token: string = generateUserToken(email)
 
-    const url: string = `${env.NEXTAUTH_URL}/auth/reset-password/${token}`
+    const url: string = `${env.AUTH_URL}/auth/reset-password/${token}`
 
     const emailHtml = render(ResetPasswordEmail({ url }))
 

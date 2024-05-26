@@ -8,9 +8,9 @@ export const env = createEnv({
     // Database
     DATABASE_URL: z.string().url(),
     // Next auth
-    NEXTAUTH_SECRET:
+    AUTH_SECRET:
       process.env.NODE_ENV === "production" ? z.string() : z.string().optional(),
-    NEXTAUTH_URL: z.string().url(),
+    AUTH_URL: z.string().url(),
     // Auth Google
     AUTH_GOOGLE_ID: z.string(),
     AUTH_GOOGLE_SECRET: z.string(),
@@ -42,8 +42,8 @@ export const env = createEnv({
     MAIL_PASSWORD: process.env.MAIL_PASSWORD,
     JWT_SECRET_KEY: process.env.JWT_SECRET_KEY,
     JWT_EXPIRED_IN: process.env.JWT_EXPIRED_IN,
-    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
-    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    AUTH_SECRET: process.env.AUTH_SECRET,
+    AUTH_URL: process.env.AUTH_URL,
   },
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,
   emptyStringAsUndefined: true,
