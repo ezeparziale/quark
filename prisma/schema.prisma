@@ -12,7 +12,7 @@ datasource db {
 }
 
 model User {
-  id                  String               @id @default(uuid())
+  id                  Int                  @id @default(autoincrement())
   username            String               @unique @db.VarChar(255)
   email               String               @unique @db.VarChar(255)
   password            String?              @db.VarChar(255)
@@ -32,7 +32,7 @@ model User {
 model ChangeEmailRequest {
   id        Int      @id @default(autoincrement())
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String   @map("user_id")
+  userId    Int      @map("user_id")
   oldEmail  String   @map("old_email")
   newEmail  String   @map("new_email")
   token     String
@@ -71,7 +71,7 @@ model Permission {
 
 model UserRole {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String   @map("user_id")
+  userId    Int      @map("user_id")
   role      Role     @relation(fields: [roleId], references: [id], onDelete: Cascade)
   roleId    Int      @map("role_id")
   createdAt DateTime @default(now()) @map("created_at")
@@ -120,7 +120,7 @@ model UserToolFavorites {
   tool      Tool     @relation(fields: [toolId], references: [id], onDelete: Cascade)
   toolId    Int      @map("tool_id")
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String   @map("user_id")
+  userId    Int      @map("user_id")
   createdAt DateTime @default(now()) @map("created_at")
 
   @@id([toolId, userId])
@@ -129,7 +129,7 @@ model UserToolFavorites {
 
 model Feedback {
   id        Int      @id @default(autoincrement())
-  userId    String   @map("user_id")
+  userId    Int      @map("user_id")
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   feedback  String
   nps       Int?
