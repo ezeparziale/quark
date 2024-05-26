@@ -12,11 +12,11 @@ import AddRolesEmptyStateTable from "./_components/roles-empty-state-table"
 export default async function UsersAdminRolesPage({
   params,
 }: {
-  params: { userId: string }
+  params: { userId: number }
 }) {
   await protectPage({ permission: "admin:all" })
 
-  const { userId } = params
+  const userId = Number(params.userId)
 
   const data = await prismadb.user.findUnique({
     where: { id: userId },
@@ -30,13 +30,13 @@ export default async function UsersAdminRolesPage({
       <PageSection
         title="Roles"
         description="Add roles to this user."
-        actions={<AddRoleButton id={userId} />}
+        actions={<AddRoleButton id={String(userId)} />}
       />
       <DataTable
         columns={columns}
         data={dataRoles}
         searchField={"name"}
-        emptyState={<AddRolesEmptyStateTable id={userId} />}
+        emptyState={<AddRolesEmptyStateTable id={String(userId)} />}
       />
     </>
   )

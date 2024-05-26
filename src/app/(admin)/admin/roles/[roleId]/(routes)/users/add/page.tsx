@@ -35,7 +35,7 @@ export default async function RolesAdminAddUsersPage({
         options={options}
         selectedValues={selectedValues}
         title="Users"
-        roleId={String(roleId)}
+        roleId={roleId}
       />
     </>
   )

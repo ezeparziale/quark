@@ -11,7 +11,7 @@ type PermissionsCheck = { permission: string; role?: never }
 
 type Opts = RolesCheck | PermissionsCheck
 
-async function getUserRoles(userId: string) {
+async function getUserRoles(userId: number) {
   const userRoles = await prismadb.userRole
     .findMany({
       where: { userId },
@@ -28,7 +28,7 @@ async function getUserRoles(userId: string) {
   return userRoles
 }
 
-async function getUserPermissions(userId: string) {
+async function getUserPermissions(userId: number) {
   const userPermissions = await prismadb.userRole
     .findMany({
       where: { userId },

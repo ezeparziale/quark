@@ -12,7 +12,7 @@ export const getUserByEmail = async (email: string) => {
   }
 }
 
-export const getUserById = async (id: string) => {
+export const getUserById = async (id: number) => {
   try {
     const user = await prismadb.user.findUnique({ where: { id } })
 
@@ -32,7 +32,7 @@ export const getUserByUsername = async (username: string) => {
   }
 }
 
-export const getUserTools = async (userId: string, search?: string) => {
+export const getUserTools = async (userId: number, search?: string) => {
   try {
     const data = await prismadb.user.findUnique({
       where: { id: userId },

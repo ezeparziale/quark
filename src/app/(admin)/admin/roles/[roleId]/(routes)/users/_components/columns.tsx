@@ -8,10 +8,10 @@ import { Button } from "@/components/ui/button"
 import CellActions from "./cell-actions"
 
 export interface IColumns {
-  userId: string
+  userId: number
   roleId: number
   user: {
-    id: string
+    id: number
     email: string
   }
 }

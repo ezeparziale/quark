@@ -8,7 +8,7 @@ import prismadb from "@/lib/prismadb"
 import { has } from "@/lib/rbac"
 
 interface IRole {
-  userId: string
+  userId: number
   roleIds: number[] | []
 }
 

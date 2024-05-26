@@ -7,7 +7,7 @@ import { has } from "@/lib/rbac"
 
 interface IDeleteRoleUser {
   roleId: number
-  userId: string
+  userId: number
 }
 
 export async function removeRolToUser({ roleId, userId }: IDeleteRoleUser) {

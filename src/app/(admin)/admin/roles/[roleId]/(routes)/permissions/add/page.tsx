@@ -22,12 +22,12 @@ export default async function RolesAdminAddPermissionsPage({
   const permissions = await prismadb.permission.findMany()
 
   const options = permissions.map((permission) => ({
-    value: String(permission.id),
+    value: permission.id,
     label: permission.key,
   }))
 
   const selectedValues = new Set(
-    selectedOptions?.permissions.map((permission) => String(permission.permissionId)),
+    selectedOptions?.permissions.map((permission) => permission.permissionId),
   )
 
   return (
@@ -37,7 +37,7 @@ export default async function RolesAdminAddPermissionsPage({
         options={options}
         selectedValues={selectedValues}
         title="Permissions"
-        roleId={String(roleId)}
+        roleId={roleId}
       />
     </>
   )

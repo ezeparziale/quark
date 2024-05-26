@@ -27,7 +27,7 @@ export default function CellActions({ row }: { row: IUsersColumns }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(row.id)}>
+        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(String(row.id))}>
           Copy user ID
         </DropdownMenuItem>
         <DropdownMenuSeparator />

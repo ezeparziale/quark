@@ -8,8 +8,8 @@ import prismadb from "@/lib/prismadb"
 import { has } from "@/lib/rbac"
 
 interface IRole {
-  roleId: string
-  permissionIds?: (string | undefined)[] | undefined
+  roleId: number
+  permissionIds?: number[] | undefined
 }
 
 export async function addPermissionsToRoles({
@@ -24,7 +24,7 @@ export async function addPermissionsToRoles({
     }
 
     const currentPermissions = await prismadb.rolePermission.findMany({
-      where: { roleId: Number(roleId) },
+      where: { roleId },
       select: { permissionId: true },
     })
 
@@ -32,23 +32,23 @@ export async function addPermissionsToRoles({
       currentPermissions.map((permission) => permission.permissionId),
     )
     const newPermissionIds = new Set(
-      permissionIds?.map((permissionId) => Number(permissionId)) || [],
+      permissionIds?.map((permissionId) => permissionId) || [],
     )
     const permissionsToDelete = currentPermissions.filter(
       (permission) => !newPermissionIds.has(permission.permissionId),
     )
     const permissionsToAdd =
       permissionIds?.filter(
-        (permissionId) => !currentPermissionIds.has(Number(permissionId)),
+        (permissionId) => !currentPermissionIds.has(permissionId),
       ) || []
     const dataToInsert = permissionsToAdd.map((permissionId) => ({
-      roleId: Number(roleId),
-      permissionId: Number(permissionId),
+      roleId,
+      permissionId,
     }))
 
     await prismadb.rolePermission.deleteMany({
       where: {
-        roleId: Number(roleId),
+        roleId: roleId,
         permissionId: {
           in: permissionsToDelete.map((permission) => permission.permissionId),
         },

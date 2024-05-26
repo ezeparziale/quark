@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import CellActions from "./cell-actions"
 
 export interface IUsersColumns {
-  id: string
+  id: number
   email: string
   username: string
   active: boolean

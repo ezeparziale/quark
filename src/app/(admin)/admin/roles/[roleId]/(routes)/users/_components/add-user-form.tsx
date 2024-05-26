@@ -27,8 +27,8 @@ import {
 import { ComboboxMulti } from "@/components/combobox-multi"
 
 const formSchema = z.object({
-  roleId: z.string(),
-  userIds: z.array(z.string()),
+  roleId: z.number(),
+  userIds: z.array(z.number()),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -36,12 +36,12 @@ type FormData = z.infer<typeof formSchema>
 type Pros = {
   title: string
   options: {
-    value: string
+    value: number
     label: string
     disabled?: boolean
   }[]
-  selectedValues: Set<string>
-  roleId: string
+  selectedValues: Set<number>
+  roleId: number
 }
 
 export default function AddUserForm({ options, selectedValues, title, roleId }: Pros) {

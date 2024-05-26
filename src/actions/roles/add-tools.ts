@@ -33,8 +33,8 @@ export async function addToolsToRoles({
     const toolsToDelete = currentTools.filter((tool) => !newToolIds.has(tool.toolId))
     const toolsToAdd = toolsIds?.filter((toolId) => !currentToolIds.has(toolId)) || []
     const dataToInsert = toolsToAdd.map((toolId) => ({
-      roleId: roleId,
-      toolId: toolId,
+      roleId,
+      toolId,
     }))
 
     await prismadb.roleTool.deleteMany({

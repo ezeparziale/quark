@@ -6,7 +6,7 @@ import prismadb from "@/lib/prismadb"
 import { has } from "@/lib/rbac"
 
 interface IDeleteUser {
-  id: string
+  id: number
 }
 
 export async function deleteUser({ id }: IDeleteUser) {

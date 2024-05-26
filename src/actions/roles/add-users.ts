@@ -8,8 +8,8 @@ import prismadb from "@/lib/prismadb"
 import { has } from "@/lib/rbac"
 
 interface IRole {
-  roleId: string
-  userIds?: (string | undefined)[] | undefined
+  roleId: number
+  userIds?: number[] | undefined
 }
 
 export async function addUsersToRoles({
@@ -24,23 +24,22 @@ export async function addUsersToRoles({
     }
 
     const currentUsers = await prismadb.userRole.findMany({
-      where: { roleId: Number(roleId) },
+      where: { roleId },
       select: { userId: true },
     })
 
     const currentUserIds = new Set(currentUsers.map((user) => user.userId))
-    const newUserIds = new Set(userIds?.map((userId) => String(userId)) || [])
+    const newUserIds = new Set(userIds?.map((userId) => userId) || [])
     const usersToDelete = currentUsers.filter((user) => !newUserIds.has(user.userId))
-    const usersToAdd =
-      userIds?.filter((userId) => !currentUserIds.has(String(userId))) || []
+    const usersToAdd = userIds?.filter((userId) => !currentUserIds.has(userId)) || []
     const dataToInsert = usersToAdd.map((userId) => ({
-      roleId: Number(roleId),
-      userId: String(userId),
+      roleId,
+      userId,
     }))
 
     await prismadb.userRole.deleteMany({
       where: {
-        roleId: Number(roleId),
+        roleId,
         userId: {
           in: usersToDelete.map((user) => user.userId),
         },

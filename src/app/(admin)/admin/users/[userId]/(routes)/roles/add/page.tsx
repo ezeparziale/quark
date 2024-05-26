@@ -8,11 +8,11 @@ import AddRoleForm from "../_components/add-role-form"
 export default async function UsersAdminAddRolesToUserPage({
   params,
 }: {
-  params: { userId: string }
+  params: { userId: number }
 }) {
   await protectPage({ permission: "admin:all" })
 
-  const { userId } = params
+  const userId = Number(params.userId)
 
   const selectedOptions = await prismadb.user.findUnique({
     where: { id: userId },

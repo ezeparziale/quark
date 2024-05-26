@@ -9,7 +9,7 @@ import { PageHeader } from "@/components/page-header"
 
 import DeleteUserModal from "./_components/delete-user-modal"
 
-const getSideBarNavItems = (id: string): NavItem[] => {
+const getSideBarNavItems = (id: number): NavItem[] => {
   const baseHref = `/admin/users/${id}`
 
   return [
@@ -28,14 +28,14 @@ const getSideBarNavItems = (id: string): NavItem[] => {
 
 interface SettingsLayoutProps {
   children: React.ReactNode
-  params: { userId: string }
+  params: { userId: number }
 }
 
 export default async function SettingsLayout({
   children,
   params,
 }: SettingsLayoutProps) {
-  const { userId } = params
+  const userId = Number(params.userId)
 
   const sidebarNavItems = getSideBarNavItems(userId)
 

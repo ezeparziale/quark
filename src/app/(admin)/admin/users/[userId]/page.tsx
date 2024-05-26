@@ -11,11 +11,11 @@ import UserForm from "../_components/user-form"
 export default async function UserAdminPage({
   params,
 }: {
-  params: { userId: string }
+  params: { userId: number }
 }) {
   await protectPage({ permission: "admin:all" })
 
-  const { userId } = params
+  const userId = Number(params.userId)
 
   const user = await getUserById(userId)
 
