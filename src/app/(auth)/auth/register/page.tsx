@@ -10,7 +10,7 @@ import axios from "axios"
 import { Loader2 } from "lucide-react"
 import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
-import { FaGoogle } from "react-icons/fa6"
+import { FaGithub, FaGoogle } from "react-icons/fa6"
 import { toast } from "sonner"
 import * as z from "zod"
 
@@ -166,14 +166,26 @@ function RegisterForm() {
           <span className="bg-white px-3 text-sm text-gray-400 dark:bg-black">OR</span>
         </div>
       </div>
-      <div className="mt-8 grid grid-cols-1">
+      <div className="mt-8 grid grid-cols-1 gap-2 md:grid-cols-2">
         <Button
+          variant={"outline"}
           size="sm"
-          className="w-full"
+          className="gap-2"
           disabled={isLoading}
           onClick={() => signIn("google", { callbackUrl })}
         >
-          <FaGoogle className="mr-2" /> Google
+          <FaGoogle className="size-4" />
+          <span>Google</span>
+        </Button>
+        <Button
+          variant={"outline"}
+          size="sm"
+          className="gap-2"
+          disabled={isLoading}
+          onClick={() => signIn("github", { callbackUrl })}
+        >
+          <FaGithub className="size-4" />
+          <span>GitHub</span>
         </Button>
       </div>
     </AuthTemplate>
