@@ -161,7 +161,7 @@ function RegisterForm() {
         </Form>
       </div>
       <div className="relative mt-8">
-        <hr className="border-t border-gray-400 " />
+        <hr className="border-t border-gray-400" />
         <div className="absolute inset-0 flex items-center justify-center">
           <span className="bg-white px-3 text-sm text-gray-400 dark:bg-black">OR</span>
         </div>
