@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 
 import { useMotionValueEvent, useScroll } from "framer-motion"
 
@@ -18,6 +18,18 @@ export default function Logo({
 }) {
   const { scrollY } = useScroll()
   const [y, setY] = useState(0)
+
+  const [isStickyNav, setShowStickyNav] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    if (!mounted) {
+      setMounted(true)
+    } else {
+      const isNavTabsUsed = document.querySelector("#nav-tabs") !== null
+      setShowStickyNav(!isNavTabsUsed)
+    }
+  }, [mounted])
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setY(latest)
@@ -42,7 +54,7 @@ export default function Logo({
 
   const scale = useRange(y, 0, 50, 1, 0.7)
   const scaleY = useRange(y, 0, 50, 0, 1)
-  const logoScale = disableScale ? 1 : scale
+  const logoScale = disableScale || isStickyNav ? 1 : scale
   const size = 32
 
   return (
@@ -60,7 +72,9 @@ export default function Logo({
             )}
             style={{
               width: `${size * logoScale}px`,
-              transform: `translate(0px, -${4 * scaleY * (disableScale ? 0 : 1)}px)`,
+              transform: `translate(0px, -${
+                4 * scaleY * (disableScale || isStickyNav ? 0 : 1)
+              }px)`,
             }}
           />
           <Image
@@ -74,7 +88,9 @@ export default function Logo({
             )}
             style={{
               width: `${size * logoScale}px`,
-              transform: `translate(0px, -${4 * scaleY * (disableScale ? 0 : 1)}px)`,
+              transform: `translate(0px, -${
+                4 * scaleY * (disableScale || isStickyNav ? 0 : 1)
+              }px)`,
             }}
           />
           <span className="sr-only">quark</span>
