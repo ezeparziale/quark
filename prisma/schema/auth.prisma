@@ -1,0 +1,58 @@
+model Role {
+  id          Int              @id @default(autoincrement())
+  name        String           @unique @db.VarChar(45)
+  key         String           @unique @db.VarChar(255)
+  description String           @db.VarChar(255)
+  createdAt   DateTime         @default(now()) @map("created_at")
+  updatedAt   DateTime         @default(now()) @updatedAt @map("updated_at")
+  users       UserRole[]
+  permissions RolePermission[]
+  tools       RoleTool[]
+
+  @@map("roles")
+}
+
+model Permission {
+  id          Int              @id @default(autoincrement())
+  name        String           @unique @db.VarChar(45)
+  key         String           @unique @db.VarChar(255)
+  description String           @db.VarChar(255)
+  createdAt   DateTime         @default(now()) @map("created_at")
+  updatedAt   DateTime         @default(now()) @updatedAt @map("updated_at")
+  roles       RolePermission[]
+
+  @@map("permissions")
+}
+
+model UserRole {
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int      @map("user_id")
+  role      Role     @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  roleId    Int      @map("role_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@id([userId, roleId])
+  @@map("users_roles")
+}
+
+model RolePermission {
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+  permissionId Int        @map("permission_id")
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  roleId       Int        @map("role_id")
+  createdAt    DateTime   @default(now()) @map("created_at")
+
+  @@id([permissionId, roleId])
+  @@map("roles_permissions")
+}
+
+model RoleTool {
+  tool      Tool     @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  toolId    Int      @map("tool_id")
+  role      Role     @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  roleId    Int      @map("role_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@id([toolId, roleId])
+  @@map("roles_tools")
+}

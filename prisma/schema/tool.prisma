@@ -1,0 +1,24 @@
+model Tool {
+  id          Int                 @id @default(autoincrement())
+  name        String              @unique @db.VarChar(45)
+  href        String              @unique @db.VarChar(255)
+  icon        String              @db.VarChar(45)
+  description String              @db.VarChar(255)
+  createdAt   DateTime            @default(now()) @map("created_at")
+  updatedAt   DateTime            @default(now()) @updatedAt @map("updated_at")
+  roles       RoleTool[]
+  favorites   UserToolFavorites[]
+
+  @@map("tools")
+}
+
+model UserToolFavorites {
+  tool      Tool     @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  toolId    Int      @map("tool_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int      @map("user_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@id([toolId, userId])
+  @@map("users_tools_favorites")
+}

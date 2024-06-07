@@ -1,0 +1,10 @@
+model Feedback {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  feedback  String
+  nps       Int?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("feedbacks")
+}
