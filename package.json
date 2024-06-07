@@ -38,6 +38,7 @@
     "@react-email/button": "0.0.15",
     "@react-email/column": "0.0.10",
     "@react-email/img": "0.0.8",
+    "@react-email/render": "0.0.15",
     "@react-email/row": "0.0.8",
     "@react-email/section": "0.0.12",
     "@react-email/tailwind": "0.0.18",
