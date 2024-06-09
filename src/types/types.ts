@@ -11,9 +11,9 @@ export type NavItem = {
 }
 
 export interface ITool {
-  id: number
+  id?: number
   name: string
   href: string
   icon: string
-  isFavorite: boolean
+  isFavorite?: boolean
 }
