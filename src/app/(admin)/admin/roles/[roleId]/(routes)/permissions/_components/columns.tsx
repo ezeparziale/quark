@@ -1,10 +1,9 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { DataTableColumnHeader } from "@/components/ui/data-tables/data-table-column-header"
 
 import CellActions from "./cell-actions"
 
@@ -29,63 +28,17 @@ export const columns: ColumnDef<IColumns>[] = [
   {
     id: "permission.name",
     accessorKey: "permission.name",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Name
-          {column.getIsSorted() === false ? (
-            <ArrowUpDown className="ml-2 size-4" />
-          ) : column.getIsSorted() === "asc" ? (
-            <ArrowUp className="ml-2 size-4" />
-          ) : (
-            <ArrowDown className="ml-2 size-4" />
-          )}
-        </Button>
-      )
-    },
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
   },
   {
     accessorKey: "permission.description",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Description
-          {column.getIsSorted() === false ? (
-            <ArrowUpDown className="ml-2 size-4" />
-          ) : column.getIsSorted() === "asc" ? (
-            <ArrowUp className="ml-2 size-4" />
-          ) : (
-            <ArrowDown className="ml-2 size-4" />
-          )}
-        </Button>
-      )
-    },
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Description" />
+    ),
   },
   {
     accessorKey: "permission.key",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Key
-          {column.getIsSorted() === false ? (
-            <ArrowUpDown className="ml-2 size-4" />
-          ) : column.getIsSorted() === "asc" ? (
-            <ArrowUp className="ml-2 size-4" />
-          ) : (
-            <ArrowDown className="ml-2 size-4" />
-          )}
-        </Button>
-      )
-    },
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Key" />,
     cell: ({ row }) => {
       return <Badge variant={"secondary"}>{row.original?.permission.key}</Badge>
     },

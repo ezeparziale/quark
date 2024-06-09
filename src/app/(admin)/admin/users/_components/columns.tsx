@@ -1,10 +1,9 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { DataTableColumnHeader } from "@/components/ui/data-tables/data-table-column-header"
 
 import CellActions from "./cell-actions"
 
@@ -19,64 +18,18 @@ export interface IUsersColumns {
 export const columns: ColumnDef<IUsersColumns>[] = [
   {
     accessorKey: "email",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          {column.getIsSorted() === false ? (
-            <ArrowUpDown className="ml-2 size-4" />
-          ) : column.getIsSorted() === "asc" ? (
-            <ArrowUp className="ml-2 size-4" />
-          ) : (
-            <ArrowDown className="ml-2 size-4" />
-          )}
-        </Button>
-      )
-    },
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Email" />,
   },
   {
     accessorKey: "username",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Username
-          {column.getIsSorted() === false ? (
-            <ArrowUpDown className="ml-2 size-4" />
-          ) : column.getIsSorted() === "asc" ? (
-            <ArrowUp className="ml-2 size-4" />
-          ) : (
-            <ArrowDown className="ml-2 size-4" />
-          )}
-        </Button>
-      )
-    },
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Username" />,
   },
   {
     accessorKey: "confirmedEmail",
     id: "confirmedEmail",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Confirmed Email
-          {column.getIsSorted() === false ? (
-            <ArrowUpDown className="ml-2 size-4" />
-          ) : column.getIsSorted() === "asc" ? (
-            <ArrowUp className="ml-2 size-4" />
-          ) : (
-            <ArrowDown className="ml-2 size-4" />
-          )}
-        </Button>
-      )
-    },
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Confirmed email" />
+    ),
     cell: ({ row }) => {
       const value = row.original.confirmedEmail
       const badge = <Badge variant={"gray-subtle"}>{String(value)}</Badge>
@@ -86,23 +39,7 @@ export const columns: ColumnDef<IUsersColumns>[] = [
   {
     accessorKey: "active",
     id: "active",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Active
-          {column.getIsSorted() === false ? (
-            <ArrowUpDown className="ml-2 size-4" />
-          ) : column.getIsSorted() === "asc" ? (
-            <ArrowUp className="ml-2 size-4" />
-          ) : (
-            <ArrowDown className="ml-2 size-4" />
-          )}
-        </Button>
-      )
-    },
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Active" />,
     cell: ({ row }) => {
       const value = row.original.active
       const badge = (
