@@ -45,6 +45,7 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
     if (selectTool) return { ...selectTool }
 
     return {
+      id: -1,
       name: "Select a tool",
       href: "/tools",
       icon: "layout-grid",
