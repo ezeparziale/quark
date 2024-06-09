@@ -1,5 +1,6 @@
 "use client"
 
+import { type Permission } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
 
 import { Badge } from "@/components/ui/badge"
@@ -7,12 +8,7 @@ import { DataTableColumnHeader } from "@/components/ui/data-tables/data-table-co
 
 import CellActions from "./cell-actions"
 
-export interface IColumns {
-  id: number
-  name: string
-  description: string
-  key: string
-}
+export interface IColumns extends Permission {}
 
 export const columns: ColumnDef<IColumns>[] = [
   {
