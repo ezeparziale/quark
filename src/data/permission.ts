@@ -11,3 +11,16 @@ export const getPermissionById = async (id: number) => {
     return null
   }
 }
+
+export const getAllPermissions = async () => {
+  try {
+    const permissions = await prismadb.permission.findMany({
+      orderBy: { updatedAt: "desc" },
+    })
+
+    return permissions
+  } catch (error) {
+    console.error(error)
+    return []
+  }
+}
