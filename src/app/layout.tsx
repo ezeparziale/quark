@@ -30,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <SpeedInsights />
               <Analytics />
             </div>
-            <Toaster richColors closeButton />
+            <Toaster richColors position="top-center" />
           </Providers>
         </div>
       </body>
