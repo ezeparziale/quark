@@ -57,7 +57,7 @@ function ConfirmForm() {
         toast("Please check your email to confirm your account")
         router.push("/auth/login")
       })
-      .catch((error) => {
+      .catch(() => {
         toast.error("Something went wrong, Please try again.")
       })
       .finally(() => {

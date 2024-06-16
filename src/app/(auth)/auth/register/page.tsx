@@ -47,7 +47,7 @@ function RegisterForm() {
   const onSubmit = async (data: FormData) => {
     setIsLoading(true)
 
-    const resp = await axios
+    await axios
       .post("/api/auth/register", data)
       .then(async () => {
         await axios.post("/api/auth/confirm", { email: data.email })

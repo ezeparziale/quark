@@ -43,7 +43,7 @@ export default function ResetPasswordTokenPage({
   })
 
   const onSubmit = async (data: FormData) => {
-    const resp = await axios
+    await axios
       .post(`/api/auth/reset-password/${params.token}`, data)
       .then(() => {
         toast.success("Password updated")

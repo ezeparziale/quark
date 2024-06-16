@@ -41,7 +41,7 @@ export default function ForgotPasswordPage() {
         toast.success("Check your email")
         router.push("/auth/login")
       })
-      .catch((error) => {
+      .catch(() => {
         toast.error("Something went wrong")
       })
   }

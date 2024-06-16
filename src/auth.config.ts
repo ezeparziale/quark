@@ -17,7 +17,7 @@ export const authConfig = {
     updateAge: 24 * 60 * 60, //24 hours
   },
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
+    async signIn({ user, account, profile }) {
       if (account?.type === "credentials") {
         const userExists = await getUserByEmail(user?.email as string)
 
@@ -49,7 +49,7 @@ export const authConfig = {
             }
           }
 
-          const newUser = await prismadb.user.create({
+          await prismadb.user.create({
             data: {
               username,
               email: profile?.email as string,
@@ -74,7 +74,7 @@ export const authConfig = {
       }
       return token
     },
-    async session({ session, user, token }) {
+    async session({ session, token }) {
       if (token) {
         session.user.userId = token.userId
         session.user.active = token.active

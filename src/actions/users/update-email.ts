@@ -68,7 +68,7 @@ export async function updateEmail({
 
         const token: string = generateUserToken(email)
 
-        const newRequest = await prismadb.changeEmailRequest.create({
+        await prismadb.changeEmailRequest.create({
           data: {
             userId: user.id,
             oldEmail: user.email,

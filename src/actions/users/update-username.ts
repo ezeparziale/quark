@@ -36,7 +36,7 @@ export async function updateUsername({
             },
           })
           if (usernameExists.length === 0) {
-            const updateUser = await prismadb.user.update({
+            await prismadb.user.update({
               where: { id: user.id },
               data: {
                 username,

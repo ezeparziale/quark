@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     }
     const hashedPassword = await bcrypt.hash(password, 12)
 
-    const newUser = await prismadb.user.create({
+    await prismadb.user.create({
       data: {
         username,
         email,

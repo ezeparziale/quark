@@ -21,7 +21,7 @@ export default function ToolsCards({
   favorites: ITool[]
   view: string
 }) {
-  const [_, startTransition] = useTransition()
+  const [, startTransition] = useTransition()
 
   const [optimisticFavorites, addOptimisticFavorite] = useOptimistic(
     favorites || [],

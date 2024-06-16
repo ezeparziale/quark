@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export default function UserAvatar() {
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
 
   return (
     // eslint-disable-next-line tailwindcss/enforces-shorthand
