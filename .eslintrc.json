@@ -1,9 +1,13 @@
 {
+  "root": true,
   "extends": [
     "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
     "plugin:tailwindcss/recommended"
   ],
+  "plugins": ["@typescript-eslint"],
   "settings": {
     "tailwindcss": {
       "callees": ["cn", "cva"],
@@ -13,12 +17,17 @@
   "rules": {
     "tailwindcss/classnames-order": "error",
     "tailwindcss/enforces-negative-arbitrary-values": "off",
-    "tailwindcss/enforces-shorthand": "warn"
+    "tailwindcss/enforces-shorthand": "warn",
+    "no-var": "off",
+    "no-constant-condition": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-non-null-asserted-optional-chain": "off"
   },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx"],
       "parser": "@typescript-eslint/parser"
     }
-  ]
+  ],
+  "parserOptions": { "project": true }
 }
