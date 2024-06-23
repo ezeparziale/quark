@@ -28,6 +28,14 @@ const toggleGroupItemClasses = "p-2 rounded-full data-[state=on]:bg-primary/20 "
 
 type FormData = z.infer<typeof feedbackSchema>
 
+export const FEEDBACK_ITEMS = [
+  { value: "1", Icon: Angry },
+  { value: "2", Icon: Frown },
+  { value: "3", Icon: Meh },
+  { value: "4", Icon: Smile },
+  { value: "5", Icon: SmilePlus },
+]
+
 export default function FeedbackButton() {
   const [isOpen, setOpen] = useState(false)
 
@@ -99,47 +107,21 @@ export default function FeedbackButton() {
                           {...field}
                           disabled={form.formState.isSubmitting}
                         >
-                          <ToggleGroupItem
-                            value="5"
-                            size={"sm"}
-                            className={toggleGroupItemClasses}
-                          >
-                            <SmilePlus className="size-5" />
-                          </ToggleGroupItem>
-                          <ToggleGroupItem
-                            value="4"
-                            size={"sm"}
-                            className={toggleGroupItemClasses}
-                          >
-                            <Smile className="size-5" />
-                          </ToggleGroupItem>
-                          <ToggleGroupItem
-                            value="3"
-                            size={"sm"}
-                            className={toggleGroupItemClasses}
-                          >
-                            <Meh className="size-5" />
-                          </ToggleGroupItem>
-                          <ToggleGroupItem
-                            value="2"
-                            size={"sm"}
-                            className={toggleGroupItemClasses}
-                          >
-                            <Frown className="size-5" />
-                          </ToggleGroupItem>
-                          <ToggleGroupItem
-                            value="1"
-                            size={"sm"}
-                            className={toggleGroupItemClasses}
-                          >
-                            <Angry className="size-5" />
-                          </ToggleGroupItem>
+                          {FEEDBACK_ITEMS.map(({ value, Icon }) => (
+                            <ToggleGroupItem
+                              key={value}
+                              value={value}
+                              size="sm"
+                              className={toggleGroupItemClasses}
+                            >
+                              <Icon className="size-5" />
+                            </ToggleGroupItem>
+                          ))}
                         </ToggleGroup>
                       </FormControl>
                     </FormItem>
                   )}
                 />
-
                 <Button
                   variant={"default"}
                   size={"sm"}
