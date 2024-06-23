@@ -29,11 +29,11 @@ const toggleGroupItemClasses = "p-2 rounded-full data-[state=on]:bg-primary/20 "
 type FormData = z.infer<typeof feedbackSchema>
 
 export const FEEDBACK_ITEMS = [
-  { value: "1", Icon: Angry },
-  { value: "2", Icon: Frown },
-  { value: "3", Icon: Meh },
-  { value: "4", Icon: Smile },
-  { value: "5", Icon: SmilePlus },
+  { value: "1", Icon: Angry, label: "Select I'm furious emoji" },
+  { value: "2", Icon: Frown, label: "Select Not happy emoji" },
+  { value: "3", Icon: Meh, label: "Select Meh, it's okay emoji" },
+  { value: "4", Icon: Smile, label: "Select Pretty happy emoji" },
+  { value: "5", Icon: SmilePlus, label: "Select Absolutely love it emoji" },
 ]
 
 export default function FeedbackButton() {
@@ -107,12 +107,13 @@ export default function FeedbackButton() {
                           {...field}
                           disabled={form.formState.isSubmitting}
                         >
-                          {FEEDBACK_ITEMS.map(({ value, Icon }) => (
+                          {FEEDBACK_ITEMS.map(({ value, Icon, label }) => (
                             <ToggleGroupItem
                               key={value}
                               value={value}
                               size="sm"
                               className={toggleGroupItemClasses}
+                              aria-label={label}
                             >
                               <Icon className="size-5" />
                             </ToggleGroupItem>
