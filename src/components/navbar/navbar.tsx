@@ -42,7 +42,7 @@ export default function Navbar() {
     <header
       className={cn(
         showStickyNav &&
-          "sticky top-0 z-40 flex h-14 items-center justify-start space-x-1 overflow-x-auto bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
+          "sticky top-0 z-40 flex h-14 items-center justify-start overflow-x-auto bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
         !showStickyNav && "flex h-14 w-full",
         y > 56 &&
           "after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:bg-border after:content-['']",
