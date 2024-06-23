@@ -1,16 +1,13 @@
 "use client"
 
+import { type Tool } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
 
 import { DataTableColumnHeader } from "@/components/ui/data-tables/data-table-column-header"
 
 import CellActions from "./cell-actions"
 
-export interface IColumns {
-  id: number
-  name: string
-  description: string
-}
+export interface IColumns extends Tool {}
 
 export const columns: ColumnDef<IColumns>[] = [
   {

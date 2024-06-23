@@ -34,8 +34,8 @@ export default function CellActions({ row }: { row: IColumns }) {
 
   const [open, setIsOpen] = useState(false)
 
-  const { roleId, userId } = row!
-  const email = row?.user.email
+  const { roleId, userId } = row
+  const email = row.user.email
 
   async function handleConfirmation() {
     startTransition(async () => {

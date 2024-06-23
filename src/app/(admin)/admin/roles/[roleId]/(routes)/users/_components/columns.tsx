@@ -1,18 +1,14 @@
 "use client"
 
+import { User, UserRole } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
 
 import { DataTableColumnHeader } from "@/components/ui/data-tables/data-table-column-header"
 
 import CellActions from "./cell-actions"
 
-export interface IColumns {
-  userId: number
-  roleId: number
-  user: {
-    id: number
-    email: string
-  }
+export interface IColumns extends UserRole {
+  user: User
 }
 
 export const columns: ColumnDef<IColumns>[] = [

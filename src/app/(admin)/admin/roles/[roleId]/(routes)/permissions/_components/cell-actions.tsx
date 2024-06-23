@@ -34,8 +34,8 @@ export default function CellActions({ row }: { row: IColumns }) {
 
   const [open, setIsOpen] = useState(false)
 
-  const { roleId, permissionId } = row!
-  const name = row?.permission.name
+  const { roleId, permissionId } = row
+  const name = row.permission.name
 
   async function handleConfirmation() {
     startTransition(async () => {

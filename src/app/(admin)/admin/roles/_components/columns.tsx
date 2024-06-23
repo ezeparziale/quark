@@ -1,5 +1,6 @@
 "use client"
 
+import { type Role } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
 
 import { Badge } from "@/components/ui/badge"
@@ -7,14 +8,9 @@ import { DataTableColumnHeader } from "@/components/ui/data-tables/data-table-co
 
 import CellActions from "./cell-actions"
 
-export interface IRolesColumns {
-  id: number
-  name: string
-  description: string
-  key: string
-}
+export interface IColumns extends Role {}
 
-export const columns: ColumnDef<IRolesColumns>[] = [
+export const columns: ColumnDef<IColumns>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
