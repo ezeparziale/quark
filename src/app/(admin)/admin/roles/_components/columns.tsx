@@ -1,5 +1,7 @@
 "use client"
 
+import Link from "next/link"
+
 import { type Role } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
 
@@ -14,6 +16,12 @@ export const columns: ColumnDef<IColumns>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
+    cell: ({ row }) => {
+      const linkName = (
+        <Link href={`/admin/roles/${row.original.id}`}>{row.original.name}</Link>
+      )
+      return linkName
+    },
   },
   {
     accessorKey: "description",
