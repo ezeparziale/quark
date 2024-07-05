@@ -22,6 +22,9 @@
     "usernamehw.errorlens",
 
     // Console Ninja
-    "WallabyJs.console-ninja"
+    "WallabyJs.console-ninja",
+
+    // Code Spell Checker
+    "streetsidesoftware.code-spell-checker"
   ]
 }
