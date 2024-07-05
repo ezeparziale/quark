@@ -18,7 +18,6 @@ import { addUser } from "@/actions/users/add-user"
 import { updateUser } from "@/actions/users/update-user"
 
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
 import {
   Form,
   FormControl,
@@ -29,6 +28,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { Switch } from "@/components/ui/switch"
 
 type FormData = z.infer<typeof userSchema>
 
@@ -127,18 +127,21 @@ export default function UserForm({ user }: { user?: User }) {
             </FormItem>
           )}
         />
+        <h3 className="my-6 text-lg font-medium">Admin Actions</h3>
         <FormField
           control={form.control}
           name="active"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md py-1">
-              <FormControl>
-                <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-              </FormControl>
-              <div className="space-y-1 leading-none">
+            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+              <div className="space-y-0.5">
                 <FormLabel>Active user</FormLabel>
-                <FormDescription>Check if user is active</FormDescription>
+                <FormDescription>
+                  Enable this option if the user is currently active.
+                </FormDescription>
               </div>
+              <FormControl>
+                <Switch checked={field.value} onCheckedChange={field.onChange} />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
@@ -147,16 +150,16 @@ export default function UserForm({ user }: { user?: User }) {
           control={form.control}
           name="confirmedEmail"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md py-1">
-              <FormControl>
-                <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-              </FormControl>
-              <div className="space-y-1 leading-none">
+            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+              <div className="space-y-0.5">
                 <FormLabel>Email Confirmed</FormLabel>
                 <FormDescription>
-                  Check this box if email address is confirmed
+                  Switch on to verify that the email address is confirmed.
                 </FormDescription>
               </div>
+              <FormControl>
+                <Switch checked={field.value} onCheckedChange={field.onChange} />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
