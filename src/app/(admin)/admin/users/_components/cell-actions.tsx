@@ -12,9 +12,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-import { IUsersColumns } from "./columns"
+import { IColumns } from "./columns"
 
-export default function CellActions({ row }: { row: IUsersColumns }) {
+export default function CellActions({ row }: { row: IColumns }) {
   const router = useRouter()
 
   return (

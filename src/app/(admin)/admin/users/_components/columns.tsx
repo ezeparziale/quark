@@ -1,5 +1,8 @@
 "use client"
 
+import Link from "next/link"
+
+import { type User } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
 
 import { Badge } from "@/components/ui/badge"
@@ -7,18 +10,19 @@ import { DataTableColumnHeader } from "@/components/ui/data-tables/data-table-co
 
 import CellActions from "./cell-actions"
 
-export interface IUsersColumns {
-  id: number
-  email: string
-  username: string
-  active: boolean
-  confirmedEmail: boolean
-}
+export interface IColumns
+  extends Pick<User, "id" | "email" | "username" | "active" | "confirmedEmail"> {}
 
-export const columns: ColumnDef<IUsersColumns>[] = [
+export const columns: ColumnDef<IColumns>[] = [
   {
     accessorKey: "email",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Email" />,
+    cell: ({ row }) => {
+      const linkEmail = (
+        <Link href={`/admin/users/${row.original.id}`}>{row.original.email}</Link>
+      )
+      return linkEmail
+    },
   },
   {
     accessorKey: "username",
