@@ -112,7 +112,7 @@ export default function PermissionForm({ permission }: { permission?: Permission
               <FormLabel>Key</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="feature:permission"
+                  placeholder="feature:action e.g. posts:create"
                   {...field}
                   disabled={form.formState.isSubmitting}
                 />
