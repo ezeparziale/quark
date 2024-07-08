@@ -10,9 +10,9 @@ import prismadb from "@/lib/prismadb"
 import { has } from "@/lib/rbac"
 import { validateSchemaAction } from "@/lib/validate-schema-action"
 
-import { rolesSchema } from "@/schemas/roles"
+import { rolesUpdateSchema } from "@/schemas/roles"
 
-type FormData = z.infer<typeof rolesSchema>
+type FormData = z.infer<typeof rolesUpdateSchema>
 
 async function handler(formData: FormData): Promise<DataResult<FormData>> {
   const { id, name, description, key } = formData
@@ -60,4 +60,4 @@ async function handler(formData: FormData): Promise<DataResult<FormData>> {
   }
 }
 
-export const updateRole = validateSchemaAction(rolesSchema, handler)
+export const updateRole = validateSchemaAction(rolesUpdateSchema, handler)

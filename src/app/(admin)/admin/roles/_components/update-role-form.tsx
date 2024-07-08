@@ -12,9 +12,9 @@ import * as z from "zod"
 
 import { addServerErrors } from "@/lib/utils"
 
-import { rolesSchema } from "@/schemas/roles"
+import { rolesUpdateSchema } from "@/schemas/roles"
 
-import { createRole, updateRole } from "@/actions/roles"
+import { updateRole } from "@/actions/roles"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -27,38 +27,20 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
-type FormData = z.infer<typeof rolesSchema>
+type FormData = z.infer<typeof rolesUpdateSchema>
 
-export default function RoleForm({ role }: { role?: Role }) {
+export default function UpdateRoleForm({ role }: { role: Role }) {
   const router = useRouter()
 
   const form = useForm<FormData>({
     defaultValues: {
-      id: role?.id || undefined,
-      name: role?.name || "",
-      description: role?.description || "",
-      key: role?.key || "",
+      id: role.id,
+      name: role.name,
+      description: role.description,
+      key: role.key,
     },
-    resolver: zodResolver(rolesSchema),
+    resolver: zodResolver(rolesUpdateSchema),
   })
-
-  const action = role ? "Update" : "Create"
-
-  const onSubmitCreate = async (data: FormData) => {
-    const result = await createRole(data)
-    if (result.success) {
-      router.push("/admin/roles")
-      toast.success("Role created successfully!")
-    } else {
-      if (result.errors) {
-        addServerErrors(result.errors, form.setError)
-      } else if (result.message) {
-        toast.error(result.message)
-      } else {
-        toast.error("Something went wrong")
-      }
-    }
-  }
 
   const onSubmitUpdate = async (data: FormData) => {
     const result = await updateRole(data)
@@ -80,11 +62,7 @@ export default function RoleForm({ role }: { role?: Role }) {
   return (
     <Form {...form}>
       <form
-        onSubmit={
-          action === "Create"
-            ? form.handleSubmit(onSubmitCreate)
-            : form.handleSubmit(onSubmitUpdate)
-        }
+        onSubmit={form.handleSubmit(onSubmitUpdate)}
         className="flex w-full flex-col space-y-8 md:w-2/3"
       >
         <FormField
@@ -148,7 +126,7 @@ export default function RoleForm({ role }: { role?: Role }) {
             {form.formState.isSubmitting && (
               <Loader2 className="mr-2 size-4 animate-spin" />
             )}
-            {action}
+            Update
           </Button>
           <Button size="sm" className="w-full md:w-1/5" variant="outline" asChild>
             <Link href="/admin/roles/">Cancel</Link>

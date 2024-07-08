@@ -10,12 +10,12 @@ import prismadb from "@/lib/prismadb"
 import { has } from "@/lib/rbac"
 import { validateSchemaAction } from "@/lib/validate-schema-action"
 
-import { rolesSchema } from "@/schemas/roles"
+import { rolesCreateSchema } from "@/schemas/roles"
 
-type FormData = z.infer<typeof rolesSchema>
+type FormData = z.infer<typeof rolesCreateSchema>
 
 async function handler(formData: FormData): Promise<DataResult<FormData>> {
-  const { name, description, key } = formData
+  const { name, description, key, permissions } = formData
 
   try {
     const isAuthorized = await has({ role: "admin" })
@@ -45,8 +45,19 @@ async function handler(formData: FormData): Promise<DataResult<FormData>> {
       return { success: false, errors }
     }
 
+    const permissionsSelected = permissions?.map((option) => parseInt(option.value, 10))
+
     await prismadb.role.create({
-      data: { name, description, key },
+      data: {
+        name,
+        description,
+        key,
+        permissions: {
+          create: permissionsSelected?.map((id) => ({
+            permission: { connect: { id } },
+          })),
+        },
+      },
     })
 
     revalidatePath(`/admin/roles/`)
@@ -58,4 +69,4 @@ async function handler(formData: FormData): Promise<DataResult<FormData>> {
   }
 }
 
-export const createRole = validateSchemaAction(rolesSchema, handler)
+export const createRole = validateSchemaAction(rolesCreateSchema, handler)
