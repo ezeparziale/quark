@@ -61,12 +61,14 @@ export default function CellActions({ row }: { row: IColumns }) {
         </DropdownMenuContent>
       </DropdownMenu>
       <DeletePermissionDialog
+        key={`delete-${row.id}`}
         permissionId={row.id}
         permissionKey={row.key}
         isOpen={isDeleteDialogOpen}
         setIsOpen={setIsDeleteDialogOpen}
       />
       <PermissionDialog
+        key={`edit-${row.id}`}
         permission={row}
         isOpen={isEditDialogOpen}
         setIsOpen={setIsEditDialogOpen}
