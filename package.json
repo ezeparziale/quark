@@ -53,6 +53,7 @@
     "class-variance-authority": "0.7.0",
     "clsx": "2.0.0",
     "cmdk": "1.0.0",
+    "date-fns": "3.6.0",
     "framer-motion": "11.0.3",
     "geist": "1.1.0",
     "jsonwebtoken": "9.0.2",
