@@ -1,12 +1,7 @@
-"use client"
-
-import { useRouter } from "next/navigation"
-
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { Permission } from "@prisma/client"
-import { Loader2, Trash2 } from "lucide-react"
+import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import * as z from "zod"
@@ -31,20 +26,21 @@ import {
   ResponsiveDialogFooter,
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
-  ResponsiveDialogTrigger,
 } from "@/components/ui/responsive-dialog"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
-export default function DeletePermissionModal({
-  permission,
+export default function DeletePermissionDialog({
+  permissionId,
+  permissionKey,
+  isOpen,
+  setIsOpen,
 }: {
-  permission: Permission
+  permissionId: number
+  permissionKey: string
+  isOpen: boolean
+  setIsOpen: (isOpen: boolean) => void
 }) {
-  const router = useRouter()
-  const [isOpen, setIsOpen] = useState(false)
-
   const formSchema = z.object({
-    confirmString: z.literal(permission.key, {
+    confirmString: z.literal(permissionKey, {
       errorMap: () => ({ message: "Incorrect permission key" }),
     }),
   })
@@ -57,10 +53,10 @@ export default function DeletePermissionModal({
   })
 
   const onSubmit = async () => {
-    const result = await deletePermission(permission)
+    const result = await deletePermission(permissionId)
     if (result.success) {
       toast.success("Permission deleted successfully!", { duration: 4000 })
-      router.push("/admin/permissions")
+      setIsOpen(false)
     } else {
       toast.error(result.message)
     }
@@ -74,20 +70,6 @@ export default function DeletePermissionModal({
 
   return (
     <ResponsiveDialog open={isOpen} onOpenChange={setIsOpen}>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <ResponsiveDialogTrigger asChild>
-            <Button variant="destructive">
-              <Trash2 className="size-4" />
-              <span className="sr-only">delete permission</span>
-              <span className="ml-2 hidden md:block">Delete permission</span>
-            </Button>
-          </ResponsiveDialogTrigger>
-        </TooltipTrigger>
-        <TooltipContent className="border-destructive md:hidden" align={"end"}>
-          <p>Delete permission</p>
-        </TooltipContent>
-      </Tooltip>
       <ResponsiveDialogContent
         className="sm:max-w-[425px]"
         onCloseAutoFocus={(e) => e.preventDefault()}
@@ -110,7 +92,7 @@ export default function DeletePermissionModal({
               render={({ field }) => (
                 <FormItem>
                   <FormDescription>
-                    Enter the permission key <b>{permission.key}</b> to continue.
+                    Enter the permission key <b>{permissionKey}</b> to continue.
                   </FormDescription>
                   <FormControl>
                     <Input

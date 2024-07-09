@@ -1,6 +1,6 @@
-import { useRouter } from "next/navigation"
+import { useState } from "react"
 
-import { MoreHorizontal } from "lucide-react"
+import { Copy, MoreHorizontal, Pencil, Trash } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -13,28 +13,64 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 import { IColumns } from "./columns"
+import DeletePermissionDialog from "./delete-permission-dialog"
+import PermissionDialog from "./permission-dialog"
 
 export default function CellActions({ row }: { row: IColumns }) {
-  const router = useRouter()
+  const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false)
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="h-8 p-2 data-[state=open]:bg-muted">
-          <span className="sr-only">Open menu</span>
-          <MoreHorizontal className="size-4" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(String(row.id))}>
-          Copy permission ID
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => router.push(`/admin/permissions/${row.id}`)}>
-          Edit permission
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <>
+      <DropdownMenu open={isDropdownMenuOpen} onOpenChange={setIsDropdownMenuOpen}>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="h-8 p-2 data-[state=open]:bg-muted">
+            <span className="sr-only">Open menu</span>
+            <MoreHorizontal className="size-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-[160px]">
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuItem
+            onClick={() => navigator.clipboard.writeText(String(row.id))}
+          >
+            <Copy className="mr-2 size-4" />
+            Copy ID
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            onSelect={() => {
+              setIsEditDialogOpen(true)
+              setIsDropdownMenuOpen(false)
+            }}
+          >
+            <Pencil className="mr-2 size-4" />
+            Edit
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onSelect={() => {
+              setIsDeleteDialogOpen(true)
+              setIsDropdownMenuOpen(false)
+            }}
+            className="hover:!bg-destructive/80 hover:!text-destructive-foreground"
+          >
+            <Trash className="mr-2 size-4" />
+            Delete
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <DeletePermissionDialog
+        permissionId={row.id}
+        permissionKey={row.key}
+        isOpen={isDeleteDialogOpen}
+        setIsOpen={setIsDeleteDialogOpen}
+      />
+      <PermissionDialog
+        permission={row}
+        isOpen={isEditDialogOpen}
+        setIsOpen={setIsEditDialogOpen}
+      />
+    </>
   )
 }

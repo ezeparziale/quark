@@ -2,12 +2,10 @@
 
 import { revalidatePath } from "next/cache"
 
-import type { Permission } from "@prisma/client"
-
 import prismadb from "@/lib/prismadb"
 import { has } from "@/lib/rbac"
 
-export async function deletePermission(permission: Permission) {
+export async function deletePermission(id: number) {
   try {
     const isAuthorized = await has({ role: "admin" })
 
@@ -15,7 +13,7 @@ export async function deletePermission(permission: Permission) {
       return { success: false, message: "Unauthorized" }
     }
 
-    await prismadb.permission.delete({ where: { id: permission.id } })
+    await prismadb.permission.delete({ where: { id } })
 
     revalidatePath(`/admin/permissions/`)
 
