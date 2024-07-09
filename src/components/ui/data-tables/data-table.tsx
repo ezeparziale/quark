@@ -6,6 +6,7 @@ import {
   ColumnDef,
   ColumnFiltersState,
   SortingState,
+  VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -15,6 +16,11 @@ import {
 } from "@tanstack/react-table"
 import { SearchX } from "lucide-react"
 
+import { Button } from "@/components/ui/button"
+import { DataTableHeaderFilters } from "@/components/ui/data-tables/data-table-filters"
+import { DataTablePagination } from "@/components/ui/data-tables/data-table-pagination"
+import { DataTableViewOptions } from "@/components/ui/data-tables/data-table-view-options"
+import EmptyState from "@/components/ui/data-tables/empty-state"
 import {
   Table,
   TableBody,
@@ -24,27 +30,26 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-import { Button } from "../button"
-import { DataTableHeaderFilters } from "./data-table-filters"
-import { DataTablePagination } from "./data-table-pagination"
-import EmptyState from "./empty-state"
-
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   searchField: string
+  searchFieldLabel?: string
   emptyState?: React.ReactNode
+  hiddenColumns?: {[x: string]: boolean}
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   searchField,
+  searchFieldLabel,
   emptyState,
+  hiddenColumns
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(hiddenColumns ?? {})
   const table = useReactTable({
     data,
     columns,
@@ -54,9 +59,11 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
     state: {
       sorting,
       columnFilters,
+      columnVisibility,
     },
   })
 
@@ -76,7 +83,10 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <DataTableHeaderFilters table={table} searchField={searchField} />
+      <div className="flex items-center justify-between">
+        <DataTableHeaderFilters table={table} searchField={searchField} searchFieldLabel={searchFieldLabel}/>
+        <DataTableViewOptions table={table} />
+      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
