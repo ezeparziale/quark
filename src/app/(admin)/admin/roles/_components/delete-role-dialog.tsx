@@ -1,12 +1,9 @@
-"use client"
-
 import { useRouter } from "next/navigation"
 
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { Role } from "@prisma/client"
-import { Loader2, Trash2 } from "lucide-react"
+import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import * as z from "zod"
@@ -31,16 +28,23 @@ import {
   ResponsiveDialogFooter,
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
-  ResponsiveDialogTrigger,
 } from "@/components/ui/responsive-dialog"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
-export default function DeleteRoleModal({ role }: { role: Role }) {
+export default function DeleteRoleDialog({
+  roleId,
+  roleKey,
+  isOpen,
+  setIsOpen,
+}: {
+  roleId: number
+  roleKey: string
+  isOpen: boolean
+  setIsOpen: (isOpen: boolean) => void
+}) {
   const router = useRouter()
-  const [isOpen, setIsOpen] = useState(false)
 
   const formSchema = z.object({
-    confirmString: z.literal(role.key, {
+    confirmString: z.literal(roleKey, {
       errorMap: () => ({ message: "Incorrect role key" }),
     }),
   })
@@ -53,10 +57,11 @@ export default function DeleteRoleModal({ role }: { role: Role }) {
   })
 
   const onSubmit = async () => {
-    const result = await deleteRole(role)
+    const result = await deleteRole(roleId)
     if (result.success) {
-      toast.success("Role deleted successfully!", { duration: 4000 })
       router.push("/admin/roles")
+      toast.success("Role deleted successfully!", { duration: 4000 })
+      setIsOpen(false)
     } else {
       toast.error(result.message)
     }
@@ -70,21 +75,10 @@ export default function DeleteRoleModal({ role }: { role: Role }) {
 
   return (
     <ResponsiveDialog open={isOpen} onOpenChange={setIsOpen}>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <ResponsiveDialogTrigger asChild>
-            <Button variant="destructive">
-              <Trash2 className="size-4" />
-              <span className="sr-only">delete role</span>
-              <span className="ml-2 hidden md:block">Delete role</span>
-            </Button>
-          </ResponsiveDialogTrigger>
-        </TooltipTrigger>
-        <TooltipContent className="border-destructive md:hidden" align={"end"}>
-          <p>Delete role</p>
-        </TooltipContent>
-      </Tooltip>
-      <ResponsiveDialogContent className="sm:max-w-[425px]">
+      <ResponsiveDialogContent
+        className="sm:max-w-[425px]"
+        onCloseAutoFocus={(e) => e.preventDefault()}
+      >
         <ResponsiveDialogHeader className="text-left">
           <ResponsiveDialogTitle>Delete role</ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
@@ -103,11 +97,10 @@ export default function DeleteRoleModal({ role }: { role: Role }) {
               render={({ field }) => (
                 <FormItem>
                   <FormDescription>
-                    Enter the role key <b>{role.key}</b> to continue.
+                    Enter the role key <b>{roleKey}</b> to continue.
                   </FormDescription>
                   <FormControl>
                     <Input
-                      placeholder=""
                       {...field}
                       disabled={form.formState.isSubmitting}
                       autoComplete="no"

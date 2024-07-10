@@ -7,7 +7,7 @@ import prismadb from "@/lib/prismadb"
 import { SidebarNav } from "@/components/admin/sidebar-nav"
 import { PageHeader } from "@/components/page-header"
 
-import DeleteRoleModal from "../_components/delete-role-modal"
+import DeleteRoleButton from "../_components/delete-role-button"
 
 const getSideBarNavItems = (id: number): NavItem[] => {
   const baseHref = `/admin/roles/${id}`
@@ -68,7 +68,7 @@ export default async function SettingsLayout({
         description={`ID: ${role.id}`}
         linkBack="/admin/roles"
         copy={String(`${role.id}`)}
-        actions={<DeleteRoleModal role={role} />}
+        actions={<DeleteRoleButton roleId={role.id} roleKey={role.key} />}
       />
       <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
         <aside className="lg:w-1/5">
