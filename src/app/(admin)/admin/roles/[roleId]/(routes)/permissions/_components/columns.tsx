@@ -18,7 +18,9 @@ export const columns: ColumnDef<IColumns>[] = [
   {
     id: "permission.name",
     accessorKey: "permission.name",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Name" disableColumnHide />
+    ),
     cell: ({ row }) => {
       const linkName = (
         <Link href={`/admin/permissions/${row.original.permission.id}`}>
@@ -31,12 +33,14 @@ export const columns: ColumnDef<IColumns>[] = [
   {
     accessorKey: "permission.description",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Description" />
+      <DataTableColumnHeader column={column} title="Description" disableColumnHide />
     ),
   },
   {
     accessorKey: "permission.key",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Key" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Key" disableColumnHide />
+    ),
     cell: ({ row }) => {
       return <Badge variant={"secondary"}>{row.original?.permission.key}</Badge>
     },

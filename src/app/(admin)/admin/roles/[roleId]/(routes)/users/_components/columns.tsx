@@ -17,7 +17,9 @@ export const columns: ColumnDef<IColumns>[] = [
   {
     id: "email",
     accessorKey: "user.email",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Email" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Email" disableColumnHide />
+    ),
     cell: ({ row }) => {
       const linkName = (
         <Link href={`/admin/users/${row.original.user.id}`}>

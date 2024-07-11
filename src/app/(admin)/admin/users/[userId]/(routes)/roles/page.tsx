@@ -36,7 +36,9 @@ export default async function UsersAdminRolesPage({
         columns={columns}
         data={dataRoles}
         searchField={"name"}
+        searchFieldLabel={"names"}
         emptyState={<AddRolesEmptyStateTable id={String(userId)} />}
+        hideTableViewOption
       />
     </>
   )

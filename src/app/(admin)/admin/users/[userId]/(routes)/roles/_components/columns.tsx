@@ -17,7 +17,9 @@ export const columns: ColumnDef<IColumns>[] = [
   {
     id: "name",
     accessorKey: "role.name",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Name" disableColumnHide />
+    ),
     cell: ({ row }) => {
       const linkName = (
         <Link href={`/admin/roles/${row.original.role.id}`}>

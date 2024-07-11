@@ -16,12 +16,14 @@ interface DataTableColumnHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>
   title: string
+  disableColumnHide ?: boolean
 }
 
 export function DataTableColumnHeader<TData, TValue>({
   column,
   title,
   className,
+  disableColumnHide  = false,
 }: DataTableColumnHeaderProps<TData, TValue>) {
   if (!column.getCanSort()) {
     return <div className={cn(className)}>{title}</div>
@@ -54,11 +56,15 @@ export function DataTableColumnHeader<TData, TValue>({
             <ArrowDown className="mr-2 h-4 w-4 text-muted-foreground/70" />
             Desc
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
-            <EyeOff className="mr-2 h-4 w-4 text-muted-foreground/70" />
-            Hide
-          </DropdownMenuItem>
+          {!disableColumnHide  && (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
+                <EyeOff className="mr-2 h-4 w-4 text-muted-foreground/70" />
+                Hide
+              </DropdownMenuItem>
+            </>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

@@ -36,7 +36,9 @@ export default async function RolesAdminPermissionsPage({
         columns={columns}
         data={dataPermissions}
         searchField={"permission.name"}
+        searchFieldLabel={"names"}
         emptyState={<AddPermissionsEmptyStateTable id={roleId} />}
+        hideTableViewOption
       />
     </>
   )

@@ -37,6 +37,7 @@ interface DataTableProps<TData, TValue> {
   searchFieldLabel?: string
   emptyState?: React.ReactNode
   hiddenColumns?: {[x: string]: boolean}
+  hideTableViewOption?: boolean
 }
 
 export function DataTable<TData, TValue>({
@@ -45,7 +46,8 @@ export function DataTable<TData, TValue>({
   searchField,
   searchFieldLabel,
   emptyState,
-  hiddenColumns
+  hiddenColumns,
+  hideTableViewOption = false
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -85,7 +87,7 @@ export function DataTable<TData, TValue>({
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <DataTableHeaderFilters table={table} searchField={searchField} searchFieldLabel={searchFieldLabel}/>
-        <DataTableViewOptions table={table} />
+        {!hideTableViewOption && <DataTableViewOptions table={table} />}
       </div>
       <div className="rounded-md border">
         <Table>
