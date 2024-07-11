@@ -15,7 +15,9 @@ export default async function ToolsTable() {
       columns={columns}
       data={data}
       searchField={"name"}
+      searchFieldLabel={"names"}
       emptyState={<ToolsEmptyStateTable />}
+      hiddenColumns={{ ID: false, "Created At": false, "Updated At": false }}
     />
   )
 }
