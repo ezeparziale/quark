@@ -1,5 +1,3 @@
-import { useRouter } from "next/navigation"
-
 import { useState } from "react"
 
 import { Copy, MoreHorizontal, Pencil, Trash } from "lucide-react"
@@ -16,12 +14,12 @@ import {
 
 import { IColumns } from "./columns"
 import DeleteToolDialog from "./delete-tool-dialog"
+import ToolDialog from "./tool-dialog"
 
 export default function CellActions({ row }: { row: IColumns }) {
-  const router = useRouter()
-
   const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false)
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
 
   return (
     <>
@@ -41,7 +39,12 @@ export default function CellActions({ row }: { row: IColumns }) {
             Copy ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => router.push(`/admin/tools/${row.id}`)}>
+          <DropdownMenuItem
+            onSelect={() => {
+              setIsEditDialogOpen(true)
+              setIsDropdownMenuOpen(false)
+            }}
+          >
             <Pencil className="mr-2 size-4" />
             Edit
           </DropdownMenuItem>
@@ -63,6 +66,12 @@ export default function CellActions({ row }: { row: IColumns }) {
         toolName={row.name}
         isOpen={isDeleteDialogOpen}
         setIsOpen={setIsDeleteDialogOpen}
+      />
+      <ToolDialog
+        key={`edit-${row.id}`}
+        tool={row}
+        isOpen={isEditDialogOpen}
+        setIsOpen={setIsEditDialogOpen}
       />
     </>
   )

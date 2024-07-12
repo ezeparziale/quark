@@ -1,25 +1,33 @@
-import Link from "next/link"
+"use client"
 
+import { useState } from "react"
+
+import { Tool } from "@prisma/client"
 import { Plus } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
-export default function CreateToolButton() {
+import ToolDialog from "./tool-dialog"
+
+export default function CreateToolButton({ tool }: { tool?: Tool }) {
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
-    <Tooltip>
-      <TooltipTrigger>
-        <Button asChild>
-          <Link href="/admin/tools/new">
+    <>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button onClick={() => setIsOpen(true)}>
             <Plus className="size-4" />
             <span className="sr-only">create tool</span>
             <span className="ml-2 hidden md:block">Create tool</span>
-          </Link>
-        </Button>
-      </TooltipTrigger>
-      <TooltipContent className="md:hidden" align={"end"}>
-        <p>Create tool</p>
-      </TooltipContent>
-    </Tooltip>
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent className="md:hidden" align={"end"}>
+          <p>Create tool</p>
+        </TooltipContent>
+      </Tooltip>
+      <ToolDialog tool={tool} isOpen={isOpen} setIsOpen={setIsOpen} />
+    </>
   )
 }
