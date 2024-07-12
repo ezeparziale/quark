@@ -6,7 +6,7 @@ import { getToolById } from "@/data/tools"
 
 import { PageHeader } from "@/components/page-header"
 
-import DeleteToolModal from "../_components/delete-tool-modal"
+import DeleteToolButton from "../_components/delete-tool-button"
 import ToolForm from "../_components/tool-form"
 
 export default async function EditToolPage({ params }: { params: { toolId: number } }) {
@@ -31,7 +31,7 @@ export default async function EditToolPage({ params }: { params: { toolId: numbe
         description={`ID: ${tool.id}`}
         linkBack={"/admin/tools"}
         copy={String(`${tool.id}`)}
-        actions={<DeleteToolModal tool={tool} />}
+        actions={<DeleteToolButton toolId={tool.id} toolName={tool.name} />}
       />
       <ToolForm tool={tool} />
     </>

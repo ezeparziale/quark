@@ -2,12 +2,10 @@
 
 import { revalidatePath } from "next/cache"
 
-import type { Tool } from "@prisma/client"
-
 import prismadb from "@/lib/prismadb"
 import { has } from "@/lib/rbac"
 
-export async function deleteTool(tool: Tool) {
+export async function deleteTool(id: number) {
   try {
     const isAuthorized = await has({ role: "admin" })
 
@@ -15,7 +13,7 @@ export async function deleteTool(tool: Tool) {
       return { success: false, message: "Unauthorized" }
     }
 
-    await prismadb.tool.delete({ where: { id: tool.id } })
+    await prismadb.tool.delete({ where: { id } })
 
     revalidatePath(`/admin/tools/`)
 

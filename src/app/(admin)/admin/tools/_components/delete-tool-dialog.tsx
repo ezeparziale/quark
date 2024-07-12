@@ -1,12 +1,9 @@
-"use client"
-
 import { useRouter } from "next/navigation"
 
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { Tool } from "@prisma/client"
-import { Loader2, Trash2 } from "lucide-react"
+import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import * as z from "zod"
@@ -31,16 +28,23 @@ import {
   ResponsiveDialogFooter,
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
-  ResponsiveDialogTrigger,
 } from "@/components/ui/responsive-dialog"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
-export default function DeleteToolModal({ tool }: { tool: Tool }) {
+export default function DeleteToolDialog({
+  toolId,
+  toolName,
+  isOpen,
+  setIsOpen,
+}: {
+  toolId: number
+  toolName: string
+  isOpen: boolean
+  setIsOpen: (isOpen: boolean) => void
+}) {
   const router = useRouter()
-  const [isOpen, setIsOpen] = useState(false)
 
   const formSchema = z.object({
-    confirmString: z.literal(tool.name, {
+    confirmString: z.literal(toolName, {
       errorMap: () => ({ message: "Incorrect tool name" }),
     }),
   })
@@ -53,9 +57,10 @@ export default function DeleteToolModal({ tool }: { tool: Tool }) {
   })
 
   const onSubmit = async () => {
-    const result = await deleteTool(tool)
+    const result = await deleteTool(toolId)
     if (result.success) {
       toast.success("Tool deleted successfully!", { duration: 4000 })
+      setIsOpen(false)
       router.push("/admin/tools")
     } else {
       toast.error(result.message)
@@ -70,21 +75,10 @@ export default function DeleteToolModal({ tool }: { tool: Tool }) {
 
   return (
     <ResponsiveDialog open={isOpen} onOpenChange={setIsOpen}>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <ResponsiveDialogTrigger asChild>
-            <Button variant="destructive">
-              <Trash2 className="size-4" />
-              <span className="sr-only">delete tool</span>
-              <span className="ml-2 hidden md:block">Delete tool</span>
-            </Button>
-          </ResponsiveDialogTrigger>
-        </TooltipTrigger>
-        <TooltipContent className="border-destructive md:hidden" align={"end"}>
-          <p>Delete tool</p>
-        </TooltipContent>
-      </Tooltip>
-      <ResponsiveDialogContent className="sm:max-w-[425px]">
+      <ResponsiveDialogContent
+        className="sm:max-w-[425px]"
+        onCloseAutoFocus={(e) => e.preventDefault()}
+      >
         <ResponsiveDialogHeader className="text-left">
           <ResponsiveDialogTitle>Delete tool</ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
@@ -103,11 +97,10 @@ export default function DeleteToolModal({ tool }: { tool: Tool }) {
               render={({ field }) => (
                 <FormItem>
                   <FormDescription>
-                    Enter the tool name <b>{tool.name}</b> to continue.
+                    Enter the tool name <b>{toolName}</b> to continue.
                   </FormDescription>
                   <FormControl>
                     <Input
-                      placeholder=""
                       {...field}
                       disabled={form.formState.isSubmitting}
                       autoComplete="no"
