@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 
-import { Permission } from "@prisma/client"
 import { Plus } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
