@@ -10,11 +10,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 
 import PermissionDialog from "./permission-dialog"
 
-export default function CreatePermissionButton({
-  permission,
-}: {
-  permission?: Permission
-}) {
+export default function CreatePermissionButton() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -31,7 +27,7 @@ export default function CreatePermissionButton({
           <p>Create permission</p>
         </TooltipContent>
       </Tooltip>
-      <PermissionDialog permission={permission} isOpen={isOpen} setIsOpen={setIsOpen} />
+      <PermissionDialog isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   )
 }

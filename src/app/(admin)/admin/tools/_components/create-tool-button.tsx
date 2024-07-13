@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 
-import { Tool } from "@prisma/client"
 import { Plus } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -10,7 +9,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 
 import ToolDialog from "./tool-dialog"
 
-export default function CreateToolButton({ tool }: { tool?: Tool }) {
+export default function CreateToolButton() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -27,7 +26,7 @@ export default function CreateToolButton({ tool }: { tool?: Tool }) {
           <p>Create tool</p>
         </TooltipContent>
       </Tooltip>
-      <ToolDialog tool={tool} isOpen={isOpen} setIsOpen={setIsOpen} />
+      <ToolDialog isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   )
 }
