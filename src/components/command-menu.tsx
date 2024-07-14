@@ -16,6 +16,8 @@ import { useTheme } from "next-themes"
 import { IconType } from "react-icons/lib"
 import { RxDesktop, RxMoon, RxSun } from "react-icons/rx"
 
+import { useOperatingSystem } from "@/lib/hooks/use-operating-system"
+
 import {
   CommandDialog,
   CommandEmpty,
@@ -56,6 +58,7 @@ export function CommandMenu() {
   const [open, setOpen] = useState(false)
   const router = useRouter()
   const { setTheme } = useTheme()
+  const { isMacOS } = useOperatingSystem()
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -76,11 +79,18 @@ export function CommandMenu() {
 
   return (
     <>
-      <Button variant={"ghost"} onClick={() => setOpen(true)} className="p-1">
-        <p className="text-sm text-muted-foreground">
-          Command menu{" "}
-          <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border-2 bg-muted px-1.5 font-mono font-medium text-muted-foreground">
-            <span className="text-xs">⌘</span>K
+      <Button
+        variant={"ghost"}
+        onClick={() => setOpen(true)}
+        className="items-center p-1"
+      >
+        <p className="space-x-1 text-sm text-muted-foreground">
+          <span>Command menu</span>
+          <kbd className="pointer-events-none inline-flex h-5 select-none items-center rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+            <span className="text-xs">{isMacOS ? "⌘" : "ctrl"}</span>
+          </kbd>
+          <kbd className="pointer-events-none inline-flex h-5 select-none items-center rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+            <span className="text-xs">K</span>
           </kbd>
         </p>
       </Button>
