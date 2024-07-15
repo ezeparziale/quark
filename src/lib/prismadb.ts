@@ -1,5 +1,6 @@
 import { env } from "@/env.mjs"
 import { PrismaClient } from "@prisma/client"
+import "server-only"
 
 declare global {
   var prisma: PrismaClient | undefined
