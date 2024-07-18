@@ -12,8 +12,7 @@ export default async function RolesTable() {
     <DataTable
       columns={columns}
       data={data}
-      searchField={"name"}
-      searchFieldLabel={"names"}
+      searchFieldLabel={"roles"}
       emptyState={<RolesEmptyStateTable />}
       hiddenColumns={{ ID: false, "Created At": false, "Updated At": false }}
     />

@@ -29,12 +29,14 @@ export const columns: ColumnDef<IColumns>[] = [
       )
       return linkName
     },
+    enableGlobalFilter: true,
   },
   {
     accessorKey: "permission.description",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Description" disableColumnHide />
     ),
+    enableGlobalFilter: true,
   },
   {
     accessorKey: "permission.key",
@@ -44,6 +46,7 @@ export const columns: ColumnDef<IColumns>[] = [
     cell: ({ row }) => {
       return <Badge variant={"secondary"}>{row.original?.permission.key}</Badge>
     },
+    enableGlobalFilter: true,
   },
   {
     id: "actions",

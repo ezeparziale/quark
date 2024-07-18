@@ -30,15 +30,26 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-interface DataTableProps<TData, TValue> {
+import { Input } from "../input"
+
+interface DataTablePropsBase<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
-  searchField: string
   searchFieldLabel?: string
   emptyState?: React.ReactNode
-  hiddenColumns?: {[x: string]: boolean}
+  hiddenColumns?: { [x: string]: boolean }
   hideTableViewOption?: boolean
 }
+
+type DataTableProps<TData, TValue> =
+  | (DataTablePropsBase<TData, TValue> & {
+      globalFilters?: true
+      searchField?: never
+    })
+  | (DataTablePropsBase<TData, TValue> & {
+      globalFilters: false
+      searchField: string
+    })
 
 export function DataTable<TData, TValue>({
   columns,
@@ -47,11 +58,16 @@ export function DataTable<TData, TValue>({
   searchFieldLabel,
   emptyState,
   hiddenColumns,
-  hideTableViewOption = false
+  hideTableViewOption = false,
+  globalFilters = true,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(hiddenColumns ?? {})
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(
+    hiddenColumns ?? {},
+  )
+  const [filtering, setFiltering] = useState<string>("")
+
   const table = useReactTable({
     data,
     columns,
@@ -66,14 +82,16 @@ export function DataTable<TData, TValue>({
       sorting,
       columnFilters,
       columnVisibility,
+      globalFilter: filtering,
     },
+    onGlobalFilterChange: setFiltering,
   })
 
   const clearSearch = () => {
     setColumnFilters([])
   }
 
-  const hasFiltersApplied = columnFilters.length > 0
+  const hasFiltersApplied = filtering != ""
 
   if (data.length === 0 && !hasFiltersApplied) {
     return (
@@ -86,7 +104,23 @@ export function DataTable<TData, TValue>({
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <DataTableHeaderFilters table={table} searchField={searchField} searchFieldLabel={searchFieldLabel}/>
+        {globalFilters ? (
+          <Input
+            placeholder={`Filter ${searchFieldLabel}...`}
+            type="text"
+            value={filtering}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setFiltering(e.target.value)
+            }
+            className="h-8 w-[150px] lg:w-[250px]"
+          />
+        ) : (
+          <DataTableHeaderFilters
+            table={table}
+            searchField={searchField!}
+            searchFieldLabel={searchFieldLabel}
+          />
+        )}
         {!hideTableViewOption && <DataTableViewOptions table={table} />}
       </div>
       <div className="rounded-md border">

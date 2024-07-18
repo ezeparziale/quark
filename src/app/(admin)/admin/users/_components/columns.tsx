@@ -28,6 +28,7 @@ export const columns: ColumnDef<IColumns>[] = [
     id: "ID",
     accessorKey: "id",
     header: ({ column }) => <DataTableColumnHeader column={column} title="#" />,
+    enableGlobalFilter: true,
   },
   {
     accessorKey: "email",
@@ -38,10 +39,12 @@ export const columns: ColumnDef<IColumns>[] = [
       )
       return linkEmail
     },
+    enableGlobalFilter: true,
   },
   {
     accessorKey: "username",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Username" />,
+    enableGlobalFilter: true,
   },
   {
     accessorKey: "confirmedEmail",
@@ -54,6 +57,7 @@ export const columns: ColumnDef<IColumns>[] = [
       const badge = <Badge variant={"gray-subtle"}>{String(value)}</Badge>
       return badge
     },
+    enableGlobalFilter: true,
   },
   {
     accessorKey: "active",

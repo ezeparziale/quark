@@ -12,8 +12,7 @@ export default async function PermissionsTable() {
     <DataTable
       columns={columns}
       data={data}
-      searchField={"name"}
-      searchFieldLabel={"names"}
+      searchFieldLabel={"permissions"}
       emptyState={<PermissionsEmptyStateTable />}
       hiddenColumns={{ ID: false, "Created At": false, "Updated At": false }}
     />

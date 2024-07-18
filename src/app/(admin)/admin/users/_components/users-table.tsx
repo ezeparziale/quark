@@ -12,8 +12,7 @@ export default async function UsersTable() {
     <DataTable
       columns={columns}
       data={data}
-      searchField={"email"}
-      searchFieldLabel={"emails"}
+      searchFieldLabel={"users"}
       emptyState={<UsersEmptyStateTable />}
       hiddenColumns={{ ID: false, "Created At": false, "Updated At": false }}
     />

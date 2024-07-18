@@ -17,6 +17,7 @@ export const columns: ColumnDef<IColumns>[] = [
     id: "ID",
     accessorKey: "id",
     header: ({ column }) => <DataTableColumnHeader column={column} title="#" />,
+    enableGlobalFilter: true,
   },
   {
     accessorKey: "name",
@@ -27,12 +28,14 @@ export const columns: ColumnDef<IColumns>[] = [
       )
       return linkName
     },
+    enableGlobalFilter: true,
   },
   {
     accessorKey: "description",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Description" />
     ),
+    enableGlobalFilter: true,
   },
   {
     id: "Created At",

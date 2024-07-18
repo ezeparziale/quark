@@ -16,16 +16,19 @@ export const columns: ColumnDef<IColumns>[] = [
     id: "ID",
     accessorKey: "id",
     header: ({ column }) => <DataTableColumnHeader column={column} title="#" />,
+    enableGlobalFilter: true,
   },
   {
     accessorKey: "name",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
+    enableGlobalFilter: true,
   },
   {
     accessorKey: "description",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Description" />
     ),
+    enableGlobalFilter: true,
   },
   {
     accessorKey: "key",
@@ -33,6 +36,7 @@ export const columns: ColumnDef<IColumns>[] = [
     cell: ({ row }) => {
       return <Badge variant={"gray-subtle"}>{row.original.key}</Badge>
     },
+    enableGlobalFilter: true,
   },
   {
     id: "Created At",

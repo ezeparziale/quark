@@ -28,6 +28,7 @@ export const columns: ColumnDef<IColumns>[] = [
       )
       return linkName
     },
+    enableGlobalFilter: true,
   },
   {
     id: "actions",

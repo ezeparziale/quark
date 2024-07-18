@@ -14,8 +14,7 @@ export default async function ToolsTable() {
     <DataTable
       columns={columns}
       data={data}
-      searchField={"name"}
-      searchFieldLabel={"names"}
+      searchFieldLabel={"tools"}
       emptyState={<ToolsEmptyStateTable />}
       hiddenColumns={{ ID: false, "Created At": false, "Updated At": false }}
     />
