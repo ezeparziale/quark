@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation"
 
-import { MoreHorizontal } from "lucide-react"
+import { Copy, MoreHorizontal, Pencil } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -28,11 +28,13 @@ export default function CellActions({ row }: { row: IColumns }) {
       <DropdownMenuContent align="end" className="w-[160px]">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem onClick={() => navigator.clipboard.writeText(String(row.id))}>
-          Copy user ID
+          <Copy className="mr-2 size-4" />
+          Copy ID
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => router.push(`/admin/users/${row.id}`)}>
-          Edit user
+          <Pencil className="mr-2 size-4" />
+          Edit
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
