@@ -89,6 +89,7 @@ export function DataTable<TData, TValue>({
 
   const clearSearch = () => {
     setColumnFilters([])
+    setFiltering("")
   }
 
   const hasFiltersApplied = filtering != ""
