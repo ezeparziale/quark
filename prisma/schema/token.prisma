@@ -1,0 +1,15 @@
+model Token {
+  id         String    @id @default(cuid())
+  hashKey    String    @unique @map("hash_key")
+  partialKey String    @map("partial_key")
+  expires    DateTime?
+  lastUsed   DateTime? @map("last_used")
+  userId     Int       @map("user_id")
+  user       User      @relation(fields: [userId], references: [id])
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @default(now()) @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([hashKey])
+  @@map("tokens")
+}

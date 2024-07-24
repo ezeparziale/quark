@@ -10,9 +10,9 @@ import prismadb from "@/lib/prismadb"
 import { has } from "@/lib/rbac"
 import { validateSchemaAction } from "@/lib/validate-schema-action"
 
-import { permissionSchema } from "@/schemas/permissions"
+import { permissionServerActionSchema } from "@/schemas/permissions"
 
-type FormData = z.infer<typeof permissionSchema>
+type FormData = z.infer<typeof permissionServerActionSchema>
 
 async function handler(formData: FormData): Promise<DataResult<FormData>> {
   const { name, description, key } = formData
@@ -58,4 +58,7 @@ async function handler(formData: FormData): Promise<DataResult<FormData>> {
   }
 }
 
-export const createPermission = validateSchemaAction(permissionSchema, handler)
+export const createPermission = validateSchemaAction(
+  permissionServerActionSchema,
+  handler,
+)

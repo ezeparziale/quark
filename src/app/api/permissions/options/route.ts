@@ -9,14 +9,10 @@ import { getPermissionOptions } from "@/data/permission"
  *
  * This endpoint is intended for use in the admin tool only.
  *
- * @param request - The incoming request object.
- * @returns A promise that resolves to a response object with the permission options or an error message.
- *
  **/
-async function handler(request: Request) {
+export const GET = withAdmin(async ({ searchParams }) => {
   try {
-    const { searchParams } = new URL(request.url)
-    const search = searchParams.get("search") || undefined
+    const search: string | undefined = searchParams["search"] || undefined
 
     const data = await getPermissionOptions(search)
 
@@ -25,6 +21,4 @@ async function handler(request: Request) {
     console.error("Error fetching permissions:", error)
     return NextResponse.json({ message: "Internal Server Error" }, { status: 500 })
   }
-}
-
-export const GET = withAdmin(handler)
+})

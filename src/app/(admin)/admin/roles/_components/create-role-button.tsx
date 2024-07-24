@@ -10,7 +10,7 @@ import * as z from "zod"
 
 import { addServerErrors } from "@/lib/utils"
 
-import { rolesCreateSchema } from "@/schemas/roles"
+import { roleServerActionCreateSchema } from "@/schemas/roles"
 
 import { createRole } from "@/actions/roles"
 
@@ -38,7 +38,7 @@ import {
 } from "@/components/ui/responsive-dialog"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
-type FormData = z.infer<typeof rolesCreateSchema>
+type FormData = z.infer<typeof roleServerActionCreateSchema>
 
 const searchPermissions = async (search: string): Promise<Option[]> => {
   const res = await fetch(`/api/permissions/options/?search=${search}`)
@@ -56,7 +56,7 @@ export default function CreateRoleButton() {
       key: "",
       permissions: undefined,
     },
-    resolver: zodResolver(rolesCreateSchema),
+    resolver: zodResolver(roleServerActionCreateSchema),
   })
 
   const onSubmitCreate = async (data: FormData) => {

@@ -76,7 +76,8 @@
     "typescript-eslint": "7.13.0",
     "use-debounce": "10.0.0",
     "vaul": "0.9.1",
-    "zod": "3.23.8"
+    "zod": "3.23.8",
+    "zod-openapi": "2.19.0"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "4.3.0",

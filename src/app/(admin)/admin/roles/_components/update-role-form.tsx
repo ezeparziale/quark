@@ -12,7 +12,7 @@ import * as z from "zod"
 
 import { addServerErrors } from "@/lib/utils"
 
-import { rolesUpdateSchema } from "@/schemas/roles"
+import { roleServerActionUpdateSchema } from "@/schemas/roles"
 
 import { updateRole } from "@/actions/roles"
 
@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
-type FormData = z.infer<typeof rolesUpdateSchema>
+type FormData = z.infer<typeof roleServerActionUpdateSchema>
 
 export default function UpdateRoleForm({ role }: { role: Role }) {
   const router = useRouter()
@@ -39,7 +39,7 @@ export default function UpdateRoleForm({ role }: { role: Role }) {
       description: role.description,
       key: role.key,
     },
-    resolver: zodResolver(rolesUpdateSchema),
+    resolver: zodResolver(roleServerActionUpdateSchema),
   })
 
   const onSubmitUpdate = async (data: FormData) => {

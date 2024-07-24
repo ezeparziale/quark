@@ -73,6 +73,24 @@ async function hasRequiredRole(role: string): Promise<boolean> {
   return false
 }
 
+export async function userHasRequiredRole(
+  userId: number,
+  role: string,
+): Promise<boolean> {
+  const userRoles = await getUserRoles(userId)
+
+  return userRoles.includes(role)
+}
+
+export async function userHasRequiredPermission(
+  userId: number,
+  permission: string,
+): Promise<boolean> {
+  const userPermissions = await getUserPermissions(userId)
+
+  return userPermissions.includes(permission)
+}
+
 export async function protectPage({ role, permission }: Opts) {
   if (role) {
     const hasRole = await hasRequiredRole(role)

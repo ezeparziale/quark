@@ -12,6 +12,7 @@ model User {
   roles               UserRole[]
   toolsFavorites      UserToolFavorites[]
   Feedback            Feedback[]
+  tokens              Token[]
 
   @@map("users")
 }

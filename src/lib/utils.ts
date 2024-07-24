@@ -23,3 +23,13 @@ export function addServerErrors<T>(
 export async function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
+
+export const getSearchParams = (url: string) => {
+  const params = {} as Record<string, string>
+
+  new URL(url).searchParams.forEach(function (val, key) {
+    params[key] = val
+  })
+
+  return params
+}
