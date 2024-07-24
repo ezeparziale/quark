@@ -9,7 +9,7 @@ export default function ApiDocsPage() {
   const [spec, setSpec] = useState(null)
 
   useEffect(() => {
-    fetch("/api/")
+    fetch("/api/openapi")
       .then((response) => response.json())
       .then((data) => setSpec(data))
   }, [])
