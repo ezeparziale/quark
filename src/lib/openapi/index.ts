@@ -1,3 +1,4 @@
+import { env } from "@/env.mjs"
 import { createDocument } from "zod-openapi"
 
 import {
@@ -25,7 +26,7 @@ export const document = createDocument({
   },
   servers: [
     {
-      url: "http://localhost:3000",
+      url: env.AUTH_URL,
       description: "Production API",
     },
   ],
