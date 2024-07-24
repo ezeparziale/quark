@@ -20,9 +20,10 @@ import { rolesPaths } from "./roles"
 export const document = createDocument({
   openapi: "3.1.0",
   info: {
-    title: "Quark",
-    description: "Quark API.",
+    title: "Quark API",
+    description: `[/api/v1/openapi](${env.AUTH_URL}/api/openapi)\n\nQuark API 🚀\n\n`,
     version: "0.0.1",
+    contact: { name: "@ezeparziale" },
   },
   servers: [
     {
