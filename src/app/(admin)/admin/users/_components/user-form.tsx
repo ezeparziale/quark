@@ -12,7 +12,7 @@ import * as z from "zod"
 
 import { addServerErrors } from "@/lib/utils"
 
-import { userSchema } from "@/schemas/users"
+import { userServerActionSchema } from "@/schemas/users"
 
 import { addUser } from "@/actions/users/add-user"
 import { updateUser } from "@/actions/users/update-user"
@@ -30,7 +30,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
 
-type FormData = z.infer<typeof userSchema>
+type FormData = z.infer<typeof userServerActionSchema>
 
 export default function UserForm({ user }: { user?: User }) {
   const router = useRouter()
@@ -43,7 +43,7 @@ export default function UserForm({ user }: { user?: User }) {
       active: user?.active || false,
       confirmedEmail: user?.confirmedEmail || false,
     },
-    resolver: zodResolver(userSchema),
+    resolver: zodResolver(userServerActionSchema),
   })
 
   const action = user ? "Update" : "Create"

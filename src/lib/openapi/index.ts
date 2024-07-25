@@ -13,9 +13,16 @@ import {
   roleUpdatePartialSchema,
   roleUpdateSchema,
 } from "@/schemas/roles"
+import {
+  userCreateSchema,
+  userOutputSchema,
+  userUpdatePartialSchema,
+  userUpdateSchema,
+} from "@/schemas/users"
 
 import { permissionsPaths } from "./permissions"
 import { rolesPaths } from "./roles"
+import { usersPaths } from "./users"
 
 export const document = createDocument({
   openapi: "3.1.0",
@@ -31,7 +38,7 @@ export const document = createDocument({
       description: "Production API",
     },
   ],
-  paths: { ...permissionsPaths, ...rolesPaths },
+  paths: { ...permissionsPaths, ...rolesPaths, ...usersPaths },
   components: {
     schemas: {
       permissionOutputSchema,
@@ -42,6 +49,10 @@ export const document = createDocument({
       roleCreateSchema,
       roleUpdateSchema,
       roleUpdatePartialSchema,
+      userOutputSchema,
+      userCreateSchema,
+      userUpdatePartialSchema,
+      userUpdateSchema,
     },
     securitySchemes: {
       BearerAuth: {

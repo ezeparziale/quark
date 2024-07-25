@@ -10,9 +10,9 @@ import prismadb from "@/lib/prismadb"
 import { has } from "@/lib/rbac"
 import { validateSchemaAction } from "@/lib/validate-schema-action"
 
-import { userSchema } from "@/schemas/users"
+import { userServerActionSchema } from "@/schemas/users"
 
-type FormData = z.infer<typeof userSchema>
+type FormData = z.infer<typeof userServerActionSchema>
 
 async function handler(formData: FormData): Promise<DataResult<FormData>> {
   const { email, username, active, confirmedEmail } = formData
@@ -60,4 +60,4 @@ async function handler(formData: FormData): Promise<DataResult<FormData>> {
   }
 }
 
-export const addUser = validateSchemaAction(userSchema, handler)
+export const addUser = validateSchemaAction(userServerActionSchema, handler)
