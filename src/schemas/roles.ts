@@ -1,15 +1,17 @@
 import * as z from "zod"
 import "zod-openapi/extend"
 
+const roleId = z
+  .number()
+  .describe("The unique identifier of the role.")
+  .openapi({ example: 1 })
+
 export const rolePathParamSchema = z.object({
-  roleId: z
-    .number()
-    .describe("The unique identifier of the role.")
-    .openapi({ example: 1 }),
+  roleId,
 })
 
 export const roleSchema = z.object({
-  id: z.number().describe("The unique identifier of the role.").openapi({ example: 1 }),
+  id: roleId,
   name: z
     .string({ required_error: "Name is required." })
     .min(1, "Name must contain at least 1 character")
