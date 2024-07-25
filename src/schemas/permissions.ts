@@ -1,18 +1,17 @@
 import * as z from "zod"
 import "zod-openapi/extend"
 
+const permissionId = z
+  .number()
+  .describe("The unique identifier of the permission.")
+  .openapi({ example: 1 })
+
 export const permissionPathParamSchema = z.object({
-  roleId: z
-    .number()
-    .describe("The unique identifier of the permission.")
-    .openapi({ example: 1 }),
+  permissionId,
 })
 
 export const permissionSchema = z.object({
-  id: z
-    .number()
-    .describe("The unique identifier of the permission.")
-    .openapi({ example: 1 }),
+  id: permissionId,
   name: z
     .string({ required_error: "Name is required." })
     .trim()
