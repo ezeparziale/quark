@@ -12,6 +12,7 @@ Quark is a template ready for tools using @nextjs 14 🚀
 - Admin mode
 - Role-based access control
 - Send feedbacks
+- Admin API
 - More features are coming...
 
 :construction_worker: Built using:
@@ -29,3 +30,5 @@ Quark is a template ready for tools using @nextjs 14 🚀
 - Validation @zodtypes
 - Tables tanstack/react-table
 - Forms @HookForm
+- Swagger ui
+- Zod-openapi
