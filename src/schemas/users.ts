@@ -22,11 +22,11 @@ export const userSchema = z.object({
   confirmedEmail: z.boolean(),
   createdAt: z
     .date()
-    .describe("The date and time when the permission was created.")
+    .describe("The date and time when the user was created.")
     .openapi({ example: new Date("2024-05-26T01:36:52.676Z") }),
   updatedAt: z
     .date()
-    .describe("The date and time when the permission was last updated.")
+    .describe("The date and time when the user was last updated.")
     .openapi({ example: new Date("2024-05-26T01:36:52.676Z") }),
 })
 
