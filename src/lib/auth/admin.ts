@@ -1,16 +1,15 @@
 import { NextResponse } from "next/server"
 
 import { User } from "@prisma/client"
-import { createHash } from "crypto"
+import "server-only"
 
 import { has, userHasRequiredRole } from "@/lib/rbac"
 
 import { getCurrentUser } from "@/actions/users/get-current-user"
 
-import { getUserById } from "@/data/user"
-
 import prismadb from "../prismadb"
 import { getSearchParams } from "../utils"
+import { hashToken } from "./hash-token"
 
 interface ICurrentUser extends Pick<User, "id" | "email"> {}
 interface IWithAdminHandler {
@@ -65,8 +64,11 @@ export const withAdmin =
           )
         }
         const apiKey = authorizationHeader.substring(7)
-        const hashKey = createHash("sha256").update(apiKey).digest("hex")
-        const token = await prismadb.token.findUnique({ where: { hashKey } })
+        const hashedToken = await hashToken(apiKey)
+        const token = await prismadb.token.findUnique({
+          where: { hashedToken },
+          include: { user: { select: { id: true, email: true } } },
+        })
 
         if (token) {
           const isAuthorized = await userHasRequiredRole(token.userId, "admin")
@@ -75,8 +77,7 @@ export const withAdmin =
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
           }
 
-          const user = await getUserById(token.userId)
-          const currentUser = { id: user?.id!, email: user?.email! }
+          const currentUser = { id: token.user.id, email: token.user.email }
 
           return handler({ req, params, searchParams, currentUser })
         } else {
