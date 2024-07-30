@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import * as z from "zod"
 
-import { deletePermission } from "@/actions/permissions"
 import { deleteToken } from "@/actions/tokens"
 
 import { Button } from "@/components/ui/button"
@@ -81,6 +80,9 @@ export default function DeleteTokenDialog({
           <ResponsiveDialogTitle>Confirm token deletion</ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
             This action is permanent and may result in users losing access to the API.
+            <br />
+            <br />
+            Name: {tokenName}
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
         <Form {...form}>
