@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 
-import { User } from "@prisma/client"
+import { type User } from "@prisma/client"
 import "server-only"
 
 import { has, userHasRequiredRole } from "@/lib/rbac"
@@ -78,6 +78,11 @@ export const withAdmin =
           }
 
           const currentUser = { id: token.user.id, email: token.user.email }
+
+          await prismadb.token.update({
+            where: { hashedToken },
+            data: { lastUsed: new Date() },
+          })
 
           return handler({ req, params, searchParams, currentUser })
         } else {
