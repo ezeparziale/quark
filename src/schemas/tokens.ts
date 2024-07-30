@@ -12,7 +12,12 @@ export const tokenPathParamSchema = z.object({
 
 export const tokenSchema = z.object({
   id: tokenId,
-  name: z.string().describe("The name of the token.").openapi({ example: "MyToken" }),
+  name: z
+    .string()
+    .min(1, { message: "Name must be at least 1 character long." })
+    .max(255, { message: "Name must be at most 255 characters long." })
+    .describe("The name of the token.")
+    .openapi({ example: "MyToken" }),
   hashedToken: z
     .string()
     .describe("The hashed representation of the token.")

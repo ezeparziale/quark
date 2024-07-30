@@ -15,6 +15,7 @@ const navigation: INavigation[] = [
   { title: "Roles", href: "/admin/roles", type: "child" },
   { title: "Permissions", href: "/admin/permissions", type: "child" },
   { title: "Tools", href: "/admin/tools", type: "child" },
+  { title: "Tokens", href: "/admin/tokens", type: "child" },
 ]
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
