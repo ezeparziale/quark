@@ -1,20 +1,12 @@
-"use client"
-
-import { useEffect, useState } from "react"
-
 import SwaggerUI from "swagger-ui-react"
 import "swagger-ui-react/swagger-ui.css"
 
-export default function ApiDocsPage() {
-  const [spec, setSpec] = useState(null)
+import { document } from "@/lib/openapi"
 
-  useEffect(() => {
-    fetch("/api/openapi")
-      .then((response) => response.json())
-      .then((data) => setSpec(data))
-  }, [])
+export const dynamic = "force-static"
 
-  if (!spec) return <div>Loading...</div>
+export default async function ApiDocsPage() {
+  const spec = { ...document }
 
   return <SwaggerUI spec={spec} />
 }
