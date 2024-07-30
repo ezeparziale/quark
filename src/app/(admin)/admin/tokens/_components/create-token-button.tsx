@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import * as z from "zod"
 
-import { tokenCreateSchema } from "@/schemas/tokens"
+import { tokenCreateServerActionSchema } from "@/schemas/tokens"
 
 import { createToken } from "@/actions/tokens"
 
@@ -38,7 +38,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 
 import { CopyButtonData } from "@/components/copy-clipboard-button"
 
-type FormData = z.infer<typeof tokenCreateSchema>
+type FormData = z.infer<typeof tokenCreateServerActionSchema>
 
 export default function CreateTokenButton() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -114,7 +114,7 @@ function CreateTokenForm({
     defaultValues: {
       name: "",
     },
-    resolver: zodResolver(tokenCreateSchema),
+    resolver: zodResolver(tokenCreateServerActionSchema),
   })
 
   const onSubmitCreate = async (data: FormData) => {

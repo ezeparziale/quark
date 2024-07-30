@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-import { MoreHorizontal, Trash } from "lucide-react"
+import { MoreHorizontal, Pencil, Trash } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -13,10 +13,12 @@ import {
 
 import { IColumns } from "./columns"
 import DeleteTokenDialog from "./delete-token-dialog"
+import EditTokenDialog from "./edit-token-dialog"
 
 export default function CellActions({ row }: { row: IColumns }) {
   const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false)
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
 
   return (
     <>
@@ -29,6 +31,15 @@ export default function CellActions({ row }: { row: IColumns }) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-[160px]">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuItem
+            onSelect={() => {
+              setIsEditDialogOpen(true)
+              setIsDropdownMenuOpen(false)
+            }}
+          >
+            <Pencil className="mr-2 size-4" />
+            Edit
+          </DropdownMenuItem>
           <DropdownMenuItem
             onSelect={() => {
               setIsDeleteDialogOpen(true)
@@ -47,6 +58,13 @@ export default function CellActions({ row }: { row: IColumns }) {
         tokenName={row.name}
         isOpen={isDeleteDialogOpen}
         setIsOpen={setIsDeleteDialogOpen}
+      />
+      <EditTokenDialog
+        key={`edit-${row.id}`}
+        tokenId={row.id}
+        tokenName={row.name}
+        isOpen={isEditDialogOpen}
+        setIsOpen={setIsEditDialogOpen}
       />
     </>
   )

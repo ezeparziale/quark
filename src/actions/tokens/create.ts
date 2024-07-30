@@ -12,9 +12,9 @@ import prismadb from "@/lib/prismadb"
 import { has } from "@/lib/rbac"
 import { validateSchemaAction } from "@/lib/validate-schema-action"
 
-import { tokenCreateSchema } from "@/schemas/tokens"
+import { tokenCreateServerActionSchema } from "@/schemas/tokens"
 
-type FormData = z.infer<typeof tokenCreateSchema>
+type FormData = z.infer<typeof tokenCreateServerActionSchema>
 
 async function handler(formData: FormData): Promise<DataResult<FormData>> {
   try {
@@ -43,4 +43,4 @@ async function handler(formData: FormData): Promise<DataResult<FormData>> {
   }
 }
 
-export const createToken = validateSchemaAction(tokenCreateSchema, handler)
+export const createToken = validateSchemaAction(tokenCreateServerActionSchema, handler)

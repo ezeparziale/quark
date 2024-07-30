@@ -2,9 +2,9 @@ import * as z from "zod"
 import "zod-openapi/extend"
 
 const tokenId = z
-  .number()
+  .string()
   .describe("The unique identifier of the token.")
-  .openapi({ example: 1 })
+  .openapi({ example: "clz8y0nk60001bqz6f22yz5ad" })
 
 export const tokenPathParamSchema = z.object({
   tokenId,
@@ -21,11 +21,11 @@ export const tokenSchema = z.object({
   hashedToken: z
     .string()
     .describe("The hashed representation of the token.")
-    .openapi({ example: "XXXXXXXXXXX" }),
+    .openapi({ example: "6ee2bbe6cf10c496f64f92cb36ab6c0fd3228a2715c5f9ae748837f25" }),
   partialToken: z
     .string()
     .describe("A partial representation of the token.")
-    .openapi({ example: "qkr_XXXX" }),
+    .openapi({ example: "qrk...Rdj4" }),
   expires: z
     .date()
     .optional()
@@ -54,18 +54,15 @@ export const tokenOutputSchema = tokenSchema
   .omit({ hashedToken: true })
   .describe("Schema for token output, omitting the hashed token.")
 
-export const tokenCreateSchema = tokenSchema
+export const tokenCreateServerActionSchema = tokenSchema
   .pick({
     name: true,
   })
   .describe("Schema for creating a new token, requiring only the name.")
 
-export const tokenUpdateSchema = z
-  .object({
-    ...tokenCreateSchema.shape,
+export const tokenUpdateServerActionSchema = tokenSchema
+  .pick({
+    id: true,
+    name: true,
   })
   .describe("Schema for updating a token, allowing updates to the name.")
-
-export const tokenUpdatePartialSchema = tokenUpdateSchema
-  .partial()
-  .describe("Schema for partially updating a token, with all fields optional.")
