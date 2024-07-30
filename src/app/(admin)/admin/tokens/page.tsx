@@ -46,8 +46,8 @@ function ApiDocsLinkButton() {
   return (
     <Button variant={"outline"} asChild>
       <Link href={"/api/docs"} target="_blank" passHref>
-        Api docs
-        <ExternalLink className="ml-1 size-4" />
+        <ExternalLink className="size-4" />
+        <span className="ml-2">API docs</span>
       </Link>
     </Button>
   )
