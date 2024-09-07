@@ -61,6 +61,7 @@ export default function NavTabs({ items }: NavProps) {
           style={{
             transform: `translateX(${navX}px)`,
           }}
+          prefetch={true}
         >
           <div className="m-1 rounded-md px-3 py-2 transition-all duration-75 hover:bg-muted">
             <p
