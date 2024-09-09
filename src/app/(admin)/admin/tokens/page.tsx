@@ -29,7 +29,7 @@ export default async function TokensAdminPage() {
     <>
       <PageHeader
         title="Tokens"
-        description="Manage all token."
+        description="Manage all tokens."
         actions={[
           <ApiDocsLinkButton key={"action_1"} />,
           <CreateTokenButton key={"action_2"} />,
