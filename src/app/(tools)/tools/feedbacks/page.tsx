@@ -1,4 +1,10 @@
+import { redirect } from "next/navigation"
+
 import { Suspense } from "react"
+
+import { auth } from "@/auth"
+
+import { protectPage } from "@/lib/rbac"
 
 import { Skeleton } from "@/components/ui/skeleton"
 
@@ -15,6 +21,14 @@ export default async function FeedbackPage({
 }: {
   searchParams: IDataTableSearchParamsSSR
 }) {
+  const session = await auth()
+
+  if (!session) {
+    redirect("/auth/login?callbackUrl=/tools/feedbacks")
+  }
+
+  await protectPage({ permission: "feedbacks:view" })
+
   // Get params
   const defaultSort: string = "-createdAt"
   const { search, currentPage, limit, offset, orderBy, sortState } = getSearchParamsSSR(
