@@ -4,8 +4,7 @@ import { useEffect, useState } from "react"
 import { Dispatch, SetStateAction } from "react"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Plus } from "lucide-react"
-import { Loader2 } from "lucide-react"
+import { Loader2, Plus } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import * as z from "zod"
@@ -34,11 +33,23 @@ import {
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
 } from "@/components/ui/responsive-dialog"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 import { CopyButtonData } from "@/components/copy-clipboard-button"
 
 type FormData = z.infer<typeof tokenCreateServerActionSchema>
+
+type User = {
+  id: string
+  email: string
+}
 
 export default function CreateTokenButton() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -110,9 +121,13 @@ function CreateTokenForm({
   token: string | undefined
   setToken: Dispatch<SetStateAction<string | undefined>>
 }) {
+  const [users, setUsers] = useState<User[]>([])
+  const [isLoadingUsers, setIsLoadingUsers] = useState(false)
+
   const form = useForm<FormData>({
     defaultValues: {
       name: "",
+      userId: undefined,
     },
     resolver: zodResolver(tokenCreateServerActionSchema),
   })
@@ -126,6 +141,46 @@ function CreateTokenForm({
       toast.error("Something went wrong")
     }
   }
+
+  const fetchUsers = async () => {
+    const limit = 100
+    let page = 1
+    let allUsers: User[] = []
+    let hasMore = true
+
+    setIsLoadingUsers(true)
+
+    try {
+      while (hasMore) {
+        const response = await fetch(`/api/v1/users?page=${page}&limit=${limit}`)
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch users")
+        }
+
+        const fetchedUsers = await response.json()
+
+        allUsers = [...allUsers, ...fetchedUsers]
+
+        if (fetchedUsers.length < limit) {
+          hasMore = false
+        } else {
+          page += 1
+        }
+      }
+
+      setUsers(allUsers)
+    } catch (error) {
+      console.error("Error fetching users:", error)
+      toast.error("Failed to load users")
+    } finally {
+      setIsLoadingUsers(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchUsers()
+  }, [])
 
   return (
     <>
@@ -158,6 +213,42 @@ function CreateTokenForm({
                         disabled={form.formState.isSubmitting}
                       />
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="userId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>User</FormLabel>
+                    <Select
+                      onValueChange={(value) => field.onChange(Number(value))}
+                      value={field.value?.toString()}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a user" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {isLoadingUsers ? (
+                          <SelectItem key="loading" value="loading" disabled>
+                            <div className="flex items-center">
+                              <Loader2 className="mr-2 size-4 animate-spin" />
+                              <span>Loading users...</span>
+                            </div>
+                          </SelectItem>
+                        ) : (
+                          users.map((user) => (
+                            <SelectItem key={user.id} value={user.id.toString()}>
+                              {user.email}
+                            </SelectItem>
+                          ))
+                        )}
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}

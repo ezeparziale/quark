@@ -2,7 +2,6 @@
 
 import { revalidatePath } from "next/cache"
 
-import { auth } from "@/auth"
 import * as z from "zod"
 
 import { DataResult } from "@/types/types"
@@ -24,14 +23,12 @@ async function handler(formData: FormData): Promise<DataResult<FormData>> {
       return { success: false, message: "Unauthorized" }
     }
 
-    const session = await auth()
-
-    const { name } = formData
+    const { name, userId } = formData
 
     const { token, hashedToken, partialToken } = await createTokenApi()
 
     await prismadb.token.create({
-      data: { name, hashedToken, partialToken, userId: session?.user.userId! },
+      data: { name, hashedToken, partialToken, userId },
     })
 
     revalidatePath(`/admin/tokens/`)

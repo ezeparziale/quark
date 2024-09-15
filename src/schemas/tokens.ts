@@ -57,8 +57,9 @@ export const tokenOutputSchema = tokenSchema
 export const tokenCreateServerActionSchema = tokenSchema
   .pick({
     name: true,
+    userId: true,
   })
-  .describe("Schema for creating a new token, requiring only the name.")
+  .describe("Schema for creating a new token, requiring only the name and userId.")
 
 export const tokenUpdateServerActionSchema = tokenSchema
   .pick({
