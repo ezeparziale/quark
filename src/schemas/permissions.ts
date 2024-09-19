@@ -39,6 +39,10 @@ export const permissionSchema = z.object({
       "The key that uniquely identifies the permission, following the format 'feature:action'.",
     )
     .openapi({ example: "post:create" }),
+  isActive: z
+    .boolean()
+    .describe("Define if the permission is active or not")
+    .openapi({ examples: [false, true] }),
   createdAt: z
     .date()
     .describe("The date and time when the permission was created.")
@@ -49,12 +53,10 @@ export const permissionSchema = z.object({
     .openapi({ example: new Date("2024-05-26T01:36:52.676Z") }),
 })
 
-export const permissionServerActionSchema = permissionSchema
-  .omit({
-    createdAt: true,
-    updatedAt: true,
-  })
-  .partial({ id: true })
+export const permissionServerActionSchema = permissionSchema.omit({
+  createdAt: true,
+  updatedAt: true,
+})
 
 export const permissionOutputSchema = permissionSchema
 

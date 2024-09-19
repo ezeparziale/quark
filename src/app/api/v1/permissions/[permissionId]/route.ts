@@ -79,11 +79,11 @@ export const PUT = withAdmin(async ({ req, params }) => {
 
     const body = schema.parse(bodyRaw)
 
-    const { name, description, key } = body
+    const { name, description, key, isActive } = body
 
     const updatedPermission = await prismadb.permission.update({
       where: { id },
-      data: { name, description, key },
+      data: { name, description, key, isActive },
       select: outputFields,
     })
 

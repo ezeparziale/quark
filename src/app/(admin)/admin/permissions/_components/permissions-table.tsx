@@ -14,7 +14,7 @@ export default async function PermissionsTable() {
       data={data}
       searchFieldLabel={"permissions"}
       emptyState={<PermissionsEmptyStateTable />}
-      hiddenColumns={{ ID: false, "Created At": false, "Updated At": false }}
+      hiddenColumns={{ ID: false, "Created At": false }}
     />
   )
 }

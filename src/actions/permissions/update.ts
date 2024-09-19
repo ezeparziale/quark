@@ -15,7 +15,7 @@ import { permissionServerActionSchema } from "@/schemas/permissions"
 type FormData = z.infer<typeof permissionServerActionSchema>
 
 async function handler(formData: FormData): Promise<DataResult<FormData>> {
-  const { id, name, description, key } = formData
+  const { id, name, description, key, isActive } = formData
 
   try {
     const isAuthorized = await has({ role: "admin" })
@@ -49,7 +49,7 @@ async function handler(formData: FormData): Promise<DataResult<FormData>> {
 
     await prismadb.permission.update({
       where: { id },
-      data: { name, description, key },
+      data: { name, description, key, isActive },
     })
 
     revalidatePath(`/admin/permissions/${id}`)

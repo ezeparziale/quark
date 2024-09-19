@@ -1,32 +1,25 @@
-"use client"
-
-import { useState } from "react"
+import Link from "next/link"
 
 import { Plus } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
-import PermissionDialog from "./permission-dialog"
-
 export default function CreatePermissionButton() {
-  const [isOpen, setIsOpen] = useState(false)
-
   return (
-    <>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button onClick={() => setIsOpen(true)}>
+    <Tooltip>
+      <TooltipTrigger>
+        <Button asChild>
+          <Link href="/admin/permissions/new" prefetch={true}>
             <Plus className="size-4" />
             <span className="sr-only">create permission</span>
             <span className="ml-2 hidden md:block">Create permission</span>
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent className="md:hidden" align={"end"}>
-          <p>Create permission</p>
-        </TooltipContent>
-      </Tooltip>
-      <PermissionDialog isOpen={isOpen} setIsOpen={setIsOpen} />
-    </>
+          </Link>
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent className="md:hidden" align={"end"}>
+        <p>Create permission</p>
+      </TooltipContent>
+    </Tooltip>
   )
 }

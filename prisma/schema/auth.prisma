@@ -3,6 +3,7 @@ model Role {
   name        String           @unique @db.VarChar(45)
   key         String           @unique @db.VarChar(255)
   description String           @db.VarChar(255)
+  isActive    Boolean          @default(false) @map("is_active")
   createdAt   DateTime         @default(now()) @map("created_at")
   updatedAt   DateTime         @default(now()) @updatedAt @map("updated_at")
   users       UserRole[]
@@ -17,6 +18,7 @@ model Permission {
   name        String           @unique @db.VarChar(45)
   key         String           @unique @db.VarChar(255)
   description String           @db.VarChar(255)
+  isActive    Boolean          @default(false) @map("is_active")
   createdAt   DateTime         @default(now()) @map("created_at")
   updatedAt   DateTime         @default(now()) @updatedAt @map("updated_at")
   roles       RolePermission[]

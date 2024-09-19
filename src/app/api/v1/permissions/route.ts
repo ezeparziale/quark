@@ -15,6 +15,7 @@ const allowedOrderByFields = [
   "name",
   "description",
   "key",
+  "isActive",
   "createdAt",
   "updatedAt",
 ]
@@ -68,10 +69,10 @@ export const POST = withAdmin(async ({ req }) => {
   try {
     const bodyRaw = await parseRequestBody(req)
     const body = permissionCreateSchema.parse(bodyRaw)
-    const { name, description, key } = body
+    const { name, description, key, isActive } = body
 
     const data = await prismadb.permission.create({
-      data: { name, description, key },
+      data: { name, description, key, isActive },
       select: outputFields,
     })
 

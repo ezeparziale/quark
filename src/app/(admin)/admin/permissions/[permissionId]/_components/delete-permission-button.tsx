@@ -7,7 +7,7 @@ import { Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
-import DeletePermissionDialog from "./delete-permission-dialog"
+import DeletePermissionDialog from "../../_components/delete-permission-dialog"
 
 export default function DeletePermissionButton({
   permissionId,

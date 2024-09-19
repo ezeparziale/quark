@@ -1,3 +1,5 @@
+import { useRouter } from "next/navigation"
+
 import { useEffect } from "react"
 
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -39,6 +41,8 @@ export default function DeletePermissionDialog({
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
 }) {
+  const router = useRouter()
+
   const formSchema = z.object({
     confirmString: z.literal(permissionKey, {
       errorMap: () => ({ message: "Incorrect permission key" }),
@@ -55,8 +59,9 @@ export default function DeletePermissionDialog({
   const onSubmit = async () => {
     const result = await deletePermission(permissionId)
     if (result.success) {
-      toast.success("Permission deleted successfully!", { duration: 4000 })
+      toast.success("Permission deleted successfully!")
       setIsOpen(false)
+      router.push("/admin/permissions")
     } else {
       toast.error(result.message)
     }

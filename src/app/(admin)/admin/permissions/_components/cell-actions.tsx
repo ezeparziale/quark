@@ -1,3 +1,5 @@
+import { useRouter } from "next/navigation"
+
 import { useState } from "react"
 
 import { Copy, MoreHorizontal, Pencil, Trash } from "lucide-react"
@@ -14,12 +16,11 @@ import {
 
 import { IColumns } from "./columns"
 import DeletePermissionDialog from "./delete-permission-dialog"
-import PermissionDialog from "./permission-dialog"
 
 export default function CellActions({ row }: { row: IColumns }) {
+  const router = useRouter()
   const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false)
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
 
   return (
     <>
@@ -39,12 +40,7 @@ export default function CellActions({ row }: { row: IColumns }) {
             Copy ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem
-            onSelect={() => {
-              setIsEditDialogOpen(true)
-              setIsDropdownMenuOpen(false)
-            }}
-          >
+          <DropdownMenuItem onClick={() => router.push(`/admin/permissions/${row.id}`)}>
             <Pencil className="mr-2 size-4" />
             Edit
           </DropdownMenuItem>
@@ -66,12 +62,6 @@ export default function CellActions({ row }: { row: IColumns }) {
         permissionKey={row.key}
         isOpen={isDeleteDialogOpen}
         setIsOpen={setIsDeleteDialogOpen}
-      />
-      <PermissionDialog
-        key={`edit-${row.id}`}
-        permission={row}
-        isOpen={isEditDialogOpen}
-        setIsOpen={setIsEditDialogOpen}
       />
     </>
   )
