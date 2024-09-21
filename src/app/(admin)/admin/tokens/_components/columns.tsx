@@ -6,7 +6,9 @@ import { type Token } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
 import { format, formatDistanceToNow } from "date-fns"
 
+import { Badge } from "@/components/ui/badge"
 import { DataTableColumnHeader } from "@/components/ui/data-tables/data-table-column-header"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 import CellActions from "./cell-actions"
 
@@ -43,6 +45,9 @@ export const columns: ColumnDef<IColumns>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Partial Token" />
     ),
+    cell: ({ row }) => {
+      return <Badge variant={"teal-subtle"}>{row.original.partialToken}</Badge>
+    },
     enableGlobalFilter: true,
   },
   {
@@ -65,14 +70,20 @@ export const columns: ColumnDef<IColumns>[] = [
       <DataTableColumnHeader column={column} title="Created At" />
     ),
     cell: ({ row }) => {
-      const formattedDate = format(new Date(row.original.createdAt), "dd-MM-yyyy")
-      const formattedTime = format(new Date(row.original.createdAt), "HH:mm:ss")
+      const createdAt = new Date(row.original.createdAt)
+      const formattedDate = format(createdAt, "dd-MM-yyyy")
+      const formattedTime = format(createdAt, "HH:mm:ss")
+      const timeAgo = formatDistanceToNow(createdAt, { addSuffix: true })
 
       return (
-        <div className="text-xs">
-          <div>{formattedDate}</div>
-          <div>{formattedTime}</div>
-        </div>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="text-xs">{timeAgo}</div>
+          </TooltipTrigger>
+          <TooltipContent>
+            <div>{`${formattedDate} ${formattedTime}`}</div>
+          </TooltipContent>
+        </Tooltip>
       )
     },
   },
@@ -83,14 +94,20 @@ export const columns: ColumnDef<IColumns>[] = [
       <DataTableColumnHeader column={column} title="Updated At" />
     ),
     cell: ({ row }) => {
-      const formattedDate = format(new Date(row.original.updatedAt), "dd-MM-yyyy")
-      const formattedTime = format(new Date(row.original.updatedAt), "HH:mm:ss")
+      const updatedAt = new Date(row.original.updatedAt)
+      const formattedDate = format(updatedAt, "dd-MM-yyyy")
+      const formattedTime = format(updatedAt, "HH:mm:ss")
+      const timeAgo = formatDistanceToNow(updatedAt, { addSuffix: true })
 
       return (
-        <div className="text-xs">
-          <div>{formattedDate}</div>
-          <div>{formattedTime}</div>
-        </div>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="text-xs">{timeAgo}</div>
+          </TooltipTrigger>
+          <TooltipContent>
+            <div>{`${formattedDate} ${formattedTime}`}</div>
+          </TooltipContent>
+        </Tooltip>
       )
     },
   },
