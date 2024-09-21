@@ -75,14 +75,20 @@ export const columns: ColumnDef<IColumns>[] = [
       <DataTableColumnHeader column={column} title="Created At" />
     ),
     cell: ({ row }) => {
-      const formattedDate = format(new Date(row.original.createdAt), "dd-MM-yyyy")
-      const formattedTime = format(new Date(row.original.createdAt), "HH:mm:ss")
+      const createdAt = new Date(row.original.createdAt)
+      const formattedDate = format(createdAt, "dd-MM-yyyy")
+      const formattedTime = format(createdAt, "HH:mm:ss")
+      const timeAgo = formatDistanceToNow(createdAt, { addSuffix: true })
 
       return (
-        <div className="text-xs">
-          <div>{formattedDate}</div>
-          <div>{formattedTime}</div>
-        </div>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="text-xs">{timeAgo}</div>
+          </TooltipTrigger>
+          <TooltipContent>
+            <div>{`${formattedDate} ${formattedTime}`}</div>
+          </TooltipContent>
+        </Tooltip>
       )
     },
   },
@@ -101,9 +107,7 @@ export const columns: ColumnDef<IColumns>[] = [
       return (
         <Tooltip>
           <TooltipTrigger asChild>
-            <div className="text-xs">
-              <div>{timeAgo}</div>
-            </div>
+            <div className="text-xs">{timeAgo}</div>
           </TooltipTrigger>
           <TooltipContent>
             <div>{`${formattedDate} ${formattedTime}`}</div>
