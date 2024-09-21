@@ -108,7 +108,7 @@ export default function AddUserForm({ options, selectedValues, title, roleId }: 
             {form.formState.isSubmitting && (
               <Loader2 className="mr-2 size-4 animate-spin" />
             )}
-            Update
+            Save
           </Button>
           <Button size="sm" className="w-full md:w-1/5" variant="outline" asChild>
             <Link href={`/admin/roles/${roleId}/users`}>Cancel</Link>

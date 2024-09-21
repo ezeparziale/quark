@@ -7,7 +7,7 @@ import prismadb from "@/lib/prismadb"
 import { SidebarNav } from "@/components/admin/sidebar-nav"
 import { PageHeader } from "@/components/page-header"
 
-import DeleteRoleButton from "../_components/delete-role-button"
+import DeleteRoleButton from "./_components/delete-role-button"
 
 const getSideBarNavItems = (id: number): NavItem[] => {
   const baseHref = `/admin/roles/${id}`

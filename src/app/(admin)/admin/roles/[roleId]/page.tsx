@@ -5,7 +5,7 @@ import { protectPage } from "@/lib/rbac"
 
 import { PageSection } from "@/components/page-header"
 
-import UpdateRoleForm from "../_components/update-role-form"
+import EditRoleForm from "./_components/edit-role-form"
 
 export default async function RoleAdminPage({
   params,
@@ -44,7 +44,7 @@ export default async function RoleAdminPage({
   return (
     <>
       <PageSection title="Settings" description="Manage role settings" />
-      <UpdateRoleForm role={roleWithFormattedPermissions} />
+      <EditRoleForm role={roleWithFormattedPermissions} />
     </>
   )
 }

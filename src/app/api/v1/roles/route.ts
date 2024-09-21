@@ -15,6 +15,7 @@ const allowedOrderByFields = [
   "name",
   "description",
   "key",
+  "isActive",
   "createdAt",
   "updatedAt",
 ]
@@ -85,13 +86,14 @@ export const POST = withAdmin(async ({ req }) => {
   try {
     const bodyRaw = await parseRequestBody(req)
     const body = roleCreateSchema.parse(bodyRaw)
-    const { name, description, key, tools, permissions } = body
+    const { name, description, key, tools, permissions, isActive } = body
 
     const newRole = await prismadb.role.create({
       data: {
         name,
         description,
         key,
+        isActive,
         tools: {
           create: tools?.map((toolId) => ({
             tool: { connect: { id: toolId } },

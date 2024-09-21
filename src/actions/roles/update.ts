@@ -15,7 +15,7 @@ import { roleServerActionUpdateSchema } from "@/schemas/roles"
 type FormData = z.infer<typeof roleServerActionUpdateSchema>
 
 async function handler(formData: FormData): Promise<DataResult<FormData>> {
-  const { id, name, description, key } = formData
+  const { id, name, description, key, isActive } = formData
 
   try {
     const isAuthorized = await has({ role: "admin" })
@@ -48,7 +48,10 @@ async function handler(formData: FormData): Promise<DataResult<FormData>> {
       return { success: false, errors }
     }
 
-    await prismadb.role.update({ where: { id }, data: { name, description, key } })
+    await prismadb.role.update({
+      where: { id },
+      data: { name, description, key, isActive },
+    })
 
     revalidatePath(`/admin/roles/${id}`)
     revalidatePath(`/admin/roles/`)

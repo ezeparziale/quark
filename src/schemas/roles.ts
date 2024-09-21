@@ -33,6 +33,10 @@ export const roleSchema = z.object({
     .max(255, "Key must contain at most 255 characters")
     .describe("The key that uniquely identifies the role.")
     .openapi({ example: "blog-admin" }),
+  isActive: z
+    .boolean()
+    .describe("Define if the permission is active or not")
+    .openapi({ examples: [false, true] }),
   tools: z
     .array(z.number())
     .describe("The tools assigned to the role.")

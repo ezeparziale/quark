@@ -4,10 +4,12 @@ import Link from "next/link"
 
 import { type Role } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
-import { format } from "date-fns"
+import { format, formatDistanceToNow } from "date-fns"
+import { CheckCircle, XCircle } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
 import { DataTableColumnHeader } from "@/components/ui/data-tables/data-table-column-header"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 import CellActions from "./cell-actions"
 
@@ -47,20 +49,54 @@ export const columns: ColumnDef<IColumns>[] = [
     enableGlobalFilter: true,
   },
   {
+    id: "Active",
+    accessorKey: "is_active",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Active" />,
+    cell: ({ row }) => {
+      return (
+        <Badge variant={row.original.isActive ? "green-subtle" : "red-subtle"}>
+          {row.original.isActive ? (
+            <>
+              <CheckCircle size={16} style={{ marginRight: "5px" }} />
+              Active
+            </>
+          ) : (
+            <>
+              <XCircle size={16} style={{ marginRight: "5px" }} />
+              Inactive
+            </>
+          )}
+        </Badge>
+      )
+    },
+    enableGlobalFilter: true,
+    sortingFn: (rowA, rowB) => {
+      const valueA = rowA.original.isActive ? 1 : 0
+      const valueB = rowB.original.isActive ? 1 : 0
+      return valueA - valueB
+    },
+  },
+  {
     id: "Created At",
     accessorKey: "createdAt",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Created At" />
     ),
     cell: ({ row }) => {
-      const formattedDate = format(new Date(row.original.createdAt), "dd-MM-yyyy")
-      const formattedTime = format(new Date(row.original.createdAt), "HH:mm:ss")
+      const createdAt = new Date(row.original.createdAt)
+      const formattedDate = format(createdAt, "dd-MM-yyyy")
+      const formattedTime = format(createdAt, "HH:mm:ss")
+      const timeAgo = formatDistanceToNow(createdAt, { addSuffix: true })
 
       return (
-        <div className="text-xs">
-          <div>{formattedDate}</div>
-          <div>{formattedTime}</div>
-        </div>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="text-xs">{timeAgo}</div>
+          </TooltipTrigger>
+          <TooltipContent>
+            <div>{`${formattedDate} ${formattedTime}`}</div>
+          </TooltipContent>
+        </Tooltip>
       )
     },
   },
@@ -71,14 +107,20 @@ export const columns: ColumnDef<IColumns>[] = [
       <DataTableColumnHeader column={column} title="Updated At" />
     ),
     cell: ({ row }) => {
-      const formattedDate = format(new Date(row.original.updatedAt), "dd-MM-yyyy")
-      const formattedTime = format(new Date(row.original.updatedAt), "HH:mm:ss")
+      const updatedAt = new Date(row.original.updatedAt)
+      const formattedDate = format(updatedAt, "dd-MM-yyyy")
+      const formattedTime = format(updatedAt, "HH:mm:ss")
+      const timeAgo = formatDistanceToNow(updatedAt, { addSuffix: true })
 
       return (
-        <div className="text-xs">
-          <div>{formattedDate}</div>
-          <div>{formattedTime}</div>
-        </div>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="text-xs">{timeAgo}</div>
+          </TooltipTrigger>
+          <TooltipContent>
+            <div>{`${formattedDate} ${formattedTime}`}</div>
+          </TooltipContent>
+        </Tooltip>
       )
     },
   },

@@ -14,7 +14,7 @@ export default async function RolesTable() {
       data={data}
       searchFieldLabel={"roles"}
       emptyState={<RolesEmptyStateTable />}
-      hiddenColumns={{ ID: false, "Created At": false, "Updated At": false }}
+      hiddenColumns={{ ID: false, "Created At": false }}
     />
   )
 }

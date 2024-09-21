@@ -15,7 +15,7 @@ import { roleServerActionCreateSchema } from "@/schemas/roles"
 type FormData = z.infer<typeof roleServerActionCreateSchema>
 
 async function handler(formData: FormData): Promise<DataResult<FormData>> {
-  const { name, description, key, permissions } = formData
+  const { name, description, key, permissions, isActive } = formData
 
   try {
     const isAuthorized = await has({ role: "admin" })
@@ -52,6 +52,7 @@ async function handler(formData: FormData): Promise<DataResult<FormData>> {
         name,
         description,
         key,
+        isActive,
         permissions: {
           create: permissionsSelected?.map((id) => ({
             permission: { connect: { id } },

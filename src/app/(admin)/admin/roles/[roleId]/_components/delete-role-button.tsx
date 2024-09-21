@@ -7,7 +7,7 @@ import { Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
-import DeleteRoleDialog from "./delete-role-dialog"
+import DeleteRoleDialog from "../../_components/delete-role-dialog"
 
 export default function DeleteRoleButton({
   roleId,
@@ -24,12 +24,12 @@ export default function DeleteRoleButton({
         <TooltipTrigger asChild>
           <Button variant="destructive" onClick={() => setIsOpen(true)}>
             <Trash2 className="size-4" />
-            <span className="sr-only">delete role</span>
-            <span className="ml-2 hidden md:block">Delete role</span>
+            <span className="sr-only">delete permission</span>
+            <span className="ml-2 hidden md:block">Delete permission</span>
           </Button>
         </TooltipTrigger>
         <TooltipContent className="border-destructive md:hidden" align={"end"}>
-          <p>Delete role</p>
+          <p>Delete permission</p>
         </TooltipContent>
       </Tooltip>
       <DeleteRoleDialog

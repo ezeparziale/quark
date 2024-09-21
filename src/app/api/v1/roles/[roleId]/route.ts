@@ -95,7 +95,7 @@ export const PUT = withAdmin(async ({ req, params }) => {
 
     const body = schema.parse(bodyRaw)
 
-    const { name, description, key, tools, permissions } = body
+    const { name, description, key, isActive, tools, permissions } = body
 
     const updatedRole = await prismadb.role.update({
       where: { id },
@@ -103,6 +103,7 @@ export const PUT = withAdmin(async ({ req, params }) => {
         name,
         description,
         key,
+        isActive,
         tools: tools
           ? {
               deleteMany: {},

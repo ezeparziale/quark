@@ -1,4 +1,4 @@
-import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 import React, { useState } from "react"
 
@@ -18,8 +18,6 @@ import { IColumns } from "./columns"
 import DeleteRoleDialog from "./delete-role-dialog"
 
 export default function CellActions({ row }: { row: IColumns }) {
-  const router = useRouter()
-
   const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false)
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
 
@@ -41,9 +39,11 @@ export default function CellActions({ row }: { row: IColumns }) {
             Copy ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => router.push(`/admin/roles/${row.id}`)}>
-            <Pencil className="mr-2 size-4" />
-            Edit
+          <DropdownMenuItem asChild>
+            <Link href={`/admin/roles/${row.id}`} prefetch={true}>
+              <Pencil className="mr-2 size-4" />
+              Edit
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem
             onSelect={() => {
