@@ -39,6 +39,21 @@ const badgeVariants = cva(
         teal: "border-transparent bg-teal-600 text-white",
         "teal-subtle":
           "border-transparent bg-teal-100 text-teal-700 dark:bg-teal-950 dark:text-teal-200",
+        orange: "border-transparent bg-orange-500 text-white",
+        "orange-subtle":
+          "border-transparent bg-orange-100 text-orange-700 dark:bg-orange-950 dark:text-orange-400",
+        yellow: "border-transparent bg-yellow-400 text-black",
+        "yellow-subtle":
+          "border-transparent bg-yellow-100 text-yellow-800 dark:bg-yellow-950 dark:text-yellow-400",
+        indigo: "border-transparent bg-indigo-500 text-white",
+        "indigo-subtle":
+          "border-transparent bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-400",
+        violet: "border-transparent bg-violet-500 text-white",
+        "violet-subtle":
+          "border-transparent bg-violet-100 text-violet-700 dark:bg-violet-950 dark:text-violet-400",
+        cyan: "border-transparent bg-cyan-500 text-white",
+        "cyan-subtle":
+          "border-transparent bg-cyan-100 text-cyan-700 dark:bg-cyan-950 dark:text-cyan-400",
       },
     },
     defaultVariants: {
