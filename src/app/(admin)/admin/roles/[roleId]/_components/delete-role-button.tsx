@@ -24,12 +24,12 @@ export default function DeleteRoleButton({
         <TooltipTrigger asChild>
           <Button variant="destructive" onClick={() => setIsOpen(true)}>
             <Trash2 className="size-4" />
-            <span className="sr-only">delete permission</span>
-            <span className="ml-2 hidden md:block">Delete permission</span>
+            <span className="sr-only">delete role</span>
+            <span className="ml-2 hidden md:block">Delete role</span>
           </Button>
         </TooltipTrigger>
         <TooltipContent className="border-destructive md:hidden" align={"end"}>
-          <p>Delete permission</p>
+          <p>Delete role</p>
         </TooltipContent>
       </Tooltip>
       <DeleteRoleDialog
