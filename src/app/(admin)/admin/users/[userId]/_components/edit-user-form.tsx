@@ -68,25 +68,45 @@ export default function EditUserForm({ user }: { user: User }) {
         onSubmit={form.handleSubmit(onSubmitUpdate)}
         className="flex w-full flex-col space-y-4 md:w-2/3"
       >
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder=""
-                  {...field}
-                  disabled={form.formState.isSubmitting}
-                  autoComplete="email"
-                />
-              </FormControl>
-              <FormDescription>Email user</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="flex gap-x-4">
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem className="flex-1">
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="e.g: name@example.com"
+                    {...field}
+                    disabled={form.formState.isSubmitting}
+                    autoComplete="email"
+                  />
+                </FormControl>
+                <FormDescription>Email user</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="active"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Active</FormLabel>
+                <FormControl>
+                  <div className="flex h-10 items-center">
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                      disabled={form.formState.isSubmitting}
+                    />
+                  </div>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+        </div>
         <FormField
           control={form.control}
           name="username"
@@ -99,25 +119,6 @@ export default function EditUserForm({ user }: { user: User }) {
                   {...field}
                   disabled={form.formState.isSubmitting}
                 />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <h3 className="my-6 text-lg font-medium">Admin Actions</h3>
-        <FormField
-          control={form.control}
-          name="active"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-              <div className="space-y-0.5">
-                <FormLabel>Active user</FormLabel>
-                <FormDescription>
-                  Enable this option if the user is currently active.
-                </FormDescription>
-              </div>
-              <FormControl>
-                <Switch checked={field.value} onCheckedChange={field.onChange} />
               </FormControl>
               <FormMessage />
             </FormItem>
