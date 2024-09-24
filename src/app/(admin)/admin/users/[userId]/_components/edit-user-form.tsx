@@ -14,7 +14,6 @@ import { addServerErrors } from "@/lib/utils"
 
 import { userServerActionSchema } from "@/schemas/users"
 
-import { addUser } from "@/actions/users/add-user"
 import { updateUser } from "@/actions/users/update-user"
 
 import { Button } from "@/components/ui/button"
@@ -32,37 +31,19 @@ import { Switch } from "@/components/ui/switch"
 
 type FormData = z.infer<typeof userServerActionSchema>
 
-export default function UserForm({ user }: { user?: User }) {
+export default function EditUserForm({ user }: { user: User }) {
   const router = useRouter()
 
   const form = useForm<FormData>({
     defaultValues: {
-      id: user?.id || undefined,
-      email: user?.email || "",
-      username: user?.username || "",
-      active: user?.active || false,
-      confirmedEmail: user?.confirmedEmail || false,
+      id: user.id,
+      email: user.email,
+      username: user.username,
+      active: user.active,
+      confirmedEmail: user.confirmedEmail,
     },
     resolver: zodResolver(userServerActionSchema),
   })
-
-  const action = user ? "Update" : "Create"
-
-  const onSubmitCreate = async (data: FormData) => {
-    const result = await addUser(data)
-    if (result.success) {
-      router.push("/admin/users")
-      toast.success("User created successfully!")
-    } else {
-      if (result.errors) {
-        addServerErrors(result.errors, form.setError)
-      } else if (result.message) {
-        toast.error(result.message)
-      } else {
-        toast.error("Something went wrong")
-      }
-    }
-  }
 
   const onSubmitUpdate = async (data: FormData) => {
     const result = await updateUser(data)
@@ -84,11 +65,7 @@ export default function UserForm({ user }: { user?: User }) {
   return (
     <Form {...form}>
       <form
-        onSubmit={
-          action === "Create"
-            ? form.handleSubmit(onSubmitCreate)
-            : form.handleSubmit(onSubmitUpdate)
-        }
+        onSubmit={form.handleSubmit(onSubmitUpdate)}
         className="flex w-full flex-col space-y-4 md:w-2/3"
       >
         <FormField
@@ -173,7 +150,7 @@ export default function UserForm({ user }: { user?: User }) {
           {form.formState.isSubmitting && (
             <Loader2 className="mr-2 size-4 animate-spin" />
           )}
-          {action}
+          Save
         </Button>
         <Button size="sm" className="w-full md:w-1/5" variant="outline" asChild>
           <Link href="/admin/users/">Cancel</Link>

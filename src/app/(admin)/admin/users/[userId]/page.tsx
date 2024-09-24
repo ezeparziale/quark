@@ -6,7 +6,7 @@ import { getUserById } from "@/data/user"
 
 import { PageSection } from "@/components/page-header"
 
-import UserForm from "../_components/user-form"
+import EditUserForm from "./_components/edit-user-form"
 
 export default async function UserAdminPage({
   params,
@@ -26,7 +26,7 @@ export default async function UserAdminPage({
   return (
     <>
       <PageSection title="Settings" description="Manage user settings." />
-      <UserForm user={user} />
+      <EditUserForm user={user} />
     </>
   )
 }

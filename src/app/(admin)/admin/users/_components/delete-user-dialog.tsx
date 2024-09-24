@@ -1,11 +1,6 @@
-"use client"
-
 import { useRouter } from "next/navigation"
 
-import { useEffect, useState } from "react"
-
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { User } from "@prisma/client"
 import { Loader2, Trash2 } from "lucide-react"
 import { useSession } from "next-auth/react"
 import { useForm } from "react-hook-form"
@@ -32,18 +27,25 @@ import {
   ResponsiveDialogFooter,
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
-  ResponsiveDialogTrigger,
 } from "@/components/ui/responsive-dialog"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
-export default function DeleteUserModal({ user }: { user: User }) {
-  const { data: session } = useSession()
+export default function DeleteUserDialog({
+  userId,
+  userEmail,
+  isOpen,
+  setIsOpen,
+}: {
+  userId: number
+  userEmail: string
+  isOpen: boolean
+  setIsOpen: (isOpen: boolean) => void
+}) {
+  // const { data: session } = useSession()
   const router = useRouter()
-  const [isOpen, setIsOpen] = useState(false)
-  const buttonDisable = user.email === session?.user.email ? true : false
+  // const buttonDisable = userEmail === session?.user.email
 
   const formSchema = z.object({
-    confirmString: z.literal(user.email, {
+    confirmString: z.literal(userEmail, {
       errorMap: () => ({ message: "Incorrect user email" }),
     }),
   })
@@ -56,37 +58,23 @@ export default function DeleteUserModal({ user }: { user: User }) {
   })
 
   const onSubmit = async () => {
-    const result = await deleteUser(user)
+    const result = await deleteUser(userId)
     if (result.success) {
       toast.success("User deleted successfully!")
+      setIsOpen(false)
       router.push("/admin/users")
     } else {
       toast.error(result.message)
     }
   }
 
-  useEffect(() => {
-    if (isOpen === false) {
-      form.reset()
-    }
-  }, [isOpen, form])
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(open)
+    if (!open) form.reset()
+  }
 
   return (
-    <ResponsiveDialog open={isOpen} onOpenChange={setIsOpen}>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <ResponsiveDialogTrigger asChild>
-            <Button variant="destructive" disabled={buttonDisable}>
-              <Trash2 className="size-4" />
-              <span className="sr-only">delete user</span>
-              <span className="ml-2 hidden md:block">Delete user</span>
-            </Button>
-          </ResponsiveDialogTrigger>
-        </TooltipTrigger>
-        <TooltipContent className="border-destructive md:hidden" align={"end"}>
-          <p>Delete user</p>
-        </TooltipContent>
-      </Tooltip>
+    <ResponsiveDialog open={isOpen} onOpenChange={handleOpenChange}>
       <ResponsiveDialogContent className="sm:max-w-[425px]">
         <ResponsiveDialogHeader className="text-left">
           <ResponsiveDialogTitle>Delete user</ResponsiveDialogTitle>
@@ -106,7 +94,7 @@ export default function DeleteUserModal({ user }: { user: User }) {
               render={({ field }) => (
                 <FormItem>
                   <FormDescription>
-                    Enter <b>{user.email}</b> to continue.
+                    Enter <b>{userEmail}</b> to continue.
                   </FormDescription>
                   <FormControl>
                     <Input
@@ -134,7 +122,7 @@ export default function DeleteUserModal({ user }: { user: User }) {
                 {form.formState.isSubmitting && (
                   <Loader2 className="mr-2 size-4 animate-spin" />
                 )}
-                Delete user
+                Delete
               </Button>
             </ResponsiveDialogFooter>
           </form>

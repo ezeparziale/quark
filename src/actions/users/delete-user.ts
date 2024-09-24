@@ -5,11 +5,7 @@ import { revalidatePath } from "next/cache"
 import prismadb from "@/lib/prismadb"
 import { has } from "@/lib/rbac"
 
-interface IDeleteUser {
-  id: number
-}
-
-export async function deleteUser({ id }: IDeleteUser) {
+export async function deleteUser(id: number) {
   try {
     const isAuthorized = await has({ role: "admin" })
 

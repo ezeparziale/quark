@@ -1,6 +1,8 @@
-import { useRouter } from "next/navigation"
+import Link from "next/link"
 
-import { Copy, MoreHorizontal, Pencil } from "lucide-react"
+import React, { useState } from "react"
+
+import { Copy, MoreHorizontal, Pencil, Trash } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -13,30 +15,55 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 import { IColumns } from "./columns"
+import DeleteUserDialog from "./delete-user-dialog"
 
 export default function CellActions({ row }: { row: IColumns }) {
-  const router = useRouter()
+  const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false)
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="h-8 p-2 data-[state=open]:bg-muted">
-          <span className="sr-only">Open menu</span>
-          <MoreHorizontal className="size-4" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(String(row.id))}>
-          <Copy className="mr-2 size-4" />
-          Copy ID
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => router.push(`/admin/users/${row.id}`)}>
-          <Pencil className="mr-2 size-4" />
-          Edit
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <>
+      <DropdownMenu open={isDropdownMenuOpen} onOpenChange={setIsDropdownMenuOpen}>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="h-8 p-2 data-[state=open]:bg-muted">
+            <span className="sr-only">Open menu</span>
+            <MoreHorizontal className="size-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuItem
+            onClick={() => navigator.clipboard.writeText(String(row.id))}
+          >
+            <Copy className="mr-2 size-4" />
+            Copy ID
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem asChild>
+            <Link href={`/admin/users/${row.id}`} prefetch={true}>
+              <Pencil className="mr-2 size-4" />
+              Edit
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onSelect={() => {
+              setIsDeleteDialogOpen(true)
+              setIsDropdownMenuOpen(false)
+            }}
+            className="hover:!bg-destructive/80 hover:!text-destructive-foreground"
+          >
+            <Trash className="mr-2 size-4" />
+            Delete
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <DeleteUserDialog
+        key={`user-${row.id}`}
+        userId={row.id}
+        userEmail={row.email}
+        isOpen={isDeleteDialogOpen}
+        setIsOpen={setIsDeleteDialogOpen}
+      />
+    </>
   )
 }

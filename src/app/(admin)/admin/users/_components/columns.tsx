@@ -4,10 +4,12 @@ import Link from "next/link"
 
 import { type User } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
-import { format } from "date-fns"
+import { format, formatDistanceToNow } from "date-fns"
+import { CheckCircle, Clock, Verified, XCircle } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
 import { DataTableColumnHeader } from "@/components/ui/data-tables/data-table-column-header"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 import CellActions from "./cell-actions"
 
@@ -47,28 +49,59 @@ export const columns: ColumnDef<IColumns>[] = [
     enableGlobalFilter: true,
   },
   {
+    id: "Verified",
     accessorKey: "confirmedEmail",
-    id: "confirmedEmail",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Confirmed email" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Verified" />,
     cell: ({ row }) => {
-      const value = row.original.confirmedEmail
-      const badge = <Badge variant={"gray-subtle"}>{String(value)}</Badge>
-      return badge
+      return (
+        <Badge variant={row.original.confirmedEmail ? "green-subtle" : "purple-subtle"}>
+          {row.original.confirmedEmail ? (
+            <>
+              <Verified size={16} className="mr-1" />
+              Verified
+            </>
+          ) : (
+            <>
+              <Clock size={16} className="mr-1" />
+              Pending
+            </>
+          )}
+        </Badge>
+      )
     },
     enableGlobalFilter: true,
+    sortingFn: (rowA, rowB) => {
+      const valueA = rowA.original.active ? 1 : 0
+      const valueB = rowB.original.active ? 1 : 0
+      return valueA - valueB
+    },
   },
   {
+    id: "Active",
     accessorKey: "active",
-    id: "active",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Active" />,
     cell: ({ row }) => {
-      const value = row.original.active
-      const badge = (
-        <Badge variant={value ? "green-subtle" : "red-subtle"}>{String(value)}</Badge>
+      return (
+        <Badge variant={row.original.active ? "green-subtle" : "red-subtle"}>
+          {row.original.active ? (
+            <>
+              <CheckCircle size={16} className="mr-1" />
+              Active
+            </>
+          ) : (
+            <>
+              <XCircle size={16} className="mr-1" />
+              Inactive
+            </>
+          )}
+        </Badge>
       )
-      return badge
+    },
+    enableGlobalFilter: true,
+    sortingFn: (rowA, rowB) => {
+      const valueA = rowA.original.active ? 1 : 0
+      const valueB = rowB.original.active ? 1 : 0
+      return valueA - valueB
     },
   },
   {
@@ -78,14 +111,20 @@ export const columns: ColumnDef<IColumns>[] = [
       <DataTableColumnHeader column={column} title="Created At" />
     ),
     cell: ({ row }) => {
-      const formattedDate = format(new Date(row.original.createdAt), "dd-MM-yyyy")
-      const formattedTime = format(new Date(row.original.createdAt), "HH:mm:ss")
+      const createdAt = new Date(row.original.createdAt)
+      const formattedDate = format(createdAt, "dd-MM-yyyy")
+      const formattedTime = format(createdAt, "HH:mm:ss")
+      const timeAgo = formatDistanceToNow(createdAt, { addSuffix: true })
 
       return (
-        <div className="text-xs">
-          <div>{formattedDate}</div>
-          <div>{formattedTime}</div>
-        </div>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="text-xs">{timeAgo}</div>
+          </TooltipTrigger>
+          <TooltipContent>
+            <div>{`${formattedDate} ${formattedTime}`}</div>
+          </TooltipContent>
+        </Tooltip>
       )
     },
   },
@@ -96,14 +135,20 @@ export const columns: ColumnDef<IColumns>[] = [
       <DataTableColumnHeader column={column} title="Updated At" />
     ),
     cell: ({ row }) => {
-      const formattedDate = format(new Date(row.original.updatedAt), "dd-MM-yyyy")
-      const formattedTime = format(new Date(row.original.updatedAt), "HH:mm:ss")
+      const updatedAt = new Date(row.original.updatedAt)
+      const formattedDate = format(updatedAt, "dd-MM-yyyy")
+      const formattedTime = format(updatedAt, "HH:mm:ss")
+      const timeAgo = formatDistanceToNow(updatedAt, { addSuffix: true })
 
       return (
-        <div className="text-xs">
-          <div>{formattedDate}</div>
-          <div>{formattedTime}</div>
-        </div>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="text-xs">{timeAgo}</div>
+          </TooltipTrigger>
+          <TooltipContent>
+            <div>{`${formattedDate} ${formattedTime}`}</div>
+          </TooltipContent>
+        </Tooltip>
       )
     },
   },

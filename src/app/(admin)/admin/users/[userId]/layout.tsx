@@ -7,7 +7,7 @@ import { getUserById } from "@/data/user"
 import { SidebarNav } from "@/components/admin/sidebar-nav"
 import { PageHeader } from "@/components/page-header"
 
-import DeleteUserModal from "./_components/delete-user-modal"
+import DeleteUserButton from "./_components/delete-user-button"
 
 const getSideBarNavItems = (id: number): NavItem[] => {
   const baseHref = `/admin/users/${id}`
@@ -52,11 +52,11 @@ export default async function SettingsLayout({
   return (
     <>
       <PageHeader
-        title={`Edit user ${user?.email}`}
-        description={`ID: ${user?.id}`}
+        title={`Edit user ${user.email}`}
+        description={`ID: ${user.id}`}
         linkBack={"/admin/users"}
         copy={`${user.id}`}
-        actions={<DeleteUserModal user={user} />}
+        actions={<DeleteUserButton userId={user.id} userEmail={user.email} />}
       />
       <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
         <aside className="lg:w-1/5">
