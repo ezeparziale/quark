@@ -1,7 +1,5 @@
 import { useRouter } from "next/navigation"
 
-import { useEffect } from "react"
-
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
@@ -67,14 +65,13 @@ export default function DeletePermissionDialog({
     }
   }
 
-  useEffect(() => {
-    if (isOpen === false) {
-      form.reset()
-    }
-  }, [isOpen, form])
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(open)
+    if (!open) form.reset()
+  }
 
   return (
-    <ResponsiveDialog open={isOpen} onOpenChange={setIsOpen}>
+    <ResponsiveDialog open={isOpen} onOpenChange={handleOpenChange}>
       <ResponsiveDialogContent
         className="sm:max-w-[425px]"
         onCloseAutoFocus={(e) => e.preventDefault()}
@@ -124,7 +121,7 @@ export default function DeletePermissionDialog({
                 {form.formState.isSubmitting && (
                   <Loader2 className="mr-2 size-4 animate-spin" />
                 )}
-                Delete permission
+                Delete
               </Button>
             </ResponsiveDialogFooter>
           </form>
