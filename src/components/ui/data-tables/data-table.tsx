@@ -9,17 +9,17 @@ import {
   VisibilityState,
   flexRender,
   getCoreRowModel,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { SearchX } from "lucide-react"
+import { type LucideIcon, SearchX } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { DataTableHeaderFilters } from "@/components/ui/data-tables/data-table-filters"
 import { DataTablePagination } from "@/components/ui/data-tables/data-table-pagination"
-import { DataTableViewOptions } from "@/components/ui/data-tables/data-table-view-options"
 import EmptyState from "@/components/ui/data-tables/empty-state"
 import {
   Table,
@@ -30,7 +30,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-import { Input } from "../input"
+import { DataTableToolbar } from "./data-table-toolbar"
 
 interface DataTablePropsBase<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -39,6 +39,16 @@ interface DataTablePropsBase<TData, TValue> {
   emptyState?: React.ReactNode
   hiddenColumns?: { [x: string]: boolean }
   hideTableViewOption?: boolean
+  filters?: {
+    column: string
+    title: string
+    options: {
+      label: string
+      value: string
+      icon?: LucideIcon
+    }[]
+    isBoolean?: boolean
+  }[]
 }
 
 type DataTableProps<TData, TValue> =
@@ -59,6 +69,7 @@ export function DataTable<TData, TValue>({
   emptyState,
   hiddenColumns,
   hideTableViewOption = false,
+  filters = [],
   globalFilters = true,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
@@ -78,6 +89,8 @@ export function DataTable<TData, TValue>({
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
     state: {
       sorting,
       columnFilters,
@@ -104,26 +117,17 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        {globalFilters ? (
-          <Input
-            placeholder={`Filter ${searchFieldLabel}...`}
-            type="text"
-            value={filtering}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setFiltering(e.target.value)
-            }
-            className="h-8 w-[150px] lg:w-[250px]"
-          />
-        ) : (
-          <DataTableHeaderFilters
-            table={table}
-            searchField={searchField!}
-            searchFieldLabel={searchFieldLabel}
-          />
-        )}
-        {!hideTableViewOption && <DataTableViewOptions table={table} />}
-      </div>
+      <div className="flex items-center justify-between"></div>
+      <DataTableToolbar
+        table={table}
+        filters={filters}
+        filtering={filtering}
+        setFiltering={setFiltering}
+        globalFilters={globalFilters}
+        searchFieldLabel={searchFieldLabel}
+        searchField={searchField}
+        hideTableViewOption={hideTableViewOption}
+      />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
