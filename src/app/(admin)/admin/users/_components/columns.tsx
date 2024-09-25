@@ -70,10 +70,8 @@ export const columns: ColumnDef<IColumns>[] = [
       )
     },
     enableGlobalFilter: true,
-    sortingFn: (rowA, rowB) => {
-      const valueA = rowA.original.active ? 1 : 0
-      const valueB = rowB.original.active ? 1 : 0
-      return valueA - valueB
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id))
     },
   },
   {
@@ -98,10 +96,8 @@ export const columns: ColumnDef<IColumns>[] = [
       )
     },
     enableGlobalFilter: true,
-    sortingFn: (rowA, rowB) => {
-      const valueA = rowA.original.active ? 1 : 0
-      const valueB = rowB.original.active ? 1 : 0
-      return valueA - valueB
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id))
     },
   },
   {

@@ -1,12 +1,10 @@
 import { redirect } from "next/navigation"
 
-import { Suspense } from "react"
-
 import { auth } from "@/auth"
 
+import prismadb from "@/lib/prismadb"
 import { protectPage } from "@/lib/rbac"
 
-import TableLoading from "@/components/admin/table-loading"
 import { PageHeader } from "@/components/page-header"
 
 import CreateUserButton from "./_components/create-user-button"
@@ -21,6 +19,8 @@ export default async function UsersAdminPage() {
 
   await protectPage({ permission: "admin:all" })
 
+  const data = await prismadb.user.findMany({ orderBy: { updatedAt: "desc" } })
+
   return (
     <>
       <PageHeader
@@ -28,9 +28,7 @@ export default async function UsersAdminPage() {
         description="Manage all user accounts."
         actions={<CreateUserButton />}
       />
-      <Suspense fallback={<TableLoading />}>
-        <UsersTable />
-      </Suspense>
+      <UsersTable data={data} />
     </>
   )
 }
