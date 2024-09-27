@@ -16,6 +16,7 @@ import CellActions from "./cell-actions"
 
 export type IColumns = Pick<
   User,
+  | "id"
   | "email"
   | "username"
   | "isActive"
