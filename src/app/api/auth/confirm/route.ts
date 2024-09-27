@@ -20,7 +20,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: "Email not found" }, { status: 404 })
     }
 
-    if (!userExist.active) {
+    if (!userExist.isActive) {
       return NextResponse.json({ message: "Something went wrong" }, { status: 404 })
     }
 

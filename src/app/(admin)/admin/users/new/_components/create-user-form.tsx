@@ -11,7 +11,7 @@ import * as z from "zod"
 
 import { addServerErrors } from "@/lib/utils"
 
-import { userServerActionSchema } from "@/schemas/users"
+import { userCreateServerActionSchema } from "@/schemas/users"
 
 import { addUser } from "@/actions/users/add-user"
 
@@ -28,7 +28,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
 
-type FormData = z.infer<typeof userServerActionSchema>
+type FormData = z.infer<typeof userCreateServerActionSchema>
 
 export default function CreateUserForm() {
   const router = useRouter()
@@ -37,10 +37,11 @@ export default function CreateUserForm() {
     defaultValues: {
       email: "",
       username: "",
-      active: false,
-      confirmedEmail: false,
+      isActive: false,
+      emailVerified: false,
+      isAdmin: false,
     },
-    resolver: zodResolver(userServerActionSchema),
+    resolver: zodResolver(userCreateServerActionSchema),
   })
 
   const onSubmitCreate = async (data: FormData) => {
@@ -87,7 +88,7 @@ export default function CreateUserForm() {
           />
           <FormField
             control={form.control}
-            name="active"
+            name="isActive"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Active</FormLabel>
@@ -123,7 +124,7 @@ export default function CreateUserForm() {
         />
         <FormField
           control={form.control}
-          name="confirmedEmail"
+          name="emailVerified"
           render={({ field }) => (
             <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
@@ -131,6 +132,22 @@ export default function CreateUserForm() {
                 <FormDescription>
                   Switch on to verify that the email address is confirmed.
                 </FormDescription>
+              </div>
+              <FormControl>
+                <Switch checked={field.value} onCheckedChange={field.onChange} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="isAdmin"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+              <div className="space-y-0.5">
+                <FormLabel>Is admin?</FormLabel>
+                <FormDescription>Convert the user in admin.</FormDescription>
               </div>
               <FormControl>
                 <Switch checked={field.value} onCheckedChange={field.onChange} />

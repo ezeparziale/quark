@@ -5,19 +5,22 @@ declare module "next-auth" {
   interface Session {
     user: {
       userId: number
-      active: boolean
+      isActive: boolean
+      role: "admin" | "user"
     } & DefaultSession["user"]
   }
 
   interface User extends Omit<DefaultUser, "id"> {
     userId: number
-    active: boolean
+    isActive: boolean
+    role: "admin" | "user"
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT extends DefaultJWT {
     userId: number
-    active: boolean
+    isActive: boolean
+    role: "admin" | "user"
   }
 }

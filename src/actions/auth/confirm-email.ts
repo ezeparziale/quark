@@ -23,7 +23,7 @@ export async function confirmEmail({ token }: IPros) {
           email: userEmail,
         },
         data: {
-          confirmedEmail: true,
+          emailVerified: true,
         },
       })
 

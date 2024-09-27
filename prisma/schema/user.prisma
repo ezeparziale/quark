@@ -3,8 +3,10 @@ model User {
   username            String               @unique @db.VarChar(255)
   email               String               @unique @db.VarChar(255)
   password            String?              @db.VarChar(255)
-  active              Boolean              @default(false)
-  confirmedEmail      Boolean              @default(false) @map("confirmed_email")
+  isActive            Boolean              @default(false) @map("is_active")
+  isAdmin             Boolean              @default(false) @map("is_admin")
+  emailVerified       Boolean              @default(false) @map("email_verified")
+  image               String?
   createdAt           DateTime             @default(now()) @map("created_at")
   updatedAt           DateTime             @default(now()) @updatedAt @map("updated_at")
   usernameUpdatedAt   DateTime?            @map("username_updated_at")

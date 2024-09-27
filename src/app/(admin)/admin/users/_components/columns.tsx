@@ -7,40 +7,67 @@ import { ColumnDef } from "@tanstack/react-table"
 import { format, formatDistanceToNow } from "date-fns"
 import { CheckCircle, Clock, Verified, XCircle } from "lucide-react"
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { DataTableColumnHeader } from "@/components/ui/data-tables/data-table-column-header"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 import CellActions from "./cell-actions"
 
-export interface IColumns
-  extends Pick<
-    User,
-    | "id"
-    | "email"
-    | "username"
-    | "active"
-    | "confirmedEmail"
-    | "createdAt"
-    | "updatedAt"
-  > {}
+export type IColumns = Pick<
+  User,
+  | "email"
+  | "username"
+  | "isActive"
+  | "isAdmin"
+  | "image"
+  | "emailVerified"
+  | "createdAt"
+  | "updatedAt"
+>
+
+const formatDate = (date: Date) => ({
+  formattedDate: format(date, "dd-MM-yyyy"),
+  formattedTime: format(date, "HH:mm:ss"),
+  timeAgo: formatDistanceToNow(date, { addSuffix: true }),
+})
+
+const DateCell = ({ date }: { date: Date }) => {
+  const { formattedDate, formattedTime, timeAgo } = formatDate(date)
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <div className="text-xs">{timeAgo}</div>
+      </TooltipTrigger>
+      <TooltipContent>
+        <div>{`${formattedDate} ${formattedTime}`}</div>
+      </TooltipContent>
+    </Tooltip>
+  )
+}
 
 export const columns: ColumnDef<IColumns>[] = [
   {
-    id: "ID",
-    accessorKey: "id",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="#" />,
-    enableGlobalFilter: true,
+    id: "avatar",
+    accessorKey: "image",
+    header: "Avatar",
+    cell: ({ row }) => (
+      <Avatar className="size-8">
+        <AvatarImage
+          src={row.original.image ?? undefined}
+          alt={`Avatar of ${row.original.username}`}
+        />
+        <AvatarFallback>{row.original.username.charAt(0).toUpperCase()}</AvatarFallback>
+      </Avatar>
+    ),
+    enableSorting: false,
   },
   {
     accessorKey: "email",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Email" />,
-    cell: ({ row }) => {
-      const linkEmail = (
-        <Link href={`/admin/users/${row.original.id}`}>{row.original.email}</Link>
-      )
-      return linkEmail
-    },
+    cell: ({ row }) => (
+      <Link href={`/admin/users/${row.original.id}`}>{row.original.email}</Link>
+    ),
     enableGlobalFilter: true,
   },
   {
@@ -49,56 +76,60 @@ export const columns: ColumnDef<IColumns>[] = [
     enableGlobalFilter: true,
   },
   {
-    id: "Verified",
-    accessorKey: "confirmedEmail",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Verified" />,
-    cell: ({ row }) => {
-      return (
-        <Badge variant={row.original.confirmedEmail ? "green-subtle" : "purple-subtle"}>
-          {row.original.confirmedEmail ? (
-            <>
-              <Verified size={16} className="mr-1" />
-              Verified
-            </>
-          ) : (
-            <>
-              <Clock size={16} className="mr-1" />
-              Pending
-            </>
-          )}
-        </Badge>
-      )
-    },
+    id: "Role",
+    accessorKey: "isAdmin",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Role" />,
+    cell: ({ row }) => (
+      <Badge variant={row.original.isAdmin ? "blue-subtle" : "amber-subtle"}>
+        {row.original.isAdmin ? "Admin" : "User"}
+      </Badge>
+    ),
     enableGlobalFilter: true,
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
-    },
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
+  },
+  {
+    id: "Verified",
+    accessorKey: "emailVerified",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Verified" />,
+    cell: ({ row }) => (
+      <Badge variant={row.original.emailVerified ? "green-subtle" : "purple-subtle"}>
+        {row.original.emailVerified ? (
+          <>
+            <Verified size={16} className="mr-1" />
+            Verified
+          </>
+        ) : (
+          <>
+            <Clock size={16} className="mr-1" />
+            Pending
+          </>
+        )}
+      </Badge>
+    ),
+    enableGlobalFilter: true,
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
   },
   {
     id: "Active",
-    accessorKey: "active",
+    accessorKey: "isActive",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Active" />,
-    cell: ({ row }) => {
-      return (
-        <Badge variant={row.original.active ? "green-subtle" : "red-subtle"}>
-          {row.original.active ? (
-            <>
-              <CheckCircle size={16} className="mr-1" />
-              Active
-            </>
-          ) : (
-            <>
-              <XCircle size={16} className="mr-1" />
-              Inactive
-            </>
-          )}
-        </Badge>
-      )
-    },
+    cell: ({ row }) => (
+      <Badge variant={row.original.isActive ? "green-subtle" : "red-subtle"}>
+        {row.original.isActive ? (
+          <>
+            <CheckCircle size={16} className="mr-1" />
+            Active
+          </>
+        ) : (
+          <>
+            <XCircle size={16} className="mr-1" />
+            Inactive
+          </>
+        )}
+      </Badge>
+    ),
     enableGlobalFilter: true,
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
-    },
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
   },
   {
     id: "Created At",
@@ -106,23 +137,7 @@ export const columns: ColumnDef<IColumns>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Created At" />
     ),
-    cell: ({ row }) => {
-      const createdAt = new Date(row.original.createdAt)
-      const formattedDate = format(createdAt, "dd-MM-yyyy")
-      const formattedTime = format(createdAt, "HH:mm:ss")
-      const timeAgo = formatDistanceToNow(createdAt, { addSuffix: true })
-
-      return (
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <div className="text-xs">{timeAgo}</div>
-          </TooltipTrigger>
-          <TooltipContent>
-            <div>{`${formattedDate} ${formattedTime}`}</div>
-          </TooltipContent>
-        </Tooltip>
-      )
-    },
+    cell: ({ row }) => <DateCell date={new Date(row.original.createdAt)} />,
   },
   {
     id: "Updated At",
@@ -130,28 +145,10 @@ export const columns: ColumnDef<IColumns>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Updated At" />
     ),
-    cell: ({ row }) => {
-      const updatedAt = new Date(row.original.updatedAt)
-      const formattedDate = format(updatedAt, "dd-MM-yyyy")
-      const formattedTime = format(updatedAt, "HH:mm:ss")
-      const timeAgo = formatDistanceToNow(updatedAt, { addSuffix: true })
-
-      return (
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <div className="text-xs">{timeAgo}</div>
-          </TooltipTrigger>
-          <TooltipContent>
-            <div>{`${formattedDate} ${formattedTime}`}</div>
-          </TooltipContent>
-        </Tooltip>
-      )
-    },
+    cell: ({ row }) => <DateCell date={new Date(row.original.updatedAt)} />,
   },
   {
     id: "actions",
-    cell: ({ row }) => {
-      return <CellActions row={row.original} />
-    },
+    cell: ({ row }) => <CellActions row={row.original} />,
   },
 ]

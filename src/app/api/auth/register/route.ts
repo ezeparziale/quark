@@ -34,8 +34,8 @@ export async function POST(req: Request) {
         username,
         email,
         password: hashedPassword,
-        active: true,
-        confirmedEmail: false,
+        isActive: true,
+        emailVerified: false,
       },
     })
 

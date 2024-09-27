@@ -14,8 +14,9 @@ const allowedOrderByFields = [
   "id",
   "email",
   "username",
-  "active",
-  "confirmedEmail",
+  "isActive",
+  "isAdmin",
+  "emailVerified",
   "createdAt",
   "updatedAt",
 ]
@@ -68,10 +69,10 @@ export const POST = withAdmin(async ({ req }) => {
   try {
     const bodyRaw = await parseRequestBody(req)
     const body = userCreateSchema.parse(bodyRaw)
-    const { email, username, active, confirmedEmail } = body
+    const { email, username, isActive, emailVerified, isAdmin } = body
 
     const data = await prismadb.user.create({
-      data: { email, username, active, confirmedEmail },
+      data: { email, username, isActive, emailVerified, isAdmin },
       select: outputFields,
     })
 

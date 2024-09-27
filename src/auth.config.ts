@@ -21,20 +21,20 @@ export const authConfig = {
       if (account?.type === "credentials") {
         const userExists = await getUserByEmail(user?.email as string)
 
-        if (userExists && userExists.confirmedEmail === false)
+        if (userExists && userExists.emailVerified === false)
           throw Error("ConfirmEmail")
 
-        if (userExists && userExists.active === false) return false
+        if (userExists && userExists.isActive === false) return false
       }
 
       if (account?.provider === "google" || account?.provider === "github") {
         const userExists = await getUserByEmail(profile?.email as string)
 
-        if (userExists && userExists.confirmedEmail === false) {
+        if (userExists && userExists.emailVerified === false) {
           throw Error("ConfirmEmail")
         }
 
-        if (userExists && userExists.active === false) return false
+        if (userExists && userExists.isActive === false) return false
 
         if (!userExists) {
           let username: string = (profile?.name as string).replace(" ", ".")
@@ -53,8 +53,16 @@ export const authConfig = {
             data: {
               username,
               email: profile?.email as string,
-              active: true,
-              confirmedEmail: true,
+              isActive: true,
+              emailVerified: true,
+              image: profile?.picture ?? profile?.avatar_url,
+            },
+          })
+        } else {
+          await prismadb.user.update({
+            where: { email: profile?.email as string },
+            data: {
+              image: profile?.picture ?? profile?.avatar_url,
             },
           })
         }
@@ -68,7 +76,8 @@ export const authConfig = {
 
           if (userExists) {
             token.userId = userExists.id
-            token.active = userExists.active
+            token.isActive = userExists.isActive
+            token.role = userExists.isAdmin ? "admin" : "user"
           }
         }
       }
@@ -77,7 +86,8 @@ export const authConfig = {
     async session({ session, token }) {
       if (token) {
         session.user.userId = token.userId
-        session.user.active = token.active
+        session.user.isActive = token.isActive
+        session.user.role = token.role
       }
       return session
     },

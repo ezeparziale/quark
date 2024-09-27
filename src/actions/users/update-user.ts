@@ -10,12 +10,12 @@ import prismadb from "@/lib/prismadb"
 import { has } from "@/lib/rbac"
 import { validateSchemaAction } from "@/lib/validate-schema-action"
 
-import { userServerActionSchema } from "@/schemas/users"
+import { userEditServerActionSchema } from "@/schemas/users"
 
-type FormData = z.infer<typeof userServerActionSchema>
+type FormData = z.infer<typeof userEditServerActionSchema>
 
 async function handler(formData: FormData): Promise<DataResult<FormData>> {
-  const { id, email, username, active, confirmedEmail } = formData
+  const { id, email, username, isActive, emailVerified, isAdmin } = formData
 
   try {
     const isAuthorized = await has({ role: "admin" })
@@ -50,7 +50,7 @@ async function handler(formData: FormData): Promise<DataResult<FormData>> {
 
     await prismadb.user.update({
       where: { id },
-      data: { username, email, active, confirmedEmail },
+      data: { username, email, isActive, emailVerified, isAdmin },
     })
 
     revalidatePath(`/admin/users/${id}`)
@@ -63,4 +63,4 @@ async function handler(formData: FormData): Promise<DataResult<FormData>> {
   }
 }
 
-export const updateUser = validateSchemaAction(userServerActionSchema, handler)
+export const updateUser = validateSchemaAction(userEditServerActionSchema, handler)

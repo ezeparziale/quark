@@ -79,11 +79,11 @@ export const PUT = withAdmin(async ({ req, params }) => {
 
     const body = schema.parse(bodyRaw)
 
-    const { email, username, active, confirmedEmail } = body
+    const { email, username, isActive, emailVerified, isAdmin } = body
 
     const updatedUser = await prismadb.user.update({
       where: { id },
-      data: { email, username, active, confirmedEmail },
+      data: { email, username, isActive, emailVerified, isAdmin },
       select: outputFields,
     })
 

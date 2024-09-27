@@ -28,7 +28,7 @@ export async function changeEmail({ token }: IPros) {
           },
           data: {
             email: tokenExists.newEmail,
-            confirmedEmail: false,
+            emailVerified: false,
           },
         })
 

@@ -18,6 +18,15 @@ export default function UsersTable({ data }: { data: Omit<User, "password">[] })
       hiddenColumns={{ ID: false, "Created At": false, "Updated At": false }}
       filters={[
         {
+          column: "Role",
+          title: "Role",
+          options: [
+            { label: "Admin", value: "true" },
+            { label: "User", value: "false" },
+          ],
+          isBoolean: true,
+        },
+        {
           column: "Verified",
           title: "Verified",
           options: [
