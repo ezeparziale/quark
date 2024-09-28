@@ -78,13 +78,13 @@ export default function EditUserForm({ user }: { user: User }) {
                 <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="e.g: name@example.com"
+                    placeholder="name@example.com"
                     {...field}
                     disabled={form.formState.isSubmitting}
                     autoComplete="email"
                   />
                 </FormControl>
-                <FormDescription>Email user</FormDescription>
+                <FormDescription>User&apos;s email address</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -116,7 +116,7 @@ export default function EditUserForm({ user }: { user: User }) {
               <FormLabel>Username</FormLabel>
               <FormControl>
                 <Input
-                  placeholder=""
+                  placeholder="johndoe"
                   {...field}
                   disabled={form.formState.isSubmitting}
                 />
@@ -131,13 +131,18 @@ export default function EditUserForm({ user }: { user: User }) {
           render={({ field }) => (
             <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>Email Confirmed</FormLabel>
+                <FormLabel>Email verified</FormLabel>
                 <FormDescription>
-                  Switch on to verify that the email address is confirmed.
+                  Has the user verified their email address?
                 </FormDescription>
               </div>
               <FormControl>
-                <Switch checked={field.value} onCheckedChange={field.onChange} />
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  disabled={form.formState.isSubmitting}
+                  aria-label="Email verified"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -149,11 +154,16 @@ export default function EditUserForm({ user }: { user: User }) {
           render={({ field }) => (
             <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel>Is admin?</FormLabel>
-                <FormDescription>Convert the user in admin.</FormDescription>
+                <FormLabel>Admin User</FormLabel>
+                <FormDescription>Grant admin privileges to this user</FormDescription>
               </div>
               <FormControl>
-                <Switch checked={field.value} onCheckedChange={field.onChange} />
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  disabled={form.formState.isSubmitting}
+                  aria-label="Admin user"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
