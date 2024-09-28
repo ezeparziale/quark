@@ -77,7 +77,7 @@
     "tailwindcss-animate": "1.0.7",
     "typescript-eslint": "7.13.0",
     "use-debounce": "10.0.0",
-    "vaul": "0.9.1",
+    "vaul": "1.0.0",
     "zod": "3.23.8",
     "zod-openapi": "2.19.0"
   },
