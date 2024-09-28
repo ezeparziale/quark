@@ -39,9 +39,7 @@ export default function DeleteUserDialog({
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
 }) {
-  // const { data: session } = useSession()
   const router = useRouter()
-  // const buttonDisable = userEmail === session?.user.email
 
   const formSchema = z.object({
     confirmString: z.literal(userEmail, {
@@ -76,7 +74,7 @@ export default function DeleteUserDialog({
     <ResponsiveDialog open={isOpen} onOpenChange={handleOpenChange}>
       <ResponsiveDialogContent className="sm:max-w-[425px]">
         <ResponsiveDialogHeader className="text-left">
-          <ResponsiveDialogTitle>Delete user</ResponsiveDialogTitle>
+          <ResponsiveDialogTitle>Delete user?</ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
             This action is permanent and could result in users losing access to your
             application.
