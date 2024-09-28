@@ -10,8 +10,8 @@ export default async function NewUserPage() {
   return (
     <>
       <PageHeader
-        title="Create user"
-        description="Add a new user."
+        title="Create new user"
+        description="Add a new user to the system."
         linkBack="/admin/users"
       />
       <CreateUserForm />
