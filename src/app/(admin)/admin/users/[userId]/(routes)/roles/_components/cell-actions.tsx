@@ -1,8 +1,8 @@
-import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 import React, { useState, useTransition } from "react"
 
-import { Loader2, MoreHorizontal } from "lucide-react"
+import { Copy, Eye, Loader2, MoreHorizontal, Trash } from "lucide-react"
 import { toast } from "sonner"
 
 import { removeRolToUser } from "@/actions/users/remove-role"
@@ -29,7 +29,6 @@ import {
 import { IColumns } from "./columns"
 
 export default function CellActions({ row }: { row: IColumns }) {
-  const router = useRouter()
   const [isPending, startTransition] = useTransition()
 
   const [open, setIsOpen] = useState(false)
@@ -63,20 +62,27 @@ export default function CellActions({ row }: { row: IColumns }) {
           <DropdownMenuItem
             onClick={() => navigator.clipboard.writeText(String(roleId))}
           >
+            <Copy className="mr-2 size-4" />
             Copy role ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => router.push(`/admin/roles/${roleId}`)}>
-            View role
+          <DropdownMenuItem asChild>
+            <Link href={`/admin/roles/${roleId}`} prefetch={true}>
+              <Eye className="mr-2 size-4" />
+              View role
+            </Link>
           </DropdownMenuItem>
           <DialogTrigger asChild>
-            <DropdownMenuItem>Remove role</DropdownMenuItem>
+            <DropdownMenuItem className="hover:!bg-destructive/80 hover:!text-destructive-foreground">
+              <Trash className="mr-2 size-4" />
+              Remove role
+            </DropdownMenuItem>
           </DialogTrigger>
         </DropdownMenuContent>
       </DropdownMenu>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Remove role</DialogTitle>
+          <DialogTitle>Remove role?</DialogTitle>
           <DialogDescription>
             Are you sure to remove this role: <span className="font-bold">{name}</span>
           </DialogDescription>
