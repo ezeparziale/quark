@@ -8,10 +8,7 @@ export default function UserAvatar() {
   return (
     // eslint-disable-next-line tailwindcss/enforces-shorthand
     <Avatar className="h-8 w-8">
-      <AvatarImage
-        src={session?.user?.image as string}
-        alt={session?.user?.image as string}
-      />
+      <AvatarImage src={session?.user?.image as string} alt={"User profile menu"} />
       <AvatarFallback>{session?.user?.email?.charAt(0).toUpperCase()}</AvatarFallback>
     </Avatar>
   )
