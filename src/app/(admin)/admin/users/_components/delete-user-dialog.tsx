@@ -119,7 +119,7 @@ export default function DeleteUserDialog({
                 {form.formState.isSubmitting && (
                   <Loader2 className="mr-2 size-4 animate-spin" />
                 )}
-                Delete
+                {form.formState.isSubmitting ? "Deleting..." : "Delete"}
               </Button>
             </ResponsiveDialogFooter>
           </form>

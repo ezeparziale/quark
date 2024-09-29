@@ -104,7 +104,7 @@ export default function CellActions({ row }: { row: IColumns }) {
             disabled={isPending}
           >
             {isPending && <Loader2 className="mr-2 size-4 animate-spin" />}
-            Remove
+            {isPending ? "Removing..." : "Remove"}
           </Button>
         </DialogFooter>
       </DialogContent>

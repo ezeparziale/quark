@@ -98,6 +98,7 @@ export default function CreateUserForm() {
                       checked={field.value}
                       onCheckedChange={field.onChange}
                       disabled={form.formState.isSubmitting}
+                      aria-label="User active status"
                     />
                   </div>
                 </FormControl>
@@ -139,7 +140,7 @@ export default function CreateUserForm() {
                   checked={field.value}
                   onCheckedChange={field.onChange}
                   disabled={form.formState.isSubmitting}
-                  aria-label="Email verified"
+                  aria-label="Email verified status"
                 />
               </FormControl>
               <FormMessage />
@@ -160,7 +161,7 @@ export default function CreateUserForm() {
                   checked={field.value}
                   onCheckedChange={field.onChange}
                   disabled={form.formState.isSubmitting}
-                  aria-label="Admin user"
+                  aria-label="Admin user status"
                 />
               </FormControl>
               <FormMessage />
@@ -177,7 +178,7 @@ export default function CreateUserForm() {
             {form.formState.isSubmitting && (
               <Loader2 className="mr-2 size-4 animate-spin" />
             )}
-            Create
+            {form.formState.isSubmitting ? "Creating..." : "Create"}
           </Button>
           <Button size="sm" className="w-full md:w-1/5" variant="outline" asChild>
             <Link href="/admin/users/">Cancel</Link>
