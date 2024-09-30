@@ -25,9 +25,13 @@ export function CopyButtonData({ textToCopy, className, ...props }: IProps) {
     <div className={cn("flex items-center justify-end", className)} {...props}>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button variant="secondary" className="mx-2 h-6 p-1.5" onClick={onCopy}>
+          <Button
+            variant="secondary"
+            className="mx-2 h-6 p-1.5"
+            onClick={onCopy}
+            aria-label={`Copy ${textToCopy}`}
+          >
             {isCopied ? <Check className="size-3" /> : <Copy className="size-3" />}
-            <span className="sr-only">Copy</span>
           </Button>
         </TooltipTrigger>
         <TooltipContent>Copy</TooltipContent>
