@@ -33,28 +33,28 @@ const menu: IMenu[] = [
     name: "My tools",
     href: "/tools",
     separator: false,
-    icon: <LayoutGrid className="mr-2 size-4" />,
+    icon: <LayoutGrid className="mr-2 size-4" aria-hidden="true" />,
   },
   {
     name: "Profile",
     href: "/profile",
     separator: false,
     shortcut: "⇧⌘P",
-    icon: <User className="mr-2 size-4" />,
+    icon: <User className="mr-2 size-4" aria-hidden="true" />,
   },
   {
     name: "Settings",
     href: "/settings",
     separator: false,
     shortcut: "⇧⌘S",
-    icon: <Settings className="mr-2 size-4" />,
+    icon: <Settings className="mr-2 size-4" aria-hidden="true" />,
   },
   {
     name: "Log out",
     href: "/auth/logout",
     separator: true,
     shortcut: "⇧⌘Q",
-    icon: <LogOut className="mr-2 size-4" />,
+    icon: <LogOut className="mr-2 size-4" aria-hidden="true" />,
   },
 ]
 
@@ -91,11 +91,14 @@ export default function UserNav({
                 </p>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator aria-hidden="true" />
             {menu.map((item, index) => (
               <React.Fragment key={index}>
                 {item.separator && (
-                  <DropdownMenuSeparator key={`menu_dropdown_separator_${index}`} />
+                  <DropdownMenuSeparator
+                    key={`menu_dropdown_separator_${index}`}
+                    aria-hidden="true"
+                  />
                 )}
                 <DropdownMenuItem
                   key={`menu_dropdown_${index}`}
