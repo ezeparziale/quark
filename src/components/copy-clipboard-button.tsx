@@ -1,6 +1,7 @@
 "use client"
 
 import { Check, Copy } from "lucide-react"
+import { toast } from "sonner"
 
 import { useCopyToClipboard } from "@/lib/hooks/use-copy-to-clipboard"
 import { cn } from "@/lib/utils"
@@ -11,14 +12,32 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip"
 
 interface IProps extends React.ComponentProps<"div"> {
   textToCopy: string
+  label?: string
+  successMessage?: string
 }
 
-export function CopyButtonData({ textToCopy, className, ...props }: IProps) {
+export function CopyButtonData({
+  textToCopy,
+  label = "Copy",
+  successMessage = "Copied to clipboard!",
+  className,
+  ...props
+}: IProps) {
   const { isCopied, copyToClipboard } = useCopyToClipboard({ timeout: 2000 })
 
   const onCopy = () => {
     if (isCopied) return
-    copyToClipboard(textToCopy)
+
+    try {
+      copyToClipboard(textToCopy)
+      toast.success(successMessage, {
+        duration: 2000,
+      })
+    } catch (error) {
+      toast.error("Failed to copy text. Please try again.", {
+        duration: 3000,
+      })
+    }
   }
 
   return (
@@ -34,7 +53,7 @@ export function CopyButtonData({ textToCopy, className, ...props }: IProps) {
             {isCopied ? <Check className="size-3" /> : <Copy className="size-3" />}
           </Button>
         </TooltipTrigger>
-        <TooltipContent>Copy</TooltipContent>
+        <TooltipContent>{label}</TooltipContent>
       </Tooltip>
     </div>
   )

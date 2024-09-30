@@ -11,6 +11,8 @@ interface PageHeaderProps {
   actions?: React.ReactNode | React.ReactNode[]
   linkBack?: string
   copy?: string
+  copyLabel?: string
+  copySuccessMessage?: string
 }
 
 export function PageHeader({
@@ -19,6 +21,8 @@ export function PageHeader({
   actions,
   linkBack,
   copy,
+  copyLabel,
+  copySuccessMessage,
 }: PageHeaderProps) {
   return (
     <header className={cn("mb-6", linkBack ? "mt-4" : "mt-14")}>
@@ -33,7 +37,13 @@ export function PageHeader({
             >
               {description}
             </p>
-            {copy && <CopyButtonData textToCopy={copy} />}
+            {copy && (
+              <CopyButtonData
+                textToCopy={copy}
+                label={copyLabel}
+                successMessage={copySuccessMessage}
+              />
+            )}
           </div>
         </div>
         {actions && (

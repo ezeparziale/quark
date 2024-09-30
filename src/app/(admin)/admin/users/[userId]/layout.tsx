@@ -56,6 +56,8 @@ export default async function SettingsLayout({
         description={`ID: ${user.id}`}
         linkBack={"/admin/users"}
         copy={`${user.id}`}
+        copySuccessMessage={"User ID copied!"}
+        copyLabel="Copy user ID"
         actions={<DeleteUserButton userId={user.id} userEmail={user.email} />}
       />
       <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
