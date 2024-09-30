@@ -3,6 +3,7 @@ import Link from "next/link"
 import React, { useState } from "react"
 
 import { Copy, MoreHorizontal, Pencil, Trash } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -33,7 +34,16 @@ export default function CellActions({ row }: { row: IColumns }) {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem
-            onClick={() => navigator.clipboard.writeText(String(row.id))}
+            onClick={() => {
+              navigator.clipboard
+                .writeText(String(row.id))
+                .then(() => {
+                  toast.success("User ID copied!")
+                })
+                .catch(() => {
+                  toast.error("Failed to copy user ID")
+                })
+            }}
           >
             <Copy className="mr-2 size-4" />
             Copy ID
