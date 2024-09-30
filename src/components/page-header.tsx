@@ -21,41 +21,47 @@ export function PageHeader({
   copy,
 }: PageHeaderProps) {
   return (
-    <>
+    <header className={cn("mb-6", linkBack ? "mt-4" : "mt-14")}>
       {linkBack && <BackLinkButton link={linkBack} />}
-      <div
-        className={cn(
-          "flex items-center justify-between space-x-4",
-          linkBack ? "mt-4" : "mt-14",
-        )}
-      >
-        <div className="space-y-0.5">
-          <h2 className="text-xl font-bold tracking-tight md:text-2xl">{title}</h2>
-          <div className="flex items-center justify-start">
-            <p className="text-sm text-muted-foreground md:text-base">{description}</p>
+      <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-x-4 sm:space-y-0">
+        <div className="space-y-1">
+          <h1 className="text-2xl font-bold tracking-tight md:text-3xl">{title}</h1>
+          <div className="flex items-center space-x-2">
+            <p
+              className="text-sm text-muted-foreground md:text-base"
+              aria-label={description}
+            >
+              {description}
+            </p>
             {copy && <CopyButtonData textToCopy={copy} />}
           </div>
         </div>
-        {actions ? (
-          <div className="flex flex-1 items-center justify-end gap-2">{actions}</div>
-        ) : null}
+        {actions && (
+          <div
+            className="flex flex-wrap items-center justify-start gap-2 sm:justify-end"
+            role="toolbar"
+            aria-label="Page actions"
+          >
+            {Array.isArray(actions) ? actions : [actions]}
+          </div>
+        )}
       </div>
-      <Separator className="my-6" />
-    </>
+      <Separator className="mt-6" decorative />
+    </header>
   )
 }
 
-function PageHeaderSkeleton() {
+export function PageHeaderSkeleton() {
   return (
-    <>
-      <div className={cn("flex items-center justify-between space-x-4", "mt-14")}>
-        <div className="space-y-0.5">
-          <Skeleton className="mb-3 h-[24px] w-64" />
-          <Skeleton className="h-[22px] w-96" />
+    <header className="mb-6 mt-14" aria-busy="true" aria-label="Loading page header">
+      <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-x-4 sm:space-y-0">
+        <div className="space-y-1">
+          <Skeleton className="mb-3 h-9 w-64" />
+          <Skeleton className="h-4 w-96" />
         </div>
       </div>
-      <Separator className="my-6" />
-    </>
+      <Separator className="my-6" decorative />
+    </header>
   )
 }
 
@@ -69,29 +75,42 @@ interface PageSectionProps {
 
 export function PageSection({ title, description, actions }: PageSectionProps) {
   return (
-    <>
-      <div className="mb-6 space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="text-lg font-medium">{title}</h3>
-            <p className="text-sm text-muted-foreground">{description}</p>
-          </div>
-          {actions ? (
-            <div className="flex flex-1 items-center justify-end gap-2">{actions}</div>
-          ) : null}
+    <section className="mb-6 space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-lg font-medium">{title}</h2>
+          <p className="text-sm text-muted-foreground">{description}</p>
         </div>
-        <Separator />
+        {actions && (
+          <div
+            className="flex flex-wrap items-center justify-start gap-2 sm:justify-end"
+            role="toolbar"
+            aria-label="Page section actions"
+          >
+            {Array.isArray(actions) ? actions : [actions]}
+          </div>
+        )}
       </div>
-    </>
+      <Separator decorative />
+    </section>
   )
 }
 
-function PageSectionSkeleton() {
+export function PageSectionSkeleton() {
   return (
-    <div className="space-y-0.5">
-      <Skeleton className="my-1 h-[24px] w-64" />
-      <Skeleton className="h-[20px] w-96" />
-    </div>
+    <section
+      className="mb-6 space-y-6"
+      aria-busy="true"
+      aria-label="Loading page section"
+    >
+      <div className="flex items-center justify-between">
+        <div>
+          <Skeleton className="h-6 w-64" />
+          <Skeleton className="mt-2 h-4 w-96" />
+        </div>
+      </div>
+      <Separator decorative />
+    </section>
   )
 }
 
