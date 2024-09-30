@@ -34,7 +34,7 @@ export function CopyButtonData({
         duration: 2000,
       })
     } catch (error) {
-      toast.error("Failed to copy text. Please try again.", {
+      toast.error("Failed to copy. Please try again.", {
         duration: 3000,
       })
     }
