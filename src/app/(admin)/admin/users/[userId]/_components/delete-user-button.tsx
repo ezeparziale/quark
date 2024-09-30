@@ -22,13 +22,16 @@ export default function DeleteUserButton({
     <>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button variant="destructive" onClick={() => setIsOpen(true)}>
+          <Button
+            variant="destructive"
+            onClick={() => setIsOpen(true)}
+            aria-label="Delete user"
+          >
             <Trash2 className="size-4" />
-            <span className="sr-only">delete user</span>
-            <span className="ml-2 hidden md:block">Delete user</span>
+            <span className="ml-2 hidden md:inline">Delete user</span>
           </Button>
         </TooltipTrigger>
-        <TooltipContent className="border-destructive md:hidden" align={"end"}>
+        <TooltipContent className="md:hidden" align="end">
           <p>Delete user</p>
         </TooltipContent>
       </Tooltip>

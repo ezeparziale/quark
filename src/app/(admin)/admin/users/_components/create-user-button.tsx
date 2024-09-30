@@ -8,16 +8,19 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 export default function CreateUserButton() {
   return (
     <Tooltip>
-      <TooltipTrigger>
+      <TooltipTrigger asChild>
         <Button asChild>
-          <Link href="/admin/users/new">
-            <Plus className="size-4" />
-            <span className="sr-only">create user</span>
-            <span className="ml-2 hidden md:block">Create user</span>
+          <Link
+            href="/admin/users/new"
+            className="flex items-center"
+            aria-label="Create user"
+          >
+            <Plus className="size-4" aria-hidden="true" />
+            <span className="ml-2 hidden md:inline">Create user</span>
           </Link>
         </Button>
       </TooltipTrigger>
-      <TooltipContent className="md:hidden" align={"end"}>
+      <TooltipContent className="md:hidden" align="end">
         <p>Create user</p>
       </TooltipContent>
     </Tooltip>
