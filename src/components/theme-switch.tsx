@@ -31,16 +31,35 @@ export default function ThemeSwitch({ isDropDown = true }: { isDropDown?: boolea
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon" className="h-9">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-9"
+            aria-label="Choose a theme"
+          >
             <RxSun className="size-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
             <RxMoon className="absolute size-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-            <span className="sr-only">Toggle theme</span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={() => setTheme("light")}>Light</DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("dark")}>Dark</DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => setTheme("light")}
+            aria-label="Set light theme"
+          >
+            Light
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => setTheme("dark")}
+            aria-label="Set dark theme"
+          >
+            Dark
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => setTheme("system")}
+            aria-label="Set system theme"
+          >
+            System
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     )
@@ -49,24 +68,22 @@ export default function ThemeSwitch({ isDropDown = true }: { isDropDown?: boolea
   return (
     <>
       <div className="flex flex-row items-center space-x-1 rounded-full border p-1">
-        <button
-          className={cn("p-1", theme === "light" && "rounded-full bg-muted")}
-          onClick={() => setTheme("light")}
-        >
-          <RxSun className="size-4 transition-all" />
-        </button>
-        <button
-          className={cn("p-1", theme === "system" && "rounded-full bg-muted")}
-          onClick={() => setTheme("system")}
-        >
-          <RxDesktop className="size-4 transition-all" />
-        </button>
-        <button
-          className={cn("p-1", theme === "dark" && "rounded-full bg-muted")}
-          onClick={() => setTheme("dark")}
-        >
-          <RxMoon className="size-4 transition-all" />
-        </button>
+        {[
+          { name: "light", icon: RxSun, label: "Light theme" },
+          { name: "system", icon: RxDesktop, label: "System theme" },
+          { name: "dark", icon: RxMoon, label: "Dark theme" },
+        ].map(({ name, icon: Icon, label }) => (
+          <button
+            key={name}
+            className={cn("rounded-full p-1", theme === name && "bg-muted")}
+            onClick={() => setTheme(name)}
+            role="radio"
+            aria-checked={theme === name}
+            aria-label={label}
+          >
+            <Icon className="size-4 transition-all" aria-hidden="true" />
+          </button>
+        ))}
       </div>
     </>
   )
