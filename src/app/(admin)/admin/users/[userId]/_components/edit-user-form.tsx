@@ -44,6 +44,7 @@ export default function EditUserForm({ user }: { user: User }) {
       isAdmin: user.isAdmin,
     },
     resolver: zodResolver(userEditServerActionSchema),
+    mode: "onChange",
   })
 
   const onSubmitUpdate = async (data: FormData) => {

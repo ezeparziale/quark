@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
+import { Textarea } from "@/components/ui/textarea"
 
 type FormData = z.infer<typeof roleServerActionUpdateSchema>
 
@@ -42,6 +43,7 @@ export default function EditRoleForm({ role }: { role: Role }) {
       isActive: role.isActive,
     },
     resolver: zodResolver(roleServerActionUpdateSchema),
+    mode: "onChange",
   })
 
   const onSubmitUpdate = async (data: FormData) => {
@@ -112,7 +114,7 @@ export default function EditRoleForm({ role }: { role: Role }) {
               <FormLabel>Key</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="admin"
+                  placeholder="e.g. create_posts"
                   {...field}
                   disabled={form.formState.isSubmitting}
                 />
@@ -128,8 +130,8 @@ export default function EditRoleForm({ role }: { role: Role }) {
             <FormItem>
               <FormLabel>Description</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="e.g. A user who is allowed to access all posts in viewer mode"
+                <Textarea
+                  placeholder="e.g. A user who is allowed to create and edit posts"
                   {...field}
                   disabled={form.formState.isSubmitting}
                 />

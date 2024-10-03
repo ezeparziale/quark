@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
+import { Textarea } from "@/components/ui/textarea"
 
 type FormData = z.infer<typeof permissionCreateSchema>
 
@@ -40,6 +41,7 @@ export default function CreatePermissionForm() {
       isActive: false,
     },
     resolver: zodResolver(permissionCreateSchema),
+    mode: "onChange",
   })
 
   const onSubmitCreate = async (data: FormData) => {
@@ -125,7 +127,7 @@ export default function CreatePermissionForm() {
             <FormItem>
               <FormLabel>Description</FormLabel>
               <FormControl>
-                <Input
+                <Textarea
                   placeholder="e.g. A user who is allowed to create a post"
                   {...field}
                   disabled={form.formState.isSubmitting}

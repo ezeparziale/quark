@@ -42,6 +42,7 @@ export default function CreateUserForm() {
       isAdmin: false,
     },
     resolver: zodResolver(userCreateServerActionSchema),
+    mode: "onChange",
   })
 
   const onSubmitCreate = async (data: FormData) => {

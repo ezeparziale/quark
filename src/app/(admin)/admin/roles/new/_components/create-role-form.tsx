@@ -28,6 +28,7 @@ import {
 import { Input } from "@/components/ui/input"
 import MultipleSelector, { type Option } from "@/components/ui/multiple-selector"
 import { Switch } from "@/components/ui/switch"
+import { Textarea } from "@/components/ui/textarea"
 
 type FormData = z.infer<typeof roleServerActionCreateSchema>
 
@@ -48,6 +49,7 @@ export default function CreateRoleForm() {
       permissions: undefined,
     },
     resolver: zodResolver(roleServerActionCreateSchema),
+    mode: "onChange",
   })
 
   const onSubmitCreate = async (data: FormData) => {
@@ -117,7 +119,7 @@ export default function CreateRoleForm() {
               <FormLabel>Key</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="admin"
+                  placeholder="e.g. create_posts"
                   {...field}
                   disabled={form.formState.isSubmitting}
                 />
@@ -133,8 +135,8 @@ export default function CreateRoleForm() {
             <FormItem>
               <FormLabel>Description</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="e.g. A user who is allowed to access all posts in viewer mode"
+                <Textarea
+                  placeholder="e.g. A user who is allowed to create and edit posts"
                   {...field}
                   disabled={form.formState.isSubmitting}
                 />
@@ -160,12 +162,12 @@ export default function CreateRoleForm() {
                   placeholder="Search permissions..."
                   loadingIndicator={
                     <p className="py-2 text-center text-lg leading-10 text-muted-foreground">
-                      Loading...
+                      Loading permissions...
                     </p>
                   }
                   emptyIndicator={
                     <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
-                      No results found.
+                      No matching permissions found.
                     </p>
                   }
                 />
