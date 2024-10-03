@@ -68,6 +68,8 @@ export default async function SettingsLayout({
         description={`ID: ${role.id}`}
         linkBack="/admin/roles"
         copy={String(`${role.id}`)}
+        copySuccessMessage={"Role ID copied!"}
+        copyLabel="Copy role ID"
         actions={<DeleteRoleButton roleId={role.id} roleKey={role.key} />}
       />
       <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">

@@ -35,6 +35,8 @@ export default async function EditPermissionPage({
         description={`ID: ${permission.id}`}
         linkBack={"/admin/permissions"}
         copy={String(`${permission.id}`)}
+        copySuccessMessage={"Permission ID copied!"}
+        copyLabel="Copy permission ID"
         actions={
           <DeletePermissionButton
             permissionId={permission.id}
