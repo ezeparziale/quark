@@ -115,7 +115,7 @@ export default function EditTokenDialog({
                 {form.formState.isSubmitting && (
                   <Loader2 className="mr-2 size-4 animate-spin" />
                 )}
-                Edit token
+                {form.formState.isSubmitting ? "Saving..." : "Save"}
               </Button>
             </ResponsiveDialogFooter>
           </form>

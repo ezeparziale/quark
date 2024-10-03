@@ -270,7 +270,7 @@ function CreateTokenForm({
                   {form.formState.isSubmitting && (
                     <Loader2 className="mr-2 size-4 animate-spin" />
                   )}
-                  Create token
+                  {form.formState.isSubmitting ? "Creating..." : "Create"}
                 </Button>
               </ResponsiveDialogFooter>
             </form>
