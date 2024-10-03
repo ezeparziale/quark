@@ -77,7 +77,7 @@ export default function DeletePermissionDialog({
         onCloseAutoFocus={(e) => e.preventDefault()}
       >
         <ResponsiveDialogHeader className="text-left">
-          <ResponsiveDialogTitle>Delete permission</ResponsiveDialogTitle>
+          <ResponsiveDialogTitle>Delete permission?</ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
             This action is permanent and could result in users losing access to your
             application.

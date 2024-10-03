@@ -77,7 +77,7 @@ export default function DeleteToolDialog({
         onCloseAutoFocus={(e) => e.preventDefault()}
       >
         <ResponsiveDialogHeader className="text-left">
-          <ResponsiveDialogTitle>Delete tool</ResponsiveDialogTitle>
+          <ResponsiveDialogTitle>Delete tool?</ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
             This action is permanent and could result in users losing access to your
             application.

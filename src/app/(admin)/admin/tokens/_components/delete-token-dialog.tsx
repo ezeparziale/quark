@@ -74,7 +74,7 @@ export default function DeleteTokenDialog({
         onCloseAutoFocus={(e) => e.preventDefault()}
       >
         <ResponsiveDialogHeader className="text-left">
-          <ResponsiveDialogTitle>Confirm token deletion</ResponsiveDialogTitle>
+          <ResponsiveDialogTitle>Delete token?</ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
             This action is permanent and may result in users losing access to the API.
             <br />

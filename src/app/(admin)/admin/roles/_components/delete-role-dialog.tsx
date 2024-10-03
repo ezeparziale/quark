@@ -77,7 +77,7 @@ export default function DeleteRoleDialog({
         onCloseAutoFocus={(e) => e.preventDefault()}
       >
         <ResponsiveDialogHeader className="text-left">
-          <ResponsiveDialogTitle>Delete role</ResponsiveDialogTitle>
+          <ResponsiveDialogTitle>Delete role?</ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
             This action is permanent and could result in users losing access to your
             application.
