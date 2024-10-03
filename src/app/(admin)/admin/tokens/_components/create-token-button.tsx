@@ -305,7 +305,11 @@ function TokenDisplay({
           </Label>
           <Input id="token" defaultValue={token} readOnly />
         </div>
-        <CopyButtonData textToCopy={token} />
+        <CopyButtonData
+          textToCopy={token}
+          successMessage="Token copied to clipboard!"
+          label="Copy token"
+        />
       </div>
       <ResponsiveDialogFooter>
         <ResponsiveDialogClose asChild>
