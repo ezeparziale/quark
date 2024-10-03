@@ -148,7 +148,7 @@ export default function EditRoleForm({ role }: { role: Role }) {
             {form.formState.isSubmitting && (
               <Loader2 className="mr-2 size-4 animate-spin" />
             )}
-            Save
+            {form.formState.isSubmitting ? "Saving..." : "Save"}
           </Button>
           <Button size="sm" className="w-full md:w-1/5" variant="outline" asChild>
             <Link href="/admin/roles/">Cancel</Link>
