@@ -29,8 +29,9 @@ export const permissionSchema = z.object({
   key: z
     .string({ required_error: "Key is required." })
     .trim()
-    .refine((data) => /^[a-zA-Z0-9_]+:[a-zA-Z0-9_]+$/.test(data), {
-      message: "The permission must follow the format 'feature:action'.",
+    .refine((data) => /^[a-z0-9_]+:[a-z0-9_]+$/.test(data), {
+      message:
+        "Key must follow the pattern 'feature:action', where both segments consist of one or more lowercase letters, digits, or underscores.",
     })
     .refine((data) => data.length <= 255, {
       message: "Key must contain at most 255 characters.",

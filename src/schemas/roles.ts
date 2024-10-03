@@ -31,6 +31,7 @@ export const roleSchema = z.object({
     .string({ required_error: "Key is required." })
     .min(1, "Key must contain at least 1 character")
     .max(255, "Key must contain at most 255 characters")
+    .regex(/^[a-z0-9]+$/, "Key must contain only lowercase letters and numbers.")
     .describe("The key that uniquely identifies the role.")
     .openapi({ example: "blog-admin" }),
   isActive: z
