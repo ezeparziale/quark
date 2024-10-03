@@ -30,7 +30,7 @@ export function PageHeader({
       <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-x-4 sm:space-y-0">
         <div className="space-y-1">
           <h1 className="text-2xl font-bold tracking-tight md:text-3xl">{title}</h1>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center gap-2">
             <p
               className="text-sm text-muted-foreground md:text-base"
               aria-label={description}

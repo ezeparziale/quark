@@ -46,7 +46,7 @@ export function CopyButtonData({
         <TooltipTrigger asChild>
           <Button
             variant="secondary"
-            className="mx-2 h-6 p-1.5"
+            className="h-6 p-1.5"
             onClick={onCopy}
             aria-label={`Copy ${textToCopy}`}
           >
