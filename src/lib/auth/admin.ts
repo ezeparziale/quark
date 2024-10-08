@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 
+import { auth } from "@/auth"
 import { type User } from "@prisma/client"
 import "server-only"
 
@@ -98,8 +99,8 @@ export const withAdmin =
           return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
         }
 
-        const user = await getCurrentUser()
-        const currentUser = { id: user?.id!, email: user?.email! }
+        const session = await auth()
+        const currentUser = { id: session?.user.userId!, email: session?.user.email! }
 
         return handler({ req, params, searchParams, currentUser })
       }

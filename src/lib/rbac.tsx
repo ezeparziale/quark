@@ -2,9 +2,9 @@
 
 import { redirect } from "next/navigation"
 
-import prismadb from "@/lib/prismadb"
+import { auth } from "@/auth"
 
-import { getCurrentUser } from "@/actions/users/get-current-user"
+import prismadb from "@/lib/prismadb"
 
 type RolesCheck = { role: string; permission?: never }
 type PermissionsCheck = { permission: string; role?: never }
@@ -56,18 +56,18 @@ async function getUserPermissions(userId: number) {
 }
 
 async function hasRequiredPermission(permission: string): Promise<boolean> {
-  const user = await getCurrentUser()
-  if (user) {
-    const userPermissions = await getUserPermissions(user.id)
+  const session = await auth()
+  if (session) {
+    const userPermissions = await getUserPermissions(session?.user.userId)
     return userPermissions.includes(permission)
   }
   return false
 }
 
 async function hasRequiredRole(role: string): Promise<boolean> {
-  const user = await getCurrentUser()
-  if (user) {
-    const userRoles = await getUserRoles(user.id)
+  const session = await auth()
+  if (session) {
+    const userRoles = await getUserRoles(session?.user.userId)
 
     return userRoles.includes(role)
   }
