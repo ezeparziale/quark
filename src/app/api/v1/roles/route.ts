@@ -49,19 +49,33 @@ export const GET = withAdmin(async ({ searchParams }) => {
       orderBy.push({ id: "asc" })
     }
 
-    const roles = await prismadb.role.findMany({
-      where: filter,
-      orderBy,
-      skip: offset,
-      take: limit,
-      select: {
-        ...outputFields,
-        tools: { select: { tool: { select: { id: true, name: true } } } },
-        permissions: {
-          select: { permission: { select: { id: true, name: true, key: true } } },
+    const [roles, totalRows, totalRowsFiltered] = await prismadb.$transaction([
+      prismadb.role.findMany({
+        where: filter,
+        orderBy,
+        skip: offset,
+        take: limit,
+        select: {
+          ...outputFields,
+          tools: { select: { tool: { select: { id: true, name: true } } } },
+          permissions: {
+            select: { permission: { select: { id: true, name: true, key: true } } },
+          },
         },
-      },
-    })
+      }),
+      prismadb.role.count(),
+      prismadb.role.count({
+        where: filter,
+      }),
+    ])
+
+    const pageCount: number = Math.ceil(totalRowsFiltered / limit)
+
+    const headers = {
+      "total-count": totalRows.toString(),
+      "total-count-filtered": String(totalRowsFiltered),
+      "pagination-pages": String(pageCount),
+    }
 
     const data = roles.map((role) => {
       return {
@@ -75,7 +89,7 @@ export const GET = withAdmin(async ({ searchParams }) => {
       }
     })
 
-    return NextResponse.json(data, { status: 200 })
+    return NextResponse.json(data, { status: 200, headers })
   } catch (error) {
     console.error("Error:", error)
     return NextResponse.json({ message: "Internal Server Error" }, { status: 500 })

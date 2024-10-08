@@ -50,15 +50,29 @@ export const GET = withAdmin(async ({ searchParams }) => {
       orderBy.push({ id: "asc" })
     }
 
-    const data = await prismadb.permission.findMany({
-      where: filter,
-      orderBy,
-      skip: offset,
-      take: limit,
-      select: outputFields,
-    })
+    const [data, totalRows, totalRowsFiltered] = await prismadb.$transaction([
+      prismadb.permission.findMany({
+        where: filter,
+        orderBy,
+        skip: offset,
+        take: limit,
+        select: outputFields,
+      }),
+      prismadb.permission.count(),
+      prismadb.permission.count({
+        where: filter,
+      }),
+    ])
 
-    return NextResponse.json(data, { status: 200 })
+    const pageCount: number = Math.ceil(totalRowsFiltered / limit)
+
+    const headers = {
+      "total-count": totalRows.toString(),
+      "total-count-filtered": String(totalRowsFiltered),
+      "pagination-pages": String(pageCount),
+    }
+
+    return NextResponse.json(data, { status: 200, headers })
   } catch (error) {
     console.error("Error:", error)
     return NextResponse.json({ message: "Internal Server Error" }, { status: 500 })
