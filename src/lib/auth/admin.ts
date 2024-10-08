@@ -6,8 +6,6 @@ import "server-only"
 
 import { has, userHasRequiredRole } from "@/lib/rbac"
 
-import { getCurrentUser } from "@/actions/users/get-current-user"
-
 import prismadb from "../prismadb"
 import { getSearchParams } from "../utils"
 import { hashToken } from "./hash-token"
