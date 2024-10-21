@@ -1,8 +1,7 @@
 import * as z from "zod"
 import { ZodOpenApiOperationObject } from "zod-openapi"
 
-import { listQuerySchema } from "@/schemas/api"
-import { userOutputSchema } from "@/schemas/users"
+import { userListQuerySchema, userOutputSchema } from "@/schemas/users"
 
 import { internalServerErrorSchema, unauthorizedErrorSchema } from "../responses"
 
@@ -12,7 +11,7 @@ export const listUsers: ZodOpenApiOperationObject = {
   description:
     "Retrieve a list of users with optional pagination, search, and sorting capabilities.",
   requestParams: {
-    query: listQuerySchema,
+    query: userListQuerySchema,
   },
   responses: {
     "200": {

@@ -1,6 +1,8 @@
 import * as z from "zod"
 import "zod-openapi/extend"
 
+import { listQuerySchema } from "./api"
+
 const userId = z
   .number()
   .describe("The unique identifier of the user.")
@@ -36,6 +38,10 @@ export const userSchema = z.object({
     .boolean()
     .describe("Indicates if the user's email address has been verified.")
     .openapi({ example: true }),
+  image: z
+    .string()
+    .describe("The URL of the user's avatar image.")
+    .openapi({ example: "https://my-domain/user-avatar.png" }),
   createdAt: z
     .date()
     .describe("The date and time when the user was created.")
@@ -48,11 +54,13 @@ export const userSchema = z.object({
 
 export const userCreateServerActionSchema = userSchema.omit({
   id: true,
+  image: true,
   createdAt: true,
   updatedAt: true,
 })
 
 export const userEditServerActionSchema = userSchema.omit({
+  image: true,
   createdAt: true,
   updatedAt: true,
 })
@@ -62,6 +70,7 @@ export const userOutputSchema = userSchema
 export const userCreateSchema = userSchema
   .omit({
     id: true,
+    image: true,
     createdAt: true,
     updatedAt: true,
   })
@@ -76,3 +85,37 @@ export const userUpdateSchema = z.object({
 })
 
 export const userUpdatePartialSchema = userUpdateSchema.partial()
+
+export const userListQuerySchema = listQuerySchema.extend({
+  isActive: z
+    .preprocess((val) => {
+      if (typeof val === "string") {
+        if (val.toLowerCase() === "true") return true
+        if (val.toLowerCase() === "false") return false
+      }
+      return val
+    }, z.boolean())
+    .optional()
+    .describe("Filter users based on their active status.")
+    .openapi({
+      param: {
+        examples: {
+          all: {
+            summary: "All",
+            description: "Show all users, regardless of their active status.",
+            value: null,
+          },
+          active: {
+            summary: "Active",
+            description: "Show only users who are currently active.",
+            value: true,
+          },
+          inactive: {
+            summary: "Inactive",
+            description: "Show only users who are currently inactive.",
+            value: false,
+          },
+        },
+      },
+    }),
+})

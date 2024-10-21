@@ -8,7 +8,11 @@ import { withAdmin } from "@/lib/auth"
 import prismadb from "@/lib/prismadb"
 import { getZodSchemaFields } from "@/lib/zod/utils"
 
-import { userCreateSchema, userOutputSchema } from "@/schemas/users"
+import {
+  userCreateSchema,
+  userListQuerySchema,
+  userOutputSchema,
+} from "@/schemas/users"
 
 const allowedOrderByFields = [
   "id",
@@ -26,6 +30,7 @@ const outputFields = getZodSchemaFields(userOutputSchema)
 export const GET = withAdmin(async ({ searchParams }) => {
   try {
     const { offset, limit, search, sort } = getPagination(searchParams)
+    const { isActive } = userListQuerySchema.parse(searchParams)
 
     const filter: Prisma.UserWhereInput = {}
     if (search) {
@@ -33,6 +38,10 @@ export const GET = withAdmin(async ({ searchParams }) => {
         { email: { contains: search, mode: "insensitive" } },
         { username: { contains: search, mode: "insensitive" } },
       ]
+    }
+
+    if (typeof isActive === "boolean") {
+      filter.AND = [{ isActive }]
     }
 
     const orderBy: Prisma.UserOrderByWithRelationInput[] = []
@@ -75,6 +84,10 @@ export const GET = withAdmin(async ({ searchParams }) => {
     return NextResponse.json(data, { status: 200, headers })
   } catch (error) {
     console.error("Error:", error)
+    if (error instanceof ZodError) {
+      const errorsValidation = error.flatten().fieldErrors
+      return NextResponse.json({ errors: errorsValidation }, { status: 422 })
+    }
     return NextResponse.json({ message: "Internal Server Error" }, { status: 500 })
   }
 })
