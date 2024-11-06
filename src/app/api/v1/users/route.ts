@@ -3,7 +3,7 @@ import { NextResponse } from "next/server"
 import { Prisma } from "@prisma/client"
 import { ZodError } from "zod"
 
-import { getPagination, parseRequestBody } from "@/lib/api"
+import { ApiError, getPagination, parseRequestBody } from "@/lib/api"
 import { withAdmin } from "@/lib/auth"
 import prismadb from "@/lib/prismadb"
 import { getZodSchemaFields } from "@/lib/zod/utils"
@@ -106,6 +106,9 @@ export const POST = withAdmin(async ({ req }) => {
     return NextResponse.json(data, { status: 201 })
   } catch (error) {
     console.error("Error:", error)
+    if (error instanceof ApiError) {
+      return NextResponse.json({ message: error.message }, { status: error.code })
+    }
     if (error instanceof ZodError) {
       const errorsValidation = error.flatten().fieldErrors
       return NextResponse.json({ errors: errorsValidation }, { status: 422 })

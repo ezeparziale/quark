@@ -90,12 +90,12 @@ export const PUT = withAdmin(async ({ req, params }) => {
     return NextResponse.json(updatedUser, { status: 200 })
   } catch (error) {
     console.error("Error:", error)
+    if (error instanceof ApiError) {
+      return NextResponse.json({ message: error.message }, { status: error.code })
+    }
     if (error instanceof ZodError) {
       const errorsValidation = error.flatten().fieldErrors
       return NextResponse.json({ errors: errorsValidation }, { status: 422 })
-    }
-    if (error instanceof ApiError) {
-      return NextResponse.json({ message: error.message }, { status: error.code })
     }
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2002" && error.meta) {
