@@ -1,7 +1,8 @@
+import type { NextConfig } from "next"
+
 import "./src/env.mjs"
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   logging: {
     fetches: {
       fullUrl: true,
