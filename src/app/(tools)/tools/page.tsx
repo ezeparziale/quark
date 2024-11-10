@@ -12,20 +12,16 @@ import ToolSearch from "./_components/tool-search"
 import ToolsSection from "./_components/tools-section"
 import ViewSwitch from "./_components/view-switch"
 
-export default async function ToolsPage({
-  searchParams,
-}: {
-  searchParams?: {
-    q?: string
-    view?: string
-  }
-}) {
+type SearchParams = Promise<{ q?: string; view?: string }>
+
+export default async function ToolsPage(props: { searchParams: SearchParams }) {
   const session = await auth()
 
   if (!session) {
     redirect("/auth/login?callbackUrl=/tools")
   }
 
+  const searchParams = await props.searchParams
   const search = searchParams?.q || ""
   const view = searchParams?.view || "grid"
 

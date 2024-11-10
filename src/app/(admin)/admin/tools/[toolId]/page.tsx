@@ -9,9 +9,12 @@ import { PageHeader } from "@/components/page-header"
 import DeleteToolButton from "../_components/delete-tool-button"
 import ToolForm from "../_components/tool-form"
 
-export default async function EditToolPage({ params }: { params: { toolId: number } }) {
+type Params = Promise<{ toolId: number }>
+
+export default async function EditToolPage(props: { params: Params }) {
   await protectPage({ permission: "admin:all" })
 
+  const params = await props.params
   const id = Number(params.toolId)
 
   if (!id) {

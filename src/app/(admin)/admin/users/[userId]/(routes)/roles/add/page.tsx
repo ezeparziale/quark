@@ -5,13 +5,12 @@ import { PageSection } from "@/components/page-header"
 
 import AddRoleForm from "../_components/add-role-form"
 
-export default async function UsersAdminAddRolesToUserPage({
-  params,
-}: {
-  params: { userId: number }
-}) {
+type Params = Promise<{ userId: number }>
+
+export default async function UsersAdminAddRolesToUserPage(props: { params: Params }) {
   await protectPage({ permission: "admin:all" })
 
+  const params = await props.params
   const userId = Number(params.userId)
 
   const selectedOptions = await prismadb.user.findUnique({

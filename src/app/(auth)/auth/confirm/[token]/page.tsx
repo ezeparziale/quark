@@ -1,9 +1,8 @@
 import { confirmEmail } from "@/actions/auth/confirm-email"
 
-export default async function ConfirmTokenPage({
-  params,
-}: {
-  params: { token: string }
-}) {
+type Params = Promise<{ token: string }>
+
+export default async function ConfirmTokenPage(props: { params: Params }) {
+  const params = await props.params
   await confirmEmail({ token: params.token })
 }

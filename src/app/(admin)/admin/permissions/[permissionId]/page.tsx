@@ -9,13 +9,12 @@ import { PageHeader } from "@/components/page-header"
 import DeletePermissionButton from "./_components/delete-permission-button"
 import EditPermissionForm from "./_components/edit-permission-form"
 
-export default async function EditPermissionPage({
-  params,
-}: {
-  params: { permissionId: number }
-}) {
+type Params = Promise<{ permissionId: number }>
+
+export default async function EditPermissionPage(props: { params: Params }) {
   await protectPage({ permission: "admin:all" })
 
+  const params = await props.params
   const id = Number(params.permissionId)
 
   if (!id) {

@@ -26,16 +26,16 @@ const getSideBarNavItems = (id: number): NavItem[] => {
   ]
 }
 
-interface SettingsLayoutProps {
-  children: React.ReactNode
-  params: { userId: number }
-}
+type Params = Promise<{ userId: number }>
 
 export default async function SettingsLayout({
   children,
   params,
-}: SettingsLayoutProps) {
-  const userId = Number(params.userId)
+}: {
+  children: React.ReactNode
+  params: Params
+}) {
+  const userId = Number((await params).userId)
 
   const sidebarNavItems = getSideBarNavItems(userId)
 

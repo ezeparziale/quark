@@ -9,13 +9,12 @@ import AddRoleButton from "./_components/add-role-button"
 import { columns } from "./_components/columns"
 import AddRolesEmptyStateTable from "./_components/roles-empty-state-table"
 
-export default async function UsersAdminRolesPage({
-  params,
-}: {
-  params: { userId: number }
-}) {
+type Params = Promise<{ userId: number }>
+
+export default async function UsersAdminRolesPage(props: { params: Params }) {
   await protectPage({ permission: "admin:all" })
 
+  const params = await props.params
   const userId = Number(params.userId)
 
   const data = await prismadb.user.findUnique({

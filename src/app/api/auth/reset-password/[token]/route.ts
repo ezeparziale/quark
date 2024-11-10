@@ -7,8 +7,12 @@ import prismadb from "@/lib/prismadb"
 
 import { getUserByEmail } from "@/data/user"
 
-export async function POST(req: Request, { params }: { params: { token: string } }) {
+type Params = Promise<{ token: string }>
+
+export async function POST(req: Request, segmentData: { params: Params }) {
   try {
+    const params = await segmentData.params
+
     const body = await req.json()
     const { password } = body
     const { token } = params

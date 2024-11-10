@@ -16,9 +16,9 @@ import {
 
 const outputFields = getZodSchemaFields(userOutputSchema)
 
-export const GET = withAdmin(async ({ params }) => {
+export const GET = withAdmin(async ({ context }) => {
   try {
-    const { userId } = params
+    const { userId } = context.params
 
     const id: number = getIdInputOrThrow(userId)
 
@@ -42,9 +42,9 @@ export const GET = withAdmin(async ({ params }) => {
   }
 })
 
-export const DELETE = withAdmin(async ({ params }) => {
+export const DELETE = withAdmin(async ({ context }) => {
   try {
-    const { userId } = params
+    const { userId } = context.params
 
     const id: number = getIdInputOrThrow(userId)
 
@@ -67,10 +67,10 @@ export const DELETE = withAdmin(async ({ params }) => {
   }
 })
 
-export const PUT = withAdmin(async ({ req, params }) => {
+export const PUT = withAdmin(async ({ req, context }) => {
   try {
     const bodyRaw = await parseRequestBody(req)
-    const { userId } = params
+    const { userId } = context.params
 
     const id: number = getIdInputOrThrow(userId)
     const isPartial = req.method === "PATCH"

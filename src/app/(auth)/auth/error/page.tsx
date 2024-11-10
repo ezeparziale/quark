@@ -23,7 +23,11 @@ const errorTypes: { [key: string]: { message: string; img?: string } } = {
   Default: { message: "Something went wrong!", img: "crashed-error" },
 }
 
-export default function Error({ searchParams }: { searchParams: { error: string } }) {
+type SearchParams = Promise<{ error: string }>
+
+export default async function Error(props: { searchParams: SearchParams }) {
+  const searchParams = await props.searchParams
+
   const errorParam: string | null = searchParams.error
   const errorMessage =
     errorParam && errorTypes[errorParam] ? errorTypes[errorParam] : errorTypes.Default

@@ -36,18 +36,18 @@ const getSideBarNavItems = (id: number): NavItem[] => {
   ]
 }
 
-interface SettingsLayoutProps {
-  children: React.ReactNode
-  params: { roleId: number }
-}
+type Params = Promise<{ roleId: number }>
 
 export default async function SettingsLayout({
   children,
   params,
-}: SettingsLayoutProps) {
-  const sidebarNavItems = getSideBarNavItems(Number(params.roleId))
+}: {
+  children: React.ReactNode
+  params: Params
+}) {
+  const id = Number((await params).roleId)
 
-  const id = Number(params.roleId)
+  const sidebarNavItems = getSideBarNavItems(id)
 
   if (!id) {
     return notFound()

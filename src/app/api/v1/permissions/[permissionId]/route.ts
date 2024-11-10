@@ -16,9 +16,9 @@ import {
 
 const outputFields = getZodSchemaFields(permissionOutputSchema)
 
-export const GET = withAdmin(async ({ params }) => {
+export const GET = withAdmin(async ({ context }) => {
   try {
-    const { permissionId } = params
+    const { permissionId } = context.params
 
     const id: number = getIdInputOrThrow(permissionId)
 
@@ -42,9 +42,9 @@ export const GET = withAdmin(async ({ params }) => {
   }
 })
 
-export const DELETE = withAdmin(async ({ params }) => {
+export const DELETE = withAdmin(async ({ context }) => {
   try {
-    const { permissionId } = params
+    const { permissionId } = context.params
 
     const id: number = getIdInputOrThrow(permissionId)
 
@@ -67,10 +67,10 @@ export const DELETE = withAdmin(async ({ params }) => {
   }
 })
 
-export const PUT = withAdmin(async ({ req, params }) => {
+export const PUT = withAdmin(async ({ req, context }) => {
   try {
     const bodyRaw = await parseRequestBody(req)
-    const { permissionId } = params
+    const { permissionId } = context.params
 
     const id: number = getIdInputOrThrow(permissionId)
     const isPartial = req.method === "PATCH"

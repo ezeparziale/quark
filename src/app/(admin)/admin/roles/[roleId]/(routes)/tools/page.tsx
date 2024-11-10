@@ -5,13 +5,12 @@ import { PageSection } from "@/components/page-header"
 
 import ToolsSelect from "./_components/tools-select"
 
-export default async function RolesAdminToolsPage({
-  params,
-}: {
-  params: { roleId: number }
-}) {
+type Params = Promise<{ roleId: number }>
+
+export default async function RolesAdminToolsPage(props: { params: Params }) {
   await protectPage({ permission: "admin:all" })
 
+  const params = await props.params
   const roleId = Number(params.roleId)
 
   const data = await prismadb.role.findUnique({

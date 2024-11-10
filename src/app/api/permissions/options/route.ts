@@ -10,8 +10,9 @@ import { getPermissionOptions } from "@/data/permission"
  * This endpoint is intended for use in the admin tool only.
  *
  **/
-export const GET = withAdmin(async ({ searchParams }) => {
+export const GET = withAdmin(async ({ context }) => {
   try {
+    const searchParams = context.searchParams
     const search: string | undefined = searchParams["search"] || undefined
 
     const data = await getPermissionOptions(search)
