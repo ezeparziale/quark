@@ -7,13 +7,12 @@ import { PageSection } from "@/components/page-header"
 
 import EditRoleForm from "./_components/edit-role-form"
 
-export default async function RoleAdminPage({
-  params,
-}: {
-  params: { roleId: number }
-}) {
+type Params = Promise<{ roleId: number }>
+
+export default async function RoleAdminPage(props: { params: Params }) {
   await protectPage({ permission: "admin:all" })
 
+  const params = await props.params
   const id = Number(params.roleId)
 
   if (!id) {

@@ -3,6 +3,8 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 
+import { use } from "react"
+
 import { zodResolver } from "@hookform/resolvers/zod"
 import axios from "axios"
 import { Loader2 } from "lucide-react"
@@ -27,11 +29,11 @@ import AuthTemplate from "@/components/auth/auth-template"
 
 type FormData = z.infer<typeof resetPasswordSchema>
 
-export default function ResetPasswordTokenPage({
-  params,
-}: {
-  params: { token: string }
-}) {
+type Params = Promise<{ token: string }>
+
+export default function ResetPasswordTokenPage(props: { params: Params }) {
+  const params = use(props.params)
+
   const router = useRouter()
 
   const form = useForm<FormData>({

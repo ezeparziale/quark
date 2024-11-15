@@ -7,56 +7,49 @@ import "server-only"
 import { has, userHasRequiredRole } from "@/lib/rbac"
 
 import prismadb from "../prismadb"
-import { getSearchParams } from "../utils"
 import { hashToken } from "./hash-token"
 
 interface ICurrentUser extends Pick<User, "id" | "email"> {}
 interface IWithAdminHandler {
   ({
     req,
-    params,
-    searchParams,
+    context,
     currentUser,
   }: {
     req: Request
-    params: Record<string, string>
-    searchParams: Record<string, string>
+    context: { params: Record<string, string>; searchParams: Record<string, string> }
     currentUser: ICurrentUser
   }): Promise<Response>
 }
 
+const searchParamsToObject = (
+  searchParams: URLSearchParams,
+): Record<string, string> => {
+  const params: Record<string, string> = {}
+  searchParams.forEach((value, key) => {
+    params[key] = value
+  })
+  return params
+}
+
 /**
  * Higher-order function to check if the user has an admin role before executing the handler.
- *
- * This function wraps the given handler and performs an authorization check. If the user is not authorized,
- * it returns a 401 Unauthorized response. If an error occurs during the authorization check, it returns a 500
- * Internal Server Error response.
- *
- * @param {IWithAdminHandler} handler - The request handler to be executed if the user is authorized.
- * @returns {Handler} - A new handler function that performs the authorization check before calling the original handler.
- *
- * @example
- * // Usage with a GET request handler
- * async function handler({req, params, searchParams}): Promise<Response> {
- *   // Handler logic here
- * }
- * // Wrap the handler with withAdmin for admin role authorization:
- * export const GET = withAdmin(handler);
  */
 export const withAdmin =
   (handler: IWithAdminHandler) =>
   async (
     req: Request,
-    { params = {} }: { params: Record<string, string> | undefined },
+    { params }: { params: Promise<Record<string, string>> },
   ): Promise<Response> => {
     try {
-      const searchParams = getSearchParams(req.url)
+      const resolvedParams = await params
+      const searchParams = searchParamsToObject(new URL(req.url).searchParams)
 
       // Check header Authorization
       const authorizationHeader = req.headers.get("Authorization")
 
       if (authorizationHeader) {
-        if (!authorizationHeader.includes("Bearer ")) {
+        if (!authorizationHeader.startsWith("Bearer ")) {
           return NextResponse.json(
             { message: "Could not validate credentials" },
             { status: 401, headers: { "WWW-Authenticate": "Bearer" } },
@@ -83,7 +76,11 @@ export const withAdmin =
             data: { lastUsed: new Date() },
           })
 
-          return handler({ req, params, searchParams, currentUser })
+          return handler({
+            req,
+            context: { params: resolvedParams, searchParams },
+            currentUser,
+          })
         } else {
           return NextResponse.json(
             { message: "Could not validate credentials" },
@@ -100,7 +97,11 @@ export const withAdmin =
         const session = await auth()
         const currentUser = { id: session?.user.userId!, email: session?.user.email! }
 
-        return handler({ req, params, searchParams, currentUser })
+        return handler({
+          req,
+          context: { params: resolvedParams, searchParams },
+          currentUser,
+        })
       }
     } catch (error) {
       console.error("Error in authorization check:", error)

@@ -22,8 +22,9 @@ const allowedOrderByFields = [
 
 const outputFields = getZodSchemaFields(permissionOutputSchema)
 
-export const GET = withAdmin(async ({ searchParams }) => {
+export const GET = withAdmin(async ({ context }) => {
   try {
+    const searchParams = context.searchParams
     const { offset, limit, search, sort } = getPagination(searchParams)
 
     const filter: Prisma.PermissionWhereInput = {}

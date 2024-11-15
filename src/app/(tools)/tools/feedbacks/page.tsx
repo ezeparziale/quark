@@ -10,17 +10,12 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 import { PageHeader } from "@/components/page-header"
 
-import {
-  IDataTableSearchParamsSSR,
-  getSearchParamsSSR,
-} from "./_components/data-table-utils-ssr"
+import { getSearchParamsSSR } from "./_components/data-table-utils-ssr"
 import FeedbacksDataTableSSR from "./_components/feedbacks-table"
 
-export default async function FeedbackPage({
-  searchParams,
-}: {
-  searchParams: IDataTableSearchParamsSSR
-}) {
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
+
+export default async function FeedbackPage(props: { searchParams: SearchParams }) {
   const session = await auth()
 
   if (!session) {
@@ -28,6 +23,8 @@ export default async function FeedbackPage({
   }
 
   await protectPage({ permission: "feedbacks:view" })
+
+  const searchParams = await props.searchParams
 
   // Get params
   const defaultSort: string = "-createdAt"

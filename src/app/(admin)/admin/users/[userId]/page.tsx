@@ -8,13 +8,12 @@ import { PageSection } from "@/components/page-header"
 
 import EditUserForm from "./_components/edit-user-form"
 
-export default async function UserAdminPage({
-  params,
-}: {
-  params: { userId: number }
-}) {
+type Params = Promise<{ userId: number }>
+
+export default async function UserAdminPage(props: { params: Params }) {
   await protectPage({ permission: "admin:all" })
 
+  const params = await props.params
   const userId = Number(params.userId)
 
   const user = await getUserById(userId)

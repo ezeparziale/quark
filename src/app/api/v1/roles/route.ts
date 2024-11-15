@@ -22,9 +22,9 @@ const allowedOrderByFields = [
 
 const outputFields = getZodSchemaFields(roleOutputSchema)
 
-export const GET = withAdmin(async ({ searchParams }) => {
+export const GET = withAdmin(async ({ context }) => {
   try {
-    const { offset, limit, search, sort } = getPagination(searchParams)
+    const { offset, limit, search, sort } = getPagination(context.searchParams)
     const filter: Prisma.RoleWhereInput = {}
     if (search) {
       filter.OR = [

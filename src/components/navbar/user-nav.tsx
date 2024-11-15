@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 
-import React, { Dispatch, SetStateAction } from "react"
+import React, { Dispatch, JSX, SetStateAction } from "react"
 
 import { LayoutGrid, LogOut, Settings, User } from "lucide-react"
 import { useSession } from "next-auth/react"
