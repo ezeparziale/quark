@@ -14,6 +14,7 @@ export default function AddRoleButton({ id }: { id: string }) {
             href={`/admin/users/${id}/roles/add`}
             className="flex items-center"
             aria-label="Add roles"
+            prefetch={true}
           >
             <Plus className="size-4" aria-hidden="true" />
             <span className="ml-2 hidden md:inline">Add roles</span>

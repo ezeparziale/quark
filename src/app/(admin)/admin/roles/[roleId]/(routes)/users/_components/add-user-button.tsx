@@ -10,7 +10,7 @@ export default function AddUserButton({ id }: { id: number }) {
     <Tooltip>
       <TooltipTrigger>
         <Button size={"sm"} asChild>
-          <Link href={`/admin/roles/${id}/users/add`}>
+          <Link href={`/admin/roles/${id}/users/add`} prefetch={true}>
             <Plus className="size-4" />
             <span className="sr-only">add users</span>
             <span className="ml-2 hidden md:block">Add users</span>

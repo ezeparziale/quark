@@ -14,6 +14,7 @@ export default function CreateUserButton() {
             href="/admin/users/new"
             className="flex items-center"
             aria-label="Create user"
+            prefetch={true}
           >
             <Plus className="size-4" aria-hidden="true" />
             <span className="ml-2 hidden md:inline">Create user</span>
