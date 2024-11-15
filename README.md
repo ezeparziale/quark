@@ -1,6 +1,6 @@
 # :milky_way: Quark
 
-Quark is a template ready for tools using @nextjs 14 🚀
+Quark is a template ready for tools using @nextjs 15 🚀
 
 :star: Features:
 
@@ -17,7 +17,7 @@ Quark is a template ready for tools using @nextjs 14 🚀
 
 :construction_worker: Built using:
 
-- NextJS 14 @nextjs
+- NextJS 15 @nextjs
 - Hosted at @vercel
 - Auth with credentials and Google/GitHub @nextauthjs v5
 - UI @shadcn and @tailwindcss
