@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation"
 
-import * as z from "zod"
+import { z } from "zod"
 
 import { DataResult } from "@/types/types"
 

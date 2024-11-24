@@ -11,7 +11,7 @@ import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import { FaGithub, FaGoogle } from "react-icons/fa6"
 import { toast } from "sonner"
-import * as z from "zod"
+import { z } from "zod"
 
 import { loginSchema } from "@/schemas/auth"
 

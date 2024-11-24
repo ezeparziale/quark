@@ -8,7 +8,7 @@ import type { User } from "@prisma/client"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import * as z from "zod"
+import { z } from "zod"
 
 import { addServerErrors } from "@/lib/utils"
 

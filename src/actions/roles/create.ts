@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache"
 
-import * as z from "zod"
+import { z } from "zod"
 
 import { DataResult } from "@/types/types"
 

@@ -1,4 +1,4 @@
-import * as z from "zod"
+import { z } from "zod"
 
 const emailFieldSchema = z
   .string({ required_error: "Email is required" })

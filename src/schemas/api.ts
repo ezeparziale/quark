@@ -1,4 +1,4 @@
-import * as z from "zod"
+import { z } from "zod"
 import "zod-openapi/extend"
 
 const DEFAULT_PAGE: number = 1
