@@ -42,6 +42,16 @@ export const userSchema = z.object({
     .string()
     .describe("The URL of the user's avatar image.")
     .openapi({ example: "https://my-domain/user-avatar.png" }),
+  metadata: z
+    .record(z.string(), z.any())
+    .nullable()
+    .describe("Additional metadata about the user as key-value pairs.")
+    .openapi({
+      example: {
+        theme: "dark",
+        notifications: true,
+      },
+    }),
   createdAt: z
     .date()
     .describe("The date and time when the user was created.")
@@ -57,12 +67,14 @@ export const userCreateServerActionSchema = userSchema.omit({
   image: true,
   createdAt: true,
   updatedAt: true,
+  metadata: true,
 })
 
 export const userEditServerActionSchema = userSchema.omit({
   image: true,
   createdAt: true,
   updatedAt: true,
+  metadata: true,
 })
 
 export const userOutputSchema = userSchema
@@ -73,6 +85,7 @@ export const userCreateSchema = userSchema
     image: true,
     createdAt: true,
     updatedAt: true,
+    metadata: true,
   })
   .partial({
     isActive: true,
@@ -119,3 +132,5 @@ export const userListQuerySchema = listQuerySchema.extend({
       },
     }),
 })
+
+export const userUpdateMetadataSchema = userSchema.pick({ metadata: true })
