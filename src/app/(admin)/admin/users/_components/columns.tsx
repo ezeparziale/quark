@@ -4,8 +4,9 @@ import Link from "next/link"
 
 import { type User } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
-import { format, formatDistanceToNow } from "date-fns"
 import { CheckCircle, Clock, Verified, XCircle } from "lucide-react"
+
+import { formatDate } from "@/lib/utils"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
@@ -27,21 +28,27 @@ export type IColumns = Pick<
   | "updatedAt"
 >
 
-const formatDate = (date: Date) => ({
-  formattedDate: format(date, "dd-MM-yyyy"),
-  formattedTime: format(date, "HH:mm:ss"),
-  timeAgo: formatDistanceToNow(date, { addSuffix: true }),
-})
-
 const DateCell = ({ date }: { date: Date }) => {
-  const { formattedDate, formattedTime, timeAgo } = formatDate(date)
+  const { timeAgo, utcDateTime, localDateTime, localTimeZone } = formatDate(date)
+
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <div className="text-xs">{timeAgo}</div>
+        <div className="cursor-help text-xs">{timeAgo}</div>
       </TooltipTrigger>
       <TooltipContent>
-        <div>{`${formattedDate} ${formattedTime}`}</div>
+        <table className="text-left text-xs">
+          <tbody>
+            <tr>
+              <td className="pr-2 font-mono font-semibold">UTC</td>
+              <td className="font-mono">{utcDateTime}</td>
+            </tr>
+            <tr>
+              <td className="pr-2 font-mono font-semibold">{localTimeZone}</td>
+              <td className="font-mono">{localDateTime}</td>
+            </tr>
+          </tbody>
+        </table>
       </TooltipContent>
     </Tooltip>
   )
@@ -138,7 +145,7 @@ export const columns: ColumnDef<IColumns>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Created At" />
     ),
-    cell: ({ row }) => <DateCell date={new Date(row.original.createdAt)} />,
+    cell: ({ row }) => <DateCell date={row.original.createdAt} />,
   },
   {
     id: "Updated At",
@@ -146,7 +153,7 @@ export const columns: ColumnDef<IColumns>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Updated At" />
     ),
-    cell: ({ row }) => <DateCell date={new Date(row.original.updatedAt)} />,
+    cell: ({ row }) => <DateCell date={row.original.updatedAt} />,
   },
   {
     id: "actions",
