@@ -39,8 +39,8 @@ model UserMetadata {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    Int      @unique @map("user_id")
   metadata  Json?    @map("metadata")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
 
   @@map("user_metadata")
 }
