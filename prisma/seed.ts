@@ -10,6 +10,7 @@ async function main() {
       name: "Admin permission",
       description: "Permission to access the admin section",
       key: "admin:all",
+      isActive: true,
     },
   })
 
@@ -20,6 +21,7 @@ async function main() {
       name: "Admin",
       description: "Admin role",
       key: "admin",
+      isActive: true,
     },
   })
 
