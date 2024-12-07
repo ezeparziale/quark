@@ -2,6 +2,7 @@
   "root": true,
   "extends": [
     "next/core-web-vitals",
+    "next/typescript",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
@@ -17,11 +18,12 @@
   "rules": {
     "tailwindcss/classnames-order": "error",
     "tailwindcss/enforces-negative-arbitrary-values": "off",
-    "tailwindcss/enforces-shorthand": "warn",
+    "tailwindcss/enforces-shorthand": "off",
     "no-var": "off",
     "no-constant-condition": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-non-null-asserted-optional-chain": "off"
+    "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
+    "@typescript-eslint/no-empty-object-type": "off"
   },
   "overrides": [
     {
