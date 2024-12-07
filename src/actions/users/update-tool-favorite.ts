@@ -16,7 +16,7 @@ export async function AddFavTool({ toolId }: { toolId: number }) {
       })
       revalidatePath("/tools")
       return { success: true, message: "Tool added to favorites!" }
-    } catch (e) {
+    } catch {
       return {
         success: false,
         message: "Failed to add tool to favorites. Please try again.",
@@ -35,7 +35,7 @@ export async function RemoveFavTool({ toolId }: { toolId: number }) {
       })
       revalidatePath("/tools")
       return { success: true, message: "Tool removed from favorites!" }
-    } catch (e) {
+    } catch {
       return {
         success: false,
         message: "Failed to remove tool from favorites. Please try again.",

@@ -18,7 +18,7 @@ export async function deleteUser(id: number) {
     revalidatePath(`/admin/users`)
 
     return { success: true }
-  } catch (error) {
+  } catch {
     return { success: false, message: "Something went wrong" }
   }
 }

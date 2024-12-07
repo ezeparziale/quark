@@ -58,7 +58,7 @@ export async function updateUsername({
       }
     }
     return { success: false }
-  } catch (error: any) {
+  } catch {
     return { success: false }
   }
 }

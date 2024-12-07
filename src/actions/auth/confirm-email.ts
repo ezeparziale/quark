@@ -29,7 +29,7 @@ export async function confirmEmail({ token }: IPros) {
 
       result = { success: true }
     }
-  } catch (error: any) {
+  } catch {
     redirect(`/auth/error`)
   } finally {
     if (result.success) {

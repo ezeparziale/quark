@@ -43,7 +43,7 @@ export async function changeEmail({ token }: IPros) {
         result = { success: false, error: "TokenExpired" }
       }
     }
-  } catch (error: any) {
+  } catch {
     redirect(`/auth/error`)
   } finally {
     if (result.success) {

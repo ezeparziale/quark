@@ -23,7 +23,7 @@ export async function getCurrentUser(redirectPage?: string) {
       return user
     }
     return null
-  } catch (error: any) {
+  } catch {
     return null
   }
 }

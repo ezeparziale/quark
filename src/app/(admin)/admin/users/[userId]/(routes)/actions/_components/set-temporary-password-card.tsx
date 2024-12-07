@@ -47,7 +47,7 @@ export function SetTemporaryPasswordCard({ userId }: { userId: number }) {
       setIsOpen(false)
       toast.success("Temporary password has been set successfully!")
       router.refresh()
-    } catch (error) {
+    } catch {
       toast.error("Failed to set temporary password. Please try again.")
     } finally {
       setIsLoading(false)
