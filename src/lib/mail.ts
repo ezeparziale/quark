@@ -28,7 +28,7 @@ export async function sendMail(toEmail: string, subject: string, html: string) {
   try {
     await transporter.sendMail(mailOptions)
     return true
-  } catch (error) {
+  } catch {
     return false
   }
 }

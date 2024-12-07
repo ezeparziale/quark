@@ -12,7 +12,7 @@ export function verifyUserToken(token: string) {
     const decodedToken = jwt.verify(token, env.JWT_SECRET_KEY) as UserToken
     const userEmail = decodedToken.email
     return userEmail
-  } catch (error) {
+  } catch {
     return false
   }
 }
