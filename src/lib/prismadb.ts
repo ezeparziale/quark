@@ -1,16 +1,15 @@
-import { env } from "@/env.mjs"
+import { env } from "@/env"
 import { PrismaClient } from "@prisma/client"
 import "server-only"
 
-declare global {
-  var prisma: PrismaClient | undefined
-}
+const globalForPrisma = global as unknown as { prismadb: PrismaClient }
 
-const prismadb =
-  globalThis.prisma ||
+export const prismadb =
+  globalForPrisma.prismadb ||
   new PrismaClient({
     log: env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
   })
-if (env.NODE_ENV !== "production") globalThis.prisma = prismadb
+
+if (env.NODE_ENV !== "production") globalForPrisma.prismadb = prismadb
 
 export default prismadb
