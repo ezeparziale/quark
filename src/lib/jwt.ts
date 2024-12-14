@@ -1,4 +1,4 @@
-import { env } from "@/env.mjs"
+import { env } from "@/env"
 import jwt from "jsonwebtoken"
 
 type UserToken = {

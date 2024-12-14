@@ -2,7 +2,7 @@
 
 import { auth } from "@/auth"
 import UpdateEmail from "@/emails/update-email"
-import { env } from "@/env.mjs"
+import { env } from "@/env"
 import { render } from "@react-email/render"
 
 import { DataResult } from "@/types/types"

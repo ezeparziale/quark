@@ -1,6 +1,6 @@
 "use server"
 
-import { env } from "@/env.mjs"
+import { env } from "@/env"
 import nodemailer from "nodemailer"
 import SMTPTransport from "nodemailer/lib/smtp-transport"
 

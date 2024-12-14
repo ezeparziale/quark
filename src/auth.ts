@@ -1,4 +1,4 @@
-import { env } from "@/env.mjs"
+import { env } from "@/env"
 import bcrypt from "bcrypt"
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"

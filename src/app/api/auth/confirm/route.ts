@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 
 import ConfirmEmail from "@/emails/confirm-email"
-import { env } from "@/env.mjs"
+import { env } from "@/env"
 import { render } from "@react-email/render"
 
 import { generateUserToken } from "@/lib/jwt"
