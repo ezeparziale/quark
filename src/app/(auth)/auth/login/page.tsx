@@ -51,7 +51,7 @@ function LoginForm() {
   useEffect(() => {
     setTimeout(() => {
       if (updatedEmail === "1") {
-        toast("Please login with your new email", { id: updatedEmail })
+        toast.info("Please login with your new email", { id: updatedEmail })
       }
     }, 100)
   }, [updatedEmail])
@@ -137,31 +137,27 @@ function LoginForm() {
             <div className="flex flex-row items-center justify-between pb-6">
               <Link
                 href="/auth/reset-password"
-                className="text-sm font-semibold leading-6 text-purple-600 hover:text-green-400"
+                className="text-sm font-semibold leading-6 text-purple-600 hover:text-green-400 hover:underline"
               >
                 Forgot password?
               </Link>
             </div>
             <Button size="sm" className="w-full" disabled={isLoading} type="submit">
               {isLoading && <Loader2 className="mr-2 size-4 animate-spin" />}
-              Log in
+              Login
             </Button>
           </form>
         </Form>
       </div>
-      <div className="relative mt-8">
-        <hr className="border-t border-gray-400" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="bg-white px-3 text-sm text-gray-400 dark:bg-black">
-            Or with
-          </span>
-        </div>
+      <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+        <span className="relative z-10 bg-background px-2 text-muted-foreground">
+          Or continue with
+        </span>
       </div>
       <div className="mt-8 grid grid-cols-1 gap-2 md:grid-cols-2">
         <Button
-          variant={"outline"}
+          variant="outline"
           size="sm"
-          className="gap-2"
           disabled={isLoading}
           onClick={() => signIn("google", { callbackUrl })}
         >
@@ -169,9 +165,8 @@ function LoginForm() {
           <span>Google</span>
         </Button>
         <Button
-          variant={"outline"}
+          variant="outline"
           size="sm"
-          className="gap-2"
           disabled={isLoading}
           onClick={() => signIn("github", { callbackUrl })}
         >
