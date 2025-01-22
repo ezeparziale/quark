@@ -9,7 +9,14 @@ import { Menu, SlashIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
-import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 
 import Logo from "../logo"
 import ThemeSwitch from "../theme-switch"
@@ -48,6 +55,8 @@ export default function MobileNav({ navigation }: { navigation: INavigation[] })
               <Menu className="size-6" aria-hidden="true" />
             </button>
           </SheetTrigger>
+          <SheetTitle className="hidden" />
+          <SheetDescription className="hidden" />
           <SheetContent className="fixed inset-y-0 right-0 w-full overflow-y-auto border-0 sm:border-l-2">
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y">
