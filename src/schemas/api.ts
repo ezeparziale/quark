@@ -1,5 +1,4 @@
-import { z } from "zod"
-import "zod-openapi/extend"
+import z from "@/lib/zod"
 
 const DEFAULT_PAGE: number = 1
 const DEFAULT_LIMIT: number = 10

@@ -1,5 +1,4 @@
-import { z } from "zod"
-import "zod-openapi/extend"
+import z from "@/lib/zod"
 
 import { listQuerySchema } from "./api"
 
