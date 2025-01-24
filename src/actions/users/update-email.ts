@@ -79,7 +79,7 @@ export async function updateEmail({
 
         const url: string = `${env.AUTH_URL}/auth/change-email/${token}`
 
-        const emailHtml = render(
+        const emailHtml = await render(
           UpdateEmail({ username: user.username, newEmail, url }),
         )
 

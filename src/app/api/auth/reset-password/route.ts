@@ -25,7 +25,7 @@ export async function POST(req: Request) {
 
     const url: string = `${env.AUTH_URL}/auth/reset-password/${token}`
 
-    const emailHtml = render(ResetPasswordEmail({ url }))
+    const emailHtml = await render(ResetPasswordEmail({ url }))
 
     await sendMail(email, "Reset password", emailHtml)
 
