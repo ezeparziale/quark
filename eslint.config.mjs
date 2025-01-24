@@ -1,7 +1,7 @@
 import { FlatCompat } from "@eslint/eslintrc"
 import js from "@eslint/js"
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended"
-import tailwind from "eslint-plugin-tailwindcss"
+// import tailwind from "eslint-plugin-tailwindcss"
 import { dirname } from "path"
 import tseslint from "typescript-eslint"
 import { fileURLToPath } from "url"
@@ -29,24 +29,24 @@ const eslintConfig = [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   eslintPluginPrettierRecommended,
-  ...tailwind.configs["flat/recommended"],
+  // ...tailwind.configs["flat/recommended"],
   {
     rules: {
-      "tailwindcss/classnames-order": "error",
-      "tailwindcss/enforces-negative-arbitrary-values": "off",
-      "tailwindcss/enforces-shorthand": "off",
+      // "tailwindcss/classnames-order": "error",
+      // "tailwindcss/enforces-negative-arbitrary-values": "off",
+      // "tailwindcss/enforces-shorthand": "off",
       "no-var": "off",
       "no-constant-condition": "off",
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
       "@typescript-eslint/no-empty-object-type": "off",
     },
-    settings: {
-      tailwindcss: {
-        callees: ["cn", "cva"],
-        config: "tailwind.config.ts",
-      },
-    },
+    // settings: {
+    //   tailwindcss: {
+    //     callees: ["cn", "cva"],
+    //     config: "tailwind.config.ts",
+    //   },
+    // },
   },
 ]
 
