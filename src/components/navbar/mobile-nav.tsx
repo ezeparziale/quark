@@ -38,18 +38,18 @@ export default function MobileNav({ navigation }: { navigation: INavigation[] })
         <Logo />
         {!isHome && (
           <>
-            <SlashIcon className="ml-12 size-4 -rotate-[15deg] text-foreground/10 md:mx-3" />
+            <SlashIcon className="text-foreground/10 ml-12 size-4 -rotate-[15deg] md:mx-3" />
             <ToolSwitcher />
           </>
         )}
       </div>
-      <div className="flex items-center space-x-1">
+      <div className="flex items-center gap-1">
         <ThemeSwitch />
         <Sheet open={openSheet} onOpenChange={setOpenSheet}>
           <SheetTrigger asChild aria-controls="radix-:Ribdd9j9:">
             <button
               type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-primary"
+              className="text-primary -m-2.5 inline-flex items-center justify-center rounded-md p-2.5"
             >
               <span className="sr-only">Open main menu</span>
               <Menu className="size-6" aria-hidden="true" />
@@ -68,7 +68,7 @@ export default function MobileNav({ navigation }: { navigation: INavigation[] })
                           key={`sheet_close_${item.name}`}
                           href={item.href}
                           className={cn(
-                            "-mx-3 block px-3 py-2 text-sm font-medium transition-colors hover:text-primary",
+                            "hover:text-primary -mx-3 block px-3 py-2 text-sm font-medium transition-colors",
                             pathname != item.href && "text-muted-foreground",
                           )}
                         >

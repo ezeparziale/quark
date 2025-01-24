@@ -50,11 +50,11 @@ export function ComboboxMulti({
       <PopoverTrigger
         asChild
         className={cn(
-          "h-10 items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+          "border-input bg-background ring-offset-background placeholder:text-muted-foreground focus:outline-hidden focus:ring-ring h-10 items-center justify-between rounded-md border px-3 py-2 text-sm focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
           className,
         )}
       >
-        <div className="flex w-auto items-center rounded-md border border-input bg-background px-1 py-2 text-sm hover:ring-1 hover:ring-ring">
+        <div className="border-input bg-background hover:ring-ring flex w-auto items-center rounded-md border px-1 py-2 text-sm hover:ring-1">
           <div className="flex grow items-center justify-start">
             {selectedValues?.size > 0 && (
               <>

@@ -24,6 +24,5 @@
   ],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,
-  "endOfLine": "lf",
-  "tailwindConfig": "./tailwind.config.ts"
+  "endOfLine": "lf"
 }
