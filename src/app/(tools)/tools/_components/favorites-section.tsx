@@ -38,7 +38,7 @@ export default function FavoritesSection({
       {showFavorites && (
         <>
           {view === "grid" && (
-            <div className="mb-6 mt-2 grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-3">
+            <div className="mt-2 mb-6 grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-3">
               {favorites.map((tool) => (
                 <GridCard
                   key={`fav_grid_${tool.id}`}
@@ -49,7 +49,7 @@ export default function FavoritesSection({
             </div>
           )}
           {view === "list" && (
-            <div className="mb-6 mt-2 grid gap-5">
+            <div className="mt-2 mb-6 grid gap-5">
               {favorites.map((tool) => (
                 <ListCard
                   key={`fav_list_${tool.id}`}

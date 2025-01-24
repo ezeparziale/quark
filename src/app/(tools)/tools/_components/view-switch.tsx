@@ -10,7 +10,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 const toggleGroupItemClasses =
-  "data-[state=on]:bg-muted-foreground/20 data-[state=on]:text-black data-[state=on]:dark:text-white"
+  "data-[state=on]:bg-muted-foreground/20 data-[state=on]:text-black dark:data-[state=on]:text-white"
 
 export default function ViewSwitch() {
   const searchParams = useSearchParams()

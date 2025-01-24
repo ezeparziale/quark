@@ -27,14 +27,14 @@ export default async function ToolsPage(props: { searchParams: SearchParams }) {
 
   return (
     <>
-      <div className="flex h-36 items-center border-b border-border">
+      <div className="border-border flex h-36 items-center border-b">
         <MaxWidthWrapper>
           <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
             My Tools
           </h2>
         </MaxWidthWrapper>
       </div>
-      <div className="min-h-screen w-full bg-muted/40">
+      <div className="bg-muted/40 min-h-screen w-full">
         <MaxWidthWrapper>
           <div className="flex items-center space-x-2 pb-6">
             <ToolSearch />

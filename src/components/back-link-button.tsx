@@ -8,7 +8,7 @@ import { Button } from "./ui/button"
 
 export default function BackLinkButton({ link }: { link: string }) {
   return (
-    <Button size="sm" variant="link" className="mt-1 p-0 text-muted-foreground" asChild>
+    <Button size="sm" variant="link" className="text-muted-foreground mt-1 p-0" asChild>
       <Link href={link}>
         <ChevronLeft className="size-4" />
         <span className="text-sm">Back</span>

@@ -51,7 +51,7 @@ export default function NavTabs({ items }: NavProps) {
   return (
     <nav
       id="nav-tabs"
-      className="sticky -top-1 z-40 mb-[-3px] flex h-[46px] items-center justify-start space-x-1 overflow-x-auto border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+      className="bg-background/95 supports-backdrop-filter:bg-background/60 sticky -top-1 z-40 mb-[-3px] flex h-[46px] items-center justify-start space-x-1 overflow-x-auto border-b px-4 backdrop-blur-sm"
     >
       {items.map((item) => (
         <Link
@@ -63,10 +63,10 @@ export default function NavTabs({ items }: NavProps) {
           }}
           prefetch={true}
         >
-          <div className="m-1 rounded-md px-3 py-2 transition-all duration-75 hover:bg-muted">
+          <div className="hover:bg-muted m-1 rounded-md px-3 py-2 transition-all duration-75">
             <p
               className={cn(
-                "text-sm font-normal text-muted-foreground hover:text-primary",
+                "text-muted-foreground hover:text-primary text-sm font-normal",
                 ((item.type === "parent" && pathname === item.href) ||
                   (item.type === "child" && pathname.includes(item.href))) &&
                   "text-primary",
@@ -84,7 +84,7 @@ export default function NavTabs({ items }: NavProps) {
               }}
               className="absolute bottom-0 w-full px-1.5"
             >
-              <div className="h-0.5 bg-primary" />
+              <div className="bg-primary h-0.5" />
             </motion.div>
           )}
         </Link>

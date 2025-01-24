@@ -16,10 +16,10 @@ export default function EmptyState({
   const Icon = icon
   return (
     <div className="flex flex-1 flex-col items-center space-y-3 text-center">
-      <Icon className="size-8 text-muted-foreground md:size-10" />
+      <Icon className="text-muted-foreground size-8 md:size-10" />
       <div>
         <h3 className="text-xl font-bold tracking-tight md:text-2xl">{title}</h3>
-        <p className="text-xs text-muted-foreground md:text-sm">{description}</p>
+        <p className="text-muted-foreground text-xs md:text-sm">{description}</p>
       </div>
       {action ? <div>{action}</div> : null}
     </div>

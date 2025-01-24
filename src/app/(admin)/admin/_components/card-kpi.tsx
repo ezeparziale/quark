@@ -16,7 +16,7 @@ export default function CardKpi({ title, Icon, kpi, extra }: IProps) {
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">{kpi}</div>
-        {extra && <p className="text-xs text-muted-foreground">{extra}</p>}
+        {extra && <p className="text-muted-foreground text-xs">{extra}</p>}
       </CardContent>
     </Card>
   )

@@ -85,8 +85,8 @@ export default function UserNav({
           <DropdownMenuContent className="w-56" align="end" forceMount>
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none">Signed in as</p>
-                <p className="text-xs leading-none text-muted-foreground">
+                <p className="text-sm leading-none font-medium">Signed in as</p>
+                <p className="text-muted-foreground text-xs leading-none">
                   {session.user.email!}
                 </p>
               </div>
@@ -126,7 +126,7 @@ export default function UserNav({
                 href={item.href}
                 onClick={() => setOpenSheet?.(false)}
                 className={cn(
-                  "-mx-3 block px-3 py-2 text-sm font-medium transition-colors hover:text-primary",
+                  "hover:text-primary -mx-3 block px-3 py-2 text-sm font-medium transition-colors",
                   pathname != item.href && "text-muted-foreground",
                 )}
               >

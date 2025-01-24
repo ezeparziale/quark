@@ -27,12 +27,12 @@ export function PageHeader({
   return (
     <header className={cn("mb-6", linkBack ? "mt-4" : "mt-14")}>
       {linkBack && <BackLinkButton link={linkBack} />}
-      <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-x-4 sm:space-y-0">
+      <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0 sm:space-x-4">
         <div className="space-y-1">
           <h1 className="text-2xl font-bold tracking-tight md:text-3xl">{title}</h1>
           <div className="flex items-center gap-2">
             <p
-              className="text-sm text-muted-foreground md:text-base"
+              className="text-muted-foreground text-sm md:text-base"
               aria-label={description}
             >
               {description}
@@ -63,8 +63,8 @@ export function PageHeader({
 
 export function PageHeaderSkeleton() {
   return (
-    <header className="mb-6 mt-14" aria-busy="true" aria-label="Loading page header">
-      <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-x-4 sm:space-y-0">
+    <header className="mt-14 mb-6" aria-busy="true" aria-label="Loading page header">
+      <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0 sm:space-x-4">
         <div className="space-y-1">
           <Skeleton className="mb-3 h-9 w-64" />
           <Skeleton className="h-4 w-96" />
@@ -89,7 +89,7 @@ export function PageSection({ title, description, actions }: PageSectionProps) {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-lg font-medium">{title}</h2>
-          <p className="text-sm text-muted-foreground">{description}</p>
+          <p className="text-muted-foreground text-sm">{description}</p>
         </div>
         {actions && (
           <div

@@ -68,7 +68,7 @@ export default function Logo({
             height={size}
             className={cn(
               "z-50 block dark:hidden",
-              !disableScale && "fixed left-6 top-3",
+              !disableScale && "fixed top-3 left-6",
             )}
             style={{
               width: `${size * logoScale}px`,
@@ -84,7 +84,7 @@ export default function Logo({
             height={size}
             className={cn(
               "z-50 hidden dark:block",
-              !disableScale && "fixed left-6 top-3",
+              !disableScale && "fixed top-3 left-6",
             )}
             style={{
               width: `${size * logoScale}px`,
@@ -97,7 +97,7 @@ export default function Logo({
           {!disableName && (
             <p
               className={cn(
-                "hidden pl-12 font-bold text-primary antialiased sm:text-sm md:block md:text-2xl lg:text-2xl",
+                "text-primary hidden pl-12 font-bold antialiased sm:text-sm md:block md:text-2xl lg:text-2xl",
                 disableScale && "pl-3",
               )}
             >

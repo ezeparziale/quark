@@ -21,7 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={cn("min-h-screen bg-background antialiased", GeistSans.className)}
+        className={cn("bg-background min-h-screen antialiased", GeistSans.className)}
       >
         <div className="relative flex min-h-screen flex-col">
           <Providers>

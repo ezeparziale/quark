@@ -28,7 +28,7 @@ export async function POST(req: Request) {
 
     const url: string = `${env.AUTH_URL}/auth/confirm/${token}`
 
-    const emailHtml = render(ConfirmEmail({ url }))
+    const emailHtml = await render(ConfirmEmail({ url }))
 
     await sendMail(email, "Active account", emailHtml)
 

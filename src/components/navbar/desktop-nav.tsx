@@ -22,7 +22,7 @@ export default function DesktopNav({ navigation }: { navigation: INavigation[] }
   return (
     <>
       <nav className="hidden h-14 items-center justify-between px-6 lg:flex lg:flex-1">
-        <div className="flex items-center space-x-6 pr-6">
+        <div className="flex items-center gap-6">
           <Logo />
           {isHome &&
             navigation.map((item) => (
@@ -30,7 +30,7 @@ export default function DesktopNav({ navigation }: { navigation: INavigation[] }
                 key={`menu_lg_${item.name}`}
                 href={item.href}
                 className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary",
+                  "hover:text-primary text-sm font-medium transition-colors",
                   pathname != item.href && "text-muted-foreground",
                 )}
               >
@@ -39,12 +39,12 @@ export default function DesktopNav({ navigation }: { navigation: INavigation[] }
             ))}
           {!isHome && (
             <>
-              <SlashIcon className="mx-3 hidden size-4 -rotate-[15deg] text-foreground/10 md:block" />
+              <SlashIcon className="text-foreground/10 mx-3 hidden size-4 -rotate-[15deg] md:block" />
               <ToolSwitcher />
             </>
           )}
         </div>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center gap-3">
           {!isHome && <FeedbackButton />}
           <ThemeSwitch />
           {isHome && <LoginButton />}

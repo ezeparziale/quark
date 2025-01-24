@@ -23,7 +23,7 @@ type Props = {
 export default function GridCard({ tool, handleFavorite }: Props) {
   return (
     <>
-      <Card className="transition-colors hover:shadow-md hover:dark:border-muted-foreground">
+      <Card className="dark:hover:border-muted-foreground transition-colors hover:shadow-md">
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -45,7 +45,7 @@ export default function GridCard({ tool, handleFavorite }: Props) {
               </div>
               <Button asChild variant={"link"} className="p-0">
                 <Link href={tool.href}>
-                  <span className="text-base font-normal leading-none">
+                  <span className="text-base leading-none font-normal">
                     {tool.name}
                   </span>
                 </Link>
@@ -66,7 +66,7 @@ export default function GridCard({ tool, handleFavorite }: Props) {
                     {tool.isFavorite ? (
                       <div className="flex flex-1 items-center justify-between">
                         <span>Remove Favorite</span>
-                        <Star className="ml-2 size-4 fill-primary text-primary" />
+                        <Star className="fill-primary text-primary ml-2 size-4" />
                       </div>
                     ) : (
                       <div className="flex flex-1 items-center justify-between">
