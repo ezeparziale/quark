@@ -86,10 +86,10 @@ export function CommandMenu() {
       >
         <p className="text-muted-foreground space-x-1 text-sm">
           <span>Command menu</span>
-          <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 select-none items-center rounded border px-1.5 font-mono text-[10px] font-medium opacity-100">
+          <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">
             <span className="text-xs">{isMacOS ? "⌘" : "ctrl"}</span>
           </kbd>
-          <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 select-none items-center rounded border px-1.5 font-mono text-[10px] font-medium opacity-100">
+          <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">
             <span className="text-xs">K</span>
           </kbd>
         </p>

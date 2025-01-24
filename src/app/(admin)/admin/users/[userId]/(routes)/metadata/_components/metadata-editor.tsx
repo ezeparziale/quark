@@ -119,7 +119,7 @@ export function MetadataEditor({ userId, userMetadata }: MetadataEditorProps) {
         className="flex w-full flex-col space-y-4 md:w-2/3"
       >
         <div className="relative">
-          <div className="absolute right-2 top-0.5 flex items-center space-x-2">
+          <div className="absolute top-0.5 right-2 flex items-center space-x-2">
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button

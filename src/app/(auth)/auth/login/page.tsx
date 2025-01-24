@@ -93,7 +93,7 @@ function LoginForm() {
       <p className="text-muted-foreground text-sm">
         New to Quark?{" "}
         <Link
-          className="font-semibold leading-6 text-purple-600 hover:text-green-400"
+          className="leading-6 font-semibold text-purple-600 hover:text-green-400"
           href="/auth/register"
         >
           Sign up for an account
@@ -137,7 +137,7 @@ function LoginForm() {
             <div className="flex flex-row items-center justify-between pb-6">
               <Link
                 href="/auth/reset-password"
-                className="text-sm font-semibold leading-6 text-purple-600 hover:text-green-400 hover:underline"
+                className="text-sm leading-6 font-semibold text-purple-600 hover:text-green-400 hover:underline"
               >
                 Forgot password?
               </Link>

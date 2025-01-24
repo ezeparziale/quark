@@ -80,7 +80,7 @@ function RegisterForm() {
       <p className="text-muted-foreground text-sm">
         Already have an account?{" "}
         <Link
-          className="font-semibold leading-6 text-purple-600 hover:text-green-400"
+          className="leading-6 font-semibold text-purple-600 hover:text-green-400"
           href="/auth/login"
         >
           Log in

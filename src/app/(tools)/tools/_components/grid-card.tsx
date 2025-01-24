@@ -45,7 +45,7 @@ export default function GridCard({ tool, handleFavorite }: Props) {
               </div>
               <Button asChild variant={"link"} className="p-0">
                 <Link href={tool.href}>
-                  <span className="text-base font-normal leading-none">
+                  <span className="text-base leading-none font-normal">
                     {tool.name}
                   </span>
                 </Link>
