@@ -49,7 +49,7 @@ export default function MobileNav({ navigation }: { navigation: INavigation[] })
           <SheetTrigger asChild aria-controls="radix-:Ribdd9j9:">
             <button
               type="button"
-              className="text-primary -m-2.5 inline-flex items-center justify-center rounded-md p-2.5"
+              className="text-primary -m-2.5 inline-flex cursor-pointer items-center justify-center rounded-md p-2.5"
             >
               <span className="sr-only">Open main menu</span>
               <Menu className="size-6" aria-hidden="true" />

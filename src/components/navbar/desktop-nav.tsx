@@ -22,7 +22,7 @@ export default function DesktopNav({ navigation }: { navigation: INavigation[] }
   return (
     <>
       <nav className="hidden h-14 items-center justify-between px-6 lg:flex lg:flex-1">
-        <div className="flex items-center gap-6 pr-6">
+        <div className="flex items-center gap-6">
           <Logo />
           {isHome &&
             navigation.map((item) => (
