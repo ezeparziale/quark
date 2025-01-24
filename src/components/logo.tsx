@@ -97,7 +97,7 @@ export default function Logo({
           {!disableName && (
             <p
               className={cn(
-                "hidden pl-12 font-bold text-primary antialiased sm:text-sm md:block md:text-2xl lg:text-2xl",
+                "text-primary hidden pl-12 font-bold antialiased sm:text-sm md:block md:text-2xl lg:text-2xl",
                 disableScale && "pl-3",
               )}
             >

@@ -90,7 +90,7 @@ function LoginForm() {
   return (
     <AuthTemplate>
       <h1 className="text-2xl font-bold tracking-tight md:text-3xl">Log in</h1>
-      <p className="text-sm text-muted-foreground">
+      <p className="text-muted-foreground text-sm">
         New to Quark?{" "}
         <Link
           className="font-semibold leading-6 text-purple-600 hover:text-green-400"
@@ -149,8 +149,8 @@ function LoginForm() {
           </form>
         </Form>
       </div>
-      <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
-        <span className="relative z-10 bg-background px-2 text-muted-foreground">
+      <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
+        <span className="bg-background text-muted-foreground relative z-10 px-2">
           Or continue with
         </span>
       </div>

@@ -161,7 +161,7 @@ export default function CreateRoleForm() {
                   triggerSearchOnFocus
                   placeholder="Search permissions..."
                   loadingIndicator={
-                    <p className="py-2 text-center text-lg leading-10 text-muted-foreground">
+                    <p className="text-muted-foreground py-2 text-center text-lg leading-10">
                       Loading permissions...
                     </p>
                   }

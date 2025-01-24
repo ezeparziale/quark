@@ -77,7 +77,7 @@ function RegisterForm() {
   return (
     <AuthTemplate>
       <h1 className="text-2xl font-bold tracking-tight md:text-3xl">Sign up</h1>
-      <p className="text-sm text-muted-foreground">
+      <p className="text-muted-foreground text-sm">
         Already have an account?{" "}
         <Link
           className="font-semibold leading-6 text-purple-600 hover:text-green-400"

@@ -32,7 +32,7 @@ export function PageHeader({
           <h1 className="text-2xl font-bold tracking-tight md:text-3xl">{title}</h1>
           <div className="flex items-center gap-2">
             <p
-              className="text-sm text-muted-foreground md:text-base"
+              className="text-muted-foreground text-sm md:text-base"
               aria-label={description}
             >
               {description}
@@ -89,7 +89,7 @@ export function PageSection({ title, description, actions }: PageSectionProps) {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-lg font-medium">{title}</h2>
-          <p className="text-sm text-muted-foreground">{description}</p>
+          <p className="text-muted-foreground text-sm">{description}</p>
         </div>
         {actions && (
           <div

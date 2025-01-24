@@ -84,12 +84,12 @@ export function CommandMenu() {
         onClick={() => setOpen(true)}
         className="items-center p-1"
       >
-        <p className="space-x-1 text-sm text-muted-foreground">
+        <p className="text-muted-foreground space-x-1 text-sm">
           <span>Command menu</span>
-          <kbd className="pointer-events-none inline-flex h-5 select-none items-center rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+          <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 select-none items-center rounded border px-1.5 font-mono text-[10px] font-medium opacity-100">
             <span className="text-xs">{isMacOS ? "⌘" : "ctrl"}</span>
           </kbd>
-          <kbd className="pointer-events-none inline-flex h-5 select-none items-center rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+          <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 select-none items-center rounded border px-1.5 font-mono text-[10px] font-medium opacity-100">
             <span className="text-xs">K</span>
           </kbd>
         </p>

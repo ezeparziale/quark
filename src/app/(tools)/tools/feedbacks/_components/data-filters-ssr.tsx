@@ -47,9 +47,9 @@ export function DataTableFiltersSSR({ query, searchField }: DataTableFilterProps
     <div className="flex items-center justify-between">
       <div className="relative h-8 items-center">
         {isSearching ? (
-          <Loader2 className="absolute left-2 top-2 size-4 animate-spin text-muted-foreground" />
+          <Loader2 className="text-muted-foreground absolute left-2 top-2 size-4 animate-spin" />
         ) : (
-          <SearchIcon className="absolute left-2 top-2 size-4 text-muted-foreground" />
+          <SearchIcon className="text-muted-foreground absolute left-2 top-2 size-4" />
         )}
 
         <Input
@@ -75,7 +75,7 @@ export function DataTableFiltersSSR({ query, searchField }: DataTableFilterProps
                 variant={"ghost"}
                 size={"icon"}
               >
-                <XCircleIcon className="size-4 text-muted-foreground" />
+                <XCircleIcon className="text-muted-foreground size-4" />
               </Button>
             </TooltipTrigger>
             <TooltipContent>

@@ -70,7 +70,7 @@ function ConfirmForm() {
       <h1 className="text-2xl font-bold tracking-tight md:text-3xl">
         Your email address has not been confirmed yet
       </h1>
-      <p className="pt-4 text-sm text-muted-foreground">
+      <p className="text-muted-foreground pt-4 text-sm">
         To access all the features of our platform, please verify your email or request
         a new confirmation email.
       </p>

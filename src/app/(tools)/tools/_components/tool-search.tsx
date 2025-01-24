@@ -42,9 +42,9 @@ export default function ToolSearch() {
   return (
     <div className="relative flex w-full min-w-40 items-center gap-1.5">
       {isSearching ? (
-        <Loader2 className="absolute left-4 size-5 animate-spin text-muted-foreground" />
+        <Loader2 className="text-muted-foreground absolute left-4 size-5 animate-spin" />
       ) : (
-        <SearchIcon className="absolute left-4 size-5 text-muted-foreground" />
+        <SearchIcon className="text-muted-foreground absolute left-4 size-5" />
       )}
 
       <Input
@@ -70,7 +70,7 @@ export default function ToolSearch() {
               variant={"ghost"}
               size={"icon"}
             >
-              <XCircleIcon className="size-5 text-muted-foreground" />
+              <XCircleIcon className="text-muted-foreground size-5" />
             </Button>
           </TooltipTrigger>
           <TooltipContent>

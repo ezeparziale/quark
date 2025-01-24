@@ -122,7 +122,7 @@ export default function ToolsSelect({
                           form.setValue(field.name, "", { shouldDirty: true })
                         }}
                       >
-                        <Trash className="size-4 text-muted-foreground" />
+                        <Trash className="text-muted-foreground size-4" />
                       </Button>
                     )}
                   </>
