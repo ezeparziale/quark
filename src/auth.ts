@@ -8,6 +8,8 @@ import Google from "next-auth/providers/google"
 import { getUserByEmail } from "@/data/user"
 
 import { authConfig } from "./auth.config"
+import { logActivity } from "./lib/activity"
+import { ActivityType } from "./schemas/activity-logs"
 import { loginSchema } from "./schemas/auth"
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
@@ -39,7 +41,10 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
             const passwordsMatch = await bcrypt.compare(password, user.password)
 
-            if (passwordsMatch) return user
+            if (passwordsMatch) {
+              await logActivity(user.id, ActivityType.SIGN_IN)
+              return user
+            }
           }
 
           console.log("Invalid credentials")

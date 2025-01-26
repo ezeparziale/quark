@@ -4,6 +4,9 @@ import prismadb from "@/lib/prismadb"
 
 import { getUserByEmail, getUserByUsername } from "@/data/user"
 
+import { logActivity } from "./lib/activity"
+import { ActivityType } from "./schemas/activity-logs"
+
 export const authConfig = {
   pages: {
     signIn: "/auth/login",
@@ -49,7 +52,7 @@ export const authConfig = {
             }
           }
 
-          await prismadb.user.create({
+          const user = await prismadb.user.create({
             data: {
               username,
               email: profile?.email as string,
@@ -58,13 +61,15 @@ export const authConfig = {
               image: profile?.picture ?? profile?.avatar_url,
             },
           })
+          await logActivity(user.id, ActivityType.SIGN_UP)
         } else {
-          await prismadb.user.update({
+          const user = await prismadb.user.update({
             where: { email: profile?.email as string },
             data: {
               image: profile?.picture ?? profile?.avatar_url,
             },
           })
+          await logActivity(user.id, ActivityType.SIGN_IN)
         }
       }
       return true

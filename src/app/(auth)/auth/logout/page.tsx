@@ -1,26 +1,24 @@
-"use client"
+import { redirect } from "next/navigation"
 
-import { useRouter, useSearchParams } from "next/navigation"
+import { Suspense } from "react"
 
-import { Suspense, useEffect } from "react"
+import { auth } from "@/auth"
 
-import { signOut } from "next-auth/react"
+import { logActivity } from "@/lib/activity"
 
-function Logout() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const callbackUrl: string = (searchParams.get("callbackUrl") as string) ?? "/"
+import { ActivityType } from "@/schemas/activity-logs"
 
-  useEffect(() => {
-    const handleLogout = async () => {
-      await signOut({ redirect: true, callbackUrl: callbackUrl })
-    }
-    handleLogout()
-  }, [router, callbackUrl])
+import { Logout } from "./logout"
 
-  return null
-}
-export default function LogoutPage() {
+export default async function LogoutPage() {
+  const session = await auth()
+
+  if (!session) {
+    redirect("/auth/login")
+  }
+
+  await logActivity(session.user.userId, ActivityType.SIGN_OUT)
+
   return (
     <Suspense>
       <Logout />
