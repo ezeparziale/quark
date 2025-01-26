@@ -16,6 +16,7 @@ model User {
   Feedback            Feedback[]
   tokens              Token[]
   userMetadata        UserMetadata?
+  userActivityLogs    ActivityLog[]
 
   @@map("users")
 }
