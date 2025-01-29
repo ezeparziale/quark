@@ -7,9 +7,12 @@ import { render } from "@react-email/render"
 
 import { DataResult } from "@/types/types"
 
+import { logActivity } from "@/lib/activity"
 import { generateUserToken } from "@/lib/jwt"
 import { sendMail } from "@/lib/mail"
 import prismadb from "@/lib/prismadb"
+
+import { ActivityType } from "@/schemas/activity-logs"
 
 type FormDataNewEmail = {
   newEmail: string
@@ -84,6 +87,8 @@ export async function updateEmail({
         )
 
         await sendMail(email, "Change email account", emailHtml)
+
+        await logActivity(session?.user.userId!, ActivityType.REQUEST_CHANGE_EMAIL)
 
         return { success: true, message: "Check your email to confirm the change" }
       }

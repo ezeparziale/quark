@@ -4,7 +4,10 @@ import { auth } from "@/auth"
 
 import { DataResult } from "@/types/types"
 
+import { logActivity } from "@/lib/activity"
 import prismadb from "@/lib/prismadb"
+
+import { ActivityType } from "@/schemas/activity-logs"
 
 type FormDataUsername = {
   username: string
@@ -43,6 +46,9 @@ export async function updateUsername({
                 usernameUpdatedAt: new Date(),
               },
             })
+
+            await logActivity(session?.user.userId!, ActivityType.UPDATE_USERNAME)
+
             return { success: true }
           } else {
             return { success: false, errors: { username: ["Username already exists"] } }

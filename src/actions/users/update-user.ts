@@ -2,14 +2,17 @@
 
 import { revalidatePath } from "next/cache"
 
+import { auth } from "@/auth"
 import { z } from "zod"
 
 import { DataResult } from "@/types/types"
 
+import { logActivity } from "@/lib/activity"
 import prismadb from "@/lib/prismadb"
 import { has } from "@/lib/rbac"
 import { validateSchemaAction } from "@/lib/validate-schema-action"
 
+import { ActivityType } from "@/schemas/activity-logs"
 import { userEditServerActionSchema } from "@/schemas/users"
 
 type FormData = z.infer<typeof userEditServerActionSchema>
@@ -18,6 +21,8 @@ async function handler(formData: FormData): Promise<DataResult<FormData>> {
   const { id, email, username, isActive, emailVerified, isAdmin } = formData
 
   try {
+    const session = await auth()
+
     const isAuthorized = await has({ role: "admin" })
 
     if (!isAuthorized) {
@@ -55,6 +60,8 @@ async function handler(formData: FormData): Promise<DataResult<FormData>> {
 
     revalidatePath(`/admin/users/${id}`)
     revalidatePath(`/admin/users`)
+
+    await logActivity(session?.user.userId!, ActivityType.UPDATE_USER)
 
     return { success: true }
   } catch (error) {

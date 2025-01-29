@@ -6,9 +6,11 @@ import { z } from "zod"
 
 import { DataResult } from "@/types/types"
 
+import { logActivity } from "@/lib/activity"
 import prismadb from "@/lib/prismadb"
 import { validateSchemaAction } from "@/lib/validate-schema-action"
 
+import { ActivityType } from "@/schemas/activity-logs"
 import { feedbackSchema } from "@/schemas/feedbacks"
 
 import { getCurrentUser } from "./users/get-current-user"
@@ -27,6 +29,8 @@ async function handler(formData: FormData): Promise<DataResult<FormData>> {
     const nps = formData.nps ? parseInt(formData.nps) : undefined
 
     await prismadb.feedback.create({ data: { feedback, nps, userId: currentUser.id } })
+
+    await logActivity(currentUser.id, ActivityType.SEND_FEEDBACK)
 
     return { success: true }
   } catch (error) {

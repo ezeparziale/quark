@@ -2,10 +2,15 @@
 
 import { revalidatePath } from "next/cache"
 
+import { auth } from "@/auth"
+
 import { DataResult } from "@/types/types"
 
+import { logActivity } from "@/lib/activity"
 import prismadb from "@/lib/prismadb"
 import { has } from "@/lib/rbac"
+
+import { ActivityType } from "@/schemas/activity-logs"
 
 interface IRole {
   userId: number
@@ -17,6 +22,8 @@ export async function addRolesToUser({
   roleIds,
 }: IRole): Promise<DataResult<IRole>> {
   try {
+    const session = await auth()
+
     const isAuthorized = await has({ role: "admin" })
 
     if (!isAuthorized) {
@@ -49,6 +56,8 @@ export async function addRolesToUser({
     await prismadb.userRole.createMany({ data: dataToInsert })
 
     revalidatePath(`/admin/users/${userId}/roles`)
+
+    await logActivity(session?.user.userId!, ActivityType.ADD_ROLE)
 
     return { success: true }
   } catch (error) {

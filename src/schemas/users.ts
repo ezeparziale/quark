@@ -76,7 +76,7 @@ export const userEditServerActionSchema = userSchema.omit({
   metadata: true,
 })
 
-export const userOutputSchema = userSchema
+export const userOutputSchema = userSchema.omit({ metadata: true })
 
 export const userCreateSchema = userSchema
   .omit({

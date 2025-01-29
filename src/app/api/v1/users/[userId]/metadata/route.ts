@@ -2,15 +2,18 @@ import { revalidatePath } from "next/cache"
 import { NextResponse } from "next/server"
 
 import { Prisma } from "@prisma/client"
+import { log } from "console"
 import { ZodError } from "zod"
 
+import { logActivity } from "@/lib/activity"
 import { ApiError, getIdInputOrThrow, parseRequestBody } from "@/lib/api"
 import { withAdmin } from "@/lib/auth"
 import prismadb from "@/lib/prismadb"
 
+import { ActivityType } from "@/schemas/activity-logs"
 import { userUpdateMetadataSchema } from "@/schemas/users"
 
-export const PUT = withAdmin(async ({ req, context }) => {
+export const PUT = withAdmin(async ({ req, context, currentUser }) => {
   try {
     const { userId } = context.params
     const id: number = getIdInputOrThrow(userId)
@@ -27,6 +30,8 @@ export const PUT = withAdmin(async ({ req, context }) => {
     })
 
     revalidatePath(`/admin/user/${id}/metadata`)
+
+    await logActivity(currentUser.id, ActivityType.UPDATE_USER_METADATA)
 
     return NextResponse.json({ success: true, message: "Metadata saved successfully" })
   } catch (error) {

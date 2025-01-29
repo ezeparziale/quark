@@ -3,11 +3,13 @@ import { NextResponse } from "next/server"
 import { Prisma } from "@prisma/client"
 import { ZodError } from "zod"
 
+import { logActivity } from "@/lib/activity"
 import { ApiError, getIdInputOrThrow, parseRequestBody } from "@/lib/api"
 import { withAdmin } from "@/lib/auth"
 import prismadb from "@/lib/prismadb"
 import { getZodSchemaFields } from "@/lib/zod/utils"
 
+import { ActivityType } from "@/schemas/activity-logs"
 import {
   userOutputSchema,
   userUpdatePartialSchema,
@@ -42,7 +44,7 @@ export const GET = withAdmin(async ({ context }) => {
   }
 })
 
-export const DELETE = withAdmin(async ({ context }) => {
+export const DELETE = withAdmin(async ({ context, currentUser }) => {
   try {
     const { userId } = context.params
 
@@ -51,6 +53,8 @@ export const DELETE = withAdmin(async ({ context }) => {
     await prismadb.user.delete({
       where: { id },
     })
+
+    await logActivity(currentUser.id, ActivityType.DELETE_USER)
 
     return new NextResponse(null, { status: 204 })
   } catch (error) {
@@ -67,7 +71,7 @@ export const DELETE = withAdmin(async ({ context }) => {
   }
 })
 
-export const PUT = withAdmin(async ({ req, context }) => {
+export const PUT = withAdmin(async ({ req, context, currentUser }) => {
   try {
     const bodyRaw = await parseRequestBody(req)
     const { userId } = context.params
@@ -86,6 +90,8 @@ export const PUT = withAdmin(async ({ req, context }) => {
       data: { email, username, isActive, emailVerified, isAdmin },
       select: outputFields,
     })
+
+    await logActivity(currentUser.id, ActivityType.UPDATE_USER)
 
     return NextResponse.json(updatedUser, { status: 200 })
   } catch (error) {

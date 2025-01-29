@@ -3,11 +3,13 @@ import { NextResponse } from "next/server"
 import { Prisma } from "@prisma/client"
 import { ZodError } from "zod"
 
+import { logActivity } from "@/lib/activity"
 import { ApiError, getPagination, parseRequestBody } from "@/lib/api"
 import { withAdmin } from "@/lib/auth"
 import prismadb from "@/lib/prismadb"
 import { getZodSchemaFields } from "@/lib/zod/utils"
 
+import { ActivityType } from "@/schemas/activity-logs"
 import {
   userCreateSchema,
   userListQuerySchema,
@@ -59,13 +61,16 @@ export const GET = withAdmin(async ({ context }) => {
       orderBy.push({ id: "asc" })
     }
 
-    const [data, totalRows, totalRowsFiltered] = await prismadb.$transaction([
+    const [users, totalRows, totalRowsFiltered] = await prismadb.$transaction([
       prismadb.user.findMany({
         where: filter,
         orderBy,
         skip: offset,
         take: limit,
-        select: outputFields,
+        select: {
+          ...outputFields,
+          userMetadata: { select: { metadata: true } },
+        },
       }),
       prismadb.user.count(),
       prismadb.user.count({
@@ -81,6 +86,14 @@ export const GET = withAdmin(async ({ context }) => {
       "pagination-pages": String(pageCount),
     }
 
+    const data = users.map((user) => {
+      const { userMetadata, ...rest } = user
+      return {
+        ...rest,
+        metadata: userMetadata?.metadata,
+      }
+    })
+
     return NextResponse.json(data, { status: 200, headers })
   } catch (error) {
     console.error("Error:", error)
@@ -92,7 +105,7 @@ export const GET = withAdmin(async ({ context }) => {
   }
 })
 
-export const POST = withAdmin(async ({ req }) => {
+export const POST = withAdmin(async ({ req, currentUser }) => {
   try {
     const bodyRaw = await parseRequestBody(req)
     const body = userCreateSchema.parse(bodyRaw)
@@ -102,6 +115,8 @@ export const POST = withAdmin(async ({ req }) => {
       data: { email, username, isActive, emailVerified, isAdmin },
       select: outputFields,
     })
+
+    await logActivity(currentUser.id, ActivityType.CREATE_USER)
 
     return NextResponse.json(data, { status: 201 })
   } catch (error) {

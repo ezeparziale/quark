@@ -1,9 +1,13 @@
 "use server"
 
+import { auth } from "@/auth"
 import { hash } from "bcrypt"
 
+import { logActivity } from "@/lib/activity"
 import prismadb from "@/lib/prismadb"
 import { has } from "@/lib/rbac"
+
+import { ActivityType } from "@/schemas/activity-logs"
 
 export async function checkUserPassword(userId: number): Promise<boolean> {
   try {
@@ -27,6 +31,8 @@ export async function checkUserPassword(userId: number): Promise<boolean> {
 
 export async function resetUserPassword(userId: number): Promise<void> {
   try {
+    const session = await auth()
+
     const isAuthorized = await has({ role: "admin" })
 
     if (!isAuthorized) {
@@ -39,6 +45,7 @@ export async function resetUserPassword(userId: number): Promise<void> {
       where: { id: userId },
       data: { password: null },
     })
+    await logActivity(session?.user.userId!, ActivityType.RESET_PASSWORD)
   } catch (error) {
     console.error("Error resetting password:", error)
     throw new Error("Failed to reset password.")
@@ -50,6 +57,8 @@ export async function setTemporaryPassword(
   temporaryPassword: string,
 ): Promise<void> {
   try {
+    const session = await auth()
+
     const isAuthorized = await has({ role: "admin" })
 
     if (!isAuthorized) {
@@ -63,6 +72,7 @@ export async function setTemporaryPassword(
       where: { id: userId },
       data: { password: hashedPassword },
     })
+    await logActivity(session?.user.userId!, ActivityType.SET_TEMPORARY_PASSWORD)
   } catch (error) {
     console.error("Error setting temporary password:", error)
     throw new Error("Failed to set temporary password.")

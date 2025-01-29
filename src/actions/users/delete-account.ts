@@ -4,7 +4,10 @@ import { auth } from "@/auth"
 
 import { DataResult } from "@/types/types"
 
+import { logActivity } from "@/lib/activity"
 import prismadb from "@/lib/prismadb"
+
+import { ActivityType } from "@/schemas/activity-logs"
 
 type FormDataDeleteAccount = {
   userEmail: string
@@ -37,6 +40,7 @@ export async function deleteAccount({
               id: user.id,
             },
           })
+          await logActivity(session.user.userId, ActivityType.DELETE_ACCOUNT)
           return { success: true }
         } else {
           errors.userEmail.push("Wrong email")
