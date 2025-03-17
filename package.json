@@ -90,7 +90,7 @@
     "eslint-plugin-prettier": "5.2.3",
     "husky": "9.1.7",
     "lint-staged": "15.5.0",
-    "prettier": "3.4.2",
+    "prettier": "3.5.3",
     "prettier-plugin-tailwindcss": "0.6.11",
     "prisma": "6.5.0",
     "tailwindcss": "4.0.14",
