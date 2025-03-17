@@ -2,7 +2,6 @@ import { revalidatePath } from "next/cache"
 import { NextResponse } from "next/server"
 
 import { Prisma } from "@prisma/client"
-import { log } from "console"
 import { ZodError } from "zod"
 
 import { logActivity } from "@/lib/activity"
