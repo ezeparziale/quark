@@ -68,7 +68,7 @@ export default function CreateTokenButton() {
           <Button onClick={() => setIsOpen(true)}>
             <Plus className="size-4" />
             <span className="sr-only">create token</span>
-            <span className="ml-2 hidden md:block">Create token</span>
+            <span className="hidden md:block">Create token</span>
           </Button>
         </TooltipTrigger>
         <TooltipContent className="md:hidden" align={"end"}>

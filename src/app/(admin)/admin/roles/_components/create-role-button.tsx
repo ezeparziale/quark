@@ -13,7 +13,7 @@ export default function CreateRoleButton() {
           <Link href="/admin/roles/new" prefetch={true}>
             <Plus className="size-4" />
             <span className="sr-only">create role</span>
-            <span className="ml-2 hidden md:block">Create role</span>
+            <span className="hidden md:block">Create role</span>
           </Link>
         </Button>
       </TooltipTrigger>

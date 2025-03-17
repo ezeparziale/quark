@@ -25,7 +25,7 @@ export default function DeletePermissionButton({
           <Button variant="destructive" onClick={() => setIsOpen(true)}>
             <Trash2 className="size-4" />
             <span className="sr-only">delete permission</span>
-            <span className="ml-2 hidden md:block">Delete permission</span>
+            <span className="hidden md:block">Delete permission</span>
           </Button>
         </TooltipTrigger>
         <TooltipContent className="border-destructive md:hidden" align={"end"}>

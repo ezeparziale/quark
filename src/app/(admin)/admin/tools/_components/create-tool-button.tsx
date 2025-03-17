@@ -19,7 +19,7 @@ export default function CreateToolButton() {
           <Button onClick={() => setIsOpen(true)}>
             <Plus className="size-4" />
             <span className="sr-only">create tool</span>
-            <span className="ml-2 hidden md:block">Create tool</span>
+            <span className="hidden md:block">Create tool</span>
           </Button>
         </TooltipTrigger>
         <TooltipContent className="md:hidden" align={"end"}>

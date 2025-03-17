@@ -17,7 +17,7 @@ export default function CreateUserButton() {
             prefetch={true}
           >
             <Plus className="size-4" aria-hidden="true" />
-            <span className="ml-2 hidden md:inline">Create user</span>
+            <span className="hidden md:inline">Create user</span>
           </Link>
         </Button>
       </TooltipTrigger>

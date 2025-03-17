@@ -13,7 +13,7 @@ export default function CreatePermissionButton() {
           <Link href="/admin/permissions/new" prefetch={true}>
             <Plus className="size-4" />
             <span className="sr-only">create permission</span>
-            <span className="ml-2 hidden md:block">Create permission</span>
+            <span className="hidden md:block">Create permission</span>
           </Link>
         </Button>
       </TooltipTrigger>

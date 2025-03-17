@@ -28,7 +28,7 @@ export default function DeleteUserButton({
             aria-label="Delete user"
           >
             <Trash2 className="size-4" />
-            <span className="ml-2 hidden md:inline">Delete user</span>
+            <span className="hidden md:inline">Delete user</span>
           </Button>
         </TooltipTrigger>
         <TooltipContent className="md:hidden" align="end">

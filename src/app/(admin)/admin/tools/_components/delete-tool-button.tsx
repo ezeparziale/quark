@@ -25,7 +25,7 @@ export default function DeleteToolButton({
           <Button variant="destructive" onClick={() => setIsOpen(true)}>
             <Trash2 className="size-4" />
             <span className="sr-only">delete tool</span>
-            <span className="ml-2 hidden md:block">Delete tool1</span>
+            <span className="hidden md:block">Delete tool1</span>
           </Button>
         </TooltipTrigger>
         <TooltipContent className="border-destructive md:hidden" align={"end"}>

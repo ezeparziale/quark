@@ -17,7 +17,7 @@ export default function AddRoleButton({ id }: { id: string }) {
             prefetch={true}
           >
             <Plus className="size-4" aria-hidden="true" />
-            <span className="ml-2 hidden md:inline">Add roles</span>
+            <span className="hidden md:inline">Add roles</span>
           </Link>
         </Button>
       </TooltipTrigger>

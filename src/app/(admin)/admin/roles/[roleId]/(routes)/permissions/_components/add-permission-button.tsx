@@ -13,7 +13,7 @@ export default function AddPermissionButton({ id }: { id: number }) {
           <Link href={`/admin/roles/${id}/permissions/add`} prefetch={true}>
             <Plus className="size-4" />
             <span className="sr-only">add permissions</span>
-            <span className="ml-2 hidden md:block">Add permissions</span>
+            <span className="hidden md:block">Add permissions</span>
           </Link>
         </Button>
       </TooltipTrigger>
