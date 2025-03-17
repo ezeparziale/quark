@@ -84,7 +84,6 @@
     "@types/react": "19.0.1",
     "@types/react-dom": "19.0.1",
     "@types/swagger-ui-react": "4.18.3",
-    "autoprefixer": "10.4.16",
     "eslint": "9.19.0",
     "eslint-config-next": "15.2.1",
     "eslint-config-prettier": "10.0.1",
