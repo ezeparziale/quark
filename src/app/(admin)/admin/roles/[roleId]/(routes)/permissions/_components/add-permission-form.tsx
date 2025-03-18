@@ -80,7 +80,7 @@ export default function AddPermissionForm({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex w-full flex-col space-y-8 md:w-2/3"
+        className="flex w-full flex-col space-y-4 md:w-2/3"
       >
         <FormField
           control={form.control}

@@ -7,7 +7,7 @@ export default function LoadingCreateUserPage() {
     <div className="space-y-6">
       <Skeleton className="mb-6 h-8 w-16 p-0" />
       <PageHeader.Skeleton />
-      <div className="mt-8 flex w-full flex-col space-y-8 md:w-2/3">
+      <div className="mt-8 flex w-full flex-col space-y-4 md:w-2/3">
         <div className="flex gap-x-4">
           <div className="flex-1 space-y-2">
             <Skeleton className="h-5 w-12" />

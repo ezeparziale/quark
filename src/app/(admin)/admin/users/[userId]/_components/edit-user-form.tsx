@@ -70,7 +70,7 @@ export default function EditUserForm({ user }: { user: User }) {
         onSubmit={form.handleSubmit(onSubmitUpdate)}
         className="flex w-full flex-col space-y-4 md:w-2/3"
       >
-        <div className="flex gap-x-4">
+        <div className="flex items-start gap-x-4">
           <FormField
             control={form.control}
             name="email"

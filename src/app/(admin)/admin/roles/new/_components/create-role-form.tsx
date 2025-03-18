@@ -72,9 +72,9 @@ export default function CreateRoleForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmitCreate)}
-        className="flex w-full flex-col space-y-8 md:w-2/3"
+        className="flex w-full flex-col space-y-4 md:w-2/3"
       >
-        <div className="flex gap-x-4">
+        <div className="flex items-start gap-x-4">
           <FormField
             control={form.control}
             name="name"
