@@ -24,7 +24,7 @@ export default function Home() {
           <div className="flex w-full flex-col items-center justify-center space-y-4 py-4 sm:flex-row sm:space-y-0 sm:space-x-4 md:pb-10">
             <Button size="sm" asChild className="w-full sm:w-auto">
               <Link href="/auth/login">
-                Get Started <ArrowRight className="ml-3 size-4" />
+                Get Started <ArrowRight className="size-4" />
               </Link>
             </Button>
             <Button size="sm" variant="outline" asChild className="w-full sm:w-auto">
@@ -33,7 +33,7 @@ export default function Home() {
                 target="_blank"
                 rel="noreferrer"
               >
-                <RxGithubLogo className="mr-3 size-4" />
+                <RxGithubLogo className="size-4" />
                 GitHub
               </Link>
             </Button>
