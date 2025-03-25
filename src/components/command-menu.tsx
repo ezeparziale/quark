@@ -5,16 +5,17 @@ import { useRouter } from "next/navigation"
 import { useCallback, useEffect, useState } from "react"
 
 import {
+  LaptopMinimal,
   LayoutGrid,
   LogOut,
   LucideIcon,
+  Moon,
   NotebookPen,
   Settings,
+  Sun,
   User,
 } from "lucide-react"
 import { useTheme } from "next-themes"
-import { IconType } from "react-icons/lib"
-import { RxDesktop, RxMoon, RxSun } from "react-icons/rx"
 
 import { useOperatingSystem } from "@/lib/hooks/use-operating-system"
 
@@ -37,7 +38,7 @@ interface IQuickLinks {
 }
 
 interface ITheme {
-  icon: IconType
+  icon: LucideIcon
   label: string
   action: string
 }
@@ -49,9 +50,9 @@ const quickLinks: IQuickLinks[] = [
 ]
 
 const themeItems: ITheme[] = [
-  { icon: RxSun, label: "Light", action: "light" },
-  { icon: RxMoon, label: "dark", action: "dark" },
-  { icon: RxDesktop, label: "System", action: "system" },
+  { icon: Sun, label: "Light", action: "light" },
+  { icon: Moon, label: "dark", action: "dark" },
+  { icon: LaptopMinimal, label: "System", action: "system" },
 ]
 
 export function CommandMenu() {

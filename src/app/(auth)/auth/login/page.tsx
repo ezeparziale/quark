@@ -9,9 +9,10 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
-import { FaGithub, FaGoogle } from "react-icons/fa6"
 import { toast } from "sonner"
 import { z } from "zod"
+
+import { GitHubIcon, GoogleIcon } from "@/lib/icons"
 
 import { loginSchema } from "@/schemas/auth"
 
@@ -161,7 +162,7 @@ function LoginForm() {
           disabled={isLoading}
           onClick={() => signIn("google", { callbackUrl })}
         >
-          <FaGoogle className="size-4" />
+          <GoogleIcon className="size-4" />
           <span>Google</span>
         </Button>
         <Button
@@ -170,7 +171,7 @@ function LoginForm() {
           disabled={isLoading}
           onClick={() => signIn("github", { callbackUrl })}
         >
-          <FaGithub className="size-4" />
+          <GitHubIcon className="size-4" />
           <span>GitHub</span>
         </Button>
       </div>

@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react"
 
+import { LaptopMinimal, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
-import { RxDesktop, RxMoon, RxSun } from "react-icons/rx"
 
 import { cn } from "@/lib/utils"
 
@@ -37,8 +37,8 @@ export default function ThemeSwitch({ isDropDown = true }: { isDropDown?: boolea
             className="h-9"
             aria-label="Choose a theme"
           >
-            <RxSun className="size-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-            <RxMoon className="absolute size-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+            <Sun className="size-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+            <Moon className="absolute size-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
@@ -69,9 +69,9 @@ export default function ThemeSwitch({ isDropDown = true }: { isDropDown?: boolea
     <>
       <div className="flex flex-row items-center space-x-1 rounded-full border p-1">
         {[
-          { name: "light", icon: RxSun, label: "Light theme" },
-          { name: "system", icon: RxDesktop, label: "System theme" },
-          { name: "dark", icon: RxMoon, label: "Dark theme" },
+          { name: "light", icon: Sun, label: "Light theme" },
+          { name: "system", icon: LaptopMinimal, label: "System theme" },
+          { name: "dark", icon: Moon, label: "Dark theme" },
         ].map(({ name, icon: Icon, label }) => (
           <button
             key={name}
