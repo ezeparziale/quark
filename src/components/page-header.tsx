@@ -97,7 +97,7 @@ export function PageSection({ title, description, actions }: PageSectionProps) {
             role="toolbar"
             aria-label="Page section actions"
           >
-            {Array.isArray(actions) ? actions : [actions]}
+            {actions}
           </div>
         )}
       </div>
