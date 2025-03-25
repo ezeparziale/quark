@@ -52,7 +52,7 @@ export function PageHeader({
             role="toolbar"
             aria-label="Page actions"
           >
-            {Array.isArray(actions) ? actions : [actions]}
+            {actions}
           </div>
         )}
       </div>
