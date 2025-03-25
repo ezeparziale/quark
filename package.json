@@ -75,6 +75,7 @@
     "zod-openapi": "4.2.2"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "3.3.1",
     "@tailwindcss/postcss": "4.0.14",
     "@trivago/prettier-plugin-sort-imports": "5.2.1",
     "@types/bcrypt": "5.0.2",
