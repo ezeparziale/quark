@@ -163,9 +163,7 @@ export default function ToolForm({ tool }: { tool?: Tool }) {
             disabled={form.formState.isSubmitting || !form.formState.isDirty}
             type="submit"
           >
-            {form.formState.isSubmitting && (
-              <Loader2 className="mr-2 size-4 animate-spin" />
-            )}
+            {form.formState.isSubmitting && <Loader2 className="size-4 animate-spin" />}
             {action}
           </Button>
           <Button size="sm" className="w-full md:w-1/5" variant="outline" asChild>

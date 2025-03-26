@@ -98,7 +98,7 @@ export default function CellActions({ row }: { row: IColumns }) {
             onClick={() => handleConfirmation()}
             disabled={isPending}
           >
-            {isPending && <Loader2 className="mr-2 size-4 animate-spin" />}
+            {isPending && <Loader2 className="size-4 animate-spin" />}
             Remove
           </Button>
         </DialogFooter>

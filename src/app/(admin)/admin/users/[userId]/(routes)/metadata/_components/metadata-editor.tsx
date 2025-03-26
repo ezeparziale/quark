@@ -183,9 +183,7 @@ export function MetadataEditor({ userId, userMetadata }: MetadataEditorProps) {
           disabled={form.formState.isSubmitting || !form.formState.isDirty}
           type="submit"
         >
-          {form.formState.isSubmitting && (
-            <Loader2 className="mr-2 size-4 animate-spin" />
-          )}
+          {form.formState.isSubmitting && <Loader2 className="size-4 animate-spin" />}
           {form.formState.isSubmitting ? "Saving..." : "Save"}
         </Button>
       </form>

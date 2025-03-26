@@ -60,7 +60,7 @@ export function ResetPasswordCard({ userId }: { userId: number }) {
       <CardContent>
         <Button onClick={handleResetClick} disabled={isLoadingCheckPassword}>
           <>
-            {isLoadingCheckPassword && <Loader2 className="mr-2 size-4 animate-spin" />}
+            {isLoadingCheckPassword && <Loader2 className="size-4 animate-spin" />}
             Reset password
           </>
         </Button>
@@ -81,7 +81,7 @@ export function ResetPasswordCard({ userId }: { userId: number }) {
                   <Button onClick={handleConfirmReset} disabled={isLoading}>
                     {isLoading ? (
                       <>
-                        <Loader2 className="mr-2 size-4 animate-spin" />
+                        <Loader2 className="size-4 animate-spin" />
                         Resetting...
                       </>
                     ) : (

@@ -236,7 +236,7 @@ function CreateTokenForm({
                         {isLoadingUsers ? (
                           <SelectItem key="loading" value="loading" disabled>
                             <div className="flex items-center">
-                              <Loader2 className="mr-2 size-4 animate-spin" />
+                              <Loader2 className="size-4 animate-spin" />
                               <span>Loading users...</span>
                             </div>
                           </SelectItem>
@@ -268,7 +268,7 @@ function CreateTokenForm({
                   type="submit"
                 >
                   {form.formState.isSubmitting && (
-                    <Loader2 className="mr-2 size-4 animate-spin" />
+                    <Loader2 className="size-4 animate-spin" />
                   )}
                   {form.formState.isSubmitting ? "Creating..." : "Create"}
                 </Button>

@@ -119,7 +119,7 @@ export default function DeleteToolDialog({
                 type="submit"
               >
                 {form.formState.isSubmitting && (
-                  <Loader2 className="mr-2 size-4 animate-spin" />
+                  <Loader2 className="size-4 animate-spin" />
                 )}
                 Delete
               </Button>

@@ -92,7 +92,7 @@ function ConfirmForm() {
             />
             <div className="flex flex-col items-center justify-center space-y-3">
               <Button size="sm" className="w-full" disabled={isLoading} type="submit">
-                {isLoading && <Loader2 className="mr-2 size-4 animate-spin" />}
+                {isLoading && <Loader2 className="size-4 animate-spin" />}
                 Send verification
               </Button>
               <Button asChild variant="ghost" size="sm">
