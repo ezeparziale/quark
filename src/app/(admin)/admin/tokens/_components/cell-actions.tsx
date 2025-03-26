@@ -45,7 +45,7 @@ export default function CellActions({ row }: { row: IColumns }) {
               setIsDeleteDialogOpen(true)
               setIsDropdownMenuOpen(false)
             }}
-            className="hover:bg-destructive/80! hover:text-destructive-foreground!"
+            variant="destructive"
           >
             <Trash className="mr-2 size-4" />
             Delete

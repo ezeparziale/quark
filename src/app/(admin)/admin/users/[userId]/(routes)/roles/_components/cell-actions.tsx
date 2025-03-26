@@ -73,7 +73,7 @@ export default function CellActions({ row }: { row: IColumns }) {
             </Link>
           </DropdownMenuItem>
           <DialogTrigger asChild>
-            <DropdownMenuItem className="hover:bg-destructive/80! hover:text-destructive-foreground!">
+            <DropdownMenuItem variant="destructive">
               <Trash className="mr-2 size-4" />
               Remove role
             </DropdownMenuItem>
