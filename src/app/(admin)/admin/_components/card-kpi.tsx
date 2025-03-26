@@ -1,4 +1,14 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { TrendingUpIcon } from "lucide-react"
+
+import { Badge } from "@/components/ui/badge"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
 interface IProps {
   title: string
@@ -9,15 +19,19 @@ interface IProps {
 
 export default function CardKpi({ title, Icon, kpi, extra }: IProps) {
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        <Icon />
+    <Card className="@container/card">
+      <CardHeader className="relative">
+        <CardDescription>{title}</CardDescription>
+        <CardTitle className="text-2xl font-semibold tabular-nums">{kpi}</CardTitle>
+        <div className="absolute top-4 right-4">
+          <Icon />
+        </div>
       </CardHeader>
-      <CardContent>
-        <div className="text-2xl font-bold">{kpi}</div>
-        {extra && <p className="text-muted-foreground text-xs">{extra}</p>}
-      </CardContent>
+      {extra && (
+        <CardFooter className="flex-col items-start gap-1 text-sm">
+          <p className="text-muted-foreground text-xs">{extra}</p>
+        </CardFooter>
+      )}
     </Card>
   )
 }
