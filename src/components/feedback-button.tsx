@@ -134,7 +134,7 @@ export default function FeedbackButton() {
                   {form.formState.isSubmitting && (
                     <Loader2 className="size-4 animate-spin" />
                   )}
-                  Send
+                  {form.formState.isSubmitting ? "Sending..." : "Send"}
                 </Button>
               </div>
             </div>
