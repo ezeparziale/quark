@@ -137,10 +137,7 @@ export function ComboboxMulti({
                     }}
                   >
                     <Check
-                      className={cn(
-                        "mr-2 size-4",
-                        isSelected ? "opacity-100" : "opacity-0",
-                      )}
+                      className={cn("size-4", isSelected ? "opacity-100" : "opacity-0")}
                     />
                     {option.label}
                   </CommandItem>

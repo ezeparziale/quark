@@ -45,7 +45,7 @@ export default function CellActions({ row }: { row: IColumns }) {
                 })
             }}
           >
-            <Copy className="mr-2 size-4" />
+            <Copy className="size-4" />
             Copy ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
@@ -55,7 +55,7 @@ export default function CellActions({ row }: { row: IColumns }) {
               setIsDropdownMenuOpen(false)
             }}
           >
-            <Pencil className="mr-2 size-4" />
+            <Pencil className="size-4" />
             Edit
           </DropdownMenuItem>
           <DropdownMenuItem
@@ -65,7 +65,7 @@ export default function CellActions({ row }: { row: IColumns }) {
             }}
             variant="destructive"
           >
-            <Trash className="mr-2 size-4" />
+            <Trash className="size-4" />
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>

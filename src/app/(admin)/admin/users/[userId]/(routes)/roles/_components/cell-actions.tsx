@@ -62,19 +62,19 @@ export default function CellActions({ row }: { row: IColumns }) {
           <DropdownMenuItem
             onClick={() => navigator.clipboard.writeText(String(roleId))}
           >
-            <Copy className="mr-2 size-4" />
+            <Copy className="size-4" />
             Copy role ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
             <Link href={`/admin/roles/${roleId}`} prefetch={true}>
-              <Eye className="mr-2 size-4" />
+              <Eye className="size-4" />
               View role
             </Link>
           </DropdownMenuItem>
           <DialogTrigger asChild>
             <DropdownMenuItem variant="destructive">
-              <Trash className="mr-2 size-4" />
+              <Trash className="size-4" />
               Remove role
             </DropdownMenuItem>
           </DialogTrigger>

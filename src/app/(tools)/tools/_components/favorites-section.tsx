@@ -29,9 +29,9 @@ export default function FavoritesSection({
     <>
       <Button variant={"ghost"} onClick={toggleFavorites}>
         {showFavorites ? (
-          <ChevronDown className="mr-2 size-4" />
+          <ChevronDown className="size-4" />
         ) : (
-          <ChevronRight className="mr-2 size-4" />
+          <ChevronRight className="size-4" />
         )}
         Your favorites
       </Button>

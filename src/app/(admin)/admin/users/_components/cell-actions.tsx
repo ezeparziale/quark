@@ -45,13 +45,13 @@ export default function CellActions({ row }: { row: IColumns }) {
                 })
             }}
           >
-            <Copy className="mr-2 size-4" />
+            <Copy className="size-4" />
             Copy ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
             <Link href={`/admin/users/${row.id}`} prefetch={true}>
-              <Pencil className="mr-2 size-4" />
+              <Pencil className="size-4" />
               Edit
             </Link>
           </DropdownMenuItem>
@@ -62,7 +62,7 @@ export default function CellActions({ row }: { row: IColumns }) {
             }}
             variant="destructive"
           >
-            <Trash className="mr-2 size-4" />
+            <Trash className="size-4" />
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>

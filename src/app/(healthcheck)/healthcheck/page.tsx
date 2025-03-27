@@ -32,7 +32,7 @@ export default function Healthcheck() {
         </h2>
         <Button asChild variant="default" size="sm" className="mt-6">
           <Link href="/">
-            <ArrowLeft className="mr-2 size-4" />
+            <ArrowLeft className="size-4" />
             Back to home
           </Link>
         </Button>

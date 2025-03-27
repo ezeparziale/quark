@@ -105,7 +105,7 @@ export function CommandMenu() {
                 runCommand(() => router.push("/tools"))
               }}
             >
-              <LayoutGrid className="mr-2 size-4" />
+              <LayoutGrid className="size-4" />
               <span>My Tools</span>
             </CommandItem>
             <CommandItem
@@ -113,7 +113,7 @@ export function CommandMenu() {
                 runCommand(() => router.push("/tools/blog"))
               }}
             >
-              <NotebookPen className="mr-2 size-4" />
+              <NotebookPen className="size-4" />
               <span>Blog</span>
             </CommandItem>
           </CommandGroup>
@@ -126,7 +126,7 @@ export function CommandMenu() {
                   runCommand(() => router.push(quickLink.href))
                 }}
               >
-                <quickLink.icon className="mr-2 size-4" />
+                <quickLink.icon className="size-4" />
                 <span>{quickLink.label}</span>
               </CommandItem>
             ))}
@@ -139,7 +139,7 @@ export function CommandMenu() {
                   runCommand(() => setTheme(theme.action))
                 }}
               >
-                <theme.icon className="mr-2 size-4" />
+                <theme.icon className="size-4" />
                 <span>{theme.label}</span>
               </CommandItem>
             ))}

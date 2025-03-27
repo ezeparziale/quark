@@ -33,28 +33,28 @@ const menu: IMenu[] = [
     name: "My tools",
     href: "/tools",
     separator: false,
-    icon: <LayoutGrid className="mr-2 size-4" aria-hidden="true" />,
+    icon: <LayoutGrid className="size-4" aria-hidden="true" />,
   },
   {
     name: "Profile",
     href: "/profile",
     separator: false,
     shortcut: "⇧⌘P",
-    icon: <User className="mr-2 size-4" aria-hidden="true" />,
+    icon: <User className="size-4" aria-hidden="true" />,
   },
   {
     name: "Settings",
     href: "/settings",
     separator: false,
     shortcut: "⇧⌘S",
-    icon: <Settings className="mr-2 size-4" aria-hidden="true" />,
+    icon: <Settings className="size-4" aria-hidden="true" />,
   },
   {
     name: "Log out",
     href: "/auth/logout",
     separator: true,
     shortcut: "⇧⌘Q",
-    icon: <LogOut className="mr-2 size-4" aria-hidden="true" />,
+    icon: <LogOut className="size-4" aria-hidden="true" />,
   },
 ]
 

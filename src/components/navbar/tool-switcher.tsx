@@ -70,14 +70,14 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
               width={16}
               height={16}
               alt={`icon_${selected.name}`}
-              className="mr-2 block dark:hidden"
+              className="block dark:hidden"
             />
             <Image
               src={`/icons/${selected.icon}-dark.svg`}
               width={16}
               height={16}
               alt={`icon_${selected.name}`}
-              className="mr-2 hidden dark:block"
+              className="hidden dark:block"
             />
             {selected.name}
             <ChevronsUpDown className="ml-auto size-4 shrink-0 opacity-50" />
@@ -105,14 +105,14 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
             width={16}
             height={16}
             alt={`icon_${selected.name}`}
-            className="mr-2 block dark:hidden"
+            className="block dark:hidden"
           />
           <Image
             src={`/icons/${selected.icon}-dark.svg`}
             width={16}
             height={16}
             alt={`icon_${selected.name}`}
-            className="mr-2 hidden dark:block"
+            className="hidden dark:block"
           />
           <span>{selected.name}</span>
           <ChevronsUpDown className="ml-auto size-4 shrink-0 opacity-50" />
@@ -160,14 +160,14 @@ function ToolsList({
                 width={16}
                 height={16}
                 alt={`icon_${tool.name}`}
-                className="mr-2 block dark:hidden"
+                className="block dark:hidden"
               />
               <Image
                 src={`/icons/${tool.icon}-dark.svg`}
                 width={16}
                 height={16}
                 alt={`icon_${tool.name}`}
-                className="mr-2 hidden dark:block"
+                className="hidden dark:block"
               />
               <span>{tool.name}</span>
               <Check
@@ -187,7 +187,7 @@ function ToolsList({
               router.push("/tools")
             }}
           >
-            <LayoutGrid className="mr-2 size-4" />
+            <LayoutGrid className="size-4" />
             <span>My tools</span>
             <Check
               className={cn(
@@ -201,7 +201,7 @@ function ToolsList({
               setOpen(false)
             }}
           >
-            <PlusCircle className="mr-2 size-4" />
+            <PlusCircle className="size-4" />
             <span>Add new tools</span>
           </CommandItem>
         </CommandGroup>
