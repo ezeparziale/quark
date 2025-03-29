@@ -30,13 +30,9 @@ export function CopyButtonData({
 
     try {
       copyToClipboard(textToCopy)
-      toast.info(successMessage, {
-        duration: 2000,
-      })
+      toast.info(successMessage)
     } catch {
-      toast.error("Failed to copy. Please try again.", {
-        duration: 3000,
-      })
+      toast.error("Failed to copy. Please try again.")
     }
   }
 
