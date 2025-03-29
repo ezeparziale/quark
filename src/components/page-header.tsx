@@ -27,7 +27,7 @@ export function PageHeader({
   return (
     <header className={cn("mb-6", linkBack ? "mt-4" : "mt-14")}>
       {linkBack && <BackLinkButton link={linkBack} />}
-      <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0 sm:space-x-4">
+      <div className="flex flex-row flex-wrap items-center justify-between gap-2">
         <div className="space-y-1">
           <h1 className="text-2xl font-bold tracking-tight md:text-3xl">{title}</h1>
           <div className="flex items-center gap-2">
@@ -86,7 +86,7 @@ interface PageSectionProps {
 export function PageSection({ title, description, actions }: PageSectionProps) {
   return (
     <section className="mb-6 space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-row flex-wrap items-center justify-between gap-2">
         <div>
           <h2 className="text-lg font-medium">{title}</h2>
           <p className="text-muted-foreground text-sm">{description}</p>
