@@ -6,12 +6,10 @@ import { type User } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
 import { CheckCircle, Clock, Verified, XCircle } from "lucide-react"
 
-import { formatDate } from "@/lib/utils"
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { DataTableColumnHeader } from "@/components/ui/data-tables/data-table-column-header"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { DateCell } from "@/components/ui/data-tables/date-cell"
 
 import CellActions from "./cell-actions"
 
@@ -27,32 +25,6 @@ export type IColumns = Pick<
   | "createdAt"
   | "updatedAt"
 >
-
-const DateCell = ({ date }: { date: Date }) => {
-  const { timeAgo, utcDateTime, localDateTime, localTimeZone } = formatDate(date)
-
-  return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <div className="cursor-help text-xs">{timeAgo}</div>
-      </TooltipTrigger>
-      <TooltipContent>
-        <table className="text-left text-xs">
-          <tbody>
-            <tr>
-              <td className="pr-2 font-mono font-semibold">UTC</td>
-              <td className="font-mono">{utcDateTime}</td>
-            </tr>
-            <tr>
-              <td className="pr-2 font-mono font-semibold">{localTimeZone}</td>
-              <td className="font-mono">{localDateTime}</td>
-            </tr>
-          </tbody>
-        </table>
-      </TooltipContent>
-    </Tooltip>
-  )
-}
 
 export const columns: ColumnDef<IColumns>[] = [
   {
