@@ -20,7 +20,7 @@ export const columns: ColumnDef<IColumns>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => {
-      return <DataTableColumnHeader column={column} title="#" />
+      return <DataTableColumnHeader column={column} title="ID" />
     },
     enableSorting: true,
     enableHiding: false,

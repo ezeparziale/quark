@@ -18,7 +18,7 @@ export const columns: ColumnDef<IColumns>[] = [
   {
     id: "ID",
     accessorKey: "id",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="#" />,
+    header: ({ column }) => <DataTableColumnHeader column={column} title="ID" />,
     enableGlobalFilter: true,
   },
   {
