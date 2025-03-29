@@ -33,6 +33,11 @@ const getSideBarNavItems = (id: number): NavItem[] => {
       href: `${baseHref}/metadata`,
       type: "child",
     },
+    {
+      title: "Logs",
+      href: `${baseHref}/logs`,
+      type: "child",
+    },
   ]
 }
 
