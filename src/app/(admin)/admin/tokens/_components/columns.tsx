@@ -4,7 +4,6 @@ import Link from "next/link"
 
 import { type Token } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
-import { formatDistanceToNow } from "date-fns"
 
 import { Badge } from "@/components/ui/badge"
 import { DataTableColumnHeader } from "@/components/ui/data-tables/data-table-column-header"
