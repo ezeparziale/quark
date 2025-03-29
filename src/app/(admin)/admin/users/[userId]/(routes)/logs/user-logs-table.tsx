@@ -25,22 +25,26 @@ const activityTypeOptions = Object.values(ActivityType).map((value) => ({
 export default function UserLogsTables({ data }: { data: ActivityLogsType[] }) {
   const columns: ColumnDef<ActivityLogsType>[] = [
     {
-      header: "ID",
       accessorKey: "id",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="ID" disableColumnHide />
+      ),
       cell: ({ row }) => {
         return <div className="font-mono text-xs">{row.getValue("id")}</div>
       },
     },
     {
       accessorKey: "action",
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Action" />,
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Action" disableColumnHide />
+      ),
       enableGlobalFilter: true,
       filterFn: (row, id, value) => value.includes(row.getValue(id)),
     },
     {
       accessorKey: "createdAt",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Logged At" />
+        <DataTableColumnHeader column={column} title="Logged At" disableColumnHide />
       ),
       cell: ({ row }) => <DateCell date={row.original.createdAt} />,
     },
