@@ -15,6 +15,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
+import { CopyClipboardDropdownMenuItem } from "@/components/copy-clipboard-dropdown-menu-item"
+
 import { IColumns } from "./columns"
 import DeletePermissionDialog from "./delete-permission-dialog"
 
@@ -33,21 +35,7 @@ export default function CellActions({ row }: { row: IColumns }) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-[160px]">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem
-            onClick={() => {
-              navigator.clipboard
-                .writeText(String(row.id))
-                .then(() => {
-                  toast.success("Permission ID copied!")
-                })
-                .catch(() => {
-                  toast.error("Failed to copy user ID")
-                })
-            }}
-          >
-            <Copy className="size-4" />
-            Copy ID
-          </DropdownMenuItem>
+          <CopyClipboardDropdownMenuItem textToCopy={String(row.id)} />
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
             <Link href={`/admin/permissions/${row.id}`} prefetch={true}>

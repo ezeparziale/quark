@@ -1,7 +1,6 @@
 import { useState } from "react"
 
-import { Copy, MoreHorizontal, Pencil, Trash } from "lucide-react"
-import { toast } from "sonner"
+import { MoreHorizontal, Pencil, Trash } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -12,6 +11,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+
+import { CopyClipboardDropdownMenuItem } from "@/components/copy-clipboard-dropdown-menu-item"
 
 import { IColumns } from "./columns"
 import DeleteToolDialog from "./delete-tool-dialog"
@@ -33,21 +34,7 @@ export default function CellActions({ row }: { row: IColumns }) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-[160px]">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem
-            onClick={() => {
-              navigator.clipboard
-                .writeText(String(row.id))
-                .then(() => {
-                  toast.success("Tool ID copied!")
-                })
-                .catch(() => {
-                  toast.error("Failed to copy user ID")
-                })
-            }}
-          >
-            <Copy className="size-4" />
-            Copy ID
-          </DropdownMenuItem>
+          <CopyClipboardDropdownMenuItem textToCopy={String(row.id)} />
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onSelect={() => {
