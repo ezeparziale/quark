@@ -11,7 +11,7 @@ export function SiteFooter() {
         <div className="flex flex-row items-center justify-between md:h-24 md:flex-row">
           <div className="flex items-center justify-center space-x-3">
             <Logo disableScale disableName />
-            <p className="text-sm">2024</p>
+            <p className="text-sm">2025</p>
             <HealthStatusButton />
           </div>
           <div className="flex items-center justify-between space-x-3">
