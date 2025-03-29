@@ -23,7 +23,7 @@ export function CopyButtonData({
   className,
   ...props
 }: IProps) {
-  const { isCopied, copyToClipboard } = useCopyToClipboard({ timeout: 2000 })
+  const { isCopied, copyToClipboard } = useCopyToClipboard()
 
   const onCopy = () => {
     if (isCopied) return

@@ -18,7 +18,7 @@ export function CopyClipboardDropdownMenuItem({
   label = "Copy ID",
   successMessage = "Copied to clipboard!",
 }: IProps) {
-  const { isCopied, copyToClipboard } = useCopyToClipboard({ timeout: 2000 })
+  const { isCopied, copyToClipboard } = useCopyToClipboard()
 
   const onCopy = () => {
     if (isCopied) return
