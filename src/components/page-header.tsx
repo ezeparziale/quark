@@ -85,7 +85,7 @@ interface PageSectionProps {
 
 export function PageSection({ title, description, actions }: PageSectionProps) {
   return (
-    <section className="mb-6 space-y-6">
+    <section className="mb-2 space-y-6">
       <div className="flex flex-row flex-wrap items-center justify-between gap-2">
         <div>
           <h2 className="text-lg font-medium">{title}</h2>
@@ -109,7 +109,7 @@ export function PageSection({ title, description, actions }: PageSectionProps) {
 export function PageSectionSkeleton() {
   return (
     <section
-      className="mb-6 space-y-6"
+      className="mb-2 space-y-6"
       aria-busy="true"
       aria-label="Loading page section"
     >
