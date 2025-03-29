@@ -13,9 +13,11 @@ import CardKpiLoading from "./_components/card-kpi-loading"
 export default async function AdminPage() {
   await protectPage({ permission: "admin:all" })
 
-  const totalUsers = await prismadb.user.count()
-  const totalRoles = await prismadb.role.count()
-  const totalPermissions = await prismadb.permission.count()
+  const [totalUsers, totalRoles, totalPermissions] = await Promise.all([
+    prismadb.user.count(),
+    prismadb.role.count(),
+    prismadb.permission.count(),
+  ])
 
   return (
     <>
