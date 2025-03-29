@@ -1,7 +1,8 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { format } from "date-fns"
+
+import { DateCell } from "@/components/ui/data-tables/date-cell"
 
 import { FEEDBACK_ITEMS } from "@/components/feedback-button"
 
@@ -61,17 +62,8 @@ export const columns: ColumnDef<IColumns>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Created At" />
     ),
-    cell: ({ row }) => {
-      const formattedDate = format(new Date(row.original.createdAt), "dd-MM-yyyy")
-      const formattedTime = format(new Date(row.original.createdAt), "HH:mm:ss")
+    cell: ({ row }) => <DateCell date={row.original.createdAt} />,
 
-      return (
-        <div className="text-xs">
-          <div>{formattedDate}</div>
-          <div>{formattedTime}</div>
-        </div>
-      )
-    },
     enableSorting: true,
     enableHiding: false,
   },

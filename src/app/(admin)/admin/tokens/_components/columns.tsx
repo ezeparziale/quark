@@ -4,11 +4,11 @@ import Link from "next/link"
 
 import { type Token } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
-import { format, formatDistanceToNow } from "date-fns"
+import { formatDistanceToNow } from "date-fns"
 
 import { Badge } from "@/components/ui/badge"
 import { DataTableColumnHeader } from "@/components/ui/data-tables/data-table-column-header"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { DateCell } from "@/components/ui/data-tables/date-cell"
 
 import CellActions from "./cell-actions"
 
@@ -53,14 +53,9 @@ export const columns: ColumnDef<IColumns>[] = [
   {
     accessorKey: "lastUsed",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Last used" />,
-    cell: ({ row }) => {
-      const lastUsed = row.original.lastUsed ? new Date(row.original.lastUsed) : null
-      const relativeTime = lastUsed
-        ? formatDistanceToNow(lastUsed, { addSuffix: true })
-        : "Never"
-
-      return <div className="text-xs">{relativeTime}</div>
-    },
+    cell: ({ row }) => (
+      <DateCell date={row.original.lastUsed} fallbackText="Never used" />
+    ),
     enableGlobalFilter: false,
   },
   {
@@ -69,23 +64,7 @@ export const columns: ColumnDef<IColumns>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Created At" />
     ),
-    cell: ({ row }) => {
-      const createdAt = new Date(row.original.createdAt)
-      const formattedDate = format(createdAt, "dd-MM-yyyy")
-      const formattedTime = format(createdAt, "HH:mm:ss")
-      const timeAgo = formatDistanceToNow(createdAt, { addSuffix: true })
-
-      return (
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <div className="text-xs">{timeAgo}</div>
-          </TooltipTrigger>
-          <TooltipContent>
-            <div>{`${formattedDate} ${formattedTime}`}</div>
-          </TooltipContent>
-        </Tooltip>
-      )
-    },
+    cell: ({ row }) => <DateCell date={row.original.createdAt} />,
   },
   {
     id: "Updated At",
@@ -93,23 +72,7 @@ export const columns: ColumnDef<IColumns>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Updated At" />
     ),
-    cell: ({ row }) => {
-      const updatedAt = new Date(row.original.updatedAt)
-      const formattedDate = format(updatedAt, "dd-MM-yyyy")
-      const formattedTime = format(updatedAt, "HH:mm:ss")
-      const timeAgo = formatDistanceToNow(updatedAt, { addSuffix: true })
-
-      return (
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <div className="text-xs">{timeAgo}</div>
-          </TooltipTrigger>
-          <TooltipContent>
-            <div>{`${formattedDate} ${formattedTime}`}</div>
-          </TooltipContent>
-        </Tooltip>
-      )
-    },
+    cell: ({ row }) => <DateCell date={row.original.updatedAt} />,
   },
   {
     id: "actions",
