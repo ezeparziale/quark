@@ -46,7 +46,7 @@ export default function UsernameForm({ username }: { username: string }) {
     const result = await updateUsername(data)
     if (result.success) {
       form.reset({ username: data.username })
-      toast.success("Username update succesfully!")
+      toast.success("Username update successfully!")
     } else {
       if (result.errors) {
         addServerErrors(result.errors, form.setError)

@@ -75,7 +75,7 @@ export default function DeleteAccount() {
       <CardHeader>
         <CardTitle>Delete account</CardTitle>
         <CardDescription>
-          <p>Are your sure you wannt to delete your account?</p>
+          <p>Are your sure you want to delete your account?</p>
           <p>
             Once you delete your account, there is no going back. Please be certain.
           </p>
