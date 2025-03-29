@@ -15,14 +15,19 @@ import {
 
 
 type DateCellProps = {
-  date: Date
+  date?: Date | null
+  fallbackText?: string
 }
 
-export const DateCell = ({ date}: DateCellProps) => {
+export const DateCell = ({ date, fallbackText = "N/A"}: DateCellProps) => {
+  const [copied, setCopied] = useState<string | null>(null)
+
+  if (!date) {
+    return <div className="text-xs">{fallbackText}</div>
+  }
+
   const { timeAgo, utcDateTime, localDateTime, localTimeZone } = formatDate(date)
   const timestamp = date.getTime()
-
-  const [copied, setCopied] = useState<string | null>(null)
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text).then(() => {
