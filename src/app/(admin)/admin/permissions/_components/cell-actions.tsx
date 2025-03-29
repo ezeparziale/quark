@@ -2,8 +2,7 @@ import Link from "next/link"
 
 import { useState } from "react"
 
-import { Copy, MoreHorizontal, Pencil, Trash } from "lucide-react"
-import { toast } from "sonner"
+import { MoreHorizontal, Pencil, Trash } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
