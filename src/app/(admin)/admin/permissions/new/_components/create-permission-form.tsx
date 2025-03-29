@@ -96,6 +96,7 @@ export default function CreatePermissionForm() {
                       checked={field.value}
                       onCheckedChange={field.onChange}
                       disabled={form.formState.isSubmitting}
+                      aria-label="Permission active status"
                     />
                   </div>
                 </FormControl>

@@ -28,8 +28,9 @@ export function DataTablePagination<TData>({ table }: DataTablePaginationProps<T
           Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
         </div>
         <span className="hidden items-center justify-start gap-1 text-sm font-medium sm:flex">
-          Go to page:
+          <label htmlFor="goto-page">Go to page:</label>
           <Input
+            id="goto-page"
             type="number"
             defaultValue={table.getState().pagination.pageIndex + 1}
             onChange={(e) => {
@@ -50,7 +51,7 @@ export function DataTablePagination<TData>({ table }: DataTablePaginationProps<T
               table.setPageSize(Number(value))
             }}
           >
-            <SelectTrigger className="h-8 w-[70px]">
+            <SelectTrigger className="h-8 w-[70px]" aria-label="Rows per page">
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
             <SelectContent side="top">

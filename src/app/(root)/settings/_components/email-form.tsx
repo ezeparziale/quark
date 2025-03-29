@@ -77,6 +77,7 @@ export default function EmailForm({ email }: { email: string }) {
                       {...field}
                       disabled={form.formState.isSubmitting}
                       autoComplete="email"
+                      aria-label="Email"
                     />
                   </FormControl>
                   <FormMessage />

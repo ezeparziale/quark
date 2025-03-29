@@ -121,6 +121,7 @@ export default function ToolsSelect({
                         onClick={() => {
                           form.setValue(field.name, "", { shouldDirty: true })
                         }}
+                        aria-label="Remove selection"
                       >
                         <Trash className="text-muted-foreground size-4" />
                       </Button>

@@ -79,6 +79,7 @@ export default function UsernameForm({ username }: { username: string }) {
                       {...field}
                       disabled={form.formState.isSubmitting}
                       autoComplete="username"
+                      aria-label="Username"
                     />
                   </FormControl>
                   <FormMessage />

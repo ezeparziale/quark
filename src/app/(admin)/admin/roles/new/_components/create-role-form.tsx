@@ -104,6 +104,7 @@ export default function CreateRoleForm() {
                       checked={field.value}
                       onCheckedChange={field.onChange}
                       disabled={form.formState.isSubmitting}
+                      aria-label="Role active status"
                     />
                   </div>
                 </FormControl>
