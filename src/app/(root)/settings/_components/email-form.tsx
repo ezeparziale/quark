@@ -85,7 +85,7 @@ export default function EmailForm({ email }: { email: string }) {
               )}
             />
           </CardContent>
-          <CardFooter className="border-t px-6 py-4">
+          <CardFooter className="border-t">
             <Button
               disabled={form.formState.isSubmitting || !form.formState.isDirty}
               type="submit"

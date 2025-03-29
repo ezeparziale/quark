@@ -81,7 +81,7 @@ export default function DeleteAccount() {
           </p>
         </CardDescription>
       </CardHeader>
-      <CardFooter className="border-t px-6 py-4">
+      <CardFooter className="border-t">
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
             <Button
