@@ -30,7 +30,7 @@ export function CopyButtonData({
 
     try {
       copyToClipboard(textToCopy)
-      toast.success(successMessage, {
+      toast.info(successMessage, {
         duration: 2000,
       })
     } catch {
