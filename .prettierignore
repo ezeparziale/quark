@@ -2,4 +2,5 @@ dist
 node_modules
 .next
 build
-src/components/ui
+src/components/ui/*
+!src/components/ui/data-tables/
