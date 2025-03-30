@@ -43,6 +43,7 @@ export function DataTableToolbar<TData>({
   const isFiltered = table.getState().columnFilters.length > 0
 
   return (
+    <>
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         {globalFilters ? (
@@ -74,33 +75,63 @@ export function DataTableToolbar<TData>({
             searchFieldLabel={searchFieldLabel}
           />
         )}
-        {filters.map((filter) => {
-          const column = table.getColumn(filter.column) as Column<TData>
+        <div className="hidden sm:flex sm:flex-row sm:items-center sm:space-x-2">
+          {filters.map((filter) => {
+            const column = table.getColumn(filter.column) as Column<TData>
 
-          if (!column) return null
+            if (!column) return null
 
-          return (
-            <DataTableFacetedFilter
-              key={filter.column}
-              column={column}
-              title={filter.title}
-              options={filter.options}
-              isBoolean={filter.isBoolean}
-            />
-          )
-        })}
-        {isFiltered && (
-          <Button
-            variant="ghost"
-            onClick={() => table.resetColumnFilters()}
-            className="h-8 px-2 lg:px-3"
-          >
-            Reset
-            <X className="ml-2 h-4 w-4" />
-          </Button>
-        )}
+            return (
+              <DataTableFacetedFilter
+                key={filter.column}
+                column={column}
+                title={filter.title}
+                options={filter.options}
+                isBoolean={filter.isBoolean}
+              />
+            )
+          })}
+          {isFiltered && (
+            <Button
+              variant="ghost"
+              onClick={() => table.resetColumnFilters()}
+              className="h-8 px-2 lg:px-3"
+            >
+              Reset
+              <X className="ml-2 h-4 w-4" />
+            </Button>
+          )}
+        </div>
       </div>
       {!hideTableViewOption && <DataTableViewOptions table={table} />}
     </div>
+    <div className="flex sm:hidden flex-wrap gap-2">
+          {filters.map((filter) => {
+            const column = table.getColumn(filter.column) as Column<TData>
+
+            if (!column) return null
+
+            return (
+              <DataTableFacetedFilter
+                key={filter.column}
+                column={column}
+                title={filter.title}
+                options={filter.options}
+                isBoolean={filter.isBoolean}
+              />
+            )
+          })}
+          {isFiltered && (
+            <Button
+              variant="ghost"
+              onClick={() => table.resetColumnFilters()}
+              className="h-8 px-2 lg:px-3"
+            >
+              Reset
+              <X className="ml-2 h-4 w-4" />
+            </Button>
+          )}
+        </div>
+    </>
   )
 }
