@@ -13,13 +13,12 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card"
 
-
 type DateCellProps = {
   date?: Date | null
   fallbackText?: string
 }
 
-export const DateCell = ({ date, fallbackText = "N/A"}: DateCellProps) => {
+export const DateCell = ({ date, fallbackText = "N/A" }: DateCellProps) => {
   const [copied, setCopied] = useState<string | null>(null)
 
   if (!date) {

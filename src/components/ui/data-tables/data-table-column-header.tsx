@@ -16,14 +16,14 @@ interface DataTableColumnHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>
   title: string
-  disableColumnHide ?: boolean
+  disableColumnHide?: boolean
 }
 
 export function DataTableColumnHeader<TData, TValue>({
   column,
   title,
   className,
-  disableColumnHide  = false,
+  disableColumnHide = false,
 }: DataTableColumnHeaderProps<TData, TValue>) {
   if (!column.getCanSort()) {
     return <div className={cn(className)}>{title}</div>
@@ -35,7 +35,7 @@ export function DataTableColumnHeader<TData, TValue>({
           <Button
             variant="ghost"
             size={"sm"}
-            className="h-8 data-[state=open]:bg-accent"
+            className="data-[state=open]:bg-accent h-8"
           >
             <span>{title}</span>
             {column.getIsSorted() === "desc" ? (
@@ -49,18 +49,18 @@ export function DataTableColumnHeader<TData, TValue>({
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start">
           <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
-            <ArrowUp className="h-4 w-4 text-muted-foreground/70" />
+            <ArrowUp className="text-muted-foreground/70 h-4 w-4" />
             Asc
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
-            <ArrowDown className="h-4 w-4 text-muted-foreground/70" />
+            <ArrowDown className="text-muted-foreground/70 h-4 w-4" />
             Desc
           </DropdownMenuItem>
-          {!disableColumnHide  && (
+          {!disableColumnHide && (
             <>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
-                <EyeOff className="h-4 w-4 text-muted-foreground/70" />
+                <EyeOff className="text-muted-foreground/70 h-4 w-4" />
                 Hide
               </DropdownMenuItem>
             </>

@@ -23,7 +23,9 @@ export function DataTableHeaderFilters<TData>({
       <Input
         placeholder={`Filter ${searchFieldLabel}...`}
         value={filterValue}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => column?.setFilterValue(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          column?.setFilterValue(e.target.value)
+        }
         className="h-8 w-[150px] pr-8 lg:w-[250px]"
       />
       {filterValue && (
