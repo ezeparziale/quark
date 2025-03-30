@@ -39,6 +39,7 @@ interface DataTablePropsBase<TData, TValue> {
   emptyState?: React.ReactNode
   hiddenColumns?: { [x: string]: boolean }
   hideTableViewOption?: boolean
+  onRowClick?: (row: TData) => void
   filters?: {
     column: string
     title: string
@@ -71,6 +72,7 @@ export function DataTable<TData, TValue>({
   hideTableViewOption = false,
   filters = [],
   globalFilters = true,
+  onRowClick,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -151,7 +153,11 @@ export function DataTable<TData, TValue>({
           <TableBody>
             {table.getRowModel().rows?.length
               ? table.getRowModel().rows.map((row) => (
-                  <TableRow key={row.id}>
+                  <TableRow
+                    key={row.id}
+                    onClick={onRowClick ? () => onRowClick(row.original) : undefined}
+                    className={onRowClick ? "hover:bg-muted cursor-pointer" : undefined}
+                  >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
