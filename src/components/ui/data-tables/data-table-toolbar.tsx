@@ -46,15 +46,27 @@ export function DataTableToolbar<TData>({
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         {globalFilters ? (
-          <Input
-            placeholder={`Filter ${searchFieldLabel}...`}
-            type="text"
-            value={filtering}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setFiltering(e.target.value)
-            }
-            className="h-8 w-[150px] lg:w-[250px]"
-          />
+          <div className="relative">
+            <Input
+              placeholder={`Filter ${searchFieldLabel}...`}
+              type="text"
+              value={filtering}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFiltering(e.target.value)
+              }
+              className="h-8 w-[150px] pr-8 lg:w-[250px]"
+            />
+            {filtering && (
+              <Button
+                variant="ghost"
+                onClick={() => setFiltering("")}
+                className="absolute top-1/2 right-2 h-6 -translate-y-1/2 transform has-[>svg]:px-1 has-[>svg]:py-0"
+                aria-label="Clear search"
+              >
+                <X size={16} />
+              </Button>
+            )}
+          </div>
         ) : (
           <DataTableHeaderFilters
             table={table}
