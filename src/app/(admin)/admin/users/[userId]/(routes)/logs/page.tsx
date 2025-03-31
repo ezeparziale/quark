@@ -20,7 +20,7 @@ export default async function UserLogsPage(props: { params: Params }) {
 
   return (
     <>
-      <PageSection title="Logs" description="View user logs." />
+      <PageSection title="Logs" description="View user activity." />
       <UserLogsTables data={data} />
     </>
   )
