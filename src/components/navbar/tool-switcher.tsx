@@ -1,17 +1,17 @@
 "use client"
 
-import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
 
+import type React from "react"
 import { useMemo, useState } from "react"
 
 import { Check, ChevronsUpDown, LayoutGrid, PlusCircle } from "lucide-react"
 
-import { ITool } from "@/types/types"
+import type { ITool } from "@/types/types"
 
 import { useMediaQuery } from "@/lib/hooks/use-media-query"
 import useTools from "@/lib/swr/use-tools"
-import { cn } from "@/lib/utils"
+import { cn, getIconComponent } from "@/lib/utils"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -48,9 +48,11 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
       id: -1,
       name: "Select a tool",
       href: "/tools",
-      icon: "layout-grid",
+      icon: "LayoutGrid",
     }
   }, [pathname, tools])
+
+  const SelectedIcon = useMemo(() => getIconComponent(selected.icon), [selected.icon])
 
   if (!tools || isLoading) return <Skeleton className="h-8 w-40 md:w-48" />
 
@@ -65,20 +67,7 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
             aria-label="Select a tool"
             className={cn("w-40 justify-between md:w-48", className)}
           >
-            <Image
-              src={`/icons/${selected.icon}-light.svg`}
-              width={16}
-              height={16}
-              alt={`icon_${selected.name}`}
-              className="block dark:hidden"
-            />
-            <Image
-              src={`/icons/${selected.icon}-dark.svg`}
-              width={16}
-              height={16}
-              alt={`icon_${selected.name}`}
-              className="hidden dark:block"
-            />
+            <SelectedIcon className="size-4" />
             {selected.name}
             <ChevronsUpDown className="ml-auto size-4 shrink-0 opacity-50" />
           </Button>
@@ -100,20 +89,7 @@ export default function ToolSwitcher({ className }: ToolSwitcherProps) {
           aria-label="Select a tool"
           className={cn("w-40 justify-between md:w-48", className)}
         >
-          <Image
-            src={`/icons/${selected.icon}-light.svg`}
-            width={16}
-            height={16}
-            alt={`icon_${selected.name}`}
-            className="block dark:hidden"
-          />
-          <Image
-            src={`/icons/${selected.icon}-dark.svg`}
-            width={16}
-            height={16}
-            alt={`icon_${selected.name}`}
-            className="hidden dark:block"
-          />
+          <SelectedIcon className="size-4" />
           <span>{selected.name}</span>
           <ChevronsUpDown className="ml-auto size-4 shrink-0 opacity-50" />
         </Button>
@@ -137,7 +113,6 @@ function ToolsList({
   setOpen: (open: boolean) => void
 }) {
   const pathname = usePathname()
-
   const router = useRouter()
 
   return (
@@ -146,38 +121,29 @@ function ToolsList({
         <CommandInput placeholder="Search tool..." showEscKey />
         <CommandEmpty>No tool found.</CommandEmpty>
         <CommandGroup key="Tools" heading="Tools">
-          {tools.map((tool) => (
-            <CommandItem
-              key={tool.id}
-              onSelect={() => {
-                setOpen(false)
-                router.push(tool.href)
-              }}
-              className="text-sm"
-            >
-              <Image
-                src={`/icons/${tool.icon}-light.svg`}
-                width={16}
-                height={16}
-                alt={`icon_${tool.name}`}
-                className="block dark:hidden"
-              />
-              <Image
-                src={`/icons/${tool.icon}-dark.svg`}
-                width={16}
-                height={16}
-                alt={`icon_${tool.name}`}
-                className="hidden dark:block"
-              />
-              <span>{tool.name}</span>
-              <Check
-                className={cn(
-                  "ml-auto size-4",
-                  selected.name === tool.name ? "opacity-100" : "opacity-0",
-                )}
-              />
-            </CommandItem>
-          ))}
+          {tools.map((tool) => {
+            const ToolIcon = getIconComponent(tool.icon)
+
+            return (
+              <CommandItem
+                key={tool.id}
+                onSelect={() => {
+                  setOpen(false)
+                  router.push(tool.href)
+                }}
+                className="text-sm"
+              >
+                <ToolIcon className="size-4" />
+                <span>{tool.name}</span>
+                <Check
+                  className={cn(
+                    "ml-auto size-4",
+                    selected.name === tool.name ? "opacity-100" : "opacity-0",
+                  )}
+                />
+              </CommandItem>
+            )
+          })}
         </CommandGroup>
         <CommandSeparator />
         <CommandGroup>

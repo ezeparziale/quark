@@ -1,9 +1,12 @@
-import Image from "next/image"
 import Link from "next/link"
+
+import { useMemo } from "react"
 
 import { MoreHorizontalIcon, Star } from "lucide-react"
 
 import { ITool } from "@/types/types"
+
+import { getIconComponent } from "@/lib/utils"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
@@ -21,28 +24,15 @@ type Props = {
 }
 
 export default function GridCard({ tool, handleFavorite }: Props) {
+  const SelectedIcon = useMemo(() => getIconComponent(tool.icon), [tool.icon])
+
   return (
     <>
       <Card className="dark:hover:border-muted-foreground transition-colors hover:shadow-md">
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div>
-                <Image
-                  src={`/icons/${tool.icon}-light.svg`}
-                  width={24}
-                  height={24}
-                  alt={`icon_${tool.name}`}
-                  className="block dark:hidden"
-                />
-                <Image
-                  src={`/icons/${tool.icon}-dark.svg`}
-                  width={24}
-                  height={24}
-                  alt={`icon_${tool.name}`}
-                  className="hidden dark:block"
-                />
-              </div>
+              <SelectedIcon className="size-6" />
               <Button asChild variant={"link"} className="p-0">
                 <Link href={tool.href}>
                   <span className="text-base leading-none font-normal">

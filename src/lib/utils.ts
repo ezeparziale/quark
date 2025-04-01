@@ -1,6 +1,9 @@
 import { type ClassValue, clsx } from "clsx"
 import { formatDistanceToNow } from "date-fns"
 import { format, formatInTimeZone, toZonedTime } from "date-fns-tz"
+import { LayoutGrid } from "lucide-react"
+import type { LucideIcon } from "lucide-react"
+import * as LucideIcons from "lucide-react"
 import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {
@@ -60,4 +63,15 @@ export const formatDate = (date: Date) => {
     localDateTime,
     localTimeZone: gmtOffset,
   }
+}
+
+export const getIconComponent = (iconName: string): LucideIcon => {
+  const normalizedName = iconName
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+    .join("")
+
+  return (
+    (LucideIcons as unknown as Record<string, LucideIcon>)[normalizedName] || LayoutGrid
+  )
 }
