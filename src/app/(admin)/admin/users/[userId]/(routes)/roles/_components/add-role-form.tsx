@@ -33,7 +33,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>
 
-type IPros = {
+type Props = {
   title: string
   options: {
     value: number
@@ -44,7 +44,7 @@ type IPros = {
   userId: number
 }
 
-export default function AddRoleForm({ options, selectedValues, title, userId }: IPros) {
+export default function AddRoleForm({ options, selectedValues, title, userId }: Props) {
   const router = useRouter()
 
   const form = useForm<FormData>({
@@ -80,23 +80,26 @@ export default function AddRoleForm({ options, selectedValues, title, userId }: 
         <FormField
           control={form.control}
           name="roleIds"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Roles</FormLabel>
-              <FormControl>
-                <ComboboxMulti
-                  title={title}
-                  options={options}
-                  selectedValues={selectedValues}
-                  className="w-2/5"
-                  form={form}
-                  field={field.name}
-                />
-              </FormControl>
-              <FormDescription>Choose your roles</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
+          render={({ field }) => {
+            const fieldValues = new Set(field.value || [])
+
+            return (
+              <FormItem>
+                <FormLabel>Roles</FormLabel>
+                <FormControl>
+                  <ComboboxMulti
+                    title={title}
+                    options={options}
+                    selectedValues={fieldValues}
+                    form={form}
+                    field="roleIds"
+                  />
+                </FormControl>
+                <FormDescription>Choose your roles</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )
+          }}
         />
         <div className="flex flex-col space-y-4">
           <Button

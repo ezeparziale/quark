@@ -80,23 +80,26 @@ export default function AddUserForm({ options, selectedValues, title, roleId }: 
         <FormField
           control={form.control}
           name="userIds"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Users</FormLabel>
-              <FormControl>
-                <ComboboxMulti
-                  title={title}
-                  options={options}
-                  selectedValues={selectedValues}
-                  className="w-2/5"
-                  form={form}
-                  field={field.name}
-                />
-              </FormControl>
-              <FormDescription>Choose your users</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
+          render={({ field }) => {
+            const fieldValues = new Set(field.value || [])
+
+            return (
+              <FormItem>
+                <FormLabel>Roles</FormLabel>
+                <FormControl>
+                  <ComboboxMulti
+                    title={title}
+                    options={options}
+                    selectedValues={fieldValues}
+                    form={form}
+                    field="userIds"
+                  />
+                </FormControl>
+                <FormDescription>Choose your users</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )
+          }}
         />
         <div className="flex flex-col space-y-4">
           <Button
