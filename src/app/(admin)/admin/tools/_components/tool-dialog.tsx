@@ -1,8 +1,10 @@
+import Link from "next/link"
+
 import { useEffect } from "react"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Tool } from "@prisma/client"
-import { Loader2 } from "lucide-react"
+import { ExternalLink, Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
@@ -17,6 +19,7 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -188,6 +191,21 @@ export default function ToolDialog({
                       disabled={form.formState.isSubmitting}
                     />
                   </FormControl>
+                  <FormDescription>
+                    <div className="flex items-center gap-1">
+                      <span>Check names in </span>{" "}
+                      <Link
+                        href="https://lucide.dev/icons/"
+                        target="_blank"
+                        className="underline"
+                      >
+                        <div className="flex items-center gap-1">
+                          <span>Lucide icons</span>
+                          <ExternalLink className="size-4" />
+                        </div>
+                      </Link>
+                    </div>
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
