@@ -87,7 +87,7 @@ export function MetadataEditor({ userId, userMetadata }: MetadataEditorProps) {
 
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(form.getValues("metadata")).then(() => {
-      toast.success("Metadata copied to clipboard")
+      toast.info("Metadata copied to clipboard")
     })
   }, [form])
 
