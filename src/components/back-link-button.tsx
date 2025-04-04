@@ -14,7 +14,7 @@ export default function BackLinkButton({ link }: { link: string }) {
       className="text-muted-foreground mt-1 has-[>svg]:px-0"
       asChild
     >
-      <Link href={link}>
+      <Link href={link} prefetch={false}>
         <ArrowLeft className="size-4" />
         <span className="text-sm">Back</span>
       </Link>
