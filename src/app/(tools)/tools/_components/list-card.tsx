@@ -34,7 +34,7 @@ export default function ListCard({ tool, handleFavorite }: Props) {
             <div className="flex items-center space-x-3">
               <SelectedIcon className="size-6" />
               <Button asChild variant={"link"} className="p-0">
-                <Link href={tool.href}>
+                <Link href={tool.href} prefetch={true}>
                   <span className="text-base leading-none font-normal">
                     {tool.name}
                   </span>
