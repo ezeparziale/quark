@@ -3,7 +3,7 @@
 import { useState } from "react"
 
 import type { ColumnDef } from "@tanstack/react-table"
-import { ChevronDown, ChevronUp, LogInIcon as Logs } from "lucide-react"
+import { ChevronDown, ChevronUp, SquareTerminal } from "lucide-react"
 
 import { ActivityType } from "@/schemas/activity-logs"
 
@@ -89,7 +89,7 @@ export default function UserLogsTables({ data }: { data: ActivityLogsType[] }) {
         searchFieldLabel={"logs"}
         emptyState={
           <EmptyState
-            icon={Logs}
+            icon={SquareTerminal}
             title="No logs found"
             description="It looks like there are no logs available yet."
           />
