@@ -69,7 +69,7 @@
     "use-debounce": "10.0.0",
     "vaul": "1.1.2",
     "zod": "3.24.2",
-    "zod-openapi": "4.2.2"
+    "zod-openapi": "4.2.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.3.1",
