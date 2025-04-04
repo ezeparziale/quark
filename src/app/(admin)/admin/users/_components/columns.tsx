@@ -13,18 +13,7 @@ import { DateCell } from "@/components/ui/data-tables/date-cell"
 
 import CellActions from "./cell-actions"
 
-export type IColumns = Pick<
-  User,
-  | "id"
-  | "email"
-  | "username"
-  | "isActive"
-  | "isAdmin"
-  | "image"
-  | "emailVerified"
-  | "createdAt"
-  | "updatedAt"
->
+export type IColumns = Omit<User, "password" | "usernameUpdatedAt">
 
 export const columns: ColumnDef<IColumns>[] = [
   {

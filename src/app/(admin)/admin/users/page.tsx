@@ -19,7 +19,12 @@ export default async function UsersAdminPage() {
 
   await protectPage({ permission: "admin:all" })
 
-  const data = await prismadb.user.findMany({ orderBy: { updatedAt: "desc" } })
+  const data = await prismadb.user.findMany({
+    omit: {
+      password: true,
+    },
+    orderBy: { updatedAt: "desc" },
+  })
 
   return (
     <>
