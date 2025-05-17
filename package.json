@@ -17,6 +17,7 @@
     "*.{js,jsx,mjs,ts,tsx,mts}": "prettier --write"
   },
   "prisma": {
+    "schema": "./prisma",
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
