@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation"
 
-import { useCallback } from "react"
+import { use, useCallback } from "react"
 
 import { User } from "@prisma/client"
 import { CheckCircle, Clock, Verified, XCircle } from "lucide-react"
@@ -14,7 +14,12 @@ import UsersEmptyStateTable from "./users-empty-state-table"
 
 type UserData = Omit<User, "password" | "usernameUpdatedAt">
 
-export default function UsersTable({ data }: { data: UserData[] }) {
+export default function UsersTable({
+  usersPromise,
+}: {
+  usersPromise: Promise<UserData[]>
+}) {
+  const data = use(usersPromise)
   const router = useRouter()
 
   const handleRowClick = useCallback(
