@@ -79,3 +79,25 @@ export const getUserTools = async (userId: number, search?: string) => {
     return null
   }
 }
+
+export const getUsers = async () => {
+  try {
+    const users = await prismadb.user.findMany({
+      omit: {
+        password: true,
+        usernameUpdatedAt: true,
+      },
+      orderBy: { updatedAt: "desc" },
+    })
+    const now = new Date()
+    const seconds = now.getSeconds()
+
+    if (seconds < 30) {
+      throw new Error(`Failed to fetch users`)
+    }
+    return users
+  } catch (error) {
+    console.error("Failed to fetch users:", error)
+    throw error
+  }
+}
