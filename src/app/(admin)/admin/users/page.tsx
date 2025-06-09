@@ -8,6 +8,8 @@ import { protectPage } from "@/lib/rbac"
 
 import { getUsers } from "@/data/user"
 
+import { DataTableFallback } from "@/components/ui/data-tables/data-table-fallback"
+
 import TableLoading from "@/components/admin/table-loading"
 import { ErrorBoundary } from "@/components/error-boundary"
 import { PageHeader } from "@/components/page-header"
@@ -33,7 +35,7 @@ export default async function UsersAdminPage() {
         description="Manage all user accounts."
         actions={<CreateUserButton />}
       />
-      <ErrorBoundary>
+      <ErrorBoundary fallback={<DataTableFallback />}>
         <Suspense fallback={<TableLoading />}>
           <UsersTable usersPromise={usersPromise} />
         </Suspense>
