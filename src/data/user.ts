@@ -89,12 +89,7 @@ export const getUsers = async () => {
       },
       orderBy: { updatedAt: "desc" },
     })
-    const now = new Date()
-    const seconds = now.getSeconds()
 
-    if (seconds < 30) {
-      throw new Error(`Failed to fetch users`)
-    }
     return users
   } catch (error) {
     console.error("Failed to fetch users:", error)
