@@ -8,9 +8,6 @@ const nextConfig: NextConfig = {
       fullUrl: true,
     },
   },
-  experimental: {
-    reactCompiler: true,
-  },
 }
 
 export default nextConfig
