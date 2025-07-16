@@ -24,7 +24,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Textarea } from "@/components/ui/textarea"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 
-const toggleGroupItemClasses = "p-2 rounded-full data-[state=on]:bg-primary/20 "
+const toggleGroupItemClasses =
+  "p-2 rounded-full data-[state=on]:bg-primary/20 first:rounded-full last:rounded-full"
 
 type FormData = z.infer<typeof feedbackSchema>
 
