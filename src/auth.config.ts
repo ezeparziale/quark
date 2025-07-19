@@ -70,6 +70,10 @@ export const authConfig = {
             },
           })
           await logActivity(user.id, ActivityType.SIGN_IN)
+          await prismadb.user.update({
+            where: { id: user.id },
+            data: { lastSignInAt: new Date() },
+          })
         }
       }
       return true
