@@ -9,6 +9,7 @@ import { getUserByEmail } from "@/data/user"
 
 import { authConfig } from "./auth.config"
 import { logActivity } from "./lib/activity"
+import { prismadb } from "./lib/prismadb"
 import { ActivityType } from "./schemas/activity-logs"
 import { loginSchema } from "./schemas/auth"
 
@@ -43,6 +44,10 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
             if (passwordsMatch) {
               await logActivity(user.id, ActivityType.SIGN_IN)
+              await prismadb.user.update({
+                where: { id: user.id },
+                data: { lastSignInAt: new Date() },
+              })
               return user
             }
           }

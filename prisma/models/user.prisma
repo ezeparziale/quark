@@ -9,6 +9,7 @@ model User {
   image               String?
   createdAt           DateTime             @default(now()) @map("created_at")
   updatedAt           DateTime             @default(now()) @updatedAt @map("updated_at")
+  lastSignInAt        DateTime?            @map("last_sign_in_at")
   usernameUpdatedAt   DateTime?            @map("username_updated_at")
   changeEmailRequests ChangeEmailRequest[]
   roles               UserRole[]
