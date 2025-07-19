@@ -7,7 +7,9 @@ import { Skeleton } from "./ui/skeleton"
 
 interface PageHeaderProps {
   title: string
-  description: string
+  titleExtras?: React.ReactNode[]
+  description?: string
+  descriptionExtras?: React.ReactNode[]
   actions?: React.ReactNode | React.ReactNode[]
   linkBack?: string
   copy?: string
@@ -17,7 +19,9 @@ interface PageHeaderProps {
 
 export function PageHeader({
   title,
+  titleExtras,
   description,
+  descriptionExtras,
   actions,
   linkBack,
   copy,
@@ -29,14 +33,20 @@ export function PageHeader({
       {linkBack && <BackLinkButton link={linkBack} />}
       <div className="flex flex-row flex-wrap items-center justify-between gap-2">
         <div className="space-y-1">
-          <h1 className="text-2xl font-bold tracking-tight md:text-3xl">{title}</h1>
           <div className="flex items-center gap-2">
-            <p
-              className="text-muted-foreground text-sm md:text-base"
-              aria-label={description}
-            >
-              {description}
-            </p>
+            <h1 className="text-2xl font-bold tracking-tight md:text-3xl">{title}</h1>
+            {titleExtras &&
+              titleExtras.map((extra, index) => <div key={index}>{extra}</div>)}
+          </div>
+          <div className="flex items-center gap-2">
+            {description && (
+              <p
+                className="text-muted-foreground text-sm md:text-base"
+                aria-label={description}
+              >
+                {description}
+              </p>
+            )}
             {copy && (
               <CopyButtonData
                 textToCopy={copy}
@@ -44,6 +54,8 @@ export function PageHeader({
                 successMessage={copySuccessMessage}
               />
             )}
+            {descriptionExtras &&
+              descriptionExtras.map((extra, index) => <div key={index}>{extra}</div>)}
           </div>
         </div>
         {actions && (
