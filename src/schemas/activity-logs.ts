@@ -18,6 +18,7 @@ export enum ActivityType {
   CREATE_USER = "CREATE_USER",
   ADD_ROLE = "ADD_ROLE",
   UPDATE_USER_METADATA = "UPDATE_USER_METADATA",
+  UPDATE_USER_PROFILE = "UPDATE_USER_PROFILE",
 }
 
 export const activityLogSchema = z.object({

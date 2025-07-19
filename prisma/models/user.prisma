@@ -16,6 +16,16 @@ model User {
   toolsFavorites      UserToolFavorites[]
   Feedback            Feedback[]
   tokens              Token[]
+  firstName           String?              @map("first_name")
+  lastName            String?              @map("last_name")
+  bio                 String?
+  phone               String?
+  websiteUrl          String?              @map("website_url")
+  linkedinUrl         String?              @map("linkedin_url")
+  githubUrl           String?              @map("github_url")
+  jobTitle            String?              @map("job_title")
+  company             String?
+  department          String?
   userMetadata        UserMetadata?
   userActivityLogs    ActivityLog[]
 

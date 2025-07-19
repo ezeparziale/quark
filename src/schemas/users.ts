@@ -133,3 +133,30 @@ export const userListQuerySchema = listQuerySchema.extend({
 })
 
 export const userUpdateMetadataSchema = userSchema.pick({ metadata: true })
+
+const stringOrNull = (schema: z.ZodString) =>
+  z.preprocess((val) => (val === "" ? undefined : val), schema.optional()).nullable()
+
+export const userUpdateProfileSchema = z.object({
+  firstName: stringOrNull(
+    z.string().min(2, { message: "First name must be at least 2 characters long." }),
+  ),
+  lastName: stringOrNull(
+    z.string().min(2, { message: "Last name must be at least 2 characters long." }),
+  ),
+  bio: stringOrNull(
+    z.string().max(160, { message: "Bio must be at most 160 characters long." }),
+  ),
+  phone: stringOrNull(z.string()),
+  websiteUrl: stringOrNull(
+    z.string().url({ message: "Website URL must be a valid URL." }),
+  ),
+  linkedinUrl: stringOrNull(
+    z.string().url({ message: "LinkedIn URL must be a valid URL." }),
+  ),
+  githubUrl: stringOrNull(
+    z.string().url({ message: "GitHub URL must be a valid URL." }),
+  ),
+  jobTitle: stringOrNull(z.string()),
+  department: stringOrNull(z.string()),
+})
