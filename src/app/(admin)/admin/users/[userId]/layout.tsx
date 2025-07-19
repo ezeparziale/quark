@@ -5,6 +5,7 @@ import { NavItem } from "@/types/types"
 import { getUserById } from "@/data/user"
 
 import { SidebarNav } from "@/components/admin/sidebar-nav"
+import { DateDescription } from "@/components/date-description"
 import { PageHeader } from "@/components/page-header"
 
 import DeleteUserButton from "./_components/delete-user-button"
@@ -67,12 +68,18 @@ export default async function SettingsLayout({
   return (
     <>
       <PageHeader
-        title={`Edit user ${user.email}`}
+        title={`${user.email}`}
         description={`ID: ${user.id}`}
-        linkBack={"/admin/users"}
         copy={`${user.id}`}
         copySuccessMessage={"User ID copied!"}
         copyLabel="Copy user ID"
+        descriptionExtras={[
+          <div key="last-sign-in" className="flex items-center gap-x-2">
+            <p className="text-sm text-gray-500">| Last sign in:</p>
+            <DateDescription date={user.lastSignInAt} fallbackText="Never" />
+          </div>,
+        ]}
+        linkBack={"/admin/users"}
         actions={<DeleteUserButton userId={user.id} userEmail={user.email} />}
       />
       <div className="flex flex-col space-y-8 lg:flex-row lg:space-y-0 lg:space-x-12">
