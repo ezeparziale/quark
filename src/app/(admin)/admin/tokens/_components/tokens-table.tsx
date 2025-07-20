@@ -17,7 +17,7 @@ export default async function TokensTable() {
       data={data}
       searchFieldLabel={"tokens"}
       emptyState={<TokensEmptyStateTable />}
-      hiddenColumns={{ "Created At": false, "Updated At": false }}
+      hiddenColumns={{ "Updated At": false }}
     />
   )
 }
