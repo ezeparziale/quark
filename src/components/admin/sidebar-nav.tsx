@@ -18,7 +18,14 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
 
   return (
     <nav
-      className={cn("flex space-x-2 lg:flex-col lg:space-y-1 lg:space-x-0", className)}
+      className={cn(
+        "flex flex-row lg:flex-col",
+        "space-x-2 lg:space-y-1 lg:space-x-0",
+        "overflow-x-auto lg:overflow-x-hidden",
+        "lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto",
+        "px-2 py-2 md:px-4",
+        className,
+      )}
       {...props}
     >
       {items.map((item) => (
@@ -31,7 +38,8 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
               (item.type === "child" && pathname.includes(item.href))
               ? "bg-muted hover:bg-muted"
               : "hover:bg-transparent hover:underline",
-            "justify-start",
+            "justify-start whitespace-nowrap",
+            "text-sm",
           )}
           prefetch={true}
         >
