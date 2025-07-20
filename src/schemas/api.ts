@@ -1,4 +1,4 @@
-import z from "@/lib/zod"
+import * as z from "zod"
 
 const DEFAULT_PAGE: number = 1
 const DEFAULT_LIMIT: number = 10
@@ -11,7 +11,7 @@ export const listQuerySchema = z.object({
     .min(DEFAULT_PAGE, `The page must be at least ${DEFAULT_PAGE}.`)
     .default(DEFAULT_PAGE)
     .describe("Page number for pagination.")
-    .openapi({
+    .meta({
       default: DEFAULT_PAGE,
       type: "integer",
     }),
@@ -21,7 +21,7 @@ export const listQuerySchema = z.object({
     .max(MAX_LIMIT, `The limit must be at most ${MAX_LIMIT}.`)
     .default(DEFAULT_LIMIT)
     .describe("Number of items per page for pagination.")
-    .openapi({
+    .meta({
       default: DEFAULT_LIMIT,
       type: "integer",
       maximum: MAX_LIMIT,
@@ -40,7 +40,7 @@ export const listQuerySchema = z.object({
     .describe(
       "Sort order for the results. Use comma-separated fields with optional '-' for descending order. Example: 'name,-createdAt'.",
     )
-    .openapi({
+    .meta({
       param: {
         examples: {
           default: {

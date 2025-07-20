@@ -1,4 +1,4 @@
-import { z } from "zod"
+import * as z from "zod"
 import { ZodOpenApiOperationObject } from "zod-openapi"
 
 import { listQuerySchema } from "@/schemas/api"

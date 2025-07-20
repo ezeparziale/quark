@@ -9,7 +9,7 @@ import { Tool } from "@prisma/client"
 import { Loader2, Trash } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import { z } from "zod"
+import * as z from "zod"
 
 import { addToolsToRoles } from "@/actions/roles/add-tools"
 

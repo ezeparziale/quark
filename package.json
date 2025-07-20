@@ -21,7 +21,7 @@
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
-    "@hookform/resolvers": "3.6.0",
+    "@hookform/resolvers": "5.1.1",
     "@prisma/client": "6.8.2",
     "@radix-ui/react-avatar": "1.1.10",
     "@radix-ui/react-checkbox": "1.3.2",
@@ -65,14 +65,14 @@
     "react-hook-form": "7.51.5",
     "server-only": "0.0.1",
     "sonner": "2.0.3",
-    "swagger-ui-react": "5.21.0",
+    "swagger-ui-react": "5.27.0",
     "swr": "2.3.3",
     "tailwind-merge": "3.3.1",
     "tw-animate-css": "1.3.5",
     "use-debounce": "10.0.0",
     "vaul": "1.1.2",
-    "zod": "3.25.64",
-    "zod-openapi": "4.2.4"
+    "zod": "4.0.5",
+    "zod-openapi": "5.2.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.3.1",

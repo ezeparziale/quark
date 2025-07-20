@@ -1,18 +1,18 @@
-import z from "@/lib/zod"
+import * as z from "zod"
 
 // 400
 export const badRequestErrorSchema = z.object({
   message: z
     .string()
     .describe("Error message indicating that the request was invalid or malformed")
-    .openapi({
+    .meta({
       example: "Bad Request",
     }),
 })
 
 // 401
 export const unauthorizedErrorSchema = z.object({
-  message: z.string().describe("Error message for unauthorized access").openapi({
+  message: z.string().describe("Error message for unauthorized access").meta({
     example: "Unauthorized",
   }),
 })
@@ -22,7 +22,7 @@ export const notFoundErrorSchema = z.object({
   message: z
     .string()
     .describe("Error message indicating that the resource was not found")
-    .openapi({
+    .meta({
       example: "Resource not found",
     }),
 })
@@ -35,9 +35,9 @@ export const conflictErrorSchema = z.object({
 // 422
 export const validationErrorSchema = z
   .object({
-    errors: z.record(z.array(z.string())).describe("Validation errors for fields"),
+    errors: z.record(z.string(), z.string()).describe("Validation errors for fields"),
   })
-  .openapi({
+  .meta({
     example: {
       errors: {
         fieldName1: ["Error message 1"],
@@ -48,7 +48,7 @@ export const validationErrorSchema = z
 
 // 500
 export const internalServerErrorSchema = z.object({
-  message: z.string().describe("Internal server error message").openapi({
+  message: z.string().describe("Internal server error message").meta({
     example: "Internal Server Error",
   }),
 })

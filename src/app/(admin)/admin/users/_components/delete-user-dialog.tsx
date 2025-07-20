@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import { z } from "zod"
+import * as z from "zod"
 
 import { deleteUser } from "@/actions/users/delete-user"
 
@@ -43,7 +43,7 @@ export default function DeleteUserDialog({
 
   const formSchema = z.object({
     confirmString: z.literal(userEmail, {
-      errorMap: () => ({ message: "Incorrect user email" }),
+      error: "Incorrect user email",
     }),
   })
 

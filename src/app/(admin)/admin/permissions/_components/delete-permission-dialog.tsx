@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import { z } from "zod"
+import * as z from "zod"
 
 import { deletePermission } from "@/actions/permissions"
 
@@ -43,7 +43,7 @@ export default function DeletePermissionDialog({
 
   const formSchema = z.object({
     confirmString: z.literal(permissionKey, {
-      errorMap: () => ({ message: "Incorrect permission key" }),
+      error: "Incorrect permission key",
     }),
   })
 

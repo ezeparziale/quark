@@ -1,4 +1,4 @@
-import z from "@/lib/zod"
+import * as z from "zod"
 
 export enum ActivityType {
   SIGN_IN = "SIGN_IN",

@@ -10,7 +10,7 @@ import { Loader2 } from "lucide-react"
 import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import { z } from "zod"
+import * as z from "zod"
 
 import { GitHubIcon, GoogleIcon } from "@/lib/icons"
 

@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import { z } from "zod"
+import * as z from "zod"
 
 import { deleteToken } from "@/actions/tokens"
 
@@ -41,7 +41,7 @@ export default function DeleteTokenDialog({
 
   const formSchema = z.object({
     confirmString: z.literal(PHRASE_DELETE, {
-      errorMap: () => ({ message: "Incorrect phrase. Please try again." }),
+      error: "Incorrect phrase. Please try again.",
     }),
   })
 

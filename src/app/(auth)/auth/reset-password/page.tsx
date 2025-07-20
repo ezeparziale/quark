@@ -8,7 +8,7 @@ import axios from "axios"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import { z } from "zod"
+import * as z from "zod"
 
 import { resetPasswordRequestSchema } from "@/schemas/auth"
 
