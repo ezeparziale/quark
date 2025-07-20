@@ -106,7 +106,11 @@ function CreateTokenDialog({
         onPointerDown={token ? (e) => e.preventDefault() : undefined}
         onInteractOutside={token ? (e) => e.preventDefault() : undefined}
       >
-        <CreateTokenForm setIsOpen={setIsOpen} setToken={setToken} token={token} />
+        {token ? (
+          <TokenDisplay token={token} setIsOpen={setIsOpen} />
+        ) : (
+          <CreateTokenForm setIsOpen={setIsOpen} setToken={setToken} />
+        )}
       </ResponsiveDialogContent>
     </ResponsiveDialog>
   )
@@ -114,11 +118,9 @@ function CreateTokenDialog({
 
 function CreateTokenForm({
   setIsOpen,
-  token,
   setToken,
 }: {
   setIsOpen: Dispatch<SetStateAction<boolean>>
-  token: string | undefined
   setToken: Dispatch<SetStateAction<string | undefined>>
 }) {
   const [users, setUsers] = useState<User[]>([])
@@ -184,99 +186,93 @@ function CreateTokenForm({
 
   return (
     <>
-      {token ? (
-        <TokenDisplay token={token} setIsOpen={setIsOpen} />
-      ) : (
-        <>
-          <ResponsiveDialogHeader className="text-left">
-            <ResponsiveDialogTitle>Create token</ResponsiveDialogTitle>
-            <ResponsiveDialogDescription>
-              Create a token access to the API.
-            </ResponsiveDialogDescription>
-          </ResponsiveDialogHeader>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmitCreate)}
-              className="flex w-full flex-col gap-4 px-4 sm:px-0"
+      <ResponsiveDialogHeader className="text-left">
+        <ResponsiveDialogTitle>Create token</ResponsiveDialogTitle>
+        <ResponsiveDialogDescription>
+          Create a token access to the API.
+        </ResponsiveDialogDescription>
+      </ResponsiveDialogHeader>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmitCreate)}
+          className="flex w-full flex-col gap-4 px-4 sm:px-0"
+        >
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    placeholder=""
+                    autoComplete="no"
+                    disabled={form.formState.isSubmitting}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="userId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>User</FormLabel>
+                <Select
+                  onValueChange={(value) => field.onChange(Number(value))}
+                  value={field.value?.toString()}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a user" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {isLoadingUsers ? (
+                      <SelectItem key="loading" value="loading" disabled>
+                        <div className="flex items-center">
+                          <Loader2 className="size-4 animate-spin" />
+                          <span>Loading users...</span>
+                        </div>
+                      </SelectItem>
+                    ) : (
+                      users.map((user) => (
+                        <SelectItem key={user.id} value={user.id.toString()}>
+                          {user.email}
+                        </SelectItem>
+                      ))
+                    )}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <ResponsiveDialogFooter className="flex flex-col-reverse px-0 pt-0 sm:flex-row">
+            <Button
+              variant="outline"
+              type="button"
+              onClick={() => {
+                setIsOpen(false)
+              }}
             >
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder=""
-                        autoComplete="no"
-                        disabled={form.formState.isSubmitting}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="userId"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>User</FormLabel>
-                    <Select
-                      onValueChange={(value) => field.onChange(Number(value))}
-                      value={field.value?.toString()}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a user" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {isLoadingUsers ? (
-                          <SelectItem key="loading" value="loading" disabled>
-                            <div className="flex items-center">
-                              <Loader2 className="size-4 animate-spin" />
-                              <span>Loading users...</span>
-                            </div>
-                          </SelectItem>
-                        ) : (
-                          users.map((user) => (
-                            <SelectItem key={user.id} value={user.id.toString()}>
-                              {user.email}
-                            </SelectItem>
-                          ))
-                        )}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <ResponsiveDialogFooter className="flex flex-col-reverse px-0 pt-0 sm:flex-row">
-                <Button
-                  variant="outline"
-                  type="button"
-                  onClick={() => {
-                    setIsOpen(false)
-                  }}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  disabled={form.formState.isSubmitting || !form.formState.isDirty}
-                  type="submit"
-                >
-                  {form.formState.isSubmitting && (
-                    <Loader2 className="size-4 animate-spin" />
-                  )}
-                  {form.formState.isSubmitting ? "Creating..." : "Create"}
-                </Button>
-              </ResponsiveDialogFooter>
-            </form>
-          </Form>
-        </>
-      )}
+              Cancel
+            </Button>
+            <Button
+              disabled={form.formState.isSubmitting || !form.formState.isDirty}
+              type="submit"
+            >
+              {form.formState.isSubmitting && (
+                <Loader2 className="size-4 animate-spin" />
+              )}
+              {form.formState.isSubmitting ? "Creating..." : "Create"}
+            </Button>
+          </ResponsiveDialogFooter>
+        </form>
+      </Form>
     </>
   )
 }
