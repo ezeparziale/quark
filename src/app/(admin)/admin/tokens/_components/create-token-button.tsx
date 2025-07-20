@@ -4,16 +4,26 @@ import { useEffect, useState } from "react"
 import { Dispatch, SetStateAction } from "react"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Loader2, Plus } from "lucide-react"
+import { Check, ChevronsUpDown, Loader2, Plus } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import * as z from "zod"
+
+import { cn } from "@/lib/utils"
 
 import { tokenCreateServerActionSchema } from "@/schemas/tokens"
 
 import { createToken } from "@/actions/tokens"
 
 import { Button } from "@/components/ui/button"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
 import {
   Form,
   FormControl,
@@ -24,6 +34,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import {
   ResponsiveDialog,
   ResponsiveDialogClose,
@@ -33,13 +44,6 @@ import {
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
 } from "@/components/ui/responsive-dialog"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 import { CopyButtonData } from "@/components/copy-clipboard-button"
@@ -47,7 +51,7 @@ import { CopyButtonData } from "@/components/copy-clipboard-button"
 type FormData = z.infer<typeof tokenCreateServerActionSchema>
 
 type User = {
-  id: string
+  id: number
   email: string
 }
 
@@ -125,6 +129,10 @@ function CreateTokenForm({
 }) {
   const [users, setUsers] = useState<User[]>([])
   const [isLoadingUsers, setIsLoadingUsers] = useState(false)
+  const [search, setSearch] = useState("")
+  const [debouncedSearch, setDebouncedSearch] = useState("")
+  const [isUserPopoverOpen, setIsUserPopoverOpen] = useState(false)
+  const [selectedUserEmail, setSelectedUserEmail] = useState("")
 
   const form = useForm<FormData>({
     defaultValues: {
@@ -133,6 +141,16 @@ function CreateTokenForm({
     },
     resolver: zodResolver(tokenCreateServerActionSchema),
   })
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search)
+    }, 300)
+
+    return () => {
+      clearTimeout(handler)
+    }
+  }, [search])
 
   const onSubmitCreate = async (data: FormData) => {
     const result = await createToken(data)
@@ -144,34 +162,15 @@ function CreateTokenForm({
     }
   }
 
-  const fetchUsers = async () => {
-    const limit = 100
-    let page = 1
-    let allUsers: User[] = []
-    let hasMore = true
-
+  const fetchUsers = async (query: string) => {
     setIsLoadingUsers(true)
-
     try {
-      while (hasMore) {
-        const response = await fetch(`/api/v1/users?page=${page}&limit=${limit}`)
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch users")
-        }
-
-        const fetchedUsers = await response.json()
-
-        allUsers = [...allUsers, ...fetchedUsers]
-
-        if (fetchedUsers.length < limit) {
-          hasMore = false
-        } else {
-          page += 1
-        }
+      const response = await fetch(`/api/v1/users?q=${query}&limit=5`)
+      if (!response.ok) {
+        throw new Error("Failed to fetch users")
       }
-
-      setUsers(allUsers)
+      const fetchedUsers = await response.json()
+      setUsers(fetchedUsers)
     } catch (error) {
       console.error("Error fetching users:", error)
       toast.error("Failed to load users")
@@ -181,8 +180,12 @@ function CreateTokenForm({
   }
 
   useEffect(() => {
-    fetchUsers()
-  }, [])
+    if (debouncedSearch) {
+      fetchUsers(debouncedSearch)
+    } else {
+      setUsers([])
+    }
+  }, [debouncedSearch])
 
   return (
     <>
@@ -219,34 +222,72 @@ function CreateTokenForm({
             control={form.control}
             name="userId"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="flex flex-col">
                 <FormLabel>User</FormLabel>
-                <Select
-                  onValueChange={(value) => field.onChange(Number(value))}
-                  value={field.value?.toString()}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a user" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {isLoadingUsers ? (
-                      <SelectItem key="loading" value="loading" disabled>
-                        <div className="flex items-center">
-                          <Loader2 className="size-4 animate-spin" />
-                          <span>Loading users...</span>
-                        </div>
-                      </SelectItem>
-                    ) : (
-                      users.map((user) => (
-                        <SelectItem key={user.id} value={user.id.toString()}>
-                          {user.email}
-                        </SelectItem>
-                      ))
-                    )}
-                  </SelectContent>
-                </Select>
+                <Popover open={isUserPopoverOpen} onOpenChange={setIsUserPopoverOpen}>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        className={cn(
+                          "w-full justify-between",
+                          !field.value && "text-muted-foreground",
+                        )}
+                      >
+                        {selectedUserEmail || "Select user"}
+                        <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[365px] p-0">
+                    <Command>
+                      <CommandInput
+                        placeholder="Search user by email..."
+                        onValueChange={setSearch}
+                        value={search}
+                      />
+                      <CommandList>
+                        {isLoadingUsers ? (
+                          <div className="py-6 text-center text-sm">
+                            <span>Loading...</span>
+                          </div>
+                        ) : (
+                          <>
+                            {debouncedSearch && users.length === 0 && (
+                              <CommandEmpty>No user found.</CommandEmpty>
+                            )}
+                            <CommandGroup>
+                              {users.map((user) => (
+                                <CommandItem
+                                  value={user.email}
+                                  key={user.id}
+                                  onSelect={() => {
+                                    form.setValue("userId", user.id)
+                                    setSelectedUserEmail(user.email)
+                                    setIsUserPopoverOpen(false)
+                                    setUsers([])
+                                    setSearch("")
+                                  }}
+                                >
+                                  <Check
+                                    className={cn(
+                                      "mr-2 size-4",
+                                      user.id === field.value
+                                        ? "opacity-100"
+                                        : "opacity-0",
+                                    )}
+                                  />
+                                  {user.email}
+                                </CommandItem>
+                              ))}
+                            </CommandGroup>
+                          </>
+                        )}
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
                 <FormMessage />
               </FormItem>
             )}
