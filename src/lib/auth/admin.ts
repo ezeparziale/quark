@@ -59,11 +59,19 @@ export const withAdmin =
         const hashedToken = await hashToken(apiKey)
         const token = await prismadb.token.findUnique({
           where: { hashedToken },
-          include: { user: { select: { id: true, email: true } } },
+          include: {
+            user: { select: { id: true, email: true } },
+            permissions: { include: { permission: true } },
+          },
         })
 
         if (token) {
-          const isAuthorized = await userHasRequiredRole(token.userId, "admin")
+          let isAuthorized = false
+          if (token.type === "custom") {
+            isAuthorized = token.permissions.some((p) => p.permission.key === "admin")
+          } else {
+            isAuthorized = await userHasRequiredRole(token.userId, "admin")
+          }
 
           if (!isAuthorized) {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 })

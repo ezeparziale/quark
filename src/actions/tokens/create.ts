@@ -23,13 +23,31 @@ async function handler(formData: FormData): Promise<DataResult<FormData>> {
       return { success: false, message: "Unauthorized" }
     }
 
-    const { name, userId } = formData
+    const { name, userId, type, permissionIds } = formData
 
     const { token, hashedToken, partialToken } = await createTokenApi()
 
-    await prismadb.token.create({
-      data: { name, hashedToken, partialToken, userId },
-    })
+    if (type === "custom" && permissionIds && permissionIds.length > 0) {
+      await prismadb.token.create({
+        data: {
+          name,
+          hashedToken,
+          partialToken,
+          userId,
+          type,
+          permissions: {
+            create: permissionIds.map((id: number) => ({
+              permission: { connect: { id } },
+              assignedBy: "user", // You might want to replace this with the current user's ID
+            })),
+          },
+        },
+      })
+    } else {
+      await prismadb.token.create({
+        data: { name, hashedToken, partialToken, userId, type: "inherit" },
+      })
+    }
 
     revalidatePath(`/admin/tokens/`)
 

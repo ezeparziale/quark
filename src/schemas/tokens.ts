@@ -58,7 +58,13 @@ export const tokenCreateServerActionSchema = tokenSchema
     name: true,
     userId: true,
   })
-  .describe("Schema for creating a new token, requiring only the name and userId.")
+  .extend({
+    type: z.enum(["inherit", "custom"]),
+    permissionIds: z.array(z.number()).optional(),
+  })
+  .describe(
+    "Schema for creating a new token, requiring name, userId, type, and optional permissionIds.",
+  )
 
 export const tokenUpdateServerActionSchema = tokenSchema
   .pick({

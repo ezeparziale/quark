@@ -7,6 +7,7 @@ model Permission {
   createdAt   DateTime         @default(now()) @map("created_at")
   updatedAt   DateTime         @default(now()) @updatedAt @map("updated_at")
   roles       RolePermission[]
+  tokens      TokenPermission[]
 
   @@map("permissions")
 }
