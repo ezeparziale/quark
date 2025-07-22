@@ -14,7 +14,7 @@ import {
 
 import { CreateTokenDialog } from "./create-token-dialog"
 
-export function CreateTokenButton() {
+export default function CreateTokenButton() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (

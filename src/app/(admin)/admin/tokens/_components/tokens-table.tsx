@@ -7,7 +7,7 @@ import TokensEmptyStateTable from "./tokens-empty-state-table"
 
 export default async function TokensTable() {
   const data = await prismadb.token.findMany({
-    include: { user: { select: { id: true, username: true } } },
+    include: { user: { select: { id: true, username: true, image: true } } },
     orderBy: { createdAt: "desc" },
   })
 

@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button"
 import TableLoading from "@/components/admin/table-loading"
 import { PageHeader } from "@/components/page-header"
 
-import { CreateTokenButton } from "./_components/create-token-button"
+import CreateTokenButton from "./_components/create-token-button"
 import TokensTable from "./_components/tokens-table"
 
 export default async function TokensAdminPage() {
