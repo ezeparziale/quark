@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -29,17 +30,20 @@ import {
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
 } from "@/components/ui/responsive-dialog"
+import { Switch } from "@/components/ui/switch"
 
 type FormData = z.infer<typeof tokenUpdateServerActionSchema>
 
 export default function EditTokenDialog({
   tokenId,
   tokenName,
+  tokenIsActive,
   isOpen,
   setIsOpen,
 }: {
   tokenId: string
   tokenName: string
+  tokenIsActive: boolean
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
 }) {
@@ -47,6 +51,7 @@ export default function EditTokenDialog({
     defaultValues: {
       id: tokenId,
       name: tokenName,
+      isActive: tokenIsActive,
     },
     resolver: zodResolver(tokenUpdateServerActionSchema),
   })
@@ -98,6 +103,21 @@ export default function EditTokenDialog({
                     />
                   </FormControl>
                   <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="isActive"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                  <div className="space-y-0.5">
+                    <FormLabel className="base">Active</FormLabel>
+                    <FormDescription>Enable or disable the token.</FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch checked={field.value} onCheckedChange={field.onChange} />
+                  </FormControl>
                 </FormItem>
               )}
             />

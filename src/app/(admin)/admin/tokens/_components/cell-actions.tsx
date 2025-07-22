@@ -63,6 +63,7 @@ export default function CellActions({ row }: { row: IColumns }) {
         key={`edit-${row.id}`}
         tokenId={row.id}
         tokenName={row.name}
+        tokenIsActive={row.isActive}
         isOpen={isEditDialogOpen}
         setIsOpen={setIsEditDialogOpen}
       />

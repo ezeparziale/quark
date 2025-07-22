@@ -71,4 +71,8 @@ export const tokenUpdateServerActionSchema = tokenSchema
     id: true,
     name: true,
   })
-  .describe("Schema for updating a token, allowing updates to the name.")
+  .extend({
+    isActive: z.boolean(),
+    permissionIds: z.array(z.number()).optional(),
+  })
+  .describe("Schema for updating a token, allowing updates to the name and status.")

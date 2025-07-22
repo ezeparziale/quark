@@ -4,6 +4,7 @@ import Link from "next/link"
 
 import { type Token } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
+import { CheckCircle, XCircle } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
@@ -15,9 +16,10 @@ import CellActions from "./cell-actions"
 export interface IColumns
   extends Pick<
     Token,
-    "id" | "name" | "partialToken" | "lastUsed" | "createdAt" | "updatedAt"
+    "id" | "name" | "partialToken" | "lastUsed" | "createdAt" | "updatedAt" | "isActive"
   > {
   user: { username: string; id: number; image: string | null }
+  permissions: { permissionId: number }[]
 }
 
 export const columns: ColumnDef<IColumns>[] = [
@@ -29,10 +31,12 @@ export const columns: ColumnDef<IColumns>[] = [
     cell: ({ row }) => {
       const userId = row.original.user.id
       return (
-        <div className="flex items-center justify-start">
+        <div className="flex items-center justify-start gap-2">
           <Avatar className="size-8 hover:no-underline sm:hidden md:block">
             <AvatarImage src={row.original.user.image!} alt="User avatar" />
-            <AvatarFallback>{row.original.user.username.charAt(0)}</AvatarFallback>
+            <AvatarFallback>
+              {row.original.user.username.charAt(0).toUpperCase()}
+            </AvatarFallback>
           </Avatar>
           <Link
             href={`/admin/users/${userId}`}
@@ -66,6 +70,28 @@ export const columns: ColumnDef<IColumns>[] = [
       <DateCell date={row.original.lastUsed} fallbackText="Never used" />
     ),
     enableGlobalFilter: false,
+  },
+  {
+    id: "Active",
+    accessorKey: "isActive",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Active" />,
+    cell: ({ row }) => (
+      <Badge variant={row.original.isActive ? "green-subtle" : "red-subtle"}>
+        {row.original.isActive ? (
+          <>
+            <CheckCircle size={16} className="mr-1" />
+            Active
+          </>
+        ) : (
+          <>
+            <XCircle size={16} className="mr-1" />
+            Inactive
+          </>
+        )}
+      </Badge>
+    ),
+    enableGlobalFilter: true,
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
   },
   {
     id: "Created At",

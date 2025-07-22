@@ -22,9 +22,15 @@ async function handler(formData: FormData): Promise<DataResult<FormData>> {
       return { success: false, message: "Unauthorized" }
     }
 
-    const { id, name } = formData
+    const { id, name, isActive } = formData
 
-    await prismadb.token.update({ where: { id }, data: { name } })
+    await prismadb.token.update({
+      where: { id },
+      data: {
+        name,
+        isActive,
+      },
+    })
 
     revalidatePath(`/admin/tokens/`)
 
