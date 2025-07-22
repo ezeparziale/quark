@@ -5,6 +5,7 @@ import Link from "next/link"
 import { type Token } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { DataTableColumnHeader } from "@/components/ui/data-tables/data-table-column-header"
 import { DateCell } from "@/components/ui/data-tables/date-cell"
@@ -16,7 +17,7 @@ export interface IColumns
     Token,
     "id" | "name" | "partialToken" | "lastUsed" | "createdAt" | "updatedAt"
   > {
-  user: { username: string; id: number }
+  user: { username: string; id: number; image: string | null }
 }
 
 export const columns: ColumnDef<IColumns>[] = [
@@ -28,9 +29,18 @@ export const columns: ColumnDef<IColumns>[] = [
     cell: ({ row }) => {
       const userId = row.original.user.id
       return (
-        <Link href={`/admin/users/${userId}`} className="hover:underline">
-          {row.original.user.username}
-        </Link>
+        <div className="flex items-center justify-start">
+          <Avatar className="size-8 hover:no-underline sm:hidden md:block">
+            <AvatarImage src={row.original.user.image!} alt="User avatar" />
+            <AvatarFallback>{row.original.user.username.charAt(0)}</AvatarFallback>
+          </Avatar>
+          <Link
+            href={`/admin/users/${userId}`}
+            className="flex items-center gap-x-2 hover:underline"
+          >
+            <span>{row.original.user.username}</span>
+          </Link>
+        </div>
       )
     },
   },
