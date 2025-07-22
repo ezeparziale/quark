@@ -19,7 +19,6 @@ export interface IColumns
     "id" | "name" | "partialToken" | "lastUsed" | "createdAt" | "updatedAt" | "isActive"
   > {
   user: { username: string; id: number; image: string | null }
-  permissions: { permissionId: number }[]
 }
 
 export const columns: ColumnDef<IColumns>[] = [
