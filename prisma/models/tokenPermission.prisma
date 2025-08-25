@@ -3,8 +3,8 @@ model TokenPermission {
   permissionId Int        @map("permission_id")
   token        Token      @relation(fields: [tokenId], references: [id], onDelete: Cascade)
   permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
-  assignedAt   DateTime   @default(now()) @map("assigned_at")
-  assignedBy   String
+  createdBy    String     @map("created_by")
+  createdAt    DateTime   @default(now()) @map("created_at")
 
   @@id([tokenId, permissionId])
   @@map("token_permissions")
