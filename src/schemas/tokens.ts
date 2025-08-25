@@ -9,6 +9,20 @@ export const tokenPathParamSchema = z.object({
   tokenId,
 })
 
+const permissionIdsSchema = z
+  .array(z.number())
+  .nullable()
+  .optional()
+  .describe("The unique identifiers of the permissions associated with the token.")
+  .meta({ example: [1, 2, 3] })
+
+const permissionsSchema = z
+  .array(z.object({ id: z.number(), name: z.string() }))
+  .nullable()
+  .optional()
+  .describe("The permissions associated with the token.")
+  .meta({ example: [{ id: 1, name: "Create post" }] })
+
 export const tokenSchema = z.object({
   id: tokenId,
   name: z
@@ -28,11 +42,13 @@ export const tokenSchema = z.object({
   expires: z
     .date()
     .optional()
+    .nullable()
     .describe("The date and time when the token expires.")
     .meta({ example: new Date("2024-06-26T01:36:52.676Z") }),
   lastUsed: z
     .date()
     .optional()
+    .nullable()
     .describe("The date and time when the token was last used.")
     .meta({ example: new Date("2024-07-20T01:36:52.676Z") }),
   userId: z
@@ -47,31 +63,49 @@ export const tokenSchema = z.object({
     .date()
     .describe("The date and time when the token was last updated.")
     .meta({ example: new Date("2024-05-26T01:36:52.676Z") }),
+  type: z
+    .enum(["inherit", "custom"])
+    .describe("The type of the token, either 'inherit' or 'custom'.")
+    .meta({ example: "custom" }),
+  isActive: z
+    .boolean()
+    .describe("Indicates if the token is active.")
+    .meta({ example: true }),
+  permissionIds: permissionIdsSchema,
+  permissions: permissionsSchema,
 })
 
 export const tokenOutputSchema = tokenSchema
   .omit({ hashedToken: true })
   .describe("Schema for token output, omitting the hashed token.")
 
-export const tokenCreateServerActionSchema = tokenSchema
+export const tokenCreateOutputSchema = tokenOutputSchema.extend({
+  token: z.string().meta({ example: "your_token_value_here" }),
+})
+
+export const tokenCreateSchema = tokenSchema
   .pick({
     name: true,
     userId: true,
+    type: true,
+    permissionIds: true,
   })
-  .extend({
-    type: z.enum(["inherit", "custom"]),
-    permissionIds: z.array(z.number()).optional(),
-  })
-  .describe(
-    "Schema for creating a new token, requiring name, userId, type, and optional permissionIds.",
+  .refine(
+    (data) =>
+      data.type !== "custom" ||
+      (Array.isArray(data.permissionIds) && data.permissionIds.length > 0),
+    {
+      message: "You must select at least one permission when using custom permissions.",
+      path: ["permissionIds"],
+    },
   )
 
-export const tokenUpdateServerActionSchema = tokenSchema
-  .pick({
-    id: true,
-    name: true,
-  })
-  .extend({
-    isActive: z.boolean(),
-  })
-  .describe("Schema for updating a token, allowing updates to the name and status.")
+export const tokenUpdateSchema = tokenCreateSchema.extend({
+  isActive: tokenSchema.shape.isActive,
+})
+
+export const tokenUpdatePartialSchema = tokenUpdateSchema.partial()
+
+export type Token = z.infer<typeof tokenSchema>
+export type TokenCreateInput = z.infer<typeof tokenCreateSchema>
+export type TokenOutput = z.infer<typeof tokenOutputSchema>
