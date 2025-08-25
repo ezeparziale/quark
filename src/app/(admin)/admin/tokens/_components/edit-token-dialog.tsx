@@ -284,6 +284,7 @@ export default function EditTokenDialog({
                 <FormField
                   control={form.control}
                   name="permissionIds"
+                  // eslint-disable-next-line @typescript-eslint/no-unused-vars
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Permissions</FormLabel>
