@@ -1,10 +1,10 @@
+import { useRouter } from "next/navigation"
+
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import * as z from "zod"
-
-import { deleteToken } from "@/actions/tokens"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -37,6 +37,8 @@ export default function DeleteTokenDialog({
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
 }) {
+  const router = useRouter()
+
   const PHRASE_DELETE: string = "delete token"
 
   const formSchema = z.object({
@@ -53,12 +55,21 @@ export default function DeleteTokenDialog({
   })
 
   const onSubmit = async () => {
-    const result = await deleteToken(tokenId)
-    if (result.success) {
-      toast.success("Token deleted successfully!", { duration: 4000 })
-      setIsOpen(false)
-    } else {
-      toast.error(result.message)
+    try {
+      const response = await fetch(`/api/v1/tokens/${tokenId}`, {
+        method: "DELETE",
+      })
+
+      if (response.ok) {
+        toast.success("Token deleted successfully!", { duration: 4000 })
+        setIsOpen(false)
+        router.refresh()
+      } else {
+        const errorData = await response.json()
+        toast.error(errorData.message || "Something went wrong")
+      }
+    } catch {
+      toast.error("Something went wrong")
     }
   }
 

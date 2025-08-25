@@ -75,3 +75,15 @@ export const getIconComponent = (iconName: string): LucideIcon => {
     (LucideIcons as unknown as Record<string, LucideIcon>)[normalizedName] || LayoutGrid
   )
 }
+
+export function diffArrays<T extends string | number>(oldIds: T[], newIds: T[]) {
+  const toDelete = oldIds.filter((id) => !newIds.includes(id))
+  const toAdd = newIds.filter((id) => !oldIds.includes(id))
+  const toKeep = oldIds.filter((id) => newIds.includes(id))
+
+  return {
+    toDelete,
+    toAdd,
+    toKeep,
+  }
+}

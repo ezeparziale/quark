@@ -1,5 +1,7 @@
 "use client"
 
+import { useRouter } from "next/navigation"
+
 import { useEffect, useState } from "react"
 
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -8,7 +10,7 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
 
-import { createToken } from "@/actions/tokens"
+import { tokenCreateSchema } from "@/schemas/tokens"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -106,34 +108,7 @@ const fetchUsers = async (query: string): Promise<User[]> => {
   }
 }
 
-const formSchema = z
-  .object({
-    name: z.string().min(1, {
-      message: "Name is required.",
-    }),
-    userId: z.number({
-      error: "You must select a user.",
-    }),
-    type: z.enum(["inherit", "custom"], {
-      error: "You need to select a permission type.",
-    }),
-    permissionIds: z.array(z.number()).optional(),
-  })
-  .refine(
-    (data) => {
-      if (
-        data.type === "custom" &&
-        (!data.permissionIds || data.permissionIds.length === 0)
-      ) {
-        return false
-      }
-      return true
-    },
-    {
-      message: "You must select at least one permission when using custom permissions.",
-      path: ["permissionIds"],
-    },
-  )
+const formSchema = tokenCreateSchema
 
 export function CreateTokenDialog({ isOpen, setIsOpen }: CreateTokenDialogProps) {
   const [permissionsOpen, setPermissionsOpen] = useState(false)
@@ -148,6 +123,7 @@ export function CreateTokenDialog({ isOpen, setIsOpen }: CreateTokenDialogProps)
   const [usersLoading, setUsersLoading] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [generatedToken, setGeneratedToken] = useState<string | null>(null)
+  const router = useRouter()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -257,10 +233,18 @@ export function CreateTokenDialog({ isOpen, setIsOpen }: CreateTokenDialogProps)
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsSubmitting(true)
     try {
-      const result = await createToken(data)
+      const response = await fetch("/api/v1/tokens", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
 
-      if (result.success && result.data?.token) {
-        setGeneratedToken(result.data.token)
+      if (response.ok) {
+        const result = await response.json()
+        router.refresh()
+        setGeneratedToken(result.token)
         toast.success("Token created successfully!", { duration: 4000 })
       } else {
         toast.error("Something went wrong. Please try again.")

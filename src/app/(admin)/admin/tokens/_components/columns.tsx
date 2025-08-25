@@ -1,117 +1,80 @@
 "use client"
 
-import Link from "next/link"
+import type { ColumnDef } from "@tanstack/react-table"
+import { format } from "date-fns"
 
-import { type Token } from "@prisma/client"
-import { ColumnDef } from "@tanstack/react-table"
-import { CheckCircle, XCircle } from "lucide-react"
+import type { Token } from "@/types/token"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { DataTableColumnHeader } from "@/components/ui/data-tables/data-table-column-header"
-import { DateCell } from "@/components/ui/data-tables/date-cell"
+import { DataTableColumnHeader } from "@/components/ui/data-tables/server-side/data-table-column-header"
 
-import CellActions from "./cell-actions"
+import { TokenActionsCell } from "./cell-actions"
 
-export interface IColumns
-  extends Pick<
-    Token,
-    "id" | "name" | "partialToken" | "lastUsed" | "createdAt" | "updatedAt" | "isActive"
-  > {
-  user: { username: string; id: number; image: string | null }
-}
-
-export const columns: ColumnDef<IColumns>[] = [
+export const columns: ColumnDef<Token>[] = [
   {
-    id: "username",
-    accessorKey: "user.username",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Username" />,
-    enableGlobalFilter: true,
+    accessorKey: "name",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
+    cell: ({ row }) => <div className="font-medium">{row.getValue("name")}</div>,
+  },
+  {
+    accessorKey: "partialToken",
+    header: "Token",
+    cell: ({ row }) => (
+      <code className="bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm">
+        {row.getValue("partialToken")}
+      </code>
+    ),
+  },
+  {
+    accessorKey: "type",
+    header: "Type",
     cell: ({ row }) => {
-      const userId = row.original.user.id
+      const type = row.getValue("type") as string
       return (
-        <div className="flex items-center justify-start gap-2">
-          <Avatar className="size-8 hover:no-underline sm:hidden md:block">
-            <AvatarImage src={row.original.user.image!} alt="User avatar" />
-            <AvatarFallback>
-              {row.original.user.username.charAt(0).toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
-          <Link
-            href={`/admin/users/${userId}`}
-            className="flex items-center gap-x-2 hover:underline"
-          >
-            <span>{row.original.user.username}</span>
-          </Link>
-        </div>
+        <Badge variant={type === "inherit" ? "secondary" : "default"}>{type}</Badge>
       )
     },
   },
   {
-    accessorKey: "name",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
-    enableGlobalFilter: true,
-  },
-  {
-    accessorKey: "partialToken",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Partial Token" />
-    ),
+    accessorKey: "isActive",
+    header: "Status",
     cell: ({ row }) => {
-      return <Badge variant={"teal-subtle"}>{row.original.partialToken}</Badge>
+      const isActive = row.getValue("isActive") as boolean
+      return (
+        <Badge variant={isActive ? "green-subtle" : "red-subtle"}>
+          {isActive ? "Active" : "Inactive"}
+        </Badge>
+      )
     },
-    enableGlobalFilter: true,
   },
   {
     accessorKey: "lastUsed",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Last used" />,
-    cell: ({ row }) => (
-      <DateCell date={row.original.lastUsed} fallbackText="Never used" />
-    ),
-    enableGlobalFilter: false,
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Last Used" />,
+    cell: ({ row }) => {
+      const lastUsed = row.getValue("lastUsed") as string
+      return lastUsed ? format(new Date(lastUsed), "MMM dd, yyyy HH:mm") : "Never"
+    },
   },
   {
-    id: "Active",
-    accessorKey: "isActive",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Active" />,
-    cell: ({ row }) => (
-      <Badge variant={row.original.isActive ? "green-subtle" : "red-subtle"}>
-        {row.original.isActive ? (
-          <>
-            <CheckCircle size={16} className="mr-1" />
-            Active
-          </>
-        ) : (
-          <>
-            <XCircle size={16} className="mr-1" />
-            Inactive
-          </>
-        )}
-      </Badge>
-    ),
-    enableGlobalFilter: true,
-    filterFn: (row, id, value) => value.includes(row.getValue(id)),
-  },
-  {
-    id: "Created At",
     accessorKey: "createdAt",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Created At" />
-    ),
-    cell: ({ row }) => <DateCell date={row.original.createdAt} />,
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Created" />,
+    cell: ({ row }) => {
+      const createdAt = row.getValue("createdAt") as string
+      return format(new Date(createdAt), "MMM dd, yyyy")
+    },
+    enableHiding: true,
   },
   {
-    id: "Updated At",
-    accessorKey: "updatedAt",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Updated At" />
-    ),
-    cell: ({ row }) => <DateCell date={row.original.updatedAt} />,
+    accessorKey: "expires",
+    header: "Expires",
+    cell: ({ row }) => {
+      const expires = row.getValue("expires") as string | null
+      return expires ? format(new Date(expires), "MMM dd, yyyy") : "Never"
+    },
   },
   {
     id: "actions",
-    cell: ({ row }) => {
-      return <CellActions row={row.original} />
-    },
+    enableHiding: false,
+    cell: ({ row }) => <TokenActionsCell token={row.original} />,
   },
 ]

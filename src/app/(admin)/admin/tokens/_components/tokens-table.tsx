@@ -1,23 +1,60 @@
-import prismadb from "@/lib/prismadb"
+"use client"
 
-import { DataTable } from "@/components/ui/data-tables/data-table"
+import { useState } from "react"
+
+import type { TableParams } from "@/types/token"
+
+import { useTokens } from "@/lib/hooks/api/tokens/use-tokens"
+import { useUrlParams } from "@/lib/hooks/use-url-params"
+
+import { DataTable } from "@/components/ui/data-tables/server-side/data-table"
 
 import { columns } from "./columns"
-import TokensEmptyStateTable from "./tokens-empty-state-table"
+import { CreateTokenDialog } from "./create-token-dialog"
 
-export default async function TokensTable() {
-  const data = await prismadb.token.findMany({
-    include: { user: { select: { id: true, username: true, image: true } } },
-    orderBy: { createdAt: "desc" },
-  })
+export default function TokensTable() {
+  const { getParamsFromUrl, updateUrl } = useUrlParams()
+
+  const [params, setParams] = useState<TableParams>(() => getParamsFromUrl())
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+
+  const { data, totalCount, totalCountFiltered, pageCount, loading, error } =
+    useTokens(params)
+
+  const handleCreateNew = () => {
+    setIsDialogOpen(true)
+  }
+
+  const handleParamsChange = (newParams: TableParams) => {
+    setParams(newParams)
+    updateUrl(newParams)
+  }
+
+  if (error) {
+    return <div className="text-center text-red-500">Error loading tokens: {error}</div>
+  }
 
   return (
-    <DataTable
-      columns={columns}
-      data={data}
-      searchFieldLabel={"tokens"}
-      emptyState={<TokensEmptyStateTable />}
-      hiddenColumns={{ "Updated At": false }}
-    />
+    <>
+      <DataTable
+        columns={columns}
+        data={data}
+        totalCount={totalCount}
+        totalCountFiltered={totalCountFiltered}
+        pageCount={pageCount}
+        loading={loading}
+        params={params}
+        onParamsChange={handleParamsChange}
+        searchPlaceholder="Search tokens..."
+        defaultHiddenColumns={{ createdAt: false }}
+        enableSearch={true}
+        enableColumnToggle={true}
+        emptyStateTitle="No tokens found"
+        emptyStateDescription="Create your first API token to get started with authentication."
+        onCreateNew={handleCreateNew}
+        createButtonText="Create Token"
+      />
+      <CreateTokenDialog isOpen={isDialogOpen} setIsOpen={setIsDialogOpen} />
+    </>
   )
 }

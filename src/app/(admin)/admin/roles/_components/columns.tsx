@@ -7,8 +7,8 @@ import { ColumnDef } from "@tanstack/react-table"
 import { CheckCircle, XCircle } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
-import { DataTableColumnHeader } from "@/components/ui/data-tables/data-table-column-header"
 import { DateCell } from "@/components/ui/data-tables/date-cell"
+import { DataTableColumnHeader } from "@/components/ui/data-tables/server-side/data-table-column-header"
 
 import CellActions from "./cell-actions"
 

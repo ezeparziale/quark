@@ -1,6 +1,10 @@
+"use client"
+
 import { useState } from "react"
 
-import { MoreHorizontal, Pencil, Trash } from "lucide-react"
+import { MoreHorizontal } from "lucide-react"
+
+import type { Token } from "@/types/token"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -8,64 +12,45 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-import { IColumns } from "./columns"
-import DeleteTokenDialog from "./delete-token-dialog"
-import EditTokenDialog from "./edit-token-dialog"
+import { TokenDetailsModal } from "./token-details-modal"
 
-export default function CellActions({ row }: { row: IColumns }) {
-  const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false)
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
+interface TokenActionsCellProps {
+  token: Token
+}
+
+export function TokenActionsCell({ token }: TokenActionsCellProps) {
+  const [showDetails, setShowDetails] = useState(false)
 
   return (
     <>
-      <DropdownMenu open={isDropdownMenuOpen} onOpenChange={setIsDropdownMenuOpen}>
+      <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="data-[state=open]:bg-muted h-8 p-2">
+          <Button variant="ghost" className="h-8 w-8 p-0">
             <span className="sr-only">Open menu</span>
-            <MoreHorizontal className="size-4" />
+            <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-[160px]">
+        <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem
-            onSelect={() => {
-              setIsEditDialogOpen(true)
-              setIsDropdownMenuOpen(false)
-            }}
-          >
-            <Pencil className="size-4" />
-            Edit
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(token.id)}>
+            Copy token ID
           </DropdownMenuItem>
-          <DropdownMenuItem
-            onSelect={() => {
-              setIsDeleteDialogOpen(true)
-              setIsDropdownMenuOpen(false)
-            }}
-            variant="destructive"
-          >
-            <Trash className="size-4" />
-            Delete
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={() => setShowDetails(true)}>
+            View details
           </DropdownMenuItem>
+          <DropdownMenuItem>Edit token</DropdownMenuItem>
+          <DropdownMenuItem className="text-destructive">Delete token</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <DeleteTokenDialog
-        key={`delete-${row.id}`}
-        tokenId={row.id}
-        tokenName={row.name}
-        isOpen={isDeleteDialogOpen}
-        setIsOpen={setIsDeleteDialogOpen}
-      />
-      <EditTokenDialog
-        key={`edit-${row.id}`}
-        tokenId={row.id}
-        tokenName={row.name}
-        tokenIsActive={row.isActive}
-        isOpen={isEditDialogOpen}
-        setIsOpen={setIsEditDialogOpen}
+      <TokenDetailsModal
+        token={token}
+        open={showDetails}
+        onOpenChange={setShowDetails}
       />
     </>
   )
