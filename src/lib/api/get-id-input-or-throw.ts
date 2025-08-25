@@ -12,3 +12,14 @@ export const getIdInputOrThrow = (idString: string) => {
 
   return id
 }
+
+export const getIdStringInputOrThrow = (idString: string) => {
+  if (!idString || typeof idString !== "string") {
+    throw new ApiError({
+      message: "Invalid ID supplied",
+      code: 400,
+    })
+  }
+
+  return idString
+}
