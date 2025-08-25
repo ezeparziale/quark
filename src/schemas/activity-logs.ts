@@ -19,6 +19,9 @@ export enum ActivityType {
   ADD_ROLE = "ADD_ROLE",
   UPDATE_USER_METADATA = "UPDATE_USER_METADATA",
   UPDATE_USER_PROFILE = "UPDATE_USER_PROFILE",
+  CREATE_TOKEN = "CREATE_TOKEN",
+  UPDATE_TOKEN = "UPDATE_TOKEN",
+  DELETE_TOKEN = "DELETE_TOKEN",
 }
 
 export const activityLogSchema = z.object({
