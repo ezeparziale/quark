@@ -9,7 +9,6 @@ import {
 
 import {
   badRequestErrorSchema,
-  conflictErrorSchema,
   internalServerErrorSchema,
   notFoundErrorSchema,
   unauthorizedErrorSchema,
