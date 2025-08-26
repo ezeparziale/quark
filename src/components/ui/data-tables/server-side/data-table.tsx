@@ -46,6 +46,7 @@ interface DataTableProps<TData, TValue> {
   onParamsChange: (params: TableParams) => void
   searchPlaceholder?: string
   defaultHiddenColumns?: Record<string, boolean>
+  defaultSorting?: SortingState
   enableSearch?: boolean
   enableColumnToggle?: boolean
   emptyStateTitle?: string
@@ -65,6 +66,7 @@ export function DataTable<TData, TValue>({
   onParamsChange,
   searchPlaceholder = "Search...",
   defaultHiddenColumns = {},
+  defaultSorting = [],
   enableSearch = true,
   enableColumnToggle = true,
   emptyStateTitle,
@@ -72,7 +74,7 @@ export function DataTable<TData, TValue>({
   onCreateNew,
   createButtonText = "Create New",
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = useState<SortingState>([])
+  const [sorting, setSorting] = useState<SortingState>(defaultSorting)
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] =
     useState<VisibilityState>(defaultHiddenColumns)
