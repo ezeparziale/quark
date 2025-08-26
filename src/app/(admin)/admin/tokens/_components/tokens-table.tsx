@@ -47,6 +47,7 @@ export default function TokensTable() {
         onParamsChange={handleParamsChange}
         searchPlaceholder="Search tokens..."
         defaultHiddenColumns={{ createdAt: false }}
+        defaultSorting={[{ id: "createdAt", desc: true }]}
         enableSearch={true}
         enableColumnToggle={true}
         emptyStateTitle="No tokens found"
